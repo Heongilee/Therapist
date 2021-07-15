@@ -6,6 +6,41 @@
 - `미디어 콘텐츠 OTT 검색 서비스`
 　   
 　   
+# Team member 
+
+<table>
+  <tr height="140px">
+    <td align="center" width="130px">
+        <a href="https://github.com/seounjin"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/39517396?v=4"/></a>
+        <br />
+        <a href="https://github.com/seounjin">seounjin</a>
+    </td>
+    <td align="center" width="130px">
+        <a href="https://github.com/jungyr24"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/37285946?v=4"/></a>
+        <br />
+        <a href="https://github.com/jungyr24">jungyr24</a>
+    </td>
+    <td align="center" width="130px">
+        <a href="https://github.com/Heongilee"><img height="100px" width="100px" src="https://avatars.githubusercontent.com/u/55871242?v=4"/></a>
+        <br />
+        <a href="https://github.com/Heongilee">Heongilee</a>
+    </td>
+  </tr>
+  <tr height="50px">
+    <td align="center">
+      <p>프론트엔드 개발</p>
+    </td>
+    <td align="center">
+      <p>백엔드 & 배포</p>
+    </td>
+    <td align="center">
+      <p>백엔드 개발</p>
+    </td>
+  </tr>
+</table>
+  
+　   
+　   
 ## Tech stack :hammer_and_pick:
 
 - Front-end : ![reactJS](https://img.shields.io/badge/ReactJS-버전%20정보-%2361DAFB?logo=React) ![webpack](https://img.shields.io/badge/Webpack-　-%23000000?logo=Webpack)   
@@ -15,6 +50,15 @@
 - Communication Tools : ![Github](https://img.shields.io/badge/Github-%23181717?logo=GitHub) ![Notion](https://img.shields.io/badge/Notion-　-%23000000?logo=Notion)   
 - Build and Test : ![Travis CI](https://img.shields.io/badge/Travis%20CI-%EB%AF%B8%EC%A0%95-%233EAAAF?logo=Travis%20CI)   
 - Deployment : ![AWS](https://img.shields.io/badge/Amazon%20AWS-%EB%AF%B8%EC%A0%95-%23232F3E?logo=Amazon%20AWS)
+　   
+　   
+## Paper work :page_with_curl:
+
+- 클래스 다이어그램
+    - empty
+    
+- UI 설계서
+    - empty
 　   
 　   
 ## Development process :date:
