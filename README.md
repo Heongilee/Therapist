@@ -6,7 +6,7 @@
 - `미디어 콘텐츠 OTT 검색 서비스`
 　   
 　   
-# Team member 
+# Team member :sparkles:
 
 <table>
   <tr height="140px">
