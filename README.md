@@ -6,7 +6,7 @@
 - `미디어 콘텐츠 OTT 검색 서비스`
 　   
 　   
-## Tech Stack:hammer_and_pick:
+## Tech stack :hammer_and_pick:
 
 - Front-end : ![reactJS](https://img.shields.io/badge/ReactJS-버전%20정보-%2361DAFB?logo=React) ![webpack](https://img.shields.io/badge/Webpack-　-%23000000?logo=Webpack)   
 - Back-end : ![SpringBoot](https://img.shields.io/badge/SpringBoot-버전%20정보-%236DB33F?logo=SpringBoot)   
@@ -17,6 +17,6 @@
 - Deployment : ![AWS](https://img.shields.io/badge/Amazon%20AWS-%EB%AF%B8%EC%A0%95-%23232F3E?logo=Amazon%20AWS)
 　   
 　   
-## Development Process :date:
+## Development process :date:
 
 empty
