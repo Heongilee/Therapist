@@ -44,7 +44,7 @@
 ## Tech stack :hammer_and_pick:
 
 - Front-end : ![reactJS](https://img.shields.io/badge/ReactJS-버전%20정보-%2361DAFB?logo=React) ![webpack](https://img.shields.io/badge/Webpack-　-%23000000?logo=Webpack)   
-- Back-end : ![SpringBoot](https://img.shields.io/badge/SpringBoot-버전%20정보-%236DB33F?logo=SpringBoot)   
+- Back-end : ![SpringBoot](https://img.shields.io/badge/SpringBoot-2.5.2-%236DB33F?logo=SpringBoot)   
 - OS : ![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%20LTS-%23E95420?logo=Ubuntu)   
 - IDE or Editor : ![IntelliJ](https://img.shields.io/badge/IntelliJ-11.0.10%2B9--b1341.41%20amd64-%23000000?logo=intelliJ%20IDEA) ![vscode](https://img.shields.io/badge/vscode-1.58.1-%23007ACC?logo=Visual%20Studio%20Code)   
 - Communication Tools : ![Github](https://img.shields.io/badge/Github-%23181717?logo=GitHub) ![Notion](https://img.shields.io/badge/Notion-　-%23000000?logo=Notion)   
