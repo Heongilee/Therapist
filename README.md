@@ -45,6 +45,7 @@
 
 - Front-end : ![reactJS](https://img.shields.io/badge/ReactJS-버전%20정보-%2361DAFB?logo=React) ![webpack](https://img.shields.io/badge/Webpack-　-%23000000?logo=Webpack)   
 - Back-end : ![SpringBoot](https://img.shields.io/badge/SpringBoot-2.5.2-%236DB33F?logo=SpringBoot) ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%E3%80%80-%23005F0F?logo=Thymeleaf)   
+- DB : ![mongoDB](https://img.shields.io/badge/mongoDB-%E3%80%80%EB%AF%B8%EC%A0%95-%2347A248?logo=MongoDB)   
 - OS : ![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%20LTS-%23E95420?logo=Ubuntu)   
 - IDE or Editor : ![IntelliJ](https://img.shields.io/badge/IntelliJ-11.0.10%2B9--b1341.41%20amd64-%23000000?logo=intelliJ%20IDEA) ![vscode](https://img.shields.io/badge/vscode-1.58.1-%23007ACC?logo=Visual%20Studio%20Code)   
 - Communication Tools : ![Notion](https://img.shields.io/badge/Notion-2.11.23.9.0.14-%23000000?logo=Notion) ![Zoom](https://img.shields.io/badge/zoom-5.7.1-%232D8CFF?logo=Zoom)   
