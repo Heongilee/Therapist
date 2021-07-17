@@ -47,7 +47,8 @@
 - Back-end : ![SpringBoot](https://img.shields.io/badge/SpringBoot-2.5.2-%236DB33F?logo=SpringBoot)   
 - OS : ![Ubuntu](https://img.shields.io/badge/Ubuntu-20.04%20LTS-%23E95420?logo=Ubuntu)   
 - IDE or Editor : ![IntelliJ](https://img.shields.io/badge/IntelliJ-11.0.10%2B9--b1341.41%20amd64-%23000000?logo=intelliJ%20IDEA) ![vscode](https://img.shields.io/badge/vscode-1.58.1-%23007ACC?logo=Visual%20Studio%20Code)   
-- Communication Tools : ![Github](https://img.shields.io/badge/Github-%23181717?logo=GitHub) ![Notion](https://img.shields.io/badge/Notion-　-%23000000?logo=Notion)   
+- Communication Tools : ![Notion](https://img.shields.io/badge/Notion-　-%23000000?logo=Notion)   
+- VCS : ![Github](https://img.shields.io/badge/Github-%23181717?logo=GitHub)
 - Build and Test : ![Travis CI](https://img.shields.io/badge/Travis%20CI-%EB%AF%B8%EC%A0%95-%233EAAAF?logo=Travis%20CI)   
 - Deployment : ![AWS](https://img.shields.io/badge/Amazon%20AWS-%EB%AF%B8%EC%A0%95-%23232F3E?logo=Amazon%20AWS)
 　   
