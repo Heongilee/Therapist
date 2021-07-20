@@ -13,6 +13,10 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.projectlombok:lombok'
+	// mariadb-java-client는 spring boot에서 관리하는 프로젝트가 아니기 때문에, 버전을 명시한다.
+	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.3'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
