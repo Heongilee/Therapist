@@ -92,8 +92,8 @@
                   <td>홍길동</td>
                 </tr> -->
                 <tr th:each="board : ${boards}">
-                    <td th:text="${board.id}">0</td>
-                    <td th:text="${board.title}">Not Applicable</td>
+                    <td th:text="${board.postId}">0</td>
+                    <td th:text="${board.postTitle}">Not Applicable</td>
                     <td>홍길동</td>
                 </tr>
             </tbody>
