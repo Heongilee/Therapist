@@ -1,6 +1,6 @@
 package com.projectTeam.therapist.boardService;
 
-import com.projectTeam.therapist.model.Board;
+import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ public class BoardController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Board> boards = boardRepository.findAll();
+        List<PostDto> boards = boardRepository.findAll();
         model.addAttribute("boards", boards);
         return "board/list";
     }
