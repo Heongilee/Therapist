@@ -2,14 +2,20 @@ package com.projectTeam.therapist.model;
 
 //import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 //@Data // Getter Setter를 자동으로 생성해주는 어노테이션
 public class PostDto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long postId;
+//    private Long memberId;
+    @Enumerated(EnumType.STRING)
+    private Category postType;
+    private String postTitle;
+    private String postContent;
+
     public Long getPostId() {
         return postId;
     }
@@ -18,13 +24,13 @@ public class PostDto {
         this.postId = postId;
     }
 
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
+//    public Long getMemberId() {
+//        return memberId;
+//    }
+//
+//    public void setMemberId(Long memberId) {
+//        this.memberId = memberId;
+//    }
 
     public Category getPostType() {
         return postType;
@@ -49,13 +55,5 @@ public class PostDto {
     public void setPostContent(String postContent) {
         this.postContent = postContent;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
-    private Long memberId;
-    private Category postType;
-    private String postTitle;
-    private String postContent;
 
 }
