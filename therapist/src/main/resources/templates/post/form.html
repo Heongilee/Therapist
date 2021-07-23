@@ -43,6 +43,7 @@
             <h1>게시판</h1>
         </div>
         <form action="#" th:action="@{/post/form}" th:object="${post}" method="post">
+<<<<<<< HEAD
             <input type="hidden" th:field="*{postId}"> <!-- 특정 게시글 조회 시 파라미터로 넘기기 위한 필드 -->
             <div class="mb-3">
                 <label for="title" class="form-label">제목</label>
@@ -61,6 +62,16 @@
                     th:errors="*{postContent}">
                     제목은 2 ~ 30자 까지
                 </div>
+=======
+            <input type="hidden" th:field="*{postId}">
+            <div class="mb-3">
+                <label for="title" class="form-label">제목</label>
+                <input type="text" class="form-control" id="title" placeholder="e.g.) 프로젝트 언제 완성할래" th:field="*{postTitle}" >
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">내용</label>
+                <textarea class="form-control" id="content" rows="3" th:field="*{postContent}" ></textarea>
+>>>>>>> 02cb175b7 (feature-writePost, 글쓰기 기능이랑 글 수정)
             </div>
             <div class="text-end">
                 <a type="button" class="btn btn-secondary" th:href="@{/post/list}">취소</a>
