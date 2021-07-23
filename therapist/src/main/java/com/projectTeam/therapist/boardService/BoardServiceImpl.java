@@ -1,6 +1,15 @@
 package com.projectTeam.therapist.boardService;
 
+
+@Service
 public class BoardServiceImpl implements BoardService {
+
+    private final ReplyRepository replyRepository;
+    public BoardServiceImpl(ReplyRepository replyRepository) {
+        this.replyRepository = replyRepository;
+    }
+
+
     @Override
     public void listAllPost() {
 
@@ -25,4 +34,10 @@ public class BoardServiceImpl implements BoardService {
     public void removeComment(Long commentId) {
 
     }
+
+    @Override
+    public void writeReply(ReplyDto reply) {
+        replyRepository.save(reply);
+    }
+
 }
