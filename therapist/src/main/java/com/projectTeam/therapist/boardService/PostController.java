@@ -5,8 +5,7 @@ import com.projectTeam.therapist.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +20,21 @@ public class PostController {
         List<PostDto> posts = postRepository.findAll();
         model.addAttribute("posts", posts);
         return "post/list";
+    }
+
+    @GetMapping("/form")
+    public String form(Model model, @RequestParam(required = false) Long id) {
+        if (id == null) {
+            model.addAttribute("post", new PostDto());
+        } else {
+            PostDto postDto = postRepository.findById(id).orElse(null);
+            model.addAttribute("post", postDto);
+        }
+        return "post/form";
+    }
+    @PostMapping("/form")
+    public String formSubmit(@ModelAttribute PostDto postDto, Model model) {
+        postRepository.save(postDto);
+        return "redirect:/post/list";
     }
 }
