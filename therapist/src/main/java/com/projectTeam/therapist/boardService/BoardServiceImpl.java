@@ -1,8 +1,5 @@
 package com.projectTeam.therapist.boardService;
 
-import com.projectTeam.therapist.model.ReplyDto;
-import com.projectTeam.therapist.repository.ReplyRepository;
-import org.springframework.stereotype.Service;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -11,6 +8,7 @@ public class BoardServiceImpl implements BoardService {
     public BoardServiceImpl(ReplyRepository replyRepository) {
         this.replyRepository = replyRepository;
     }
+
 
     @Override
     public void listAllPost() {
@@ -41,4 +39,5 @@ public class BoardServiceImpl implements BoardService {
     public void writeReply(ReplyDto reply) {
         replyRepository.save(reply);
     }
+
 }
