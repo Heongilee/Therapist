@@ -2,15 +2,19 @@ import React, { Suspense }  from 'react';
 import {Switch, Route } from "react-router-dom";
 import Header from './components/Header/Header.js';
 import MainImg from './components/MainImg/MainImg.js'
-import MainPage from './pages/MainPage/MainPage.js'
 import Footer from './components/Footer/Footer.js'
+import MainPage from './pages/MainPage/MainPage.js'
+import BoardPage from './pages/BoardPage/BoardPage.js'
 
 
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <Header></Header>
         <MainImg></MainImg>
-        <MainPage></MainPage>
+        <Switch>
+            <Route exact path="/" component={ MainPage } />
+            <Route exact path="/board" component={ BoardPage } />
+        </Switch>
         <Footer></Footer>
     </Suspense>
 );
