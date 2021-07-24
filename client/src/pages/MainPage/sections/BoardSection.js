@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/boardSection.css';
 import { Pagination } from 'antd';
-// boardSection
+
 function BoardSection({ boardData }) {
 
 
