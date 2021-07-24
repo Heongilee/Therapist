@@ -1,28 +1,30 @@
 package com.projectTeam.therapist.boardService;
 
+
+import com.projectTeam.therapist.model.CommentDto;
+import com.projectTeam.therapist.model.ReplyDto;
+import com.projectTeam.therapist.repository.CommentRepository;
+import com.projectTeam.therapist.repository.ReplyRepository;
+import org.springframework.stereotype.Service;
+
+@Service
 public class BoardServiceImpl implements BoardService {
-    @Override
-    public void listAllPost() {
+    private final ReplyRepository replyRepository;
+    private final CommentRepository commentRepository;
 
+    public BoardServiceImpl(ReplyRepository replyRepository,CommentRepository commentRepository) {
+        this.replyRepository = replyRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
-    public void modifyPost(Long postId) {
-
+    public void writeComment(CommentDto comment) {
+        commentRepository.save(comment);
     }
 
     @Override
-    public void removePost(Long postId) {
-
+    public void writeReply(ReplyDto reply) {
+        replyRepository.save(reply);
     }
 
-    @Override
-    public void modifyComment(Long commentId) {
-
-    }
-
-    @Override
-    public void removeComment(Long commentId) {
-
-    }
 }

@@ -75,5 +75,3 @@ const postData = [
 
 
 export default BoardPage;
-
-
