@@ -13,6 +13,7 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.projectlombok:lombok'
 	// mariadb-java-client는 spring boot에서 관리하는 프로젝트가 아니기 때문에, 버전을 명시한다.
 	implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.3'

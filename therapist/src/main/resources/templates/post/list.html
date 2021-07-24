@@ -56,7 +56,7 @@
                 <tr th:each="post : ${posts}">
                     <td th:text="${post.postId}">0</td>
                     <td th:text="${post.postType}">없음</td>
-                    <td><a th:text="${post.postTitle}" href="" th:href="@{/post/form(id=${post.postId})}">Not Applicable</a></td>
+                    <td><a th:text="${post.postTitle}" href="" th:href="@{/post/form(postId=${post.postId})}">Not Applicable</a></td>
                     <td>홍길동</td>
                 </tr>
             </tbody>
