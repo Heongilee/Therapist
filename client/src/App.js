@@ -11,7 +11,10 @@ const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <Header></Header>
         <MainImg></MainImg>
-        <BoardPage></BoardPage>
+        <Switch>
+            <Route exact path="/" component={ MainPage } />
+            <Route exact path="/board" component={ BoardPage } />
+        </Switch>
         <Footer></Footer>
     </Suspense>
 );

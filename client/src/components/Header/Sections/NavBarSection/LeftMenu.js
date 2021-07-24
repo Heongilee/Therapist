@@ -1,13 +1,12 @@
-import React from 'react'
-
-
+import React from 'react';
+import { withRouter, Link } from 'react-router-dom';
 
 function LeftMenu() {
     return (
         <div>
-            게시판
+            <Link to="/board">Board</Link>
         </div>
-    )
+    );
 };
 
 export default LeftMenu;
