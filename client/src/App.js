@@ -5,6 +5,7 @@ import MainImg from './components/MainImg/MainImg.js'
 import Footer from './components/Footer/Footer.js'
 import MainPage from './pages/MainPage/MainPage.js'
 import BoardPage from './pages/BoardPage/BoardPage.js'
+import WritePage from './pages/WritePage/WritePage.js'
 
 
 const App = () => (
@@ -12,7 +13,7 @@ const App = () => (
         <Header></Header>
         <MainImg></MainImg>
         <Switch>
-            <Route exact path="/" component={ MainPage } />
+            <Route exact path="/" component={ WritePage } />
             <Route exact path="/board" component={ BoardPage } />
         </Switch>
         <Footer></Footer>
