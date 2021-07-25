@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer.js'
 import MainPage from './pages/MainPage/MainPage.js'
 import BoardPage from './pages/BoardPage/BoardPage.js'
 import WritePage from './pages/WritePage/WritePage.js'
+import TextPage from './pages/TextPage/TextPage.js'
 
 
 const App = () => (
@@ -13,7 +14,7 @@ const App = () => (
         <Header></Header>
         <MainImg></MainImg>
         <Switch>
-            <Route exact path="/" component={ WritePage } />
+            <Route exact path="/" component={ TextPage } />
             <Route exact path="/board" component={ BoardPage } />
         </Switch>
         <Footer></Footer>
