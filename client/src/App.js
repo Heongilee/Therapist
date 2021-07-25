@@ -11,10 +11,14 @@ const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <Header></Header>
         <MainImg></MainImg>
+<<<<<<< HEAD
+        <BoardPage></BoardPage>
+=======
         <Switch>
             <Route exact path="/" component={ MainPage } />
             <Route exact path="/board" component={ BoardPage } />
         </Switch>
+>>>>>>> 4ffe44c6a030457306fdf0325257e35cbd56ec50
         <Footer></Footer>
     </Suspense>
 );
