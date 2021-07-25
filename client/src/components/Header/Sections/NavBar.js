@@ -13,6 +13,7 @@ function NavBar() {
             </div>
             
             <div className="nav_menu">
+                <LeftMenu></LeftMenu>
                 <RightMenu></RightMenu>
             </div>
             
