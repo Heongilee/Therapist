@@ -1,6 +1,6 @@
 package com.projectTeam.therapist.model;
 
-public enum Category {
+public enum PostCategory {
     JOB,
     COMPANYLIFE,
     FAMILY
