@@ -4,7 +4,7 @@ import './CommentField.css';
 function CommentField({ commentData }) {
 
     return (
-        <div className="comment_area">
+        <div className="comment_area" >
             <ul className="comment_list">
                 { commentData.map(( data, index )  => {
 

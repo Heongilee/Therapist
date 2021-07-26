@@ -1,7 +1,7 @@
 import React from 'react';
 import SideBar from '../../components/SideBar/SideBar.js';
 import PaginationCmp from '../../components/Pagination/PaginationCmp.js';
-import SearchInput from '../../components/SearchInput/SearchInput.js'
+import SearchInput from '../../components/atoms/SearchInput/SearchInput.js'
 import WriteButton from '../../components/WriteButton/WriteButton.js'
 
 import Posts from './sections/Posts';

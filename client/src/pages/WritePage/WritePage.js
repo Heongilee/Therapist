@@ -1,8 +1,8 @@
 import React from 'react';
 import SelectButton from './sections/SelectButton.js';
-import ModernButton from '../../components/ModernButton/ModernButton.js'
-import TextField from '../../components/TextField/TextField.js'
-import InputField from '../../components/InputField/InputField.js'
+import ModernButton from '../../components/atoms/ModernButton/ModernButton.js'
+import TextField from '../../components/atoms/TextField/TextField.js'
+import InputField from '../../components/atoms/InputField/InputField.js'
 import './WritePage.css';
 
 function WritePage() {

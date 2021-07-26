@@ -1,11 +1,15 @@
 import React from 'react';
 import './css/QuestionSection.css';
-import ModernButton from '../../../components/ModernButton/ModernButton.js';
-import AvatarField from '../../../components/AvatarField/AvatarField.js';
+import ModernButton from '../../../components/atoms/ModernButton/ModernButton.js';
+import AvatarField from '../../../components/atoms/AvatarField/AvatarField.js';
 import MessageIcon from '../../../components/MessageIcon/MessageIcon.js';
+import CommentField from '../../../components/CommentField/CommentField.js';
+import PaginationCmp from '../../../components/Pagination/PaginationCmp.js';
+import ReplyField from '../../../components/ReplyField/ReplyField.js';
+
 import { QuestionCircleTwoTone } from '@ant-design/icons';
 
-function QuestionSection({ questionData }) {
+function QuestionSection({ questionData, commentData, rootReplyState, rootReplyOnClick }) {
 
 
     return (
@@ -21,10 +25,18 @@ function QuestionSection({ questionData }) {
             <div className="question_footer">
                 <AvatarField></AvatarField>
                 <div className="question_footer_reply">
-                    <ModernButton ButtonName={"답변등록"}></ModernButton>
-                    <MessageIcon></MessageIcon>
+                    <div className="question_footer_reply_button">
+                        <ModernButton ButtonName={"답변등록"}></ModernButton>
+                        <div onClick={() => rootReplyOnClick()}>
+                            <MessageIcon></MessageIcon>
+                        </div>
+                    </div>
                 </div>
             </div>
+            { rootReplyState === true ? [ 
+                            <ReplyField key="replyField"></ReplyField>,
+                            <CommentField key="commentField" commentData={ commentData }></CommentField>,
+                            <PaginationCmp key="PaginationCmp"/>]: ''}
         </div>
     );
 };

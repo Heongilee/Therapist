@@ -7,25 +7,25 @@ import './TextPage.css';
 function TextPage() {
 
     // 임시
-    const [answerReply, answerSetState] = useState(false);
-    const [questionReply, questionSetState] = useState(false);
+    const [RootReplyState, setRootReplyState] = useState(false);
+    const [ReplyState, setReplyState] = useState({ 0:false, 1:false, 2:false });
 
-    const answerReplyOnclick = state => {
-        answerSetState(state);
+    const replyOnClick = index => {
+        setReplyState({ ...ReplyState, [index] : !ReplyState[index]});
     };
 
-    const questionReplyOnclick = state => {
-        questionSetState(state);
+    const rootReplyOnClick = _ => {
+        setRootReplyState(!RootReplyState);
     };
 
     return (
         <section className="textPage">
             <div className="wrapper">
-                <QuestionSection questionData={ questionData } commentData={ commentData } 
-                                                                reply={ answerReplyOnclick } replyState={ answerReply }></QuestionSection>
+                <QuestionSection questionData={ questionData } commentData={ rootCommentData }
+                rootReplyState={ RootReplyState } rootReplyOnClick={ rootReplyOnClick}></QuestionSection>
             </div>
-                <AnswerSection answerData={ answerData } commentData={ commentData } 
-                                                                reply={ questionReplyOnclick } replyState={ questionReply } ></AnswerSection>
+                <AnswerSection answerData={ answerData } commentData={ commentData } replyOnClick={ replyOnClick } 
+                replyState={ ReplyState }></AnswerSection>
         </section>
     );
 };
@@ -62,7 +62,14 @@ const answerData = [
         "content":"솔라리 성전사 레오나는 천공의 검과 여명의 방패로 타곤 산을 수호한다. 레오나의 몸은 태양의 불길로 가득하며, 피부는 별의 광채로 빛나고, 눈동자는 천체들의 기운으로 불타오른다."
     },
     
-]
+];
+
+const rootCommentData = [
+    {
+        "id":"세라핀님의 댓글",
+        "content":"자운 출신의 부모를 둔 세라핀은 필트오버에서 태어나 다른 사람의 영혼의 소리를 들을 수 있다. 세상이 그녀에게 노래하고 그녀 또한 답가를 불렀다. 어린 시절에는 이 소리가 그녀를 억눌렀지만 이제 그녀는 영감을 위해 소리를 이끌어내고 혼돈을 협화음으로 바꿀 수 있게 되었다. 세라핀은 두 도시를 위해 공연하며 시민들에게 그들은 혼자가 아니고 함께일 때 더 강하며, 그들의 잠재력은 무한하다는 것을 일깨워준다.자운 출신의 부모를 둔 세라핀은 필트오버에서 태어나 다른 사람의 영혼의 소리를 들을 수 있다. 세상이 그녀에게 노래하고 그녀 또한 답가를 불렀다. 어린 시절에는 이 소리가 그녀를 억눌렀지만 이제 그녀는 영감을 위해 소리를 이끌어내고 혼돈을 협화음으로 바꿀 수 있게 되었다. 세라핀은 두 도시를 위해 공연하며 시민들에게 그들은 혼자가 아니고 함께일 때 더 강하며, 그들의 잠재력은 무한하다는 것을 일깨워준다."
+    }
+];
 
 const commentData = [
 
@@ -83,8 +90,6 @@ const commentData = [
         "content":"자운 출신의 부모를 둔 세라핀은 필트오버에서 태어나 다른 사람의 영혼의 소리를 들을 수 있다. 세상이 그녀에게 노래하고 그녀 또한 답가를 불렀다. 어린 시절에는 이 소리가 그녀를 억눌렀지만 이제 그녀는 영감을 위해 소리를 이끌어내고 혼돈을 협화음으로 바꿀 수 있게 되었다. 세라핀은 두 도시를 위해 공연하며 시민들에게 그들은 혼자가 아니고 함께일 때 더 강하며, 그들의 잠재력은 무한하다는 것을 일깨워준다.자운 출신의 부모를 둔 세라핀은 필트오버에서 태어나 다른 사람의 영혼의 소리를 들을 수 있다. 세상이 그녀에게 노래하고 그녀 또한 답가를 불렀다. 어린 시절에는 이 소리가 그녀를 억눌렀지만 이제 그녀는 영감을 위해 소리를 이끌어내고 혼돈을 협화음으로 바꿀 수 있게 되었다. 세라핀은 두 도시를 위해 공연하며 시민들에게 그들은 혼자가 아니고 함께일 때 더 강하며, 그들의 잠재력은 무한하다는 것을 일깨워준다."
     
     }
-]
+];
 
 export default TextPage;
-
-
