@@ -10,7 +10,7 @@ public class CommentDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
-    private Long memberId;
+    private Long postId;
     private String commentContent;
 
     public Long getCommentId() {
@@ -21,12 +21,12 @@ public class CommentDto {
         this.commentId = commentId;
     }
 
-    public Long getMemberId() {
-        return memberId;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
     public String getCommentContent() {
@@ -36,5 +36,4 @@ public class CommentDto {
     public void setCommentContent(String commentContent) {
         this.commentContent = commentContent;
     }
-
 }
