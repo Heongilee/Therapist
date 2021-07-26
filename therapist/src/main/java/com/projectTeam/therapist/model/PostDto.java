@@ -16,7 +16,7 @@ public class PostDto {
     @Enumerated(EnumType.STRING)
     private Category postType;
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min=2, max=30, message = "제목은 2자이상 30자 이하입니다.")
     private String postTitle;
     private String postContent;
 
