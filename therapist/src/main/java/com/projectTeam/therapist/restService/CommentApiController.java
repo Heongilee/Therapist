@@ -1,5 +1,6 @@
 package com.projectTeam.therapist.restService;
 
+import com.projectTeam.therapist.model.CommentCategory;
 import com.projectTeam.therapist.model.CommentDto;
 import com.projectTeam.therapist.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +16,20 @@ class CommentApiController {
 
 
     @GetMapping("/comments")
-    List<CommentDto> findComments(@RequestParam(required = false, defaultValue="0") Long postId, @RequestParam(required = false, defaultValue="0") Long commentId) {
-        if (postId == 0L && commentId == 0L) {
+    List<CommentDto> findComments(@RequestParam(required = false, defaultValue="0") Long commentId,
+                                  @RequestParam(required = false, defaultValue="0") Long referenceId,
+                                  @RequestParam(required = false, defaultValue="POST") CommentCategory commentType) {
+        if (referenceId == 0L && commentId == 0L) {
             // 모든 댓글 조회
             return commentRepository.findAll();
-        } else if (postId == 0L) {
+        } else if (referenceId == 0L) {
             // commentId에 대한 댓글 조회
             return commentRepository.findByCommentId(commentId);
         } else {
-            // postId에 대한 모든 댓글들 조회
-            return commentRepository.findByPostId(postId);
+            // referenceId에 대한 모든 댓글들 조회
+            // commentType 쿼리 스트링을 안 주면 기본값으로 POST(게시글)에 대한 아이디를 검색
+            // commentType을 "REPLY"로 주면 REPLY(답글)에 대한 아이디를 검색
+            return commentRepository.findByReferenceIdAndCommentType(referenceId, commentType);
         }
     }
 
