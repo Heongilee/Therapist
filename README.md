@@ -50,7 +50,7 @@
 - Communication Tools : ![Notion](https://img.shields.io/badge/Notion-2.11.23.9.0.14-%23000000?logo=Notion) ![Zoom](https://img.shields.io/badge/zoom-5.7.1-%232D8CFF?logo=Zoom)   
 - VCS : ![Github](https://img.shields.io/badge/Github-%23181717?logo=GitHub)
 - Build and Test : ![Travis CI](https://img.shields.io/badge/Travis%20CI-%EB%AF%B8%EC%A0%95-%233EAAAF?logo=Travis%20CI)   
-- Deployment : ![AWS](https://img.shields.io/badge/Amazon%20AWS-%EB%AF%B8%EC%A0%95-%23232F3E?logo=Amazon%20AWS)
+- Deployment : ![AWS RDS_mariaDB](https://img.shields.io/badge/Amazon%20AWS-%EB%AF%B8%EC%A0%95-%23232F3E?logo=Amazon%20AWS)
 　   
 　   
 ## Paper work :page_with_curl:
