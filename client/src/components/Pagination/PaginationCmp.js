@@ -4,8 +4,9 @@ import './PaginationCmp.css';
 
 function PaginationCmp() {
 
+
     return (
-        <div className="board_pagination">
+        <div className="board_pagination" >
             <Pagination/>
         </div>
     )
