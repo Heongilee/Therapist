@@ -10,7 +10,7 @@ public class ReplyDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyId;
-//    private Long memberId;
+    private Long memberId;
     private Long postId;
     private String replyContent;
     private int star;
@@ -23,13 +23,13 @@ public class ReplyDto {
         this.replyId = replyId;
     }
 
-//    public Long getMemberId() {
-//        return memberId;
-//    }
-//
-//    public void setMemberId(Long memberId) {
-//        this.memberId = memberId;
-//    }
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
 
     public Long getPostId() {
         return postId;

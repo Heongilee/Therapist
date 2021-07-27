@@ -14,9 +14,9 @@ public class PostDto {
     private Long postId;
     private Long memberId;
     @Enumerated(EnumType.STRING)
-    private Category postType;
+    private PostCategory postType;
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min=2, max=30, message = "제목은 2자이상 30자 이하입니다.")
     private String postTitle;
     private String postContent;
 
@@ -36,11 +36,11 @@ public class PostDto {
         this.memberId = memberId;
     }
 
-    public Category getPostType() {
+    public PostCategory getPostType() {
         return postType;
     }
 
-    public void setPostType(Category postType) {
+    public void setPostType(PostCategory postType) {
         this.postType = postType;
     }
 

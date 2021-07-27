@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### AWS RDS ###
+application.properties
+
 ### STS ###
 .apt_generated
 .classpath
@@ -35,3 +38,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### DB ###
+src/main/resources/application.properties
