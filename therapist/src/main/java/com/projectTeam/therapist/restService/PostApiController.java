@@ -1,30 +1,35 @@
 package com.projectTeam.therapist.restService;
 
+import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
+// `@RestController`어노테이션을 사용하는 경우, 요청과 응답의 객체변환 및 직렬화/역직렬화를 자동으로 이 jackson 라이브러리가 담당하게 된다.
 @RestController
 @RequestMapping("/api")
 class PostApiController {
     @Autowired
     private PostRepository postRepository;
 
-    // Aggregate root
-    // tag::get-aggregate-root[]
-    @GetMapping("/posts")
-    List<PostDto> all(@RequestParam(required = false, defaultValue="") String postTitle, @RequestParam(required = false, defaultValue="") String postContent) {
-        if (StringUtils.isEmpty(postTitle) && StringUtils.isEmpty(postContent)) {
-            return postRepository.findAll();
-        } else {
-            return postRepository.findByPostTitleOrPostContent(postTitle, postContent);
+    // 카테고리(postType)와 일치하는 모든 게시글을 조회하는 요청
+    class RequestGetDto {
+        private int postLength;
+        private List<PostDto> posts;
+
+        public RequestGetDto(int postLength, List<PostDto> posts) {
+            this.postLength = postLength;
+            this.posts = posts;
         }
     }
-    // end::get-aggregate-root[]
+    @GetMapping("/posts")
+    RequestGetDto requestGet(@RequestParam(required = false, defaultValue="JOB") PostCategory postType){
+        List<PostDto> posts = postRepository.findByPostType(postType);
+        return new RequestGetDto(posts.size(), posts);
+    }
 
     @PostMapping("/posts")
     PostDto newPost(@RequestBody PostDto newPost) {

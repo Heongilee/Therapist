@@ -34,6 +34,7 @@ public class PostController {
         }
         return "post/form";
     }
+    
     @PostMapping("/form")
     public String formSubmit(@ModelAttribute("post") @Valid PostDto post, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

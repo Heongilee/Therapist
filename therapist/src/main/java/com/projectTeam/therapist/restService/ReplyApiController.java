@@ -20,6 +20,7 @@ public class ReplyApiController {
     }
 
     // postId에 따른 답글 조회
+    // TODO : 게시글에 달린 답글이 몇개인지 조회하는 것 추가(https://www.notion.so/API-f4ce3713b77e4117822d298ef2b204c4)
     @GetMapping("")
     List<ReplyDto> findReplies(@RequestParam(required = false, defaultValue = "0") Long postId) {
         return replyRepository.findByPostId(postId);
