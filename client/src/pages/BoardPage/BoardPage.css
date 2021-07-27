@@ -11,7 +11,10 @@
     display: flex;
     margin: 18px;
     background-color: #fff;
+    border-radius: 8px;
 }
+
+
 
 
 .sideBar_area {

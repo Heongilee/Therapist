@@ -5,27 +5,23 @@ import MainImg from './components/MainImg/MainImg.js'
 import Footer from './components/Footer/Footer.js'
 import MainPage from './pages/MainPage/MainPage.js'
 import BoardPage from './pages/BoardPage/BoardPage.js'
+import WritePage from './pages/WritePage/WritePage.js'
+import TextPage from './pages/TextPage/TextPage.js'
 
 
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <Header></Header>
         <MainImg></MainImg>
-<<<<<<< HEAD
-        <BoardPage></BoardPage>
-=======
         <Switch>
-            <Route exact path="/" component={ MainPage } />
+            <Route exact path="/" component={ TextPage } />
             <Route exact path="/board" component={ BoardPage } />
         </Switch>
->>>>>>> 4ffe44c6a030457306fdf0325257e35cbd56ec50
         <Footer></Footer>
     </Suspense>
 );
 
 export default App;
-
-
 
 // Suspense는 리액트 내장 컴포넌트로 코드 스플리팅 된 컴포넌트를 로딩하도록 발동시킬 수 있고, 
 // 로딩이 끝나지 않았을 때 보여줄 UI를 설정해 줄 수 있다. 

@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './Footer.css';
 
 
 function Footer() {
@@ -17,27 +17,5 @@ function Footer() {
         </section>
     )
 };
-
-// function Footer() {
-//     return (
-//         <section className="footer_section">
-//                 <footer className="footer">
-//                     <div className="wrapper">
-//                         <div className="footer_content">
-//                             <div className="footer_developer">개발자</div>     
-//                             <div className="footer_git">
-//                                 <div>정유라 git: https://github.com/jungyr24  </div>
-//                                 <div>이헌기 git: https://github.com/Heongilee </div>
-//                                 <div>변성진 git: https://github.com/seounjin  </div>
-//                             </div>
-//                             <div className="footer_menu">
-//                                 Therapist
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </footer>
-//         </section>
-//     )
-// };
 
 export default Footer;
