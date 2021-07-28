@@ -1,8 +1,12 @@
 package com.projectTeam.therapist.restService;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.repository.PostRepository;
+import com.projectTeam.therapist.repository.ReplyRepository;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,21 +18,42 @@ import java.util.List;
 class PostApiController {
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
 
     // 카테고리(postType)와 일치하는 모든 게시글을 조회하는 요청
-    class RequestGetDto {
-        private int postLength;
-        private List<PostDto> posts;
-
-        public RequestGetDto(int postLength, List<PostDto> posts) {
-            this.postLength = postLength;
-            this.posts = posts;
-        }
-    }
+//    class RequestGetDto {
+//        private int postLength;
+//        private List<PostDto> posts;
+//
+//        public RequestGetDto(int postLength, List<PostDto> posts) {
+//            this.postLength = postLength;
+//            this.posts = posts;
+//        }
+//    }
     @GetMapping("/posts")
-    RequestGetDto requestGet(@RequestParam(required = false, defaultValue="JOB") PostCategory postType){
+    JSONObject requestGet(@RequestParam(required = false, defaultValue="JOB") PostCategory postType){
         List<PostDto> posts = postRepository.findByPostType(postType);
-        return new RequestGetDto(posts.size(), posts);
+
+        // 검색된 카테고리 게시글 개수
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("postLength", posts.size());
+
+        // postType 파라미터와 일치하는 모든 게시글들을 JSONArray로 담는다.
+        JSONArray postsArray = new JSONArray();
+        for (PostDto post : posts) {
+            JSONObject item = new JSONObject();
+            item.put("postId", post.getPostId());
+            item.put("memberId", post.getMemberId());
+            item.put("postType", post.getPostType().toString()); // Enum 타입이기 때문에 문자열 처리를 위한 .toString() 을 붙여준다.
+            item.put("postTitle", post.getPostTitle());
+            item.put("postContent", post.getPostContent());
+
+            item.put("replyLength", replyRepository.countByPostId(post.getPostId()));
+            postsArray.add(item);
+        }
+        jsonObject.put("posts", postsArray);
+        return jsonObject;
     }
 
     @PostMapping("/posts")
