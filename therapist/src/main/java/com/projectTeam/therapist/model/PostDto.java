@@ -20,6 +20,7 @@ public class PostDto {
     private String postTitle;
     private String postContent;
 
+
     public Long getPostId() {
         return postId;
     }
