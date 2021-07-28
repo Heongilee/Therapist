@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface ReplyRepository extends JpaRepository<ReplyDto, Long> {
     List<ReplyDto> findByPostId(Long postId);
+    long countByPostId(Long postId);
 }
