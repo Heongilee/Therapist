@@ -3,9 +3,10 @@ import  boardReducer  from '../_reducers/board_reducer.js';
 import { BOARD_REQUEST, PAGE_REQUEST } from '../_actions/types.js';
 import { requestBoardList, requestPage } from '../api/boardApi';
 
+//커스텀훅
 export default function useBoard() {
 
-    const [BoardState, dispatch] = useReducer(boardReducer, { posts:null, totalPage:null, currentPage:null });
+    const [BoardState, dispatch] = useReducer(boardReducer, { posts:null, totalPage:null, currentPage:null, category });
 
     useEffect(() => {
         categoryChange();
