@@ -4,7 +4,7 @@ import './SideBar.css';
 
 function SideBar() {
 
-
+    console.log("나도궁금")
     return (
         <div className="sideBar">
             

@@ -14,8 +14,9 @@ const App = () => (
         <Header></Header>
         <MainImg></MainImg>
         <Switch>
-            <Route exact path="/" component={ TextPage } />
-            <Route exact path="/board" component={ BoardPage } />
+            <Route exact path="/" component={ BoardPage } />
+            <Route exact path="/board" component={ TextPage } />
+            <Route exact path="/write" component={ WritePage } />
         </Switch>
         <Footer></Footer>
     </Suspense>
