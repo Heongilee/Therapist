@@ -1,5 +1,6 @@
 package com.projectTeam.therapist.repository;
 
+import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,5 +10,6 @@ import java.util.List;
  */
 public interface PostRepository extends JpaRepository<PostDto, Long> {
     List<PostDto> findByPostTitle(String postTitle);
+    List<PostDto> findByPostType(PostCategory postType);
     List<PostDto> findByPostTitleOrPostContent(String postTitle, String postContent);
 }
