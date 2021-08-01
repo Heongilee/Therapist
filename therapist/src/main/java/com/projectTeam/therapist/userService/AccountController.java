@@ -27,7 +27,6 @@ public class AccountController {
 
     @PostMapping("/register")
     public String register(UserDto user) {
-        String returnUri;
         UserDto response = userService.save(user);
 
         if (response == null) {

@@ -5,10 +5,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectTeam.therapist.model.KakaoProfileDto;
 import com.projectTeam.therapist.model.OAuthTokenDto;
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
-=======
->>>>>>> 86507d636 (feature-KakaoLogin :: 카카오 서비스의 access_token 발급받기 + access_token으로 유저 정보 요청하기 + Spring Security로 권한에 따른 페이지 처리)
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
