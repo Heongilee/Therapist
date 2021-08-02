@@ -20,6 +20,8 @@ class UserApiController {
         return userRepository.findAll();
     }
 
+    // 마이페이지를 눌렀을때의 요청 API + 작성글 조회
+    // https://www.notion.so/API-20db392086164739aaa84c7a7d85519c
     @GetMapping("/users/{userName}")
     UserDto findUser(@PathVariable String userName) {
         return userRepository.findByUserName(userName);

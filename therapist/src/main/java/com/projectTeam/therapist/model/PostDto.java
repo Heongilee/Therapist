@@ -6,6 +6,8 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data // Getter Setter를 자동으로 생성해주는 어노테이션
@@ -20,7 +22,6 @@ public class PostDto {
     @JsonIgnore                         // @JsonIgnore 를 이용하면 api 요청을 할 때 재귀적으로 호출하여 StackOverflow가 발생하는 것을 해결할 수 있다.
     private UserDto userDto;
 
-
     @Enumerated(EnumType.STRING)
     private PostCategory postType;
 
@@ -29,4 +30,6 @@ public class PostDto {
     private String postTitle;
     private String postContent;
 
+    @OneToMany(mappedBy = "postDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostCommentDto> postComments = new ArrayList<>();
 }

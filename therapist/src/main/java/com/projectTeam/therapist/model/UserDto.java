@@ -29,4 +29,7 @@ public class UserDto {
     // orphanRemoval : 부모가 없는 데이터를 지울때 유용한 옵션 (default값 : false)
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostDto> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PostCommentDto> userPostComments = new ArrayList<>();
 }
