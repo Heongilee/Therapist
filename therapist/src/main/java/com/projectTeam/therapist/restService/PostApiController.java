@@ -44,7 +44,7 @@ class PostApiController {
         for (PostDto post : posts) {
             JSONObject item = new JSONObject();
             item.put("postId", post.getPostId());
-            item.put("memberId", post.getMemberId());
+            item.put("userId", post.getUserDto().getUserId());
             item.put("postType", post.getPostType().toString()); // Enum 타입이기 때문에 문자열 처리를 위한 .toString() 을 붙여준다.
             item.put("postTitle", post.getPostTitle());
             item.put("postContent", post.getPostContent());
