@@ -20,6 +20,11 @@ class UserApiController {
         return userRepository.findAll();
     }
 
+    @GetMapping("/users/{userName}")
+    UserDto findUser(@PathVariable String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
     @PostMapping("/users")
     UserDto newUser(@RequestBody UserDto userDto) {
         return userRepository.save(userDto);
