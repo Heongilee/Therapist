@@ -37,14 +37,13 @@
 <body class="text-center">
     <main class="form-signin">
         <a th:href="@{/}"><img class="mb-4" src="/img/Therapist_ci.png" alt="" width="72px" height="72px"></a>
-        <h1 class="h3 mb-3 fw-normal">가입 완료!</h1>
-
-        <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
-                style="height: 100px" th:text="${data}"></textarea>
-            <label for="floatingTextarea2">가입자 정보</label>
+        <h1 class="h3 mb-3 fw-normal">가입자 정보</h1>
+        <div th:if="${param.error}" class="alert alert-danger" role="alert">
+            알 수 없는 에러가 발생했습니다.
         </div>
-
+        <div th:if="${param.signUpSuccess}" class="alert alert-info" role="alert">
+            회원 가입이 완료되었습니다.
+        </div>
         <a href="#" th:href="@{/}" class="btn btn-secondary">홈으로 돌아가기</a>
         <p class="mt-5 mb-3 text-muted">(C) 2021. (주)테라피스트 all rights reserved.</p>
     </main>

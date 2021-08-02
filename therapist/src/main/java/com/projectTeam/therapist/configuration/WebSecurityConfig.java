@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/auth/**", "/account/register", "/css/**", "/js/**", "/img/**").permitAll() 	                                                        // "/"이나, "/home"같은 URI는 누구나 접근할 수 있다, 또한 css 접근 권한을 저렇게 명시해서 css디렉토리 하위에 대한 권한을 줄 수 있따.
+                .antMatchers("/", "/auth/**", "/account/**", "/css/**", "/js/**", "/img/**").permitAll() 	            // "/"이나, "/home"같은 URI는 누구나 접근할 수 있다, 또한 css 접근 권한을 저렇게 명시해서 css디렉토리 하위에 대한 권한을 줄 수 있따.
                 .anyRequest().authenticated()			                                                                // 그 밖의 어느 요청이 무엇이든, 인증 절차(authenticated)를 걸쳐야 한다.
                 .and()							                                                                        // and()를 만나면, authorizeRequests가 끝난 것임.
             .formLogin()
@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()			                                                                                // 로그인하지 않은 사용자에 대해 로그인 페이지에 접근할 수 있도록 permitAll()을 해준다.
             .and()
                 .logout()
-                .permitAll();			                                                                                        // 로그아웃 페이지에 대해서도 로그인을 하지 않아도 접근할 수 있도록 해놓는다.
+                .permitAll();			                                                                                // 로그아웃 페이지에 대해서도 로그인을 하지 않아도 접근할 수 있도록 해놓는다.
     }
 
     // 인증처리를 해주는 메서드

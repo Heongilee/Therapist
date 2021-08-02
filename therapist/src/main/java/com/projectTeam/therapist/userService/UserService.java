@@ -32,15 +32,22 @@ public class UserService {
     private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
 
     public UserDto save(UserDto user) {
-        // 비밀번호 암호화
-        String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-        user.setUserPassword(encodedPassword);
-        user.setUserEnabled(true);
-        RoleDto roleDto = new RoleDto();
-        roleDto.setRoleId(1L);
-        user.getRoles().add(roleDto);
+        if (userRepository.countByUserName(user.getUserName()) >= 1L) {
+            return null;
+        } else {
+            // 비밀번호 암호화
+            String encodedPassword = passwordEncoder.encode(user.getUserPassword());
+            user.setUserPassword(encodedPassword);
 
-        return userRepository.save(user);
+            // 기본 활성화 상태
+            user.setUserEnabled(true);
+
+            RoleDto roleDto = new RoleDto();
+            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
+            user.getRoles().add(roleDto);
+
+            return userRepository.save(user);
+        }
     }
 
     //  authorizationCode 값으로 카카오 서버에서 access_token값을 받음.
