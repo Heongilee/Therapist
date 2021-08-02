@@ -24,6 +24,9 @@ public class UserDto {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleDto> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "userDto", fetch = FetchType.LAZY) // mappedBy : 조인할 상대 테이블의 속성이름을 가져옴, fetch
+    // mappedBy : 조인할 상대 테이블의 속성이름을 가져옴
+    // cascade : PostDto를 참조하고 있는 상황에서 UserDto에 변경이 일어날 경우 연쇄 작용으로 어떤 처리를 할지 옵션을 줄 수 있음.
+    // orphanRemoval : 부모가 없는 데이터를 지울때 유용한 옵션 (default값 : false)
+    @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostDto> posts = new ArrayList<>();
 }

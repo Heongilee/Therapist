@@ -1,10 +1,8 @@
 package com.projectTeam.therapist.restService;
 
+import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.model.UserDto;
 import com.projectTeam.therapist.repository.UserRepository;
-import com.projectTeam.therapist.repository.ReplyRepository;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,4 +20,31 @@ class UserApiController {
         return userRepository.findAll();
     }
 
+    @PostMapping("/users")
+    UserDto newUser(@RequestBody UserDto userDto) {
+        return userRepository.save(userDto);
+    }
+
+    @PutMapping("/users/{userId}")
+    UserDto replaceUser(@RequestBody UserDto newUser, @PathVariable Long userId) {
+        return userRepository.findById(userId)
+                .map(userDto -> {
+//                    userDto.setPosts(newUser.getPosts());
+                    userDto.getPosts().clear();                             // 기존의 데이터는 전부 삭제하고 ...
+                    userDto.getPosts().addAll(newUser.getPosts());          // 새로운 데이터로 전부 교체한다.
+                    for (PostDto post : userDto.getPosts()) {
+                        post.setUserDto(userDto);
+                    }
+                    return userRepository.save(userDto);
+                })
+                .orElseGet(() -> {
+                    newUser.setUserId(userId);
+                    return userRepository.save(newUser);
+                });
+    }
+
+    @DeleteMapping("/users/{userId}")
+    void deleteUser(@PathVariable Long userId) {
+        userRepository.deleteById(userId);
+    }
 }
