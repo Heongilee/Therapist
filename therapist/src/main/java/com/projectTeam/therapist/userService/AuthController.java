@@ -39,23 +39,17 @@ public class AuthController {
 
         RestTemplate rt = new RestTemplate();
 
-        // 헤더 오브젝트 생성
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        UserDto newUser = new UserDto();
+        newUser.setUserName(userMap.get("username"));
+        newUser.setUserPassword(userMap.get("password"));
 
-        // HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-        params.add("userName", userMap.get("username"));
-        params.add("userPassword", userMap.get("password"));
-
-
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
-        ResponseEntity<String> response = rt.exchange(
-                "http://localhost:8080/account/register/" + userMap.get("username"),
-                HttpMethod.PUT,
-                requestEntity,
-                String.class
-            );
+        HttpEntity<UserDto> requestEntity = new HttpEntity<>(newUser);
+        rt.exchange(
+            "http://localhost:8080/account/register",
+            HttpMethod.PUT,
+            requestEntity,
+            Void.class
+        );
 
         UserDto kakaoUser = userService.findKakaoUser(userMap.get("username"));
         System.out.println("Encrypted Password = " + kakaoUser.getUserPassword());

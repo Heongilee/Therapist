@@ -152,24 +152,23 @@ public class UserService {
     }
 
     public UserDto modifyUserPassword(UserDto newUser) {
-        return userRepository.findById(newUser.getUserId())
-                .map(userDto -> {
-                    userDto.setUserPassword(newUser.getUserPassword());
-                    return userRepository.save(userDto);
-                })
-                .orElseGet(() -> {
-                    // 기존에 없는 경우 새로 객체를 만들어서 저장하기.
-                    // 비밀번호 암호화
-                    String encodedPassword = passwordEncoder.encode(newUser.getUserPassword());
-                    newUser.setUserPassword(encodedPassword);
+        UserDto foundUser = userRepository.findByUserName(newUser.getUserName());
 
-                    // 기본 활성화 상태
-                    newUser.setUserEnabled(true);
-                    RoleDto roleDto = new RoleDto();
-                    roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
-                    newUser.getRoles().add(roleDto);
+        if (foundUser == null) {
+            // 기존에 없는 경우 새로 객체를 만들어서 저장하기.
+            // 비밀번호 암호화
+            newUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));
 
-                    return userRepository.save(newUser);
-                });
+            // 기본 활성화 상태
+            newUser.setUserEnabled(true);
+            RoleDto roleDto = new RoleDto();
+            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
+            newUser.getRoles().add(roleDto);
+
+            return userRepository.save(newUser);
+        } else {
+            foundUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));
+            return userRepository.save(foundUser);
+        }
     }
 }
