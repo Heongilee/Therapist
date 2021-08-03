@@ -21,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                 .csrf().disable()                                                                                       // 해커의 csrf(Cross-Site Request Forgery)공격에 대한 보안책을 disable(비활성)시킨다. (테스트 프로젝트 차원에서 disable 시키는 것이고, 실제 서비스에서 이것의 사용은 사이트가 취약해질 수 있는 요인이 된다.)
+                .csrf().disable()                                                                                       // 해커의 csrf(Cross-Site Request Forgery)공격에 대한 보안책을 disable(비활성)시킨다. (테스트 프로젝트 차원에서 disable 시키는 것이고, 실제 서비스에서 이것의 사용은 사이트가 취약해질 수 있는 요인이 된다.)
                 .authorizeRequests()
                 .antMatchers("/", "/auth/**", "/account/**", "/css/**", "/js/**", "/img/**", "/api/**").permitAll() 	            // "/"이나, "/home"같은 URI는 누구나 접근할 수 있다, 또한 css 접근 권한을 저렇게 명시해서 css디렉토리 하위에 대한 권한을 줄 수 있따.
                 .anyRequest().authenticated()			                                                                // 그 밖의 어느 요청이 무엇이든, 인증 절차(authenticated)를 걸쳐야 한다.
