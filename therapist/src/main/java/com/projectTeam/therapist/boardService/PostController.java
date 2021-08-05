@@ -1,9 +1,13 @@
 package com.projectTeam.therapist.boardService;
 
+import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.postService.PostService;
 import com.projectTeam.therapist.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

@@ -17,6 +17,8 @@ public class UserDto {
     private String userName;
     private String userPassword;
     private Boolean userEnabled;
+    private String userProfileImage = "https://via.placeholder.com/640";
+    private String userThumbnailImage = "https://via.placeholder.com/110";
 
     @ManyToMany
     @JoinTable(
