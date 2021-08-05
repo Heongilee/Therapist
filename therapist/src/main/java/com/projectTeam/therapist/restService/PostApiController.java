@@ -8,8 +8,11 @@ import com.projectTeam.therapist.repository.ReplyRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 // `@RestController`어노테이션을 사용하는 경우, 요청과 응답의 객체변환 및 직렬화/역직렬화를 자동으로 이 jackson 라이브러리가 담당하게 된다.
@@ -31,13 +34,16 @@ class PostApiController {
 //            this.posts = posts;
 //        }
 //    }
+
+    // TODO : Pageable객체를 이용한 페이징 처리 (Therapist_experiemnt 브랜치 아카이브 보고서 해결할 것.)
     @GetMapping("/posts")
     JSONObject requestGet(@RequestParam(required = false, defaultValue="JOB") PostCategory postType){
         List<PostDto> posts = postRepository.findByPostType(postType);
 
         // 검색된 카테고리 게시글 개수
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("postLength", posts.size());
+        jsonObject.put("postType", postType);
+        jsonObject.put("totalPage", postRepository.countByPostType(postType));
 
         // postType 파라미터와 일치하는 모든 게시글들을 JSONArray로 담는다.
         JSONArray postsArray = new JSONArray();

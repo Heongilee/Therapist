@@ -35,13 +35,15 @@ public class AuthController {
         Map<String, String> userMap = userService.requestKakaoUserInfo(accessToken);
         String url;
 
-        System.out.println("Original Password = " + userMap.get("password"));
+//        System.out.println("Original Password = " + userMap.get("password"));
 
         RestTemplate rt = new RestTemplate();
 
         UserDto newUser = new UserDto();
         newUser.setUserName(userMap.get("username"));
         newUser.setUserPassword(userMap.get("password"));
+        newUser.setUserProfileImage(userMap.get("profile_image"));
+        newUser.setUserThumbnailImage(userMap.get("thumbnail_image"));
 
         HttpEntity<UserDto> requestEntity = new HttpEntity<>(newUser);
         rt.exchange(
@@ -52,12 +54,10 @@ public class AuthController {
         );
 
         UserDto kakaoUser = userService.findKakaoUser(userMap.get("username"));
-        System.out.println("Encrypted Password = " + kakaoUser.getUserPassword());
+//        System.out.println("Encrypted Password = " + kakaoUser.getUserPassword());
         return userService.requestPostWithFormData("/account/login", new LinkedMultiValueMap<String, String>() {{
             add("username", kakaoUser.getUserName());
             add("password", userMap.get("password"));
         }});
-
-//        return "redirect:/"; // TODO : 로그인 테스트해보고 수정할 것.
     }
 }
