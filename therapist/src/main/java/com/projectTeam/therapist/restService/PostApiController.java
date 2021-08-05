@@ -30,7 +30,6 @@ class PostApiController {
     @GetMapping("/posts/{postId}")
     PostDto one(@PathVariable Long postId) {
         return postService.findSingleItem(postId);
-//
     }
 
     @PutMapping("/posts/{id}")
@@ -42,6 +41,5 @@ class PostApiController {
     @DeleteMapping("/posts/{id}")
     void deletePost(@PathVariable Long postId) {
         postService.deleteById(postId);
-//
     }
 }
