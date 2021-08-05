@@ -4,10 +4,10 @@ import { Input } from 'antd';
 const { TextArea } = Input;
 
 
-function TextField({ placeholder=''}) {
+function TextField({ placeholder='', TextFieldChange=null}) {
     return (
         <div>
-            <TextArea placeholder={ placeholder }/>
+            <TextArea placeholder={ placeholder} onChange={TextFieldChange}/>
         </div>
     )
 };
