@@ -43,6 +43,7 @@ module.exports = {
     ],
 
     devServer: {  // 개발서버
+        historyApiFallback: true,  // router 새로고침 404 해결
         host: 'localhost',
         port: port,
         open: true, // 서버가 실행될 때 브라우저를 자동으로 열어줄지 결정
