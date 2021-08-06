@@ -44,7 +44,6 @@ export const requestPage = async page => {
     };
 };
 
-
 //postLength
 const boardData1 = [
     {
