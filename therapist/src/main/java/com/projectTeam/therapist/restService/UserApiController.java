@@ -2,11 +2,15 @@ package com.projectTeam.therapist.restService;
 
 import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.model.UserDto;
+import com.projectTeam.therapist.repository.CommentRepository;
+import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 // `@RestController`어노테이션을 사용하는 경우, 요청과 응답의 객체변환 및 직렬화/역직렬화를 자동으로 이 jackson 라이브러리가 담당하게 된다.
 @RestController
@@ -14,6 +18,8 @@ import java.util.List;
 class UserApiController {
     @Autowired
     private UserRepository userRepository;
+    private PostRepository postRepository;
+    private CommentRepository commentRepository;
 
     @GetMapping("/users")
     List<UserDto> allUsers(){
@@ -53,5 +59,15 @@ class UserApiController {
     @DeleteMapping("/users/{userId}")
     void deleteUser(@PathVariable Long userId) {
         userRepository.deleteById(userId);
+    }
+
+
+    // 마이페이지 체크 박스에 따른 게시글 / 댓글 삭제
+    @PostMapping("/users/mypage")
+    void deleteMyPosts(@RequestBody Map<Long, Long> posts) {
+        System.out.println(posts);
+        for (Long postId : posts.values()) {
+            postRepository.deleteById(postId);
+        }
     }
 }
