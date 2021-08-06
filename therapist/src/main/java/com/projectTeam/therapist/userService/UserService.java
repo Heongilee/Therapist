@@ -168,6 +168,9 @@ public class UserService {
             return userRepository.save(newUser);
         } else {
             foundUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));
+            foundUser.setUserProfileImage(newUser.getUserProfileImage());
+            foundUser.setUserThumbnailImage(newUser.getUserThumbnailImage());
+
             return userRepository.save(foundUser);
         }
     }

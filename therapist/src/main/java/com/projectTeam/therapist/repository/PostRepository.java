@@ -2,6 +2,8 @@ package com.projectTeam.therapist.repository;
 
 import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
  */
 public interface PostRepository extends JpaRepository<PostDto, Long> {
     List<PostDto> findByPostTitle(String postTitle);
-    List<PostDto> findByPostType(PostCategory postType);
-    List<PostDto> findByPostTitleOrPostContent(String postTitle, String postContent);
+//    List<PostDto> findByPostType(PostCategory postType);
+    Page<PostDto> findByPostType(PostCategory postType, Pageable pageable);
+//    List<PostDto> findByPostTitleOrPostContent(String postTitle, String postContent);
+    long countByPostType(PostCategory postType);
 }
