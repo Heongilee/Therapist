@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import QuestionSection from './Sections/QuestionSection.js';
 import AnswerSection from './Sections/AnswerSection.js';
 import { withRouter } from "react-router-dom";
-
 import './TextPage.css';
 
 
