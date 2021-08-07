@@ -1,7 +1,5 @@
 package com.projectTeam.therapist.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
