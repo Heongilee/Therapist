@@ -13,6 +13,8 @@ function useCheckBox({postData}) {
     }, [postData]);
                                      
     const checkBoxhandler = event => {
+        console.log("체크박스");
+
         const postNum = event.target.dataSet;
         setCheckState(CheckState.map((check, index) => (postNum === index ? !check : check)));
     }
