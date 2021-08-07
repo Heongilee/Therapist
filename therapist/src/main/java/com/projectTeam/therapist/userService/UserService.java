@@ -8,6 +8,7 @@ import com.projectTeam.therapist.model.*;
 import com.projectTeam.therapist.repository.PostCommentRepository;
 import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.UserRepository;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -201,7 +202,16 @@ public class UserService {
 
             jsonObject.put("totalAmount", posts.getTotalElements());
             jsonObject.put("totalPages", posts.getTotalPages());
-            jsonObject.put("userPosts", posts.getContent());
+            JSONArray userPosts = new JSONArray();
+            for (PostDto post : posts.getContent()) {
+                JSONObject item = new JSONObject();
+                item.put("postId", post.getPostId());
+                item.put("postType", post.getPostType());
+                item.put("postTitle", post.getPostTitle());
+                item.put("postContent", post.getPostContent());
+                userPosts.add(item);
+            }
+            jsonObject.put("userPosts", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
 //            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);

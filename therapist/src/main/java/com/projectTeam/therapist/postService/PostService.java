@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
     @Autowired
@@ -54,7 +56,29 @@ public class PostService {
         return jsonObject;
     }
 
-    public PostDto save(PostDto newPost) {
+    public PostDto save(JSONObject requestBody) {
+        if (requestBody.get("userName") == null) {
+            return null;
+        }
+
+        UserDto userDto = userRepository.findByUserName((String) requestBody.get("userName"));
+
+        PostDto newPost = new PostDto();
+        newPost.setUserDto(userDto);
+        newPost.setPostTitle((String) requestBody.get("postTitle"));
+        newPost.setPostContent((String) requestBody.get("postContent"));
+
+        // 열거형의 postType 경우 if-else문으로 해결한다.
+        if (((String) requestBody.get("postType")).equals("JOB")) {
+            newPost.setPostType(PostCategory.JOB);
+        } else if (((String) requestBody.get("postType")).equals("COMPANYLIFE")) {
+            newPost.setPostType(PostCategory.COMPANYLIFE);
+        } else if (((String) requestBody.get("postType")).equals("FAMILY")) {
+            newPost.setPostType(PostCategory.FAMILY);
+        } else {
+            // Nothing
+        }
+
         return postRepository.save(newPost);
     }
 
@@ -78,5 +102,9 @@ public class PostService {
 
     public void deleteById(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    public List<PostDto> requestTopSix() {
+        return postRepository.findTop6ByOrderByPostCreatedAtDesc();
     }
 }
