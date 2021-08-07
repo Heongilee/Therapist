@@ -4,6 +4,7 @@ import './PaginationCmp.css';
 
 function PaginationCmp({ totalPage=0, pageSelect, currentPage }) {
 
+
     return (
         <div className="pagination" >
             <Pagination current={parseInt(currentPage)} total={totalPage + 4} 
