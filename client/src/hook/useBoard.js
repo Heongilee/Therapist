@@ -1,92 +1,130 @@
 import React, {useEffect, useState} from 'react';
 import useGetQuery from './useGetQuery.js'
 import { useHistory } from "react-router-dom";
-import {requestBoardList} from '../api/boardApi.js';
+import api from '../api/boardApi.js';
 
-import BoardForm from '../components/BoardForm/BoardForm.js'
 
-// url type, datainfo
 function useBoard({ PATH }) {
     
     const [BoardState, setBoardState] = useState({posts :null,currentPage:null,currentType:null,totalPage: null});
     const { page, category } = useGetQuery();
+
     const history = useHistory();
 
 
     useEffect(() => {
-        requestBoardList(category, page)
-            .then(response => {
-                const { posts,totalPage,postType } = response[0];
+
+        if (PATH === "board"){
+            fetchPosts();
+        } else if (PATH === "mypage") {
+            fetchMypage();
+            console.log("발동!")
+        }
+
+    }, [page, category]);
+    
+    const fetchPosts = async() => {
+        // 페이지네이션 => page,totalpage,currentpage
+        // 사이드바 => currentType
+        // 포스트 => posts
+
+        const response = await api.fetchPosts(category, page);
+        const { posts, totalPage, postType } = response[0];
                 setBoardState({...BoardState, posts:posts,
                     currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
-            });
-    
-    }, [page]);
-    
+    };
+
+    const fetchMypage= async() => {
+
+        const response = await api.fetchMypage(category, page);
+        const { posts,totalPage,postType } = response[0];
+                setBoardState({...BoardState, posts:posts,
+                    currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
+    };
+
+
     const categorySelect = (key) => {
         history.push(`/${PATH}?category=${key}&page=${BoardState.currentPage}`);
-        // setBoardState({...BoardState, currentType:key});
     }
 
     const pageSelect = page => {
         history.push(`/${PATH}?category=${BoardState.currentType}&page=${page}`);                                        
-        // setBoardState({...BoardState, currentPage:page});
     };
     
-    const renderPosts = () => (
-        BoardState.posts && <BoardForm postData={BoardState.posts}></BoardForm>
-    )
-
-    //버튼 추가 및 버튼 이벤트
-    
-    return {BoardState, renderPosts, categorySelect, pageSelect };
+    return { BoardState, categorySelect, pageSelect };
 
 
 };
 
 export default useBoard;
 
- 
-
-// import {useEffect, useState} from 'react';
+// import React, {useEffect, useState} from 'react';
 // import useGetQuery from './useGetQuery.js'
 // import { useHistory } from "react-router-dom";
-// import {requestBoardList} from '../api/boardApi.js';
+// import api from '../api/boardApi.js';
 
 
-// // url type, datainfo
-// function useBoard() {
+// function useBoard({ PATH }) {
     
-//     const [BoardState, setBoardState] = useState({post :null,currentPage:null,currentType:null,totalPage: null});
+//     const [BoardState, setBoardState] = useState({posts :null,currentPage:null,currentType:null,totalPage: null});
 //     const { page, category } = useGetQuery();
+
 //     const history = useHistory();
 
 
-//     // url 정보
 //     useEffect(() => {
-//         requestBoardList(category, page)
-//         .then(response => {
-//             const { posts,totalPage,postType } = response[0];
-//             setBoardState({...BoardState, post:posts,
-//                 currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
-//         });
- 
-//     }, [page]);
+
+//         if (PATH === "board"){
+//             fetchPosts();
+//         } else if (PATH === "mypage") {
+//             fetchMypage();
+//         }
+
+//     }, [page, category]);
     
+//     const fetchPosts = async() => {
+
+//         const response = await api.fetchPosts(category, page);
+//         const { posts,totalPage,postType } = response[0];
+//                 setBoardState({...BoardState, posts:posts,
+//                     currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
+//     };
+
+//     const fetchMypage= async() => {
+
+//         const response = await api.fetchMypage(category, page);
+//         const { posts,totalPage,postType } = response[0];
+
+//                 setBoardState({...BoardState, posts:posts,
+//                     check:Array(posts.length).fill(false),
+//                     currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
+//     };
+
+
 //     const categorySelect = (key) => {
-//         history.push(`/board?category=${key}&page=${BoardState.currentPage}`);
-//         setBoardState({...BoardState, currentType:key});
+//         history.push(`/${PATH}?category=${key}&page=${BoardState.currentPage}`);
 //     }
 
-//     const pageChange = page => {
-//         history.push(`/board?category=${BoardState.currentType}&page=${page}`);                                        
-//         // setBoardState({...BoardState, currentPage:page});
+//     const pageSelect = page => {
+//         history.push(`/${PATH}?category=${BoardState.currentType}&page=${page}`);                                        
 //     };
     
-//     //버튼 추가 및 버튼 이벤트
-//     //render 추가
 
-//     return { BoardState:BoardState, pageChange, categorySelect };
+//     const checkBoxhandler = event => {
+//         const postNum = event.target.dataSet;
+
+//         const initialState = BoardState.check.map((check, index) => (postNum === index ? !check : check));
+
+//         setBoardState({...BoardState, check:initialState });
+//     }
+
+//     const handleButtonClick = () => {
+//         console.log("버튼클릭",BoardState.check );
+//     };
+
+//     return { BoardState, categorySelect, pageSelect, handleButtonClick, checkBoxhandler };
+
+
 // };
 
 // export default useBoard;

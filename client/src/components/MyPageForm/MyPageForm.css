@@ -11,6 +11,10 @@
     margin: 10px 0 10px 0;
 }
 
+.posts_footer {
+    display: flex;
+    justify-content: flex-end;
+}
 
 .category_name {
     width: 100%;

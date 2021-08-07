@@ -1,7 +1,6 @@
 import {
     BOARD_REQUEST, PAGE_REQUEST, LOADING
 } from '../_actions/types';
-import pageCal from '../utils/pageCal.js';
 
 
 // const initialState={'category1':[],'category2':[],'category3':[],'category4':[], currentCategory:null };
