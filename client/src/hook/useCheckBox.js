@@ -20,7 +20,7 @@ function useCheckBox({postData}) {
     const dataProcessing = () => {
         const deleteData = CheckState.map((data,index) => { return data === true ? index : null })
         .filter( data => data) 
-   
+        console.log("삭제", deleteData);
         return {...deleteData};
     };
 
