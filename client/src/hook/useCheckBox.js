@@ -30,6 +30,7 @@ function useCheckBox({postData}) {
     
         if (response){
             console.log("삭제 성공")
+            // history.push("/mypage")
         }        
 
     };
