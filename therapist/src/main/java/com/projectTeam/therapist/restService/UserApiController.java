@@ -5,6 +5,7 @@ import com.projectTeam.therapist.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -45,5 +46,15 @@ class UserApiController {
     @PostMapping("/users/mypage")
     void deleteMyPosts(@RequestBody Map<Long, Long> posts) {
         userService.deleteMyPosts(posts);
+    }
+
+
+    // 마이페이지 체크 박스에 따른 게시글 / 댓글 삭제
+    @PostMapping("/users/mypage")
+    void deleteMyPosts(@RequestBody Map<Long, Long> posts) {
+        System.out.println(posts);
+        for (Long postId : posts.values()) {
+            postRepository.deleteById(postId);
+        }
     }
 }
