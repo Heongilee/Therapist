@@ -15,27 +15,13 @@ const temp = (page) => {
     }
 };
 
-const temp2 = (page) => {
+// const temp2 = (page) => {
 
-    if (page === '1'){
-        return mypage2;
-    }
-    
-    else if (page === '2'){
-        return mypage3;
-    }  
-     
-    else{
-        return boardData333;
-    }
-};
-// const temp2 = (category) => {
-
-//     if (category === 'category1'){
+//     if (page === '1'){
 //         return mypage2;
 //     }
     
-//     else if (category === 'category2'){
+//     else if (page === '2'){
 //         return mypage3;
 //     }  
      
@@ -43,6 +29,20 @@ const temp2 = (page) => {
 //         return boardData333;
 //     }
 // };
+const temp2 = (category) => {
+
+    if (category === 'category1'){
+        return mypage2;
+    }
+    
+    else if (category === 'category2'){
+        return mypage3;
+    }  
+     
+    else{
+        return boardData333;
+    }
+};
 
 
 const api = {
@@ -65,7 +65,7 @@ const api = {
 
         try {
             // const response = await axios.get(`/api/posts?postType=${postType}`);
-            const response = await temp2(page);
+            const response = await temp2(postType);
     
             return response;
     

@@ -16,16 +16,15 @@ const CATEGORY_DIC = {"category1":["postTitle","postContent"],'category2':["post
 function Mypage() {
 
     const { BoardState, categorySelect, pageSelect } = useBoard({ PATH });
-    console.log("mypage");
     
     return (
             <section className="boardPage">
                 <div className="wrapper">
                     <div className="boardPage_area">
                         <div className="sideBar_area">
-                        {BoardState.currentType && 
-                            <SideBar category={BoardState.currentType} categoryList={CATEGORY_LIST} 
-                            categorySelect={categorySelect}></SideBar>}
+                            {BoardState.currentType && 
+                                <SideBar category={BoardState.currentType} categoryList={CATEGORY_LIST} 
+                                categorySelect={categorySelect}></SideBar>}
                         </div> 
                         <div className='posts_area'>
 
@@ -41,6 +40,8 @@ function Mypage() {
     );
 
 };
+
+// export default React.memo(Mypage);
 
 export default withRouter(Mypage);
 

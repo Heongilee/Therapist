@@ -8,6 +8,8 @@ import BoardPage from './pages/BoardPage/BoardPage.js';
 import WritePage from './pages/WritePage/WritePage.js';
 import TextPage from './pages/TextPage/TextPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
+import DeleteModal from './components/Modal/DeleteModal.js';
+
 
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
