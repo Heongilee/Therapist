@@ -5,8 +5,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectTeam.therapist.TherapistApplication;
 import com.projectTeam.therapist.model.*;
+import com.projectTeam.therapist.repository.PostCommentRepository;
+import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.UserRepository;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +28,10 @@ import java.util.UUID;
 // 또한, 이렇게 서비스 클래스로 따로 빼면 단위 테스트를 수행할때에도 용이하다.
 @Service
 public class UserService {
+    @Autowired
+    private PostCommentRepository postCommentRepository;
+    @Autowired
+    private PostRepository postRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -173,5 +183,50 @@ public class UserService {
 
             return userRepository.save(foundUser);
         }
+    }
+
+    public JSONObject searchMyData(String userName, String menuType, Pageable pageable) {
+        // contextPath로 입력받은 userName을 가지고 UserDto객체를 얻은 다음에...
+        UserDto userDto = userRepository.findByUserName(userName);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", userDto.getUserId());
+        jsonObject.put("userName", userDto.getUserName());
+        jsonObject.put("userPassword", userDto.getUserPassword());
+        jsonObject.put("userEnabled", userDto.getUserEnabled());
+        jsonObject.put("roles", userDto.getRoles());
+
+        if (menuType.equals("myPosts")) {
+            // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
+            Page<PostDto> posts = postRepository.findByUserDto(userDto, pageable);
+
+            jsonObject.put("totalAmount", posts.getTotalElements());
+            jsonObject.put("totalPages", posts.getTotalPages());
+            JSONArray userPosts = new JSONArray();
+            for (PostDto post : posts.getContent()) {
+                JSONObject item = new JSONObject();
+                item.put("postId", post.getPostId());
+                item.put("postType", post.getPostType());
+                item.put("postTitle", post.getPostTitle());
+                item.put("postContent", post.getPostContent());
+                userPosts.add(item);
+            }
+            jsonObject.put("userPosts", userPosts);
+        } else if (menuType.equals("myReplies")) {
+            // 내가 쓴 답글
+//            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
+
+        } else if (menuType.equals("myComments")) {
+            // 내가 쓴 댓글
+            Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
+
+            jsonObject.put("totalAmount", postComments.getTotalElements());
+            jsonObject.put("totalPages", postComments.getTotalPages());
+            jsonObject.put("userPostComments", postComments.getContent());
+        } else {
+            // 예외 처리 ???
+        }
+
+        return jsonObject;
     }
 }
