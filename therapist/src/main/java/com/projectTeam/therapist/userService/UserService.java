@@ -21,6 +21,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -228,5 +229,50 @@ public class UserService {
         }
 
         return jsonObject;
+    }
+
+    // Called from UserApiController (GET /api/users )
+    public List<UserDto> allUsers() {
+        return userRepository.findAll();
+    }
+
+    // Called from UserApiController (GET /api/users/{userName} )
+    public UserDto findUser(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    // Called from UserApiController (POST /api/users )
+    public UserDto newUser(UserDto userDto) {
+        return userRepository.save(userDto);
+    }
+
+    // Called from UserApiController (POST /api/users )
+    public UserDto replaceUser(UserDto newUser, Long userId) {
+        return userRepository.findById(userId)
+            .map(userDto -> {
+                userDto.getPosts().clear();                             // 기존의 데이터는 전부 삭제하고 ...
+                userDto.getPosts().addAll(newUser.getPosts());          // 새로운 데이터로 전부 교체한다.
+                for (PostDto post : userDto.getPosts()) {
+                    post.setUserDto(userDto);
+                }
+                return userRepository.save(userDto);
+            })
+            .orElseGet(() -> {
+                newUser.setUserId(userId);
+                return userRepository.save(newUser);
+            });
+    }
+
+    // Called from UserApiController (DELETE /api/users/{userId} )
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    // Called from UserApiController (POST /api/users/mypage )
+    public void deleteMyPosts(Map<Long, Long> posts) {
+        System.out.println(posts);
+        for (Long postId : posts.values()) {
+            postRepository.deleteById(postId);
+        }
     }
 }

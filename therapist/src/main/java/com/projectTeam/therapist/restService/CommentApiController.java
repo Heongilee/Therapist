@@ -2,53 +2,52 @@ package com.projectTeam.therapist.restService;
 
 import com.projectTeam.therapist.model.CommentCategory;
 import com.projectTeam.therapist.model.CommentDto;
+import com.projectTeam.therapist.model.PostCommentDto;
+import com.projectTeam.therapist.postService.CommentService;
 import com.projectTeam.therapist.repository.CommentRepository;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 class CommentApiController {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // PostComment에 관한 API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentService commentService;
 
-
-    @GetMapping("/comments")
-    List<CommentDto> findComments(@RequestParam(required = false, defaultValue="0") Long commentId,
-                                  @RequestParam(required = false, defaultValue="0") Long referenceId,
-                                  @RequestParam(required = false, defaultValue="POST") CommentCategory commentType) {
-        if (referenceId == 0L && commentId == 0L) {
-            // 모든 댓글 조회
-            return commentRepository.findAll();
-        } else if (referenceId == 0L) {
-            // commentId에 대한 댓글 조회
-            return commentRepository.findByCommentId(commentId);
-        } else {
-            // referenceId에 대한 모든 댓글들 조회
-            // commentType 쿼리 스트링을 안 주면 기본값으로 POST(게시글)에 대한 아이디를 검색
-            // commentType을 "REPLY"로 주면 REPLY(답글)에 대한 아이디를 검색
-            return commentRepository.findByReferenceIdAndCommentType(referenceId, commentType);
-        }
+    // 모든 게시글 댓글(PostComment) 조회
+    @GetMapping("/postComments")
+    List<PostCommentDto> findAllPostComments() {
+        return commentService.findAllPostComments();
     }
 
-    // newComment 생성
-    @PostMapping("/comments")
-    CommentDto newComment(@RequestBody CommentDto newComment) {
-        return commentRepository.save(newComment);
+    // 게시글 댓글(PostComment)의 아이디에 해당하는 게시글 댓글 조회
+    @GetMapping("/postComments/{postCommentId}")
+    PostCommentDto findSinglePostComment(@PathVariable Long postCommentId) {
+        return commentService.findSinglePostComment(postCommentId);
+    }
+
+    // 게시글 댓글(PostComment) 생성
+    @PostMapping("/postComments/{userName}/{postId}")
+    PostCommentDto newPostComment(@RequestBody JSONObject params, @PathVariable String userName, @PathVariable Long postId) {
+        return commentService.newPostComment(params, userName, postId);
+    }
+
+    // 게시글 댓글(PostComment) 삭제
+    @DeleteMapping("/postComments/{postCommentId}")
+    void deletePostComment(@PathVariable Long postCommentId) {
+        commentService.deletePostComment(postCommentId);
     }
 
 
-    // commentId에 해당하는 댓글 삭제
-    @DeleteMapping("/comments/{commentId}")
-    void deletePost(@PathVariable Long commentId) {
-        commentRepository.deleteById(commentId);
-    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // ReplyComment에 관한 API
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // commentId에 해당하는 멤버의 이름을 리턴, TODO : 검증 필요
-//    @GetMapping("/comments/userInfo/{commentId}")
-//    String findUserByCommentId(@PathVariable Long commentId) {
-//        return null;
-//    }
 }
