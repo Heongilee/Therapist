@@ -2,6 +2,7 @@ package com.projectTeam.therapist.repository;
 
 import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
+import com.projectTeam.therapist.model.ReplyDto;
 import com.projectTeam.therapist.model.UserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,4 +18,6 @@ public interface PostRepository extends JpaRepository<PostDto, Long> {
     Page<PostDto> findByPostType(PostCategory postType, Pageable pageable);
     Page<PostDto> findByUserDto(UserDto userDto, Pageable pageable);
     List<PostDto> findTop6ByOrderByPostCreatedAtDesc();
+
+    PostDto getById(Long postId);
 }
