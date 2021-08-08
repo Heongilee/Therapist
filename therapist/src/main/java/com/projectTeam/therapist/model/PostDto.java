@@ -2,6 +2,7 @@ package com.projectTeam.therapist.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -37,6 +38,13 @@ public class PostDto {
 
     @OneToMany(mappedBy = "postDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostCommentDto> postComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "postDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyDto> replies = new ArrayList<>();
+
+    public int getCountOfReplies() {
+        return replies.size();
+    }
 
     // DB에 INSERT를 날리기전에 해당 메서드를 먼저 실행하여 현재시각과 업데이트 시각을 설정한다.
     @PrePersist
