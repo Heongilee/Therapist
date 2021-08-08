@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useMemo} from 'react';
 import useGetQuery from './useGetQuery.js'
 import { useHistory } from "react-router-dom";
 import api from '../api/boardApi.js';
@@ -8,7 +8,6 @@ function useBoard({ PATH }) {
     
     const [BoardState, setBoardState] = useState({posts :null,currentPage:null,currentType:null,totalPage: null});
     const { page, category } = useGetQuery();
-
     const history = useHistory();
 
 
@@ -18,15 +17,11 @@ function useBoard({ PATH }) {
             fetchPosts();
         } else if (PATH === "mypage") {
             fetchMypage();
-            console.log("발동!")
         }
 
     }, [page, category]);
     
     const fetchPosts = async() => {
-        // 페이지네이션 => page,totalpage,currentpage
-        // 사이드바 => currentType
-        // 포스트 => posts
 
         const response = await api.fetchPosts(category, page);
         const { posts, totalPage, postType } = response[0];
@@ -44,7 +39,7 @@ function useBoard({ PATH }) {
 
 
     const categorySelect = (key) => {
-        history.push(`/${PATH}?category=${key}&page=${BoardState.currentPage}`);
+        history.push(`/${PATH}?category=${key}&page=${'1'}`);
     }
 
     const pageSelect = page => {
