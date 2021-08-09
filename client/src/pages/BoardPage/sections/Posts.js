@@ -9,6 +9,8 @@ import { Checkbox } from 'antd';
 
 function Posts({ postData }) {
     
+    console.log("대답", postData);
+
     // 카테고리이름, 제목, 내용, 답변하기 
     const postList = postData.map((data, index) => {
                    

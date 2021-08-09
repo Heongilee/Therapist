@@ -5,8 +5,14 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectTeam.therapist.TherapistApplication;
 import com.projectTeam.therapist.model.*;
+import com.projectTeam.therapist.repository.PostCommentRepository;
+import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.UserRepository;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,6 +21,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,6 +29,10 @@ import java.util.UUID;
 // 또한, 이렇게 서비스 클래스로 따로 빼면 단위 테스트를 수행할때에도 용이하다.
 @Service
 public class UserService {
+    @Autowired
+    private PostCommentRepository postCommentRepository;
+    @Autowired
+    private PostRepository postRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -172,6 +183,96 @@ public class UserService {
             foundUser.setUserThumbnailImage(newUser.getUserThumbnailImage());
 
             return userRepository.save(foundUser);
+        }
+    }
+
+    public JSONObject searchMyData(String userName, String menuType, Pageable pageable) {
+        // contextPath로 입력받은 userName을 가지고 UserDto객체를 얻은 다음에...
+        UserDto userDto = userRepository.findByUserName(userName);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", userDto.getUserId());
+        jsonObject.put("userName", userDto.getUserName());
+        jsonObject.put("userPassword", userDto.getUserPassword());
+        jsonObject.put("userEnabled", userDto.getUserEnabled());
+        jsonObject.put("roles", userDto.getRoles());
+
+        if (menuType.equals("myPosts")) {
+            // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
+            Page<PostDto> posts = postRepository.findByUserDto(userDto, pageable);
+
+            jsonObject.put("totalAmount", posts.getTotalElements());
+            jsonObject.put("totalPages", posts.getTotalPages());
+            JSONArray userPosts = new JSONArray();
+            for (PostDto post : posts.getContent()) {
+                JSONObject item = new JSONObject();
+                item.put("postId", post.getPostId());
+                item.put("postType", post.getPostType());
+                item.put("postTitle", post.getPostTitle());
+                item.put("postContent", post.getPostContent());
+                userPosts.add(item);
+            }
+            jsonObject.put("userPosts", userPosts);
+        } else if (menuType.equals("myReplies")) {
+            // 내가 쓴 답글
+//            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
+
+        } else if (menuType.equals("myComments")) {
+            // 내가 쓴 댓글
+            Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
+
+            jsonObject.put("totalAmount", postComments.getTotalElements());
+            jsonObject.put("totalPages", postComments.getTotalPages());
+            jsonObject.put("userPostComments", postComments.getContent());
+        } else {
+            // 예외 처리 ???
+        }
+
+        return jsonObject;
+    }
+
+    // Called from UserApiController (GET /api/users )
+    public List<UserDto> allUsers() {
+        return userRepository.findAll();
+    }
+
+    // Called from UserApiController (GET /api/users/{userName} )
+    public UserDto findUser(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
+    // Called from UserApiController (POST /api/users )
+    public UserDto newUser(UserDto userDto) {
+        return userRepository.save(userDto);
+    }
+
+    // Called from UserApiController (POST /api/users )
+    public UserDto replaceUser(UserDto newUser, Long userId) {
+        return userRepository.findById(userId)
+            .map(userDto -> {
+                userDto.getPosts().clear();                             // 기존의 데이터는 전부 삭제하고 ...
+                userDto.getPosts().addAll(newUser.getPosts());          // 새로운 데이터로 전부 교체한다.
+                for (PostDto post : userDto.getPosts()) {
+                    post.setUserDto(userDto);
+                }
+                return userRepository.save(userDto);
+            })
+            .orElseGet(() -> {
+                newUser.setUserId(userId);
+                return userRepository.save(newUser);
+            });
+    }
+
+    // Called from UserApiController (DELETE /api/users/{userId} )
+    public void deleteUser(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    // Called from UserApiController (POST /api/users/mypage )
+    public void deleteMyPosts(Map<Long, Long> posts) {
+        System.out.println(posts);
+        for (Long postId : posts.values()) {
+            postRepository.deleteById(postId);
         }
     }
 }

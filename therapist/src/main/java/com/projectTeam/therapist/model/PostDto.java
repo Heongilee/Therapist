@@ -2,10 +2,12 @@ package com.projectTeam.therapist.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,31 @@ public class PostDto {
     private String postTitle;
     private String postContent;
 
+    @Column(updatable = false)
+    private LocalDateTime postCreatedAt;
+    private LocalDateTime postUpdatedAt;
+
     @OneToMany(mappedBy = "postDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostCommentDto> postComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "postDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyDto> replies = new ArrayList<>();
+
+    public int getCountOfReplies() {
+        return replies.size();
+    }
+
+    // DB에 INSERT를 날리기전에 해당 메서드를 먼저 실행하여 현재시각과 업데이트 시각을 설정한다.
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.postCreatedAt = now;
+        this.postUpdatedAt = now;
+    }
+
+    // 해당 테이블로 UPDATE문이 들어왔을때 트리거처럼 호출되며 업데이트 시각을 현재시각으로 설정한다.
+    @PreUpdate
+    public void preUpdate() {
+        this.postUpdatedAt = LocalDateTime.now();
+    }
 }
