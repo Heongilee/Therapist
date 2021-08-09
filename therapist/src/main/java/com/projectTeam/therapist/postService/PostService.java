@@ -49,7 +49,7 @@ public class PostService {
             item.put("postTitle", post.getPostTitle());
             item.put("postContent", post.getPostContent());
 //            item.put("postComments", post.getPostComments());
-            item.put("replyLength", replyRepository.countByPostId(post.getPostId()));
+            item.put("replyLength", post.getCountOfReplies());
             postsArray.add(item);
         }
         jsonObject.put("posts", postsArray);
