@@ -20,6 +20,19 @@
 }
 
 
+<<<<<<< HEAD
+.ant-checkbox-wrapper{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+/* .ant-checkbox-wrapper .ant-checkbox {
+    margin: auto 0;
+} */
+
+=======
+>>>>>>> 12169fc71 (mypage boardpage 기능 및 api (#40))
 .posts_list {
     display: flex;
     list-style: none;
@@ -70,4 +83,16 @@
     color: #777
 }
 
+<<<<<<< HEAD
 
+=======
+.ant-checkbox-wrapper{
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+}
+
+/* .ant-checkbox-wrapper .ant-checkbox {
+    margin: auto 0;
+} */
+>>>>>>> 12169fc71 (mypage boardpage 기능 및 api (#40))
