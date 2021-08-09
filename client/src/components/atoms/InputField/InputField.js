@@ -1,11 +1,9 @@
 import React from 'react';
 import { Input } from 'antd';
 
-function InputField({ placeHolder }) {
+function InputField({ placeHolder=null, InputChange=null }) {
     return (
-        <div>
-            <Input placeholder={ placeHolder }/>
-        </div>
+            <Input placeholder={ placeHolder } onChange={InputChange}/>
     );
 };
 

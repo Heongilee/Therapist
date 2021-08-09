@@ -1,59 +1,125 @@
-import { useEffect, useReducer } from 'react';
-import  boardReducer  from '../_reducers/board_reducer.js';
-import { BOARD_REQUEST, PAGE_REQUEST } from '../_actions/types.js';
-import { requestBoardList, requestPage } from '../api/boardApi';
+import React, {useEffect, useState, useMemo} from 'react';
+import useGetQuery from './useGetQuery.js'
+import { useHistory } from "react-router-dom";
+import api from '../api/boardApi.js';
 
-//커스텀훅
-export default function useBoard() {
 
-    const [BoardState, dispatch] = useReducer(boardReducer, { posts:null, totalPage:null, currentPage:null, category });
+function useBoard({ PATH }) {
+    
+    const [BoardState, setBoardState] = useState({posts :null,currentPage:null,currentType:null,totalPage: null});
+    const { page, category } = useGetQuery();
+    const history = useHistory();
+
 
     useEffect(() => {
-        categoryChange();
-    }, [])
+
+        if (PATH === "board"){
+            fetchPosts();
+        } else if (PATH === "mypage") {
+            fetchMypage();
+        }
+
+    }, [page, category]);
     
+    const fetchPosts = async() => {
 
-    const categoryChange = (category) => {
-        requestBoardList()
-            .then(response => {
-                const { posts, postLength } = response[0];
-                dispatch({ type:BOARD_REQUEST, posts:posts, totalPage:postLength });
-
-            });
+        const response = await api.fetchPosts(category, page);
+        const { posts, totalPage, postType } = response[0];
+                setBoardState({...BoardState, posts:posts,
+                    currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
     };
 
-    // 페이지 선택
-    const pageChange = page => {
-        requestPage(page)
-            .then(response => {
-                const { posts, postLength } = response[0];
-                dispatch({ type:PAGE_REQUEST, posts:posts, totalPage:postLength, currentPage:page });
-            });
+    const fetchMypage= async() => {
+
+        const response = await api.fetchMypage(category, page);
+        const { posts,totalPage,postType } = response[0];
+                setBoardState({...BoardState, posts:posts,
+                    currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
     };
 
-    // 페이지 선택
+
+    const categorySelect = (key) => {
+        history.push(`/${PATH}?category=${key}&page=${'1'}`);
+    }
+
+    const pageSelect = page => {
+        history.push(`/${PATH}?category=${BoardState.currentType}&page=${page}`);                                        
+    };
     
-    return {...BoardState, pageChange, categoryChange};
+    return { BoardState, categorySelect, pageSelect };
+
+
 };
 
+export default useBoard;
+
+// import React, {useEffect, useState} from 'react';
+// import useGetQuery from './useGetQuery.js'
+// import { useHistory } from "react-router-dom";
+// import api from '../api/boardApi.js';
 
 
-// import { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { requestBoardList, requestPage } from '../_actions/board_actions';
+// function useBoard({ PATH }) {
+    
+//     const [BoardState, setBoardState] = useState({posts :null,currentPage:null,currentType:null,totalPage: null});
+//     const { page, category } = useGetQuery();
 
+//     const history = useHistory();
 
-// export default function useBoard() {
-
-//     const dispatch = useDispatch();
-//     const boardState = useSelector( state=> state.board.boardData );
 
 //     useEffect(() => {
-//         dispatch(requestBoardList());
-//     }, [dispatch]);
+
+//         if (PATH === "board"){
+//             fetchPosts();
+//         } else if (PATH === "mypage") {
+//             fetchMypage();
+//         }
+
+//     }, [page, category]);
+    
+//     const fetchPosts = async() => {
+
+//         const response = await api.fetchPosts(category, page);
+//         const { posts,totalPage,postType } = response[0];
+//                 setBoardState({...BoardState, posts:posts,
+//                     currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
+//     };
+
+//     const fetchMypage= async() => {
+
+//         const response = await api.fetchMypage(category, page);
+//         const { posts,totalPage,postType } = response[0];
+
+//                 setBoardState({...BoardState, posts:posts,
+//                     check:Array(posts.length).fill(false),
+//                     currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
+//     };
+
+
+//     const categorySelect = (key) => {
+//         history.push(`/${PATH}?category=${key}&page=${BoardState.currentPage}`);
+//     }
+
+//     const pageSelect = page => {
+//         history.push(`/${PATH}?category=${BoardState.currentType}&page=${page}`);                                        
+//     };
     
 
+//     const checkBoxhandler = event => {
+//         const postNum = event.target.dataSet;
 
-//     return boardState;
+//         const initialState = BoardState.check.map((check, index) => (postNum === index ? !check : check));
+
+//         setBoardState({...BoardState, check:initialState });
+//     }
+
+//     const handleButtonClick = () => {
+//         console.log("버튼클릭",BoardState.check );
+//     };
+
+//     return { BoardState, categorySelect, pageSelect, handleButtonClick, checkBoxhandler };
+
+
 // };
 
+// export default useBoard;
