@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const temp = _ => {
     return boardData1;
 };
