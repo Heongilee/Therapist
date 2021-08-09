@@ -26,14 +26,14 @@ public class ReplyApiController {
     }
 
     // 답글 생성
-    @PostMapping("/replies")
-    ReplyDto create(@RequestBody JSONObject requestBody) {
-        return replyService.writeReply(requestBody);
+    @PostMapping("/replies/{postId}")
+    JSONObject create(@RequestBody JSONObject requestBody, @PathVariable Long postId) {
+        return replyService.writeReply(requestBody, postId);
     }
 
     // 답글 수정
     @PutMapping("replies/{replyId}")
-    ReplyDto modify(@RequestBody() ReplyDto modifiedReply,
+    JSONObject modify(@RequestBody() JSONObject modifiedReply,
                          @PathVariable Long replyId) {
         return replyService.modifyReply(modifiedReply, replyId);
     }
