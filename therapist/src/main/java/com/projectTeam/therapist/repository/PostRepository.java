@@ -2,10 +2,7 @@ package com.projectTeam.therapist.repository;
 
 import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
-<<<<<<< HEAD
 import com.projectTeam.therapist.model.ReplyDto;
-=======
->>>>>>> 85ee5513e (feature-apiMyPage :: 마이페이지에서 내가 쓴 게시글 조회 API + 내가 쓴 댓글 조회 API (#35))
 import com.projectTeam.therapist.model.UserDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
