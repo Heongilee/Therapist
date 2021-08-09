@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import './WriteButton.css';
 
 
-function WriteButton() {
+function WriteButton({}) {
 
     return (
         <div className="writeButton" >
