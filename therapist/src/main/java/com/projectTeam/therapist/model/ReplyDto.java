@@ -17,10 +17,12 @@ public class ReplyDto {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private UserDto userDto;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
+    @JsonIgnore
     private PostDto postDto;
 
     private String replyContent;
