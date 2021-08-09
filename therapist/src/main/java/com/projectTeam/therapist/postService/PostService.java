@@ -50,10 +50,6 @@ public class PostService {
             item.put("postContent", post.getPostContent());
 //            item.put("postComments", post.getPostComments());
             item.put("replyLength", post.getCountOfReplies());
-<<<<<<< HEAD
-=======
-
->>>>>>> 69b5e22248eee7660ee6a0ab41e07825d2904d78
             postsArray.add(item);
         }
         jsonObject.put("posts", postsArray);
