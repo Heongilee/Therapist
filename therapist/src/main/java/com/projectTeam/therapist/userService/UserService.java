@@ -44,7 +44,7 @@ public class UserService {
     private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
 
     public UserDto save(UserDto user) {
-        if (userRepository.countByUserName(user.getUserName()) >= 1L) {
+        if (userRepository.countByUserName(user.getUsername()) >= 1L) {
             return null;
         } else {
             // 비밀번호 암호화
@@ -164,7 +164,7 @@ public class UserService {
     }
 
     public UserDto modifyUserPassword(UserDto newUser) {
-        UserDto foundUser = userRepository.findByUserName(newUser.getUserName());
+        UserDto foundUser = userRepository.findByUserName(newUser.getUsername());
 
         if (foundUser == null) {
             // 기존에 없는 경우 새로 객체를 만들어서 저장하기.
@@ -193,7 +193,7 @@ public class UserService {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId", userDto.getUserId());
-        jsonObject.put("userName", userDto.getUserName());
+        jsonObject.put("userName", userDto.getUsername());
         jsonObject.put("userPassword", userDto.getUserPassword());
         jsonObject.put("userEnabled", userDto.getUserEnabled());
         jsonObject.put("roles", userDto.getRoles());
