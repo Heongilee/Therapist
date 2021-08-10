@@ -1,5 +1,7 @@
 package com.projectTeam.therapist.configuration;
 
+import com.projectTeam.therapist.userService.CustomUserDetailsService;
+import com.projectTeam.therapist.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,9 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
+
     @Autowired
     private DataSource dataSource; // 스프링 컨테이너에 의해 자동 주입되며 application.properties에 있는 객체들을 사용할 수 있도록 해주는 dataSource
 
@@ -34,16 +39,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();			                                                                                // 로그아웃 페이지에 대해서도 로그인을 하지 않아도 접근할 수 있도록 해놓는다.
     }
 
+    /* TODO : 왜 안돼...
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+    }
+     */
+
     // 인증처리를 해주는 메서드
     /* ///// 용어 정리 /////
      * Authentication(인증) : 로그인에 대한 처리를 하는 개념
      * Authorization(권한) : 로그인 한 이후에 권한에 대한 처리를 하는 개념 */
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.jdbcAuthentication()
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .jdbcAuthentication()
                 .dataSource(dataSource)
-                .passwordEncoder(passwordEncoder()) //아래 Bean객체로 지정되어 있는 PasswordEncoder 인스턴스를 호출하여 인증 처리시 알아서 암호화를 진행함.
                 .usersByUsernameQuery("select user_name, user_password, user_enabled "
                         + "from user_dto "
                         + "where user_name = ?")
