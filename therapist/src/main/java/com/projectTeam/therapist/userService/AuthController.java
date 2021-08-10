@@ -42,7 +42,7 @@ public class AuthController {
         UserDto kakaoUser = userService.findKakaoUser(userMap.get("username"));
 //        System.out.println("Encrypted Password = " + kakaoUser.getUserPassword());
         return userService.requestPostWithFormData("/account/login", new LinkedMultiValueMap<String, String>() {{
-            add("username", kakaoUser.getUserName());
+            add("username", kakaoUser.getUsername());
             add("password", userMap.get("password"));
         }});
     }
