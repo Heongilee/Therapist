@@ -1,10 +1,8 @@
 package com.projectTeam.therapist.postService;
 
-import com.projectTeam.therapist.model.CommentDto;
-import com.projectTeam.therapist.model.PostCommentDto;
-import com.projectTeam.therapist.model.PostDto;
-import com.projectTeam.therapist.model.UserDto;
+import com.projectTeam.therapist.model.*;
 import com.projectTeam.therapist.repository.*;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +18,10 @@ public class CommentService {
     private UserRepository userRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
+    @Autowired
+    private ReplyCommentRepository replyCommentRepository;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PostComment에 관한 비즈니스 로직
@@ -58,4 +60,41 @@ public class CommentService {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // ReplyComment에 관한 비즈니스 로직
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // create Reply Comment
+    // Called from CommentApiController (POST /api/replyComments )
+    public ReplyCommentDto newReplyComment(JSONObject params, String userName, Long replyId) {
+        String replyCommentContent = (params == null) ? "" : (String) params.get("replyCommentContent");
+        UserDto foundUserDto = userRepository.findByUserName(userName);
+        ReplyDto foundReplyDto = replyRepository.findById(replyId).orElse(null);
+
+        ReplyCommentDto newReplyComment = new ReplyCommentDto();
+        newReplyComment.setReplyCommentContent(replyCommentContent);
+        newReplyComment.setUserDto(foundUserDto);
+        newReplyComment.setReplyDto(foundReplyDto);
+
+        return replyCommentRepository.save(newReplyComment);
+    }
+
+    // read Reply Comment find by replyId
+    public JSONObject findReplyComments(Long replyId) {
+        ReplyDto replyDto = replyRepository.findById(replyId).orElse(null);
+        JSONObject jsonObject = new JSONObject();
+        JSONArray replyCommentArray = new JSONArray();
+        for (ReplyCommentDto replyComment : replyDto.getReplyComments()) {
+            JSONObject item = new JSONObject();
+            item.put("replyCommentId", replyComment.getReplyCommentId());
+            item.put("replyCommentContent", replyComment.getReplyCommentContent());
+            item.put("userId", replyComment.getUserDto().getUserId());
+            item.put("userName", replyComment.getUserDto().getUserName());
+            replyCommentArray.add(item);
+        }
+        jsonObject.put("replyComments", replyCommentArray);
+        return jsonObject;
+    }
+
+    // delete Reply Comment
+    public void deleteReplyComment(Long replyCommentId) {
+        replyCommentRepository.deleteById(replyCommentId);
+    }
+
 }

@@ -3,12 +3,8 @@ package com.projectTeam.therapist.userService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.projectTeam.therapist.TherapistApplication;
 import com.projectTeam.therapist.model.*;
-import com.projectTeam.therapist.repository.PostCommentRepository;
-import com.projectTeam.therapist.repository.PostRepository;
-import com.projectTeam.therapist.repository.ReplyRepository;
-import com.projectTeam.therapist.repository.UserRepository;
+import com.projectTeam.therapist.repository.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +28,8 @@ import java.util.UUID;
 public class UserService {
     @Autowired
     private PostCommentRepository postCommentRepository;
+    @Autowired
+    private ReplyCommentRepository replyCommentRepository;
     @Autowired
     private PostRepository postRepository;
     @Autowired
@@ -233,6 +231,7 @@ public class UserService {
             jsonObject.put("userReplies", userReplies);
         } else if (menuType.equals("myComments")) {
             // 내가 쓴 댓글
+            // TODO: postComments + replyCOmments
             Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
 
             jsonObject.put("totalAmount", postComments.getTotalElements());
