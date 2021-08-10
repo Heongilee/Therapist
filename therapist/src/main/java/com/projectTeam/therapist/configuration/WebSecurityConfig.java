@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
@@ -38,6 +39,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();			                                                                                // 로그아웃 페이지에 대해서도 로그인을 하지 않아도 접근할 수 있도록 해놓는다.
     }
 
+    /* TODO : 왜 안돼...
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+    }
+     */
+
     // 인증처리를 해주는 메서드
     /* ///// 용어 정리 /////
      * Authentication(인증) : 로그인에 대한 처리를 하는 개념
@@ -45,10 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-//                .userDetailsService(customUserDetailsService)     // TODO : 아 이거 왜 안될까... ㅠㅠ
                 .jdbcAuthentication()
                 .dataSource(dataSource)
-//                .passwordEncoder(passwordEncoder()); //아래 Bean객체로 지정되어 있는 PasswordEncoder 인스턴스를 호출하여 인증 처리시 알아서 암호화를 진행함.
                 .usersByUsernameQuery("select user_name, user_password, user_enabled "
                         + "from user_dto "
                         + "where user_name = ?")

@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -35,25 +36,28 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     /*
     DB에서 유저 정보를 직접 가져오는 작업을 하는 메서드
+    패스워드 부분 처리는 알아서 함.
+    해당 username을 가지는 사용자가 있는지 찾아서 리턴만 해준다.
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDto userDto = userRepository.findByUserName(username);
         if (userDto == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. : " + username);
         }
-        CustomUserDetails customUserDetails = new CustomUserDetails();
-        customUserDetails.setUsername(userDto.getUserName());
-        customUserDetails.setUserEnabled(userDto.getUserEnabled());
-        customUserDetails.setUserProfileImage(userDto.getUserProfileImage());
-        customUserDetails.setUserThumbnailImage(userDto.getUserThumbnailImage());
-        customUserDetails.setPassword(userDto.getUserPassword());
-        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
-        for (RoleDto role : userDto.getRoles()) {
-            auth.add(new SimpleGrantedAuthority(role.getRoleName()));
-        }
-        customUserDetails.setAuthorities(auth);
 
-        return customUserDetails;
+//        CustomUserDetails customUserDetails = new CustomUserDetails();
+//        customUserDetails.setUsername(userDto.getUserName());
+//        customUserDetails.setUserEnabled(userDto.getUserEnabled());
+//        customUserDetails.setUserProfileImage(userDto.getUserProfileImage());
+//        customUserDetails.setUserThumbnailImage(userDto.getUserThumbnailImage());
+//        customUserDetails.setPassword(userDto.getUserPassword());
+//        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+//        for (RoleDto role : userDto.getRoles()) {
+//            auth.add(new SimpleGrantedAuthority(role.getRoleName()));
+//        }
+//        customUserDetails.setAuthorities(auth);
+
+        return new CustomUserDetails(userDto); // 시큐리티 세션에 유저 정보가 저장된다.
     }
 }
