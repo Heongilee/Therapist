@@ -1,18 +1,14 @@
 package com.projectTeam.therapist.model;
 
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Data
-public class UserDto implements UserDetails {
+public class UserDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -37,10 +33,13 @@ public class UserDto implements UserDetails {
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostCommentDto> userPostComments = new ArrayList<>();
+<<<<<<< HEAD
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReplyDto> relies = new ArrayList<>();
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReplyCommentDto> userReplyComments = new ArrayList<>();
+=======
+>>>>>>> a007ff358 (feature-addThumbnailAvatar :: 로그인 유저 프로필, 썸네일 정보 가져오기 (3) - 왜 안될까...)
 }
