@@ -11,9 +11,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.nio.file.attribute.UserDefinedFileAttributeView;
-import java.util.List;
-
 @Service
 public class ReplyService {
     @Autowired
@@ -42,7 +39,7 @@ public class ReplyService {
         jsonObject.put("replyId", newReply.getReplyId());
         jsonObject.put("replyContent", newReply.getReplyContent());
         jsonObject.put("postId", newReply.getPostDto().getPostId());
-        jsonObject.put("userName", newReply.getUserDto().getUsername());
+        jsonObject.put("userName", newReply.getUserDto().getUserName());
         jsonObject.put("userId", newReply.getUserDto().getUserId());
 
         return jsonObject;
@@ -78,7 +75,7 @@ public class ReplyService {
                 jsonObject.put("replyId", replyDto.getReplyId());
                 jsonObject.put("replyContent", replyDto.getReplyContent());
                 jsonObject.put("postId", replyDto.getPostDto().getPostId());
-                jsonObject.put("userName", replyDto.getUserDto().getUsername());
+                jsonObject.put("userName", replyDto.getUserDto().getUserName());
                 jsonObject.put("userId", replyDto.getUserDto().getUserId());
                 return replyRepository.save(replyDto);
             });

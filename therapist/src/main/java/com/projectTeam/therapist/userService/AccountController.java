@@ -1,10 +1,7 @@
 package com.projectTeam.therapist.userService;
 
-import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
