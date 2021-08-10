@@ -27,7 +27,7 @@ import java.util.*;
 // @Service 어노테이션을 통해 비즈니스 로직을 작성할 수 있게 된다.
 // 또한, 이렇게 서비스 클래스로 따로 빼면 단위 테스트를 수행할때에도 용이하다.
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private PostCommentRepository postCommentRepository;
     @Autowired
@@ -46,7 +46,7 @@ public class UserService {
     private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
 
     public UserDto save(UserDto user) {
-        if (userRepository.countByUserName(user.getUsername()) >= 1L) {
+        if (userRepository.countByUserName(user.getUserName()) >= 1L) {
             return null;
         } else {
             // 비밀번호 암호화
@@ -165,7 +165,7 @@ public class UserService {
     }
 
     public UserDto modifyUserPassword(UserDto newUser) {
-        UserDto foundUser = userRepository.findByUserName(newUser.getUsername());
+        UserDto foundUser = userRepository.findByUserName(newUser.getUserName());
 
         if (foundUser == null) {
             // 기존에 없는 경우 새로 객체를 만들어서 저장하기.
@@ -193,7 +193,7 @@ public class UserService {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId", userDto.getUserId());
-        jsonObject.put("userName", userDto.getUsername());
+        jsonObject.put("userName", userDto.getUserName());
         jsonObject.put("userPassword", userDto.getUserPassword());
         jsonObject.put("userEnabled", userDto.getUserEnabled());
         jsonObject.put("roles", userDto.getRoles());
@@ -287,5 +287,17 @@ public class UserService {
         for (Long postId : posts.values()) {
             postRepository.deleteById(postId);
         }
+    }
+
+    /*
+    DB에서 유저 정보를 직접 가져오는 작업을 하는 메서드
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserDto userDto = userRepository.findByUserName(username);
+        if (userDto == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return userDto;
     }
 }
