@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,15 +22,12 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 // @Service 어노테이션을 통해 비즈니스 로직을 작성할 수 있게 된다.
 // 또한, 이렇게 서비스 클래스로 따로 빼면 단위 테스트를 수행할때에도 용이하다.
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     @Autowired
     private PostCommentRepository postCommentRepository;
     @Autowired
@@ -288,17 +287,5 @@ public class UserService implements UserDetailsService {
         for (Long postId : posts.values()) {
             postRepository.deleteById(postId);
         }
-    }
-
-    /*
-    DB에서 유저 정보를 직접 가져오는 작업을 하는 메서드
-     */
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto userDto = userRepository.findByUserName(username);
-        if (userDto == null) {
-            throw new UsernameNotFoundException(username);
-        }
-        return userDto;
     }
 }
