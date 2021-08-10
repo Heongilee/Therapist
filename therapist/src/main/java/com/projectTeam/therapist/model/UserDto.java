@@ -1,14 +1,18 @@
 package com.projectTeam.therapist.model;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Data
-public class UserDto {
+public class UserDto implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -33,4 +37,43 @@ public class UserDto {
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostCommentDto> userPostComments = new ArrayList<>();
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
+        for (RoleDto role : this.roles) {
+            auth.add(new SimpleGrantedAuthority(role.getRoleName()));
+        }
+        return auth;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.userPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.userEnabled;
+    }
 }
