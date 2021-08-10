@@ -7,6 +7,7 @@ import com.projectTeam.therapist.TherapistApplication;
 import com.projectTeam.therapist.model.*;
 import com.projectTeam.therapist.repository.PostCommentRepository;
 import com.projectTeam.therapist.repository.PostRepository;
+import com.projectTeam.therapist.repository.ReplyRepository;
 import com.projectTeam.therapist.repository.UserRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,6 +34,8 @@ public class UserService {
     private PostCommentRepository postCommentRepository;
     @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -215,8 +218,19 @@ public class UserService {
             jsonObject.put("userPosts", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
-//            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
+            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
 
+            jsonObject.put("totalAmount", replies.getTotalElements());
+            jsonObject.put("totalPages", replies.getTotalPages());
+            JSONArray userReplies = new JSONArray();
+            for (ReplyDto reply : replies.getContent()) {
+                JSONObject item = new JSONObject();
+                item.put("replyId", reply.getReplyId());
+                item.put("postTitle", reply.getPostDto().getPostTitle() + "에 대한 답글");
+                item.put("replyContent", reply.getReplyContent());
+                userReplies.add(item);
+            }
+            jsonObject.put("userReplies", userReplies);
         } else if (menuType.equals("myComments")) {
             // 내가 쓴 댓글
             Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
