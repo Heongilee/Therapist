@@ -3,11 +3,8 @@ package com.projectTeam.therapist.userService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.projectTeam.therapist.TherapistApplication;
 import com.projectTeam.therapist.model.*;
-import com.projectTeam.therapist.repository.PostCommentRepository;
-import com.projectTeam.therapist.repository.PostRepository;
-import com.projectTeam.therapist.repository.UserRepository;
+import com.projectTeam.therapist.repository.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,11 @@ public class UserService {
     @Autowired
     private PostCommentRepository postCommentRepository;
     @Autowired
+    private ReplyCommentRepository replyCommentRepository;
+    @Autowired
     private PostRepository postRepository;
+    @Autowired
+    private ReplyRepository replyRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -215,10 +216,22 @@ public class UserService {
             jsonObject.put("userPosts", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
-//            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
+            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
 
+            jsonObject.put("totalAmount", replies.getTotalElements());
+            jsonObject.put("totalPages", replies.getTotalPages());
+            JSONArray userReplies = new JSONArray();
+            for (ReplyDto reply : replies.getContent()) {
+                JSONObject item = new JSONObject();
+                item.put("replyId", reply.getReplyId());
+                item.put("postTitle", reply.getPostDto().getPostTitle() + "에 대한 답글");
+                item.put("replyContent", reply.getReplyContent());
+                userReplies.add(item);
+            }
+            jsonObject.put("userReplies", userReplies);
         } else if (menuType.equals("myComments")) {
             // 내가 쓴 댓글
+            // TODO: postComments + replyCOmments
             Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
 
             jsonObject.put("totalAmount", postComments.getTotalElements());

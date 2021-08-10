@@ -28,8 +28,8 @@ public class ReplyDto {
     private String replyContent;
     private int star;
 
-//    @OneToMany(mappedBy = "replyDto", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<ReplyCommentDto> replyComments = new ArrayList<>();
+    @OneToMany(mappedBy = "replyDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyCommentDto> replyComments = new ArrayList<>();
 
     @Column(updatable = false)
     private LocalDateTime postCreatedAt;
