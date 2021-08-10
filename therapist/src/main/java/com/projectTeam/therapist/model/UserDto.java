@@ -57,6 +57,14 @@ public class UserDto implements UserDetails {
         return this.userName;
     }
 
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
