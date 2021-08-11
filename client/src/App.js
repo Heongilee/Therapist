@@ -10,7 +10,7 @@ import TextPage from './pages/TextPage/TextPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
 import DeleteModal from './components/Modal/DeleteModal.js';
 
-
+//dddddddddddddddddddddddddddddddddddddddddddddddddd
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <Header/>
