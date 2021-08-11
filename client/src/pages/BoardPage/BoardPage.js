@@ -18,7 +18,6 @@ function BoardPage() {
 
     const { BoardState, categorySelect, pageSelect } = useBoard({ PATH });
 
-    console.log("BoardPage");
 
     return (
             <section className="boardPage">
