@@ -33,13 +33,11 @@ public class UserDto {
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostCommentDto> userPostComments = new ArrayList<>();
-<<<<<<< HEAD
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReplyDto> relies = new ArrayList<>();
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReplyCommentDto> userReplyComments = new ArrayList<>();
-=======
->>>>>>> a007ff358 (feature-addThumbnailAvatar :: 로그인 유저 프로필, 썸네일 정보 가져오기 (3) - 왜 안될까...)
+
 }

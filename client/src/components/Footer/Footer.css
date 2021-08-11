@@ -4,6 +4,7 @@
     flex-direction: column;
     height: 100%;
     margin-top: 20px;
+    font-size: 1rem;
 }   
   
 .footer {
@@ -49,3 +50,9 @@
     align-items: center ;
 }
 
+
+@media only screen and (max-width: 980px) {
+    .footer_section {
+        font-size: 0.8rem;
+    }
+}

@@ -2,16 +2,24 @@ import {
     BOARD_REQUEST, PAGE_REQUEST
 } from '../_actions/types';
 
-export default function boardReducer(state = {}, action) {
+
+export default function (state = {}, action) {
 
     switch(action.type) {
-        case BOARD_REQUEST:
-            return { ...state, posts: action.posts, totalPage: action.totalPage };
+
+        case BOARD_REQUEST:{
+
+            const { posts } = action.payload[0]; 
+            return { ...state, posts:posts };
+            }
+
+        case PAGE_REQUEST:{
+            const page = action.payload;
+            console.log("bsj", page)
+            return { ...state, currentPage:page};
+        }
         
-            case PAGE_REQUEST:
-            return { ...state, posts: action.posts,  totalPage:action.totalPage, currentPage:action.currentPage };
-        
-        default:
+            default:
             return state;
     };
 };
