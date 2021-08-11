@@ -1,58 +1,49 @@
 package com.projectTeam.therapist.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Data
 public class ReplyDto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyId;
-    private Long memberId;
-    private Long postId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private UserDto userDto;
+
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    @JsonIgnore
+    private PostDto postDto;
+
     private String replyContent;
     private int star;
 
-    public Long getReplyId() {
-        return replyId;
+    @OneToMany(mappedBy = "replyDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyCommentDto> replyComments = new ArrayList<>();
+
+    @Column(updatable = false)
+    private LocalDateTime postCreatedAt;
+    private LocalDateTime postUpdatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.postCreatedAt = now;
+        this.postUpdatedAt = now;
     }
 
-    public void setReplyId(Long replyId) {
-        this.replyId = replyId;
-    }
-
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
-
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
-    }
-
-    public String getReplyContent() {
-        return replyContent;
-    }
-
-    public void setReplyContent(String replyContent) {
-        this.replyContent = replyContent;
-    }
-
-    public int getStar() {
-        return star;
-    }
-
-    public void setStar(int star) {
-        this.star = star;
+    @PreUpdate
+    public void preUpdate() {
+        this.postUpdatedAt = LocalDateTime.now();
     }
 }
-

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import QuestionSection from './Sections/QuestionSection.js'
-import AnswerSection from './Sections/AnswerSection.js'
+import QuestionSection from './Sections/QuestionSection.js';
+import AnswerSection from './Sections/AnswerSection.js';
+import { withRouter } from "react-router-dom";
 import './TextPage.css';
 
 
@@ -92,4 +93,4 @@ const commentData = [
     }
 ];
 
-export default TextPage;
+export default withRouter(TextPage);

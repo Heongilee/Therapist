@@ -51,17 +51,3 @@ function AnswerSection({ answerData, commentData, replyOnClick, replyState }) {
 };
 
 export default AnswerSection;
-
-{/*   댓글 작성   */}
-// { replyState[index] === true ? [ 
-                            
-//     <div className="input_area" key={ data.id + data.id }>
-//         <TextField placeholder={ "댓글을 작성하세요" }></TextField>
-//     </div>,
-    
-//     <div className="input_area_button" key={ data.id + index }>
-//         <ModernButton ButtonName={ "댓글 작성" }></ModernButton>
-//     </div>,
-    
-//     <CommentField key={data.id} commentData={commentData}></CommentField>,
-//     <PaginationCmp key={index} />]: ''}

@@ -1,0 +1,52 @@
+
+
+.boardPage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.boardPage_area {
+    display: flex;
+    margin: 18px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+
+.sideBar_area {
+    width: 230px;
+}
+
+
+.posts_area {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.posts {
+    width: 100%;
+    height: 100%;
+    padding-right: 40px;
+}
+
+
+.posts_header {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 10px 0;
+}
+
+
+.category_name {
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 40px;
+}
+
+
