@@ -21,9 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomUserDetailsService customUserDetailsService;
 
     @Autowired
-    private CustomUserDetailsService customUserDetailsService;
-
-    @Autowired
     private DataSource dataSource; // 스프링 컨테이너에 의해 자동 주입되며 application.properties에 있는 객체들을 사용할 수 있도록 해주는 dataSource
 
     @Override
