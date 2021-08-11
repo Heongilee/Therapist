@@ -1,6 +1,5 @@
 package com.projectTeam.therapist.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,6 +15,8 @@ public class UserDto {
     private String userName;
     private String userPassword;
     private Boolean userEnabled;
+    private String userProfileImage = "https://via.placeholder.com/640";
+    private String userThumbnailImage = "https://via.placeholder.com/110";
 
     @ManyToMany
     @JoinTable(
@@ -32,4 +33,11 @@ public class UserDto {
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PostCommentDto> userPostComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyDto> relies = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReplyCommentDto> userReplyComments = new ArrayList<>();
+
 }

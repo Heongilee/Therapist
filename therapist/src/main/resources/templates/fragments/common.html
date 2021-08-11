@@ -70,8 +70,11 @@
                 <!-- 로그인 / 로그아웃 -->
                 <a class="btn btn-success" type="submit" th:href="@{/account/login}" sec:authorize="!isAuthenticated()">Login</a>
                 <form class="d-flex" sec:authorize="isAuthenticated()" th:action="@{logout}" method="POST">
+                    <img class="rounded-circle z-depth-2 me-2" alt="100x100" src="https://via.placeholder.com/110" data-holder-rendered="true" width="35px" height="35px">
                     <span class="text-white" sec:authentication="name">사용자</span>
+                    <!-- com.projectTeam.therapist.model.CustomUserDetails$$Lambda$1271/0x0000000840995c40@3a48b5f0 -->
                     <span class="text-white mx-2" sec:authentication="principal.authorities">권한</span>
+
                     <button class="btn btn-light" type="submit">LogOut</button>
                 </form> 
                 <!-- 검색창 부분 -->

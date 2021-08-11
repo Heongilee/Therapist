@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const JsDocPlugin = require('jsdoc-webpack-plugin');
 const port = process.env.PORT || 3000;
 
 module.exports = {
@@ -37,12 +38,19 @@ module.exports = {
       },
 
     plugins: [ 
-    new HtmlWebpackPlugin({ // 템플릿을 지정하거나 favicon을 설정할 수 있음
-      template: 'public/index.html', // public/index.html 를 템플릿으로 지정
+      new HtmlWebpackPlugin({ // 템플릿을 지정하거나 favicon을 설정할 수 있음
+        template: 'public/index.html', // public/index.html 를 템플릿으로 지정
+        }),
+        
+      new JsDocPlugin({
+          conf: 'jsdoc.conf.js',
+          cwd: '.',
+          preserveTmpFile: false,
       })
-    ],
+      ],
 
     devServer: {  // 개발서버
+        historyApiFallback: true,  // router 새로고침 404 해결
         host: 'localhost',
         port: port,
         open: true, // 서버가 실행될 때 브라우저를 자동으로 열어줄지 결정
