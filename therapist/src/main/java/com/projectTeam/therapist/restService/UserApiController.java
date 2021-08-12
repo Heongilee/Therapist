@@ -3,6 +3,8 @@ package com.projectTeam.therapist.restService;
 import com.projectTeam.therapist.model.UserDto;
 import com.projectTeam.therapist.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +24,13 @@ class UserApiController {
 
     // 마이페이지를 눌렀을때의 요청 API + 작성글 조회
     @GetMapping("/users/{userName}")
-    UserDto findUser(@PathVariable String userName) {
-        return userService.findUser(userName);
+    @PreAuthorize("hasAnyRole('USER')")     // authorize 적용, USER 롤을 가진 사용자만 접근 가능
+    public ResponseEntity<UserDto> findUser(@PathVariable String userName) {
+        return ResponseEntity.ok(userService.getMyUserWithRoles().get());
     }
+//    UserDto findUser(@PathVariable String userName) {
+//        return userService.findUser(userName);
+//    }
 
     @PostMapping("/users")
     UserDto newUser(@RequestBody UserDto userDto) {
