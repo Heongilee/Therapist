@@ -1,9 +1,14 @@
 import axios from 'axios';
+
 import { BOARD_REQUEST, PAGE_REQUEST } from './types';
 
 
-const temp = _ => {
-    return boardData1;
+const temp = (postType) => {
+    if (postType === 'category1'){
+        return boardData3;
+    } else {
+        return boardData4;
+    }
 };
 
 const temp2 = page => {

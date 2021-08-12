@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'antd';
 
-function ModernButton({ ButtonName, handleButtonClick=null, htmlType=null}) {
+function ModernButton({ ButtonName, handleButtonClick=null, htmlType=null, type=null }) {
     return (
-        <Button htmlType={htmlType} onClick={handleButtonClick}>{ButtonName} </Button>
+        <Button type={type} htmlType={htmlType} onClick={handleButtonClick}>{ButtonName} </Button>
     );
 };
 
