@@ -16,10 +16,19 @@ app.get("/*", (_, res) => {
     res.redirect("/")
 });
 
-const handleListen = () => console.log(`Listening on http://localhost:3000 || ws://localhost:3000`);
+const handleListen = () => console.log(`Listening on http://localhost:3000 || ws://localhost:3000 or wss://localhost:3000`);
 
 const server = http.createServer(app);                      // express app을 이용해서 http 서버를 만듦.
 const wss = new WebSocket.Server({ server });               // http server위에 webSocket서버를 만듦.
+
+// socket : 연결된 브라우저와의 연락(contact)라인, 연결된 어떤 다른 사람.
+// 여기 있는 socket이 front-end(src/public/js/app.js)와 실시간으로 소통할 수 있음.
+function handleConnection(socket) {
+    console.log(socket)
+}
+
+// wss의 on 메서드에서는 이벤트("connection")가 발생하기를 기다렸다가, 해당 메서드(handleConnection)를 수행함.
+wss.on("connection", handleConnection)
 
 server.listen(3000, handleListen);  // http server위에 WebSocket 서버를 띄우는 방식. (이렇게 해야 views static files, home, redirection을 지원받을 수 있기 때문.)
 // app.listen(3000);                // http 서버만 띄우는 방식.
