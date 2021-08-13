@@ -52,4 +52,10 @@ class UserApiController {
     void deleteMyPosts(@RequestBody Map<Long, Long> posts) {
         userService.deleteMyPosts(posts);
     }
+
+    // 마이페이지 체크 박스에 따른 게시글 / 댓글 삭제
+    @PostMapping("/users/mypage")
+    void deleteMyPosts(@RequestBody Map<Long, Long> posts) {
+        userService.deleteMyPosts(posts);
+    }
 }
