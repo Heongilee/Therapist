@@ -43,6 +43,10 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder; // /configuration/WebSecurityConfig에서 Bean객체로 등록함.
 
+    public UserService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     private final String clientId = "bee5cefdb5d9d94c0b32f71cf0de38e7";
     private final String clientSecret = "LcnyKGSgPVuOolspq5ococnDLfrlDqXM";
     private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
@@ -70,11 +74,10 @@ public class UserService {
         RoleDto role = RoleDto.builder()
                 .roleId(1L)
                 .build();
-        // 비밀번호 암호화
-        String encodedPassword = passwordEncoder.encode(userDto.getUserPassword());
+
         UserDto user = UserDto.builder()
                 .userName(userDto.getUserName())
-                .userPassword(encodedPassword)
+                .userPassword(passwordEncoder.encode(userDto.getUserPassword()))
                 .userEnabled(true)
                 .roles(Collections.singleton(role))
                 .build();

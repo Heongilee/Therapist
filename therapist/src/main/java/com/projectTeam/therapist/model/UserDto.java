@@ -47,7 +47,7 @@ public class UserDto {
     private List<PostCommentDto> userPostComments;
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ReplyDto> relies;
+    private List<ReplyDto> replies;
 
     @OneToMany(mappedBy = "userDto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReplyCommentDto> userReplyComments;
