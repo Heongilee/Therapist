@@ -3,7 +3,7 @@ import { Rate } from 'antd';
 
 function StarButton() {
 
-    const desc = ['쓰레기', '나쁨', '보통', '좋음', '신'];
+    const desc = ['쓰레기', '벌레', '짐승', '사람', '신'];
     const [value, stateValue] = useState('')
 
 

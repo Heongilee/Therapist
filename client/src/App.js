@@ -6,7 +6,7 @@ import Footer from './components/Footer/Footer.js';
 import MainPage from './pages/MainPage/MainPage.js';
 import BoardPage from './pages/BoardPage/BoardPage.js';
 import WritePage from './pages/WritePage/WritePage.js';
-import TextPage from './pages/TextPage/TextPage.js';
+import PostPage from './pages/PostPage/PostPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
 import DeleteModal from './components/Modal/DeleteModal.js';
 
@@ -18,9 +18,9 @@ const App = () => (
         <Switch>
             <Route exact path="/" component={ MainPage } />
             <Route exact path="/board" component={ BoardPage } />
-            <Route exact path="/posts" component={ TextPage } />
             <Route exact path="/write" component={ WritePage } />
             <Route exact path="/mypage" component={ MyPage } />
+            <Route exact path="/posts" component={ PostPage } />
         </Switch>
         <Footer/>
     </Suspense>
