@@ -4,16 +4,22 @@ import StarButton from '../../../components/StarButton/StarButton.js';
 import MessageIcon from '../../../components/MessageIcon/MessageIcon.js';
 import CommentField from '../../../components/CommentField/CommentField.js';
 import PaginationCmp from '../../../components/Pagination/PaginationCmp.js';
-import ReplyField from '../../../components/ReplyField/ReplyField.js';
-import './css/AnswerSection.css';
+import CommentForm from '../../../components/CommentForm/CommentForm.js';
+import usePostData from '../../../hook/usePostData.js';
+import useComment from '../../../hook/useComment.js';
 
+import './AnswerSection.css';
 
-function AnswerSection({ answerData, commentData, replyOnClick, replyState }) {
+const PATH = 'ANSWER';
+const API_ENDPOINT = 'replyComments';
 
+function AnswerSection() {
+
+    const postData = usePostData({ PATH });
+    const { commentData, CommentState, MessageIconOnClick, commentRegister  } = useComment( { postData });
     
+    const answerList = postData && postData.map( (data, index) => {
 
-    const answerList = answerData.map( (data, index) => {
-        
         return  <div className="answer_area" key={index}>
                     <ul className="answer_list">
                         <li className="answer">
@@ -21,11 +27,11 @@ function AnswerSection({ answerData, commentData, replyOnClick, replyState }) {
                                 <AvatarField userid={data.id} grade={data.grade}></AvatarField>
                             </div>
                             <div className="answer_content">
-                                <p> { data.content }</p>
+                                <p> { data.replyContent }</p>
                             </div>
                             <div className="answer_footer">
                                 <StarButton></StarButton>
-                                <div onClick={() => replyOnClick(index)}>
+                                <div onClick={() => MessageIconOnClick(API_ENDPOINT, index)}>
                                     <MessageIcon></MessageIcon>
                                 </div>
                             </div>
@@ -34,8 +40,9 @@ function AnswerSection({ answerData, commentData, replyOnClick, replyState }) {
 
                         {/*   댓글 작성   */}
 
-                        { replyState[index] === true ? [ 
-                            <ReplyField key={ data.id + index }></ReplyField>,
+                        {CommentState &&
+                         CommentState[index] === true ? [ 
+                            <CommentForm key={ data.id + index } onFinish={commentRegister}></CommentForm>,
                             <CommentField key={ data.id } commentData={ commentData }></CommentField>,
                             <PaginationCmp key={ index } />]: ''}
                     
@@ -51,3 +58,4 @@ function AnswerSection({ answerData, commentData, replyOnClick, replyState }) {
 };
 
 export default AnswerSection;
+

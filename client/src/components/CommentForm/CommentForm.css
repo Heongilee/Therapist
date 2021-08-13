@@ -4,7 +4,7 @@
     margin-bottom: 24px;
 }
 
-.reply_area > div > textarea.ant-input{
+.reply_area > textarea.ant-input{
     height: 100px;
 }
 
@@ -14,10 +14,13 @@
     justify-content: flex-end;
 }
 
+.ant-row {
+    margin-bottom: 0;
+}
 
 .reply_button .ant-btn {
     border-radius: 4px;
+    margin-bottom: 1rem;
     background-color: #e9e7e7;
-    margin-top: 24px;
 }
 
