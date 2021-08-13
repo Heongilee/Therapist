@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/common :: head('게시판')">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>게시판</title>
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/navbar-top-fixed.css}" href="../static/css/navbar-top-fixed.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" th:replace="fragments/common :: menu('post')">
+    </nav>
+
+    <main class="container">
+        <div class="bg-light p-5 rounded">
+            <h1>게시판</h1>
+        </div>
+        <form action="#" th:action="@{/post/form}" th:object="${post}" method="post">
+            <input type="hidden" th:field="*{postId}"> <!-- 특정 게시글 조회 시 파라미터로 넘기기 위한 필드 -->
+            <div class="mb-3">
+                <label for="title" class="form-label">제목</label>
+                <input type="text" class="form-control" id="title"
+                    th:classappend="${#fields.hasErrors('postTitle')} ? 'is-invalid'" placeholder="e.g.) 제목은 2 ~ 30자 사이"
+                    th:field="*{postTitle}">
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('postTitle')}"
+                    th:errors="*{postTitle}">
+                    제목은 2 ~ 30자 까지
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">내용</label>
+                <textarea class="form-control" th:classappend="${#fields.hasErrors('postContent')} ? 'is-invalid'" id="content" rows="3" th:field="*{postContent}"></textarea>
+                <div class="invalid-feedback" th:if="${#fields.hasErrors('postContent')}"
+                    th:errors="*{postContent}">
+                    제목은 2 ~ 30자 까지
+                </div>
+            </div>
+            <div class="text-end">
+                <a type="button" class="btn btn-secondary" th:href="@{/post/list}">취소</a>
+                <button type="submit" class="btn btn-primary">확인</button>
+            </div>
+        </form>
+    </main>
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

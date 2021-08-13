@@ -1,0 +1,11 @@
+
+.sideBar {
+    height: 100%;
+    border-right: 1px solid #e9e7e7;
+    
+}
+
+.ant-menu-vertical {
+    border-right: none;
+    border-top-left-radius: 8px;
+}
