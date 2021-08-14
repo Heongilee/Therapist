@@ -19,6 +19,10 @@ public class UserDto {
     private String userName;
     private String userPassword;
     private Boolean userEnabled;
+    @Builder.Default
+    private String userGrade = "SILVER";
+    @Builder.Default
+    private int userStars = 0;
 
 //  @Builder 필드를 특정값으로 지정해놓고 @Builder 가 새로운 객체 생성시 값을 오버라이딩해버리면 미리 초기화해놓은 값과 충돌이 날 수 있다는 경고를 날린다
 //  컴파일이 안되거나 빌더클래스를 안 만들어주는 것도 아니지만 찜짐하니 이를 해결하기 위한 두 가지 옵션
