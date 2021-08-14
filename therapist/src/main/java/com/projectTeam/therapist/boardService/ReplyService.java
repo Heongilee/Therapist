@@ -45,7 +45,6 @@ public class ReplyService {
         return jsonObject;
     }
 
-
     public JSONObject findReplies(Long postId) {
         PostDto post = postRepository.getById(postId);
 
@@ -59,6 +58,7 @@ public class ReplyService {
             item.put("star", reply.getStar());
             item.put("postId", reply.getPostDto().getPostId());
             item.put("userId", reply.getUserDto().getUserId());
+            item.put("replyStar", reply.getStar());
             replyArray.add(item);
         }
         jsonObject.put("replies", replyArray);
@@ -88,4 +88,28 @@ public class ReplyService {
         replyRepository.deleteById(replyId);
     }
 
+    // make grade with star point
+    // TODO : (Note) uses unchecked or unsafe operations.
+    public void makeGrade(Long replyId, String userName, int starPoint) {
+        UserDto user = userRepository.findByUserName(userName);
+        int star = user.getUserStars();
+        String grade = user.getUserGrade();
+        if (star < 50) {
+            grade = "BRONZE";
+        } else if (star >= 50 && star < 100) {
+            grade = "SILVER";
+        } else {
+            grade = "GOLD";
+        }
+        userRepository.findByUserName(userName)
+                .setUserGrade(grade);
+        userRepository.findByUserName(userName)
+                .setUserStars(star+starPoint);
+
+        replyRepository.findById(replyId)
+                .map(replyDto -> {
+                    replyDto.setStar(starPoint);
+                    return replyRepository.save(replyDto);
+                });
+    }
 }
