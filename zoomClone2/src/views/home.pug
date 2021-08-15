@@ -7,14 +7,18 @@ html(lang="en")
         title Document
         link(rel="stylesheet", href="https://unpkg.com/mvp.css")
     body 
-        header 
+        header
             h1 Zoom clone
         main 
-            form#nick
-                input(type="text", placeholder="choose a nickname", required)
-                button Save
-            ul
-            form#message
-                input(type="text", placeholder="write a msg", required)
-                button Send
+            div#welcome
+                form
+                    input(placeholder="room name", required, type="text")
+                    button Enter Room
+            div#room
+                h3 
+                ul 
+                form
+                    input(placeholder="message", required, type="text")
+                    button Send
+        script(src="/socket.io/socket.io.js") 
         script(src="/public/js/app.js") 
