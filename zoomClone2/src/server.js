@@ -21,36 +21,14 @@ const handleListen = () => console.log(`Listening on http://localhost:3000 || ws
 const server = http.createServer(app);
 const io = SocketIO(server);
 
-io.on("connection", socket => {
-    console.log(socket);
+io.on("connection", (socket) => {
+    // 클라이언트측으로 부터 받은 이벤트.
+    socket.on("enter_room", (roomName, callback) => {
+        console.log(roomName);
+        setTimeout(() => {
+            callback("hello from the backend"); // caller(클라이언트)가 가지고 있는 callback(backendDone)함수를 실행하는 역할을 함. (백엔드에서 실행하는게 아님에 주의)
+        }, 1000);
+    });
 });
-
-/* <<<<<<<<<<<<<<<<< WebSocket
-const wss = new WebSocket.Server({ server });
-const sockets = [];
-wss.on("connection", (socket) => {
-    sockets.push(socket);
-    socket["nickname"] = "Anonymous";
-    console.log("브라우저와 연결되었습니다. ✅");
-    socket.on("close", () => {
-        console.log("브라우저와 연결이 끊겼습니다. ❌")
-    });
-    socket.on("message", (msg) => {
-        const message = JSON.parse(msg.toString('utf8'));
-
-        switch(message.type) {
-            case "new_message": // '새 메시지'라면
-                sockets.forEach((aSocket) => 
-                    aSocket.send(`${socket.nickname}: ${message.payload}`)
-                ); 
-                break;
-            case "nickname":    // '닉네임'이라면
-                socket["nickname"] = message.payload;
-                break;
-
-        }
-    });
-})
- */
 
 server.listen(3000, handleListen);
