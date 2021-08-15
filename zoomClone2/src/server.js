@@ -1,3 +1,4 @@
+// https://socket.io/docs/v4/server-api/ (SocketIO serverAPI)
 import http from "http";
 import SocketIO from "socket.io";
 import express from "express";
@@ -22,12 +23,24 @@ const server = http.createServer(app);
 const io = SocketIO(server);
 
 io.on("connection", (socket) => {
+    socket.onAny((event) => {
+        console.log(`Socket Event : ${event}`);
+    });
+
     // 클라이언트측으로 부터 받은 이벤트.
-    socket.on("enter_room", (roomName, callback) => {
-        console.log(roomName);
-        setTimeout(() => {
-            callback("hello from the backend"); // caller(클라이언트)가 가지고 있는 callback(backendDone)함수를 실행하는 역할을 함. (백엔드에서 실행하는게 아님에 주의)
-        }, 1000);
+    socket.on("enter_room", (roomName, showRoom) => {
+        /*
+        console.log(socket.id);                 // socket이 가지고 있는 방 그룹의 아이디(id)를 보여줌.
+        console.log(socket.rooms);              // 현재 있는 방의 집합(Set)을 보여줌.
+
+        socket.join(["room 237", "room 238"]);  // 한번에 여러방에 입장 가능함.
+
+        socket.leave("room 237");               // 방 나가기
+        */
+       socket.join(roomName);
+       showRoom();
+       
+       socket.to(roomName).emit("welcome"); //roomName 방에 참가한 모든 사람들에게 "welcome_message"를 발생시킨것.
     });
 });
 
