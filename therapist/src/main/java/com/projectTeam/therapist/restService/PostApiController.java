@@ -3,6 +3,7 @@ package com.projectTeam.therapist.restService;
 import com.projectTeam.therapist.model.PostCategory;
 import com.projectTeam.therapist.model.PostDto;
 import com.projectTeam.therapist.postService.PostService;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,7 @@ class PostApiController {
     // 메인 페이지 관련 API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/main/posts")
-    List<PostDto> requestTopSix() {
+    JSONArray requestTopSix() {
         return postService.requestTopSix();
     }
 
@@ -50,7 +51,7 @@ class PostApiController {
 
     }
 
-    @DeleteMapping("/posts/{id}")
+    @DeleteMapping("/posts/{postId}")
     void deletePost(@PathVariable Long postId) {
         postService.deleteById(postId);
     }
