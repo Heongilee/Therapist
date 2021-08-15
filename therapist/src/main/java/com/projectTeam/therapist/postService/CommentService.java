@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,5 +96,11 @@ public class CommentService {
     // delete Reply Comment
     public void deleteReplyComment(Long replyCommentId) {
         replyCommentRepository.deleteById(replyCommentId);
+    }
+
+    public List<PostCommentDto> findAllPostCommentsByPostId(Long postId) {
+        PostDto postDto = postRepository.findById(postId).orElse(null);
+
+        return (postDto != null) ? postDto.getPostComments() : new ArrayList<PostCommentDto>();
     }
 }
