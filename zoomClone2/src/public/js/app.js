@@ -3,8 +3,9 @@ const socket = io();
 const welcome = document.getElementById("welcome");
 const room = document.getElementById("room");
 room.hidden = true;
-const room_form = room.querySelector("form");
-const welcome_form = welcome.querySelector("form");
+const nameForm = room.querySelector("#name");
+const msgForm = room.querySelector("#msg");
+const welcomeForm = welcome.querySelector("form");
 
 // 현재 클라이언트가 접속한 방의 이름
 let roomName;
@@ -23,25 +24,32 @@ function showRoom() {
     const h3 = room.querySelector("h3");
     h3.innerText = `Room ${roomName}`;
     
-    room_form.addEventListener("submit", handleMessageSubmit);
-}
-
-function handleMessageSubmit(event) {
-    event.preventDefault();
-    const input = room_form.querySelector("input");
-    const value = input.value;
-    socket.emit("new_message", input.value, roomName, () => {
-        addMessage(`You: ${value}`);
+    // 메시지 전송하는 이벤트 리스너
+    msgForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const input = room.querySelector("#msg input");
+        const value = input.value;
+        socket.emit("new_message", input.value, roomName, () => {
+            addMessage(`You: ${value}`);
+        });
+        input.value="";
     });
-    input.value="";
+    // 닉네임 할당하는 이벤트 리스너
+    nameForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const input = room.querySelector("#name input");
+        socket.emit("nickname", input.value);
+        input.value="";
+    });
 }
+// ! 외부 함수 depricated.
+// function handleNicknameSubmit(event) { ... }
+// function handleMessageSubmit(event) { ... }
 
-
-welcome_form.addEventListener("submit", handleWelcomeSubmit);
-function handleWelcomeSubmit(event) {
+// 환영 메시지에 대한 이벤트 리스너
+welcomeForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    const input = welcome_form.querySelector("input");
-
+    const input = welcomeForm.querySelector("input");
     // 서버측에 메시지를 보낸다. (emit)
     // arg1 : 'room'이라는 이벤트 (이 이벤트는 내가 정하는 무엇이든지 가능. 단, 주고받을땐 확실히!)
     // arg2 : WebSocket에서 String으로 보내는것과 달리 JSONObject를 보낼 수 있다.
@@ -49,15 +57,17 @@ function handleWelcomeSubmit(event) {
     socket.emit("enter_room", input.value, showRoom);
     roomName = input.value;
     input.value="";
-}
 
+});
+// ! 외부 함수 depricated.
+// function handleWelcomeSubmit(event) {}
 
-socket.on("welcome", () => {
-    addMessage("someone joined 🙋🏻‍♂️!");
+socket.on("welcome", (nickname) => {
+    addMessage(`${nickname} arrived 🙋🏻‍♂️!`);
 });
 
-socket.on("bye", () => {
-    addMessage("someone left 😭!");
+socket.on("bye", (nickname) => {
+    addMessage(`${nickname} left 😭!`);
 });
 
 socket.on("new_message", addMessage);
