@@ -104,7 +104,22 @@ public class PostService {
         postRepository.deleteById(postId);
     }
 
-    public List<PostDto> requestTopSix() {
-        return postRepository.findTop6ByOrderByPostCreatedAtDesc();
+    public JSONArray requestTopSix() {
+        List<PostDto> posts = postRepository.findTop6ByOrderByPostCreatedAtDesc();
+
+        JSONArray jsonArray = new JSONArray();
+        for (PostDto post : posts) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("postId", post.getPostId());
+            jsonObject.put("postType", String.valueOf(post.getPostType()));
+            jsonObject.put("postTitle", post.getPostTitle());
+            jsonObject.put("postContent", post.getPostContent());
+            jsonObject.put("postCreatedAt", post.getPostCreatedAt());
+            jsonObject.put("postUpdatedAt", post.getPostUpdatedAt());
+            jsonObject.put("countOfReplies", post.getCountOfReplies());
+
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
     }
 }
