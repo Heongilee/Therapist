@@ -62,11 +62,15 @@ welcomeForm.addEventListener("submit", (event) => {
 // ! 외부 함수 depricated.
 // function handleWelcomeSubmit(event) {}
 
-socket.on("welcome", (nickname) => {
+socket.on("welcome", (nickname, newCount) => {
+    const h3 = room.querySelector("h3");
+    h3.innerText = `Room ${roomName} (${newCount})`;
     addMessage(`${nickname} arrived 🙋🏻‍♂️!`);
 });
 
-socket.on("bye", (nickname) => {
+socket.on("bye", (nickname, newCount) => {
+    const h3 = room.querySelector("h3");
+    h3.innerText = `Room ${roomName} (${newCount})`;
     addMessage(`${nickname} left 😭!`);
 });
 
