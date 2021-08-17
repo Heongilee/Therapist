@@ -72,3 +72,14 @@ socket.on("bye", (nickname) => {
 
 socket.on("new_message", addMessage);
 // socket.on("new_message", (msg) => {addMessage(msg)}); // 이것과 같음.
+
+socket.on("room_change", (rooms) => {
+    // 현재 서버에 있는 방 목록들을 Refresh하여 Repaint해준다.
+    const roomList = welcome.querySelector("ul");
+    roomList.innerHTML = "";
+    rooms.forEach((room) => {
+        const li = document.createElement("li");
+        li.innerText = room;
+        roomList.append(li);
+    });
+});
