@@ -98,9 +98,18 @@ public class CommentService {
         replyCommentRepository.deleteById(replyCommentId);
     }
 
-    public List<PostCommentDto> findAllPostCommentsByPostId(Long postId) {
+    public JSONArray findAllPostCommentsByPostId(Long postId) {
         PostDto postDto = postRepository.findById(postId).orElse(null);
 
-        return (postDto != null) ? postDto.getPostComments() : new ArrayList<PostCommentDto>();
+        JSONArray jsonArray = new JSONArray();
+        for (PostCommentDto postComment : postDto.getPostComments()) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("userId", postComment.getUserDto().getUserId());
+            jsonObject.put("userName", postComment.getUserDto().getUserName());
+            jsonObject.put("postCommentId", postComment.getPostCommentId());
+            jsonObject.put("postCommentContent", postComment.getPostCommentContent());
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
     }
 }

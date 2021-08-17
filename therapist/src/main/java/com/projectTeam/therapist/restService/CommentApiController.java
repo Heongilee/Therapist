@@ -6,6 +6,7 @@ import com.projectTeam.therapist.model.PostCommentDto;
 import com.projectTeam.therapist.model.ReplyCommentDto;
 import com.projectTeam.therapist.postService.CommentService;
 import com.projectTeam.therapist.repository.CommentRepository;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
@@ -36,7 +37,7 @@ class CommentApiController {
 //    }
     // postId에 대한 모든 게시글 댓글을 조회한다.
     @GetMapping("/postComments/{postId}")
-    List<PostCommentDto> findAllPostCommentsByPostId(@PathVariable Long postId) {
+    JSONArray findAllPostCommentsByPostId(@PathVariable Long postId) {
         return commentService.findAllPostCommentsByPostId(postId);
     }
 
