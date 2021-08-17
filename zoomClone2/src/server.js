@@ -1,6 +1,7 @@
 // https://socket.io/docs/v4/server-api/ (SocketIO serverAPI)
 import http from "http";
-import SocketIO from "socket.io";
+import { Server } from "socket.io";
+import { instrument } from "@socket.io/admin-ui";
 import express from "express";
 
 const app = express();
@@ -23,7 +24,16 @@ const handleListen = () =>
   );
 
 const server = http.createServer(app);
-const io = SocketIO(server);
+const io = new Server(server, {
+  cors: {
+    origin: ["https://admin.socket.io"],
+    credentials: true
+  }
+});
+instrument(io, {
+  auth: false
+});
+
 
 function publicRooms() {
   /*
@@ -47,6 +57,10 @@ function publicRooms() {
   return publicRooms;
 }
 
+function countRoom(roomName) {
+  return io.sockets.adapter.rooms.get(roomName)?.size;
+}
+
 io.on("connection", (socket) => {
   socket["nickname"] = "Anonymous";
   socket.onAny((event) => {
@@ -58,7 +72,7 @@ io.on("connection", (socket) => {
     socket.join(roomName);
     showRoom();
 
-    socket.to(roomName).emit("welcome", socket.nickname); //roomName 방에 참가한 모든 사람들에게 "welcome_message"를 발생시킨것.
+    socket.to(roomName).emit("welcome", socket.nickname, countRoom(roomName)); //roomName 방에 참가한 모든 사람들에게 "welcome_message"를 발생시킨것.
     io.sockets.emit("room_change", publicRooms());
   });
   // 클라이언트측으로 부터 받은 `new_message`이벤트.
@@ -73,7 +87,7 @@ io.on("connection", (socket) => {
   // 클라이언트가 접속을 끊으려고하기 직전에 발생하는 메시지 (`disconnecting` ; SocketIO에서 제공하는 특별한 기능.)
   socket.on("disconnecting", () => {
     socket.rooms.forEach((room) => {
-      socket.to(room).emit("bye", socket.nickname);
+      socket.to(room).emit("bye", socket.nickname, countRoom(room) - 1); // -1을 하는 이유: 아직 방을 떠나지 않았기 때문에 이것을 고려한 설계임.
     });
   });
   // 클라이언트가 접속을 종료하고나서 발생하는 메시지 (`disconnecting`과 차이가 있음에 주의!)
