@@ -94,19 +94,6 @@ public class CommentService {
         }
         jsonObject.put("replyComments", jsonArray);
         return jsonObject;
-//        ReplyDto replyDto = replyRepository.findById(replyId).orElse(null);
-//        JSONObject jsonObject = new JSONObject();
-//        JSONArray replyCommentArray = new JSONArray();
-//        for (ReplyCommentDto replyComment : replyDto.getReplyComments()) {
-//            JSONObject item = new JSONObject();
-//            item.put("replyCommentId", replyComment.getReplyCommentId());
-//            item.put("replyCommentContent", replyComment.getReplyCommentContent());
-//            item.put("userId", replyComment.getUserDto().getUserId());
-//            item.put("userName", replyComment.getUserDto().getUserName());
-//            replyCommentArray.add(item);
-//        }
-//        jsonObject.put("replyComments", replyCommentArray);
-//        return jsonObject;
     }
 
     // delete Reply Comment
@@ -114,18 +101,20 @@ public class CommentService {
         replyCommentRepository.deleteById(replyCommentId);
     }
 
-    public JSONArray findAllPostCommentsByPostId(Long postId) {
+    public JSONObject findAllPostCommentsByPostId(Long postId, Pageable pageable) {
         PostDto postDto = postRepository.findById(postId).orElse(null);
-
+        Page<PostCommentDto> postComments = postCommentRepository.findByPostDto(postDto, pageable);
+        JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
-        for (PostCommentDto postComment : postDto.getPostComments()) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("userId", postComment.getUserDto().getUserId());
-            jsonObject.put("userName", postComment.getUserDto().getUserName());
-            jsonObject.put("postCommentId", postComment.getPostCommentId());
-            jsonObject.put("postCommentContent", postComment.getPostCommentContent());
-            jsonArray.add(jsonObject);
+        for (PostCommentDto postComment : postComments) {
+            JSONObject item = new JSONObject();
+            item.put("postCommentId", postComment.getPostCommentId());
+            item.put("postCommentContent", postComment.getPostCommentContent());
+            item.put("userId", postComment.getUserDto().getUserId());
+            item.put("userName", postComment.getUserDto().getUserName());
+            jsonArray.add(item);
         }
-        return jsonArray;
+        jsonObject.put("postComments", jsonArray);
+        return jsonObject;
     }
 }
