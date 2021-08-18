@@ -32,15 +32,10 @@ class CommentApiController {
         return commentService.findAllPostComments();
     }
 
-//    // 게시글 댓글(PostComment)의 아이디에 해당하는 게시글 댓글 조회
-//    @GetMapping("/postComments/{postCommentId}")
-//    PostCommentDto findSinglePostComment(@PathVariable Long postCommentId) {
-//        return commentService.findSinglePostComment(postCommentId);
-//    }
     // postId에 대한 모든 게시글 댓글을 조회한다.
     @GetMapping("/postComments/{postId}")
-    JSONArray findAllPostCommentsByPostId(@PathVariable Long postId) {
-        return commentService.findAllPostCommentsByPostId(postId);
+    JSONObject findAllPostCommentsByPostId(@PathVariable Long postId, @PageableDefault(size = 6) final Pageable pageable) {
+        return commentService.findAllPostCommentsByPostId(postId, pageable);
     }
 
     // 게시글 댓글(PostComment) 생성
