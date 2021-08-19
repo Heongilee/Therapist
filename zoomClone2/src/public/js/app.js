@@ -13,6 +13,7 @@ let muted = false;
 let cameraOff = false;
 let roomName;
 let myPeerConnection;
+let myDataChannel;
  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*
 // Phone call
@@ -120,8 +121,14 @@ welcomeForm.addEventListener("submit", handleWelcomeSubmit);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*
 // Socket code
 
-// Peer A에서 실행
+// Peer A에서 실행 (Data channel을 만드는 주체)
 socket.on("welcome", async () => {
+  myDataChannel = myPeerConnection.createDataChannel("chat");
+  myDataChannel.addEventListener("message", (event) => {
+    console.log(event.data);
+  });
+  console.log("made data channel 📡");
+  
   console.log("somenone joined! 🙋🏻‍♂️");
   // 다른 브라우저가 참가할 수 있도록 초대장을 만듦. (이 코드는 오직 Peer A한테만 실행된다는점에 유의하자!)
   const offer = await myPeerConnection.createOffer();
@@ -133,6 +140,12 @@ socket.on("welcome", async () => {
 
 // Peer B에서 실행
 socket.on("offer", async (offer) => {
+  myPeerConnection.addEventListener("datachannel", (event) => {
+    myDataChannel = event.channel;
+    myDataChannel.addEventListener("message", (event) => {
+      console.log(event.data);
+    });
+  });
   console.log("received the offer 📨");
   myPeerConnection.setRemoteDescription(offer);
   const answer = await myPeerConnection.createAnswer();
