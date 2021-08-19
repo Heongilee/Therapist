@@ -8,6 +8,7 @@ import { applyMiddleware, createStore } from 'redux';
 import promisMiddleware from 'redux-promise';
 import Reducer from './_reducers/index.js';
 import ReduxThunk from 'redux-thunk';
+import { ModalProvider } from './context/modalContext';
 
 const createStoreWithMiddleware = applyMiddleware(promisMiddleware, ReduxThunk)(createStore);
 
@@ -20,18 +21,11 @@ ReactDOM.render(
         )}
     >
       <BrowserRouter>
-        <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
       </BrowserRouter>
         
     </Provider>
     , document.getElementById('root')
 );
-
-// ReactDOM.render(
-
-// <BrowserRouter>
-//     <App />
-// </BrowserRouter>,
-
-
-// document.getElementById('root'));
