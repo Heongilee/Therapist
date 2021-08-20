@@ -7,10 +7,6 @@ function StarButton({ REPLY_ENDPOINT, id }) {
     const { DESC, StarValue, StarState, handleChange } = useStar({REPLY_ENDPOINT, id});
 
 
-    const handleChange = value => {
-        stateValue(value);
-    };
-
     return (
             <>
                 <Rate tooltips={ DESC } onChange={ handleChange }  
