@@ -2,7 +2,7 @@ import { Pagination } from 'antd';
 import React from 'react';
 import './PaginationCmp.css';
 
-function PaginationCmp({ totalPage=0, pageSelect, currentPage }) {
+function PaginationCmp({ totalPage=0, pageSelect, currentPage=1 }) {
 
 
     return (
@@ -15,4 +15,4 @@ function PaginationCmp({ totalPage=0, pageSelect, currentPage }) {
 
 };
 
-export default PaginationCmp;
+export default React.memo(PaginationCmp);

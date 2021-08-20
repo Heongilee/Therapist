@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 0.9rem;
 }
 
 .avater_content {
@@ -10,6 +11,5 @@
 }
 
 .avater_content > div:first-child {
-    font-size: 15px;
     font-weight: bold;
 }

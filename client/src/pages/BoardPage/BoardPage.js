@@ -10,7 +10,7 @@ import { withRouter } from "react-router-dom";
 
 import './BoardPage.css';
 
-const PATH = "board"
+const PATH = "board";
 const CATEGORY_LIST = ["category1","category2","category3","category4"];
 const CATEGORY_DIC = {"category1":["postTitle","postContent"],'category2':["postTitle","postContent"]};
 
@@ -33,7 +33,9 @@ function BoardPage() {
                         {BoardState.posts && <BoardForm path={PATH} postData={BoardState.posts}
                                                                     cateGory={CATEGORY_DIC[BoardState.currentType]}></BoardForm>}
                         <WriteButton></WriteButton>
-                        {BoardState.totalPage && <PaginationCmp currentPage={BoardState.currentPage} totalPage={BoardState.totalPage} pageSelect={pageSelect}></PaginationCmp>}    
+                        {BoardState.totalPage && 
+                        <PaginationCmp currentPage={BoardState.currentPage} 
+                            totalPage={BoardState.totalPage} pageSelect={pageSelect}></PaginationCmp>}    
                         </div>
                     </div>
                 </div>

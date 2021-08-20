@@ -7,4 +7,4 @@ function ModernButton({ ButtonName, handleButtonClick=null, htmlType=null, type=
     );
 };
 
-export default ModernButton;
+export default React.memo(ModernButton);
