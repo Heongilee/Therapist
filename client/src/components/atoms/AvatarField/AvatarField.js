@@ -19,4 +19,4 @@ function AvatarField({ userid='Soraka', grade='Gold'}) {
     );
 };
 
-export default AvatarField;
+export default React.memo(AvatarField);

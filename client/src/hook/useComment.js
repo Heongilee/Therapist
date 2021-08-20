@@ -1,40 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import postApi from '../api/postApi.js';
 
-function useComment({ postData }) {
-    
-    const [CommentState, setCommentState] = useState();
-    const [Comment, setComment] = useState(); 
 
-    useEffect(() => {
-        if (postData) {
-            setCommentState( postData.reduce((temp, _ ,index) => ({
-                ...temp,[index]:false }),{}));
-        }
-    }, [postData]);
+// 작성한 글 id
+function useComment({ COMMENT_ENDPOINT, id }) {
+    
+    const [CommentState, setCommentState] = useState(false);
+    const [CommentData, setComment] = useState();
+    const [PageState, setPageState] = useState();
+
 
     const MessageIconOnClick = async(parms, index) => {
-                
-        if (!CommentState[index]){
-            const { postId, replyId } = postData[index];
-            const id = postId ? postId : replyId;
+        if (!CommentState){
             const response = await postApi.fetchComment(parms, id);
             setComment(response);
         }
-        setCommentState({ ...CommentState, [index] : !CommentState[index]});
+        setCommentState(!CommentState);
     };
 
-    const commentRegister = async({ comment }) => {
-
-        const response = await postApi.fetchCommentRegister(comment);
-        if (response) {
-            alert("성공!!!")
-        }
+    const commentRegister = async(userId, { comment }) => {
+        console.log("이벤트", userId, comment)
+        // const response = await postApi.fetchCommentRegister(comment);
     };
 
-    return { commentData:Comment, CommentState, MessageIconOnClick, commentRegister } ;
-};
+    const pageSelect = async(page) => {
+        const response = await postApi.fetchComment(COMMENT_ENDPOINT, id, page);
 
-export default useComment;
+        setComment(response);
+        setPageState(page);
+    };
+    
 
-
+    return { CommentData, CommentState, PageState, pageSelect,
+        MessageIconOnClick, commentRegister } ;
+}
