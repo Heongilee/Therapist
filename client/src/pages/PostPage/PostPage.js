@@ -11,6 +11,7 @@ import './PostPage.css';
 
 function PostPage() {
 
+ 
     const QuestionData = useQuestion();
     
     const { showDeleteModal, renderModal } = useContextModal();
@@ -42,7 +43,7 @@ function PostPage() {
                 { answerData && answerList }    
             </div>
             <div ref={setTarget}> {loading && "너굴너굴"}</div>
-                { renderModal() }
+                { renderModal() }       
         </section>
     );
 };
@@ -50,49 +51,3 @@ function PostPage() {
 
 export default PostPage;
 
-
-// import React, { useMemo } from 'react';
-// import QuestionForm from '../../components/QuestionForm/QuestionForm.js';
-// import AnswerForm from '../../components/AnswerForm/AnswerForm.js';
-// import usePost  from '../../hook/usePost.js';
-// import { useContextModal } from '../../hook/useContextModal';
-
-// import './PostPage.css';
-
-
-// function PostPage() {
-
-//     const { QuestionData, AnswerData } = usePost();
-    
-//     const { showDeleteModal, renderModal } = useContextModal();
-
-//     const modifyButton = () => {
-
-//     };
-
-//     const answerList = useMemo(() => AnswerData && 
-//         AnswerData.map( (data, index) => {
-//             return <AnswerForm key={'AnswerForm' + index} data={data} index={index}
-//             answerData={AnswerData} showDeleteModal={showDeleteModal}></AnswerForm>
-//         }), [AnswerData])
-
-
-
-//     return (
-//         <section className="postPage">
-            
-//             <div className="wrapper">
-//                 { QuestionData &&
-//                     <QuestionForm questionData={QuestionData} 
-//                                   modifyButton={modifyButton}
-//                                   showDeleteModal={showDeleteModal}
-//                                   ></QuestionForm>}
-//                 { AnswerData && answerList }
-//             </div>
-//                 {renderModal()}
-//         </section>
-//     );
-// };
-
-
-// export default PostPage;

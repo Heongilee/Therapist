@@ -8,6 +8,7 @@ const { TextArea } = Input;
 function CommentForm({ onFinish, userId }) {
     return (
             <Form onFinish={({ comment })=> onFinish(userId, { comment })}>
+
                 <Form.Item name="comment">
                     <div className="reply_area">
                         <TextArea placeholder={ "댓글을 작성하세요"}/>  
@@ -25,5 +26,4 @@ function CommentForm({ onFinish, userId }) {
 };
 
 export default CommentForm;
-
 

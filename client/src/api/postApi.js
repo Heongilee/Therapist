@@ -250,4 +250,3 @@ const commentData2 = [
 ];
 
 export default postApi;
-    
