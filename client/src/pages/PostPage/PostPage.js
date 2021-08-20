@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import QuestionForm from '../../components/QuestionForm/QuestionForm.js';
 import AnswerForm from '../../components/AnswerForm/AnswerForm.js';
 import useQuestion  from '../../hook/useQuestion.js';
@@ -25,7 +25,7 @@ function PostPage() {
     const modifyButton = () => {
     };
    
-    const answerList = useMemo(() => answerData && 
+    const answerList = useCallback(() => answerData && 
         answerData.map( (data, index) => {
             return <AnswerForm  key={'AnswerForm' + index} data={data} index={index}
              showDeleteModal={showDeleteModal}></AnswerForm>

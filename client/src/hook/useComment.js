@@ -34,3 +34,5 @@ function useComment({ COMMENT_ENDPOINT, id }) {
     return { CommentData, CommentState, PageState, pageSelect,
         MessageIconOnClick, commentRegister } ;
 }
+
+export default useComment;
