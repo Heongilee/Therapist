@@ -161,13 +161,13 @@ socket.on("answer", (answer) => {
 });
 
 socket.on("ice", (ice) => {
-  console.log("received candidate");
+  console.log("received candidate 📥");
   myPeerConnection.addIceCandidate(ice);
 });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*
 // RTC Code
 function handleIce(data) {
-  console.log("sent candidate");
+  console.log("sent candidate 📤");
   socket.emit("ice", data.candidate, roomName);
 }
 function handleAddStream(data) {
