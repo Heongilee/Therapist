@@ -15,11 +15,9 @@ function useRecentBoard() {
         setBoardState(response);
     };
 
-    const openBoard = () => {
-        console.log("openBoard")
-    };
 
-    return [PostState, openBoard];
+
+    return PostState;
 
 };
 

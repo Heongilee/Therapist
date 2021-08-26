@@ -1,22 +1,22 @@
-.posts {
+.mypage_posts {
     width: 100%;
     height: 100%;
     padding-right: 40px;
 }
 
 
-.posts_header {
+.mypage_posts_header {
     display: flex;
     align-items: center;
     margin: 10px 0 10px 0;
 }
 
-.posts_footer {
+.mypage_posts_footer {
     display: flex;
     justify-content: flex-end;
 }
 
-.category_name {
+.mypage_category_name {
     width: 100%;
     font-size: 20px;
     font-weight: bold;
@@ -34,7 +34,7 @@
     margin: auto 0;
 } */
 
-.posts_list {
+.mypage_posts_list {
     display: flex;
     list-style: none;
     
@@ -42,11 +42,11 @@
 }
 
 
-.post_area:first-child, .post_area.first{
+.mypage_post_area:first-child, .mypage_post_area.first{
     border-top: 1px solid #cacccc;
 }
 
-.post_area {
+.mypage_post_area {
     display: flex;
     flex-direction: row;
 
@@ -54,16 +54,24 @@
     border-bottom: 1px solid #e9e7e7;
 }
 
-.post_header {
+.mypage_post {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 85px;
+}
+
+.mypage_post_header {
     line-height: 30px; 
 }
 
-.post_header > div:first-child {
+.mypage_post_header > div:first-child {
     font-size: 16px;
     font-weight: bold;   
+    color: #000;
 }
 
-.post_header > div:last-child {
+.mypage_post_header > div:last-child {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -75,11 +83,11 @@
     color:#8c8c8c
 }
 
-.post_footer {
+.mypage_post_footer {
     padding-top: 5px;
     font-size: 13px;
 }
-.post_footer > span:last-child {
+.mypage_post_footer > span:last-child {
     margin-left: 1px;
     color: #777
 }
@@ -90,6 +98,7 @@
     margin-right: 12px;
 }
 
-/* .ant-checkbox-wrapper .ant-checkbox {
-    margin: auto 0;
-} */
+.post_delete_btn{
+    text-align: end;
+    margin-top: 10px;
+}

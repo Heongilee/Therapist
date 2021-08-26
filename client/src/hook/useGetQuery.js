@@ -7,9 +7,8 @@ const useGetQuery = () => {
     const { search } = history.location;
     const queryObj = queryStirng.parse(search);
 
-    
    
-    return queryObj
+    return queryObj;
     
 };
 

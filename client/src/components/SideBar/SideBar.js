@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Menu } from 'antd';
 import './SideBar.css';
 
 function SideBar({ categorySelect, categoryList, category }) {
 
-    console.log("나도궁금")
     return (
         <div className="sideBar">
             

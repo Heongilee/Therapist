@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import board from './board_reducer';
+import user from './user_reducer';
 
 
 
 const rootReducer = combineReducers({
-    board
+    user
 })
 
 export default rootReducer;
