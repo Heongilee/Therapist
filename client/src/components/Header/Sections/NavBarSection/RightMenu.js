@@ -11,7 +11,7 @@ function RightMenu() {
     
     const history = useHistory();
 
-    const temp = 1;
+    const temp = 2;
 
 
 
@@ -38,7 +38,7 @@ function RightMenu() {
     } else {
 
         return (
-            <div className="nav_menu_right">
+            <div className="nav_menu_right" onClick={onClick}>
                 Login
             </div>
         );
