@@ -3,10 +3,6 @@ import { Typography } from 'antd';
 
 const { Text } = Typography;
 
-/**
-* @param { textName:string } textName 
-* @param { type:string } textName
-*/
 
 function TextButton( { textName, type=null }) {
     return (

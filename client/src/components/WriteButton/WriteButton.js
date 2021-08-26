@@ -4,12 +4,11 @@ import { EditOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 import './WriteButton.css';
 
-
 function WriteButton({}) {
 
     return (
         <div className="writeButton" >
-            <Link to="/write">
+            <Link to={{ pathname: `/write`, data:{ type:"writeQuestion",userId:"Faker" }}}>
                 <Button><EditOutlined/>글쓰기</Button>
             </Link>
         </div>
@@ -17,4 +16,4 @@ function WriteButton({}) {
 };
 
 
-export default WriteButton;
+export default React.memo(WriteButton);

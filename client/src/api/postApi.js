@@ -23,10 +23,11 @@ const childComment = (page) => {
 
 
 const postApi = {
-    fetchAnswer: async(currentPage) => {
+
+    fetchAnswer: async(postId, currentPage) => {
         console.log("currentPage", currentPage)
         try {
-            // const response = await axios.get(`/posts/{postId}`);
+            // const response = await axios.get(`/replies/{postId}`);
             const answerData = await answer();
 
             return answerData;
@@ -37,7 +38,7 @@ const postApi = {
         
     },
 
-    fetchQuestion: async() => {
+    fetchQuestion: async(postId) => {
 
         try {
             // const response = await axios.get(`/posts/{postId}`);
@@ -105,7 +106,7 @@ const postApi = {
             console.log("fetchDelete", error);
         }
         
-    }
+    },
 
 };
 
@@ -113,7 +114,9 @@ const questionData = [
     {
         "postId":6,
         "postTitle":"가렌은 정말 좋은 챔피언인가요?",
-        "postContent":"가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다. 선봉대 내에서 인망이 두터울 뿐 아니라 심지어 적에게도 존경을 받지만, 그가 대대로 데마시아와 데마시아의 이상을 수호하는 임무를 맡은 크라운가드 가문의 자손이기 때문은 아니다. 가렌은 마법 저항력을 갖춘 방어구와 거대한 대검으로 무장하고, 언제라도 마법사에 맞서 정당한 검으로 진정한 칼바람을 일으킬 준비가 되어 있다.가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다. 선봉대 내에서가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다. 선봉대 내에서 인망이 두터울 뿐 아니라 심지어 적에게도 존경을 받지만, 그가 대대로 데마시아와 데마시아의 이상을 수호하는 임무를 맡은 크라운가드 가문의 자손이기 때문은 아니다. 가렌은 마법 저항력을 갖춘 방어구와 거대한 대검으로 무장하고, 언제라도 마법사에 맞서 정당한 검으로 진정한 칼바람을 일으킬 준비가 되어 있다.가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다."
+        "postContent":"가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다. 선봉대 내에서 인망이 두터울 뿐 아니라 심지어 적에게도 존경을 받지만, 그가 대대로 데마시아와 데마시아의 이상을 수호하는 임무를 맡은 크라운가드 가문의 자손이기 때문은 아니다. 가렌은 마법 저항력을 갖춘 방어구와 거대한 대검으로 무장하고, 언제라도 마법사에 맞서 정당한 검으로 진정한 칼바람을 일으킬 준비가 되어 있다.가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다. 선봉대 내에서가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다. 선봉대 내에서 인망이 두터울 뿐 아니라 심지어 적에게도 존경을 받지만, 그가 대대로 데마시아와 데마시아의 이상을 수호하는 임무를 맡은 크라운가드 가문의 자손이기 때문은 아니다. 가렌은 마법 저항력을 갖춘 방어구와 거대한 대검으로 무장하고, 언제라도 마법사에 맞서 정당한 검으로 진정한 칼바람을 일으킬 준비가 되어 있다.가렌은 불굴의 선봉대를 이끄는 고결하고 자긍심 강한 전사다.",
+        "postType": "category1",
+        "userId":"가렌",
     },
 ];
 

@@ -1,0 +1,7 @@
+.ant-btn {
+    margin-left: 0.7px;
+}
+
+.ant-btn > a {
+    color: #000;
+}

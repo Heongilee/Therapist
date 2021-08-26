@@ -1,0 +1,8 @@
+
+.nav_menu_right { 
+    display: flex;
+}
+
+.nav_menu_right > a { 
+    color: #000;
+}

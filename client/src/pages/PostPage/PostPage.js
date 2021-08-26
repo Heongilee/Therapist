@@ -1,5 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
-
+import React, { useCallback, useRef } from 'react';
 import QuestionForm from '../../components/QuestionForm/QuestionForm.js';
 import AnswerForm from '../../components/AnswerForm/AnswerForm.js';
 import useQuestion  from '../../hook/useQuestion.js';
@@ -10,27 +9,29 @@ import useInfiniteScroll from '../../hook/useInfiniteScroll';
 import './PostPage.css';
 
 
-function PostPage() {
+function PostPage({ location }) {
 
+    const { postId } = location;
  
-    const QuestionData = useQuestion();
+    const { QuestionData, modifyButton } = useQuestion({ postId:postId });
     
-    const { showDeleteModal, renderModal } = useContextModal();
+    const { AnswerState, currentPage, loadAnswerData } = useAnswer({ postId:postId });
 
-    const{ AnswerState, currentPage, loadAnswerData } = useAnswer();
+    const { showDeleteModal, renderModal } = useContextModal();
 
     const setTarget = useInfiniteScroll({ currentPage, loadAnswerData });
 
-    const  { answerData, loading } = AnswerState;
+    const { answerData, loading } = AnswerState;
     
-    const modifyButton = () => {
-    };
-   
-    const answerList = useCallback(() => answerData && 
 
+    const answerList = useCallback(() => answerData && 
+    
         answerData.map( (data, index) => {
             return <AnswerForm  key={'AnswerForm' + index} data={data} index={index}
-             showDeleteModal={showDeleteModal}></AnswerForm>
+             showDeleteModal={showDeleteModal}
+             postId={ postId }
+             questionName={QuestionData[0].userId}>
+             </AnswerForm>
         }), [answerData, currentPage])
 
     return (
@@ -42,7 +43,7 @@ function PostPage() {
                                   modifyButton={modifyButton}
                                   showDeleteModal={showDeleteModal}
                                   ></QuestionForm>}
-                { answerData && answerList }    
+                { answerData && answerList() }    
             </div>
             <div ref={setTarget}> {loading && "너굴너굴"}</div>
                 { renderModal() }       

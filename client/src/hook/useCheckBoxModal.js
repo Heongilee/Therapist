@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import api from '../api/boardApi.js';
+import { useState } from 'react';
+import mypageApi from '../api/mypageApi.js';
 
-export default function useCheckBoxModal({ CheckState }) {
+
+export default function useCheckBoxModal({ CheckState, postData }) {
 
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -32,20 +33,30 @@ export default function useCheckBoxModal({ CheckState }) {
     };
 
     const dataProcessing = () => {
-        const deleteData = CheckState.map((data,index) => { return data === true ? index : null })
-        .filter( data => data) 
-   
-        return {...deleteData};
+        const deleteData = CheckState.reduce((accumulator, data, index, array) => {
+            if(data){
+                const { postId, replyId } = postData[index];
+                accumulator[index] = postId || replyId;
+                return accumulator;
+            } else {
+                return accumulator;
+            }
+
+         },{}) 
+
+        return deleteData;
     };
 
     const handleOk = async() => {
-
         const checkData = await dataProcessing();
-        const response = await api.fetchDeletePost(checkData);
+
+
+        const response = await mypageApi.fetchMypageDelete(checkData);
         if (response){
             setConfirmLoading(true);
             setVisible(false);
             setConfirmLoading(false);
+            window.location.reload();  
         }       
     };
 

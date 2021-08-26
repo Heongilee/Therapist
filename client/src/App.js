@@ -8,6 +8,8 @@ import BoardPage from './pages/BoardPage/BoardPage.js';
 import WritePage from './pages/WritePage/WritePage.js';
 import PostPage from './pages/PostPage/PostPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
+import { Page404 } from './pages/ErrorPage/ErrorPage';
+import Auth from './hook/useAuth';
 
 
 const App = () => (
@@ -17,9 +19,11 @@ const App = () => (
         <Switch>
             <Route exact path="/" component={ MainPage } />
             <Route exact path="/board" component={ BoardPage } />
+            <Route exact path="/posts/:postId" component={ PostPage } />
             <Route exact path="/write" component={ WritePage } />
             <Route exact path="/mypage" component={ MyPage } />
-            <Route exact path="/posts" component={ PostPage } />
+            <Route component={ Page404 } />
+
         </Switch>
         <Footer/>
     </Suspense>

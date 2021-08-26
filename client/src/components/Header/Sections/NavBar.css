@@ -15,7 +15,3 @@ nav {
     justify-content: space-between;
     align-items: center;
 } 
-
-.nav_menu > div {
-    margin-left: 40px;
-}

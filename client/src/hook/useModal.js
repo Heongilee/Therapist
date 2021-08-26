@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import ModalForm from '../components/Modal/ModalForm.js'
-import postApi from '../api/postApi.js'
 import { useHistory } from "react-router-dom";
 import { modalCase } from '../utils/modalCase';
 import { DELETE_MODALTEXT, STAR_MODALTEXT } from '../constants/modalConstants';

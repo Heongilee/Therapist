@@ -1,18 +1,13 @@
 import React from 'react';
 import SideBar from '../../components/SideBar/SideBar.js';
 import PaginationCmp from '../../components/Pagination/PaginationCmp.js';
-import SearchInput from '../../components/atoms/SearchInput/SearchInput.js'
 import WriteButton from '../../components/WriteButton/WriteButton.js';
-import BoardForm from '../../components/BoardForm/BoardForm.js'
+import BoardForm from '../../components/BoardForm/BoardForm.js';
+import { PATH,CATEGORY_LIST, CATEGORY_DIC } from '../../constants/boardPageConstants.js';
 import useBoard from '../../hook/useBoard.js';
-import useCheckBox from '../../hook/useCheckBox.js';
-import { withRouter } from "react-router-dom";
 
 import './BoardPage.css';
 
-const PATH = "board";
-const CATEGORY_LIST = ["category1","category2","category3","category4"];
-const CATEGORY_DIC = {"category1":["postTitle","postContent"],'category2':["postTitle","postContent"]};
 
 function BoardPage() {
 
@@ -43,4 +38,4 @@ function BoardPage() {
     );
 };
 
-export default withRouter(BoardPage);
+export default BoardPage;
