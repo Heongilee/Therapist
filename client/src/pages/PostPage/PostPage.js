@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import QuestionForm from '../../components/QuestionForm/QuestionForm.js';
 import AnswerForm from '../../components/AnswerForm/AnswerForm.js';
 import useQuestion  from '../../hook/useQuestion.js';
@@ -25,7 +25,6 @@ function PostPage({ location }) {
     
 
     const answerList = useCallback(() => answerData && 
-    
         answerData.map( (data, index) => {
             return <AnswerForm  key={'AnswerForm' + index} data={data} index={index}
              showDeleteModal={showDeleteModal}
@@ -53,4 +52,3 @@ function PostPage({ location }) {
 
 
 export default PostPage;
-
