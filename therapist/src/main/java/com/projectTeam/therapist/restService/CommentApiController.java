@@ -6,8 +6,11 @@ import com.projectTeam.therapist.model.PostCommentDto;
 import com.projectTeam.therapist.model.ReplyCommentDto;
 import com.projectTeam.therapist.postService.CommentService;
 import com.projectTeam.therapist.repository.CommentRepository;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +32,10 @@ class CommentApiController {
         return commentService.findAllPostComments();
     }
 
-    // 게시글 댓글(PostComment)의 아이디에 해당하는 게시글 댓글 조회
-    @GetMapping("/postComments/{postCommentId}")
-    PostCommentDto findSinglePostComment(@PathVariable Long postCommentId) {
-        return commentService.findSinglePostComment(postCommentId);
+    // postId에 대한 모든 게시글 댓글을 조회한다.
+    @GetMapping("/postComments/{postId}")
+    JSONObject findAllPostCommentsByPostId(@PathVariable Long postId, @PageableDefault(size = 6) final Pageable pageable) {
+        return commentService.findAllPostCommentsByPostId(postId, pageable);
     }
 
     // 게시글 댓글(PostComment) 생성
@@ -59,8 +62,8 @@ class CommentApiController {
 
     // 특정 답글(ReplyComment) 댓글 조회
     @GetMapping("/replyComments/{replyId}")
-    JSONObject replyCommentsList(@PathVariable Long replyId) {
-        return commentService.findReplyComments(replyId);
+    JSONObject replyCommentsList(@PathVariable Long replyId, @PageableDefault(size = 6) final Pageable pageable) {
+        return commentService.findReplyComments(replyId, pageable);
     }
 
     // 답글 댓글(ReplyComment) 삭제

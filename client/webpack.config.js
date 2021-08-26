@@ -1,11 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const JsDocPlugin = require('jsdoc-webpack-plugin');
 const port = process.env.PORT || 3000;
 
 module.exports = {
     mode: 'development', // 현재 모드를 개발 환경으로 설정
     entry: './src/index.js', // 애플리케이션 진입점
     output: { // 번들된 파일을 저장할 경로
+      publicPath: '/',
       filename: 'bundle.[hash].js' 
     },
     devtool: "eval-cheap-source-map",  //에러없어졋는데 찾아봐야함
@@ -42,11 +42,11 @@ module.exports = {
         template: 'public/index.html', // public/index.html 를 템플릿으로 지정
         }),
         
-      new JsDocPlugin({
-          conf: 'jsdoc.conf.js',
-          cwd: '.',
-          preserveTmpFile: false,
-      })
+      // new JsDocPlugin({
+      //     conf: 'jsdoc.conf.js',
+      //     cwd: '.',
+      //     preserveTmpFile: false,
+      // })
       ],
 
     devServer: {  // 개발서버

@@ -1,0 +1,56 @@
+.wrapper-class{
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 4rem;
+ }
+
+
+ .editor {
+    font-size: 2rem;
+    background-color: #ffffff;
+    height: 500px !important;
+    border: 1px solid #f1f1f1 !important;
+    padding: 5px !important;
+    border-radius: 2px !important; 
+}
+
+.writepage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.writepage_area {
+    margin: 18px;
+    padding:24px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+.writepage_title_area {
+    display: flex;
+    flex-direction: column;
+}
+
+.writepage_title_header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px solid #000000;
+}
+
+.writepage_title_header > h1 {
+    flex-wrap: wrap;
+    font-weight: bold;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.title_content {
+    margin-top: 10px;
+}
+
+.title_content .ant-input {
+    margin-bottom: 8px;
+}

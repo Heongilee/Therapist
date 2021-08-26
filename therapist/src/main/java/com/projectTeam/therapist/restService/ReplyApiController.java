@@ -43,4 +43,10 @@ public class ReplyApiController {
     void delete(@PathVariable Long replyId) {
         replyService.deleteReply(replyId);
     }
+
+    // star point
+    @GetMapping("/replies/{replyId}/{userName}")
+    void grade(@PathVariable Long replyId, @PathVariable String userName, @RequestParam int point) {
+        replyService.makeGrade(replyId, userName, point);
+    }
 }

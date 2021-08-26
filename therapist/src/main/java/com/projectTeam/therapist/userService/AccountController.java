@@ -2,10 +2,12 @@ package com.projectTeam.therapist.userService;
 
 import com.projectTeam.therapist.model.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 @Controller
 @RequestMapping("/account")
 public class AccountController {
@@ -23,14 +25,8 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public String register(UserDto user) {
-        UserDto response = userService.save(user);
-
-        if (response == null) {
-            return "redirect:/account/register?isAlreadySignUp";
-        } else {
-            return "redirect:/account/signup_info?signUpSuccess";
-        }
+    public ResponseEntity<UserDto> register(@Valid @RequestBody UserDto user) {
+        return ResponseEntity.ok(userService.save(user));
     }
 
     @PutMapping("/register")

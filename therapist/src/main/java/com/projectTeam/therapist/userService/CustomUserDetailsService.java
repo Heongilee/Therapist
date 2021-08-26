@@ -26,6 +26,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // @Service 어노테이션을 통해 비즈니스 로직을 작성할 수 있게 된다.
 // 또한, 이렇게 서비스 클래스로 따로 빼면 단위 테스트를 수행할때에도 용이하다.
@@ -40,11 +41,12 @@ public class CustomUserDetailsService implements UserDetailsService {
     해당 username을 가지는 사용자가 있는지 찾아서 리턴만 해준다.
      */
     @Override
+    @Transactional(rollbackFor = Exception.class) // 모든 예외, 에러에 대해 rollback 하여 트랜잭션 처리 / 옵션 없이 @Transactional만 기입 시 Checked Exception에 대해서는 rollback 수행 X
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto userDto = userRepository.findByUserName(username);
-        if (userDto == null) {
-            throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. : " + username);
-        }
+//        UserDto userDto = userRepository.findByUserName(username);
+//        if (userDto == null) {
+//            throw new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다. : " + username);
+//        }
 
 //        CustomUserDetails customUserDetails = new CustomUserDetails();
 //        customUserDetails.setUsername(userDto.getUserName());
@@ -58,6 +60,21 @@ public class CustomUserDetailsService implements UserDetailsService {
 //        }
 //        customUserDetails.setAuthorities(auth);
 
-        return new CustomUserDetails(userDto); // 시큐리티 세션에 유저 정보가 저장된다.
+//        return new CustomUserDetails(userDto); // 시큐리티 세션에 유저 정보가 저장된다.
+        return userRepository.findOneWithAuthoritiesByUserName(username)
+                .map(userDto -> createUser(username, userDto))
+                .orElseThrow(() -> new UsernameNotFoundException(username + " -> cannot found user in database"));
+    }
+
+    private org.springframework.security.core.userdetails.User createUser(String username, UserDto user) {
+        if(!user.getUserEnabled()) {
+            throw new RuntimeException(username + "not enabled user");
+        }
+        List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getRoleName()))
+                .collect(Collectors.toList());
+        return new org.springframework.security.core.userdetails.User(user.getUserName(),
+                user.getUserPassword(),
+                grantedAuthorities);
     }
 }

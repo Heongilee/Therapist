@@ -5,8 +5,11 @@ import com.projectTeam.therapist.repository.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,24 +79,42 @@ public class CommentService {
     }
 
     // read Reply Comment find by replyId
-    public JSONObject findReplyComments(Long replyId) {
+    public JSONObject findReplyComments(Long replyId, Pageable pageable) {
         ReplyDto replyDto = replyRepository.findById(replyId).orElse(null);
+        Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDto(replyDto, pageable);
         JSONObject jsonObject = new JSONObject();
-        JSONArray replyCommentArray = new JSONArray();
-        for (ReplyCommentDto replyComment : replyDto.getReplyComments()) {
+        JSONArray jsonArray = new JSONArray();
+        for (ReplyCommentDto replyComment : replyComments) {
             JSONObject item = new JSONObject();
             item.put("replyCommentId", replyComment.getReplyCommentId());
             item.put("replyCommentContent", replyComment.getReplyCommentContent());
             item.put("userId", replyComment.getUserDto().getUserId());
             item.put("userName", replyComment.getUserDto().getUserName());
-            replyCommentArray.add(item);
+            jsonArray.add(item);
         }
-        jsonObject.put("replyComments", replyCommentArray);
+        jsonObject.put("replyComments", jsonArray);
         return jsonObject;
     }
 
     // delete Reply Comment
     public void deleteReplyComment(Long replyCommentId) {
         replyCommentRepository.deleteById(replyCommentId);
+    }
+
+    public JSONObject findAllPostCommentsByPostId(Long postId, Pageable pageable) {
+        PostDto postDto = postRepository.findById(postId).orElse(null);
+        Page<PostCommentDto> postComments = postCommentRepository.findByPostDto(postDto, pageable);
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for (PostCommentDto postComment : postComments) {
+            JSONObject item = new JSONObject();
+            item.put("postCommentId", postComment.getPostCommentId());
+            item.put("postCommentContent", postComment.getPostCommentContent());
+            item.put("userId", postComment.getUserDto().getUserId());
+            item.put("userName", postComment.getUserDto().getUserName());
+            jsonArray.add(item);
+        }
+        jsonObject.put("postComments", jsonArray);
+        return jsonObject;
     }
 }

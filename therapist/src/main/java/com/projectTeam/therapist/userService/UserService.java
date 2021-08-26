@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectTeam.therapist.model.*;
 import com.projectTeam.therapist.repository.*;
+import com.projectTeam.therapist.util.SecurityUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -41,26 +43,57 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder; // /configuration/WebSecurityConfig에서 Bean객체로 등록함.
 
+    public UserService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     private final String clientId = "bee5cefdb5d9d94c0b32f71cf0de38e7";
     private final String clientSecret = "LcnyKGSgPVuOolspq5ococnDLfrlDqXM";
     private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
 
-    public UserDto save(UserDto user) {
-        if (userRepository.countByUserName(user.getUserName()) >= 1L) {
-            return null;
-        } else {
-            // 비밀번호 암호화
-            String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-            user.setUserPassword(encodedPassword);
-
-            // 기본 활성화 상태
-            user.setUserEnabled(true);
-            RoleDto roleDto = new RoleDto();
-            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
-            user.getRoles().add(roleDto);
-
-            return userRepository.save(user);
+    public UserDto save(UserDto userDto) {
+//        if (userRepository.countByUserName(user.getUserName()) >= 1L) {
+//            return null;
+//        } else {
+//            // 비밀번호 암호화
+//            String encodedPassword = passwordEncoder.encode(user.getUserPassword());
+//            user.setUserPassword(encodedPassword);
+//
+//            // 기본 활성화 상태
+//            user.setUserEnabled(true);
+//            RoleDto roleDto = new RoleDto();
+//            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
+//            user.getRoles().add(roleDto);
+//
+//            return userRepository.save(user);
+//        }
+        if (userRepository.findOneWithAuthoritiesByUserName(userDto.getUserName()).orElse(null) != null) {
+            throw new RuntimeException("already exist user");
         }
+
+        RoleDto role = RoleDto.builder()
+                .roleId(1L)
+                .build();
+
+        UserDto user = UserDto.builder()
+                .userName(userDto.getUserName())
+                .userPassword(passwordEncoder.encode(userDto.getUserPassword()))
+                .userEnabled(true)
+                .roles(Collections.singleton(role))
+                .build();
+        return userRepository.save(user);
+    }
+
+    // getUserWithAuthorities 메소드는 username을 파라미터로 받아 해당 유저의 정보 및 권한 정보를 리턴
+    // getMyUserWithAuthorities 메소드는 위에서 만든 SecurityUtil의 getCurrentUsername() 메소드가 리턴하는 username의 유저 및 권한 정보를 리턴
+    @Transactional(readOnly = true)
+    public Optional<UserDto> getUserWithRoles(String username) {
+        return userRepository.findOneWithAuthoritiesByUserName(username);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<UserDto> getMyUserWithRoles() {
+        return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUserName);
     }
 
     //  authorizationCode 값으로 카카오 서버에서 access_token값을 받음.

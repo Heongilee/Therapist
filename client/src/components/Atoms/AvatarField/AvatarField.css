@@ -1,0 +1,15 @@
+
+.avater_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.avater_content {
+    margin-left: 0.6rem;
+}
+
+.avater_content > div:first-child {
+    font-weight: bold;
+}
