@@ -30,31 +30,31 @@ public class PostService {
         return postRepository.save(postDto);
     }
 
-    public JSONObject findByPostType(PostCategory postType, final Pageable pageable) {
-        Page<PostDto> postPages = postRepository.findByPostType(postType, pageable);
-
-        // 검색된 카테고리 게시글 개수
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("postType", postType);
-        jsonObject.put("totalAmount", postPages.getTotalElements());
-        jsonObject.put("totalPages", postPages.getTotalPages());
-
-        // postType 파라미터와 일치하는 모든 게시글들을 JSONArray로 담는다.
-        JSONArray postsArray = new JSONArray();
-        for (PostDto post : postPages.getContent()) {
-            JSONObject item = new JSONObject();
-            item.put("postId", post.getPostId());
-            item.put("userId", post.getUserDto().getUserId());
-            item.put("postType", post.getPostType().toString()); // Enum 타입이기 때문에 문자열 처리를 위한 .toString() 을 붙여준다.
-            item.put("postTitle", post.getPostTitle());
-            item.put("postContent", post.getPostContent());
-//            item.put("postComments", post.getPostComments());
-            item.put("replyLength", post.getCountOfReplies());
-            postsArray.add(item);
-        }
-        jsonObject.put("posts", postsArray);
-        return jsonObject;
-    }
+//    public JSONObject findByPostTypeWithPageable(PostCategory postType, final Pageable pageable) {
+//        Page<PostDto> postPages = postRepository.findByPostType(postType, pageable);
+//
+//        // 검색된 카테고리 게시글 개수
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.put("postType", postType);
+//        jsonObject.put("totalAmount", postPages.getTotalElements());
+//        jsonObject.put("totalPages", postPages.getTotalPages());
+//
+//        // postType 파라미터와 일치하는 모든 게시글들을 JSONArray로 담는다.
+//        JSONArray postsArray = new JSONArray();
+//        for (PostDto post : postPages.getContent()) {
+//            JSONObject item = new JSONObject();
+//            item.put("postId", post.getPostId());
+//            item.put("userId", post.getUserDto().getUserId());
+//            item.put("postType", post.getPostType().toString()); // Enum 타입이기 때문에 문자열 처리를 위한 .toString() 을 붙여준다.
+//            item.put("postTitle", post.getPostTitle());
+//            item.put("postContent", post.getPostContent());
+////            item.put("postComments", post.getPostComments());
+//            item.put("replyLength", post.getCountOfReplies());
+//            postsArray.add(item);
+//        }
+//        jsonObject.put("posts", postsArray);
+//        return jsonObject;
+//    }
 
     public PostDto save(JSONObject requestBody) {
         if (requestBody.get("userName") == null) {
@@ -121,5 +121,30 @@ public class PostService {
             jsonArray.add(jsonObject);
         }
         return jsonArray;
+    }
+
+    public JSONObject findByPostType(PostCategory postType) {
+        List<PostDto> posts = postRepository.findByPostType(postType);
+
+        // 검색된 카테고리 게시글 개수
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("postType", postType);
+        jsonObject.put("totalAmount", posts.size());
+
+        // postType 파라미터와 일치하는 모든 게시글들을 JSONArray로 담는다.
+        JSONArray postsArray = new JSONArray();
+        for (PostDto post : posts) {
+            JSONObject item = new JSONObject();
+            item.put("postId", post.getPostId());
+            item.put("userId", post.getUserDto().getUserId());
+            item.put("postType", post.getPostType().toString()); // Enum 타입이기 때문에 문자열 처리를 위한 .toString() 을 붙여준다.
+            item.put("postTitle", post.getPostTitle());
+            item.put("postContent", post.getPostContent());
+//            item.put("postComments", post.getPostComments());
+            item.put("replyLength", post.getCountOfReplies());
+            postsArray.add(item);
+        }
+        jsonObject.put("posts", postsArray);
+        return jsonObject;
     }
 }

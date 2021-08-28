@@ -10,8 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 // `@RestController`어노테이션을 사용하는 경우, 요청과 응답의 객체변환 및 직렬화/역직렬화를 자동으로 이 jackson 라이브러리가 담당하게 된다.
 @RestController
 @CrossOrigin("*")
@@ -30,9 +28,14 @@ class PostApiController {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // 게시글 관련 API
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//    @GetMapping("/posts")
+//    JSONObject requestGetPageable(@RequestParam(required = false, defaultValue="JOB") PostCategory postType, final Pageable pageable){
+//        return postService.findByPostTypeWithPageable(postType, pageable);
+//    }
+
     @GetMapping("/posts")
-    JSONObject requestGet(@RequestParam(required = false, defaultValue="JOB") PostCategory postType, @PageableDefault(size = 6) final Pageable pageable){
-        return postService.findByPostType(postType, pageable);
+    JSONObject requestGet(@RequestParam(required = false, defaultValue="JOB") PostCategory postType){
+        return postService.findByPostType(postType);
     }
 
     @PostMapping("/posts")
