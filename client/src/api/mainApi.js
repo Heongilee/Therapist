@@ -4,15 +4,19 @@ const temp = () => {
     return data;
 };
 
+// const API = "http://ec2-184-73-134-45.compute-1.amazonaws.com:8080/api/main/posts"
 
 const mainApi = {
 
     fetchRecentBoard: async() => {
-
         try {
-            // const response = await axios.get(`/api/main/posts`);
+            // const response = await axios.get('http://localhost:8080/api/main/posts');
+
+            // const response = await axios.get(API);
+            // const { data } = await axios.get(`${API}/main/posts`);
+            // console.log("data", data)
             const response = await temp();
-    
+            
             return response;
     
         } catch (error) {

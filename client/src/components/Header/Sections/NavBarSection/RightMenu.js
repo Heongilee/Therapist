@@ -2,29 +2,53 @@ import React, { useState } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import ModalPortal from '../../../../portal/ModalPortal.js';
 import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { user_actions } from '../../../../_actions/user_actions';
 
 import './RightMenu.css';
 
-const { kakao } = window;
+// const { kakao } = window;
 
 function RightMenu() {
     
+    const dispatch =  useDispatch();
+
     const history = useHistory();
 
-    const temp = 1;
+    const temp = 2;
+    // const LOGIN_API = "http://localhost:8080/login";
+    const LOGIN_API = "/login";
 
+    //method = 'get', url, params, data
+    const case_1 = () => {
 
+        const info = {
+            method:'get',
+            url:LOGIN_API,
+            data :{
+            name: "invanda",
+            password: "code101"}
+        }
 
-    const onClick = () => {
-        Kakao.Auth.login({
-            success: function(response) {
-              console.log(response);
-            },
-            fail: function(error) {
-              console.log(error);
-            },
-          });
+        dispatch(user_actions.fetchLogin(info))
     };
+
+    const case_2 = () => {
+
+
+    };
+
+
+    // const onClick = () => {
+    //     Kakao.Auth.login({
+    //         success: function(response) {
+    //           console.log(response);
+    //         },
+    //         fail: function(error) {
+    //           console.log(error);
+    //         },
+    //       });
+    // };
 
     if (temp === 1){
 
@@ -39,7 +63,8 @@ function RightMenu() {
 
         return (
             <div className="nav_menu_right">
-                Login
+                <div onClick={case_1}>Login1</div>
+                <div onClick={case_2}>Login2</div>
             </div>
         );
     };
@@ -47,52 +72,3 @@ function RightMenu() {
 };
 
 export default RightMenu;
-
-
-// import React, { useState } from 'react';
-// import { withRouter, Link } from 'react-router-dom';
-// import useLoginModal from '../../../../hook/useLoginModal.js';
-// import ModalPortal from '../../../../portal/ModalPortal.js';
-// import { useHistory } from "react-router-dom";
-
-// import './RightMenu.css';
-
-// const { kakao } = window;
-
-// function RightMenu() {
-    
-//     const history = useHistory();
-
-//     const temp = 2;
-//     const { renderLoginModal } = useLoginModal();
-//     const [LoginModalstate, setLoginModalstate] = useState(false);
-
-
-//     const onClick = () => {
-//         setLoginModalstate(!LoginModalstate);
-//     };
-
-//     if (temp === 1){
-
-//         return (
-//             <div className="nav_menu_right">
-//                 <Link to='/mypage'><div style={{marginRight:'1rem'}}>MyPage</div></Link>
-//                 <div>Logout</div>
-//             </div>
-//         );
-
-//     } else {
-
-//         return (
-//             <div className="nav_menu_right">
-//                 <div onClick={onClick}>Login</div>
-//                 <ModalPortal>
-//                     {renderLoginModal({LoginModalstate})}
-//                 </ModalPortal>
-//             </div>
-//         );
-//     };
-    
-// };
-
-// export default RightMenu;

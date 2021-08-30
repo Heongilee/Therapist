@@ -9,23 +9,25 @@ import WritePage from './pages/WritePage/WritePage.js';
 import PostPage from './pages/PostPage/PostPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
 import { Page404 } from './pages/ErrorPage/ErrorPage';
+import { ErrorHandler } from './utils/ErrorHandler.js';
 import Auth from './hook/useAuth';
 
 
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
-        <Header/>
-        <MainImg/>
-        <Switch>
-            <Route exact path="/" component={ MainPage } />
-            <Route exact path="/board" component={ BoardPage } />
-            <Route exact path="/posts/:postId" component={ PostPage } />
-            <Route exact path="/write" component={ WritePage } />
-            <Route exact path="/mypage" component={ MyPage } />
-            <Route component={ Page404 } />
-
-        </Switch>
-        <Footer/>
+        <ErrorHandler>
+            <Header/>
+            <MainImg/>
+            <Switch>
+                <Route exact path="/" component={ MainPage } />
+                <Route exact path="/board" component={ BoardPage } />
+                <Route exact path="/posts/:postId" component={ PostPage } />
+                <Route exact path="/write" component={ WritePage } />
+                <Route exact path="/mypage" component={ MyPage } />
+                <Route component={ Page404 } />
+            </Switch>
+            <Footer/>
+        </ErrorHandler>
     </Suspense>
 );
 

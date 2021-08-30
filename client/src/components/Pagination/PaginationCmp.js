@@ -2,12 +2,12 @@ import { Pagination } from 'antd';
 import React from 'react';
 import './PaginationCmp.css';
 
-function PaginationCmp({ totalPage=0, pageSelect, currentPage=1 }) {
+function PaginationCmp({ totalPages=0, pageSelect, currentPage=1 }) {
 
-
+    
     return (
         <div className="pagination" >
-            <Pagination current={parseInt(currentPage)} total={totalPage + 4} 
+            <Pagination current={parseInt(currentPage)} total={totalPages} 
             
             onChange = {(page) => pageSelect(page)}/>
         </div>

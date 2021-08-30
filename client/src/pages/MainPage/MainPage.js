@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CardSection from './sections/CardSection.js';
 import BoardSection from './sections/BoardSection.js';
 import useRecentBoard from '../../hook/useRecentBoard.js';
@@ -14,7 +14,6 @@ function MainPage() {
     const CardDataState  = useVoiceRoom();
     const PostState = useRecentBoard();
     const { ModalRoomRender, onClick } = useCreateRoom();
-
 
     
     return (

@@ -9,7 +9,7 @@
 
 .boardPage_area {
     display: flex;
-    margin: 18px;
+    margin-top: 30px;
     background-color: #fff;
     border-radius: 8px;
 }
@@ -52,3 +52,15 @@
 }
 
 
+@media only screen and (max-width: 980px) {
+    .boardPage_area {
+        margin-top: 15px;
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+    }
+
+    .sideBar_area {
+        display: none;
+    }
+    
+}

@@ -29,7 +29,7 @@ const postApi = {
         try {
             // const response = await axios.get(`/replies/{postId}`);
             const answerData = await answer();
-
+            
             return answerData;
     
         } catch (error) {

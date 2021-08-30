@@ -5,7 +5,6 @@ import { Page404 } from "../pages/ErrorPage/ErrorPage";
 
 export const ErrorHandler = ({ children }) => {
   const location = useLocation();
-
   switch (get(location.state, "errorStatusCode")) {
 
     case 404:
