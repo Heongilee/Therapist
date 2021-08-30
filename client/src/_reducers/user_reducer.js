@@ -7,7 +7,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { setValueReducer } from '../utils/reduxHelper';
 
 
-const INITIALSTATE = { sucess: false, error:false, token:null };
+const INITIALSTATE = { token:null };
 
 const user_reducer = createReducer(INITIALSTATE, {
     [SAVE_TOKEN] : setValueReducer

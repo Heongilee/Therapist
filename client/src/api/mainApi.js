@@ -10,14 +10,13 @@ const mainApi = {
 
     fetchRecentBoard: async() => {
         try {
-            // const response = await axios.get('http://localhost:8080/api/main/posts');
+            const response = await axios.get('http://localhost:8080/api/main/posts');
 
             // const response = await axios.get(API);
             // const { data } = await axios.get(`${API}/main/posts`);
-            // console.log("data", data)
-            const response = await temp();
-            
-            return response;
+            // const response = await temp();
+            const { data } = response;
+            return data;
     
         } catch (error) {
             console.log("fetchRecentBoard", error)
