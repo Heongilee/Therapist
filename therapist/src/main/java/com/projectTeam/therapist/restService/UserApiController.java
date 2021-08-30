@@ -12,6 +12,7 @@ import java.util.Map;
 
 // `@RestController`어노테이션을 사용하는 경우, 요청과 응답의 객체변환 및 직렬화/역직렬화를 자동으로 이 jackson 라이브러리가 담당하게 된다.
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api")
 class UserApiController {
     @Autowired

@@ -9,23 +9,40 @@ import promisMiddleware from 'redux-promise';
 import Reducer from './_reducers/index.js';
 import ReduxThunk from 'redux-thunk';
 import { ModalProvider } from './context/modalContext';
-
-const createStoreWithMiddleware = applyMiddleware(promisMiddleware, ReduxThunk)(createStore);
+import ScrollToTop from './utils/ScrollToTop';
+import store from './config/store';
 
 
 ReactDOM.render(
-    <Provider
-        store={createStoreWithMiddleware(Reducer,
-          window.__REDUX_DEVTOOLS_EXTENSION__ &&
-          window.__REDUX_DEVTOOLS_EXTENSION__()
-        )}
-    >
+  <Provider store={store()}>
       <BrowserRouter>
+          <ScrollToTop/>
           <ModalProvider>
             <App />
           </ModalProvider>
       </BrowserRouter>
+      </Provider>
         
-    </Provider>
-    , document.getElementById('root')
+    ,document.getElementById('root')
 );
+
+
+// const createStoreWithMiddleware = applyMiddleware(promisMiddleware, ReduxThunk)(createStore);
+
+// ReactDOM.render(
+//     <Provider
+//         store={createStoreWithMiddleware(Reducer,
+//           window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//           window.__REDUX_DEVTOOLS_EXTENSION__()
+//         )}
+//     >
+//       <BrowserRouter>
+//           <ScrollToTop/>
+//           <ModalProvider>
+//             <App />
+//           </ModalProvider>
+//       </BrowserRouter>
+        
+//     </Provider>
+//     , document.getElementById('root')
+// );

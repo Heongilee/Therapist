@@ -13,16 +13,16 @@ function Mypage() {
     
 
     return (
-            <section className="boardPage">
+            <section className="myPage">
                 <div className="wrapper">
-                    <div className="boardPage_area">
-                        <div className="sideBar_area">
+                    <div className="myPage_area">
+                        <div className="myPage_sideBar_area">
                             {BoardState.currentType && 
                                 <SideBar category={BoardState.currentType} 
                                 categoryList={CATEGORY_LIST} 
                                 categorySelect={categorySelect}></SideBar>}
                         </div> 
-                        <div className='posts_area'>
+                        <div className='myPage_posts_area'>
 
                             {BoardState.posts && <MyPageForm path={PATH} 
                             postData={BoardState.posts}
