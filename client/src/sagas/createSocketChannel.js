@@ -35,23 +35,9 @@ export default function createSocketChannel() {
       });
 }
 
-// import { eventChannel, buffers } from 'redux-saga';
-
-// const createSocketChannel = (socket) => eventChannel(emit => {
-//   const emitter = message => emit(message);
 
 
-//   socket.on('update', emitter);
-//   return function unsubscribe() {
-//     socket.off('update', emitter);
-//   }
-// });
+
+export default createSocketChannel;
 
 
-// export function closeChannel(channel) {
-//   if (channel) {
-//     channel.close();
-//   }
-// }
-
-// export default createSocketChannel;

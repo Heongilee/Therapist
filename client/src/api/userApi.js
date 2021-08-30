@@ -3,7 +3,7 @@ import { message } from 'antd';
 
 
 export function userApi({ method, url, params, data }) {
-    console.log("url", url)
+
     return axios({
       url,
       method,
@@ -12,12 +12,12 @@ export function userApi({ method, url, params, data }) {
       data,
       withCredentials: true,
     }).then(response => {
+
       console.log("response", response)
       const { token } = response.data;
 
       return {
-        token: token
-  
+
       };
     });
 }

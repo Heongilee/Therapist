@@ -6,11 +6,9 @@ import { all, fork } from 'redux-saga/effects';
 
 
 function* rootSaga() {
-    // yield all([
-    //     loginSaga()
-    // ]);
 
     yield fork(socketSaga, 'update');
 };
   
 export default rootSaga;
+

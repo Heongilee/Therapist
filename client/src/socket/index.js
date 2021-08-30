@@ -5,13 +5,11 @@ const createSocketConnection = () => {
   return new Promise(resolve => {
 
     let socket = socketIOClient(url);
-    
-    console.log("socket",socket)
     socket.on('connect', () => {
       console.log("왜안와")
       resolve(socket);
     });
-    
+
   })
 };
 

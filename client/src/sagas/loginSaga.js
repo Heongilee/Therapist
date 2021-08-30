@@ -13,13 +13,18 @@ function* loginSaga() {
 
         const { info } = yield take(LOGIN_REQUEST);
 
+
+
         try {
-            console.log("info",info)
-            const { token } = yield call(userApi, info);    
+            const { success, token } = yield call(userApi, info);    
             yield put(user_actions.setValue('token', token));
 
-            // yield put(socket_actions.fetchSocket(SOCKET_START));
-        
+            if (success) {
+                console.log("sucess", success)
+
+                yield put(socket_actions.fetchSocket(SOCKET_START));
+            }
+
         } catch (error) {
             console.log("loginSaga",error )
         }
