@@ -3,11 +3,13 @@ const url = 'ws://localhost:8080/socket';
 
 const createSocketConnection = () => {
   return new Promise(resolve => {
+
     let socket = socketIOClient(url);
     socket.on('connect', () => {
       console.log("왜안와")
       resolve(socket);
     });
+
   })
 };
 

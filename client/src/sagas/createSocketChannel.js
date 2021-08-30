@@ -1,40 +1,43 @@
-import { eventChannel, buffers } from 'redux-saga';
+import { eventChannel } from 'redux-saga';
+
+const URL = 'ws://localhost:8080/socket';
 
 
-// import socketio from 'socket.io-client';
-// const socket = socketio.connect('http://localhost:8080');
+export default function createSocketChannel() {
+      return eventChannel(emit => {
+          //Subscribe to websocket
+          const ws = new WebSocket(URL);
+          ws.onopen = () => {
+              console.log("Opening Websocket");
+          };
+          ws.onerror = error => {
+              console.log("ERROR: ", error);
+          };
+          ws.onmessage = e => {
+            console.log("ee", e);
 
-
-
-const createSocketChannel = (socket) => eventChannel(emit => {
-  const emitter = message => emit(message);
-
-
-  socket.on('update', emitter);
-  return function unsubscribe() {
-    socket.off('update', emitter);
-  }
-});
-
-
-export function closeChannel(channel) {
-  if (channel) {
-    channel.close();
-  }
+              // return emit({data: JSON.parse(e.data)})
+          };
+          ws.onclose = e => {
+              if (e.code === 1005) {
+                  console.log("WebSocket: closed");
+              } else {
+                  console.log('Socket is closed Unexpectedly. Reconnect will be attempted in 4 second.', e.reason);
+                  setTimeout(() =>  {
+                    createSocketChannel();
+                  }, 4000);
+              }
+          };
+          return () => {
+              console.log("Closing Websocket");
+              ws.close();
+          };
+      });
 }
+
+
+
 
 export default createSocketChannel;
 
 
-// const defaultMatcher = () => true;
-// export function createSocketChannel(eventType, buffer, matcher) {
-
-//   return eventChannel(emit => {
-
-//     const emitter = message => emit(message);
-//     socket.on(eventType, emitter);
-//     return function unsubscribe() {
-//       socket.off(eventType, emitter);
-//     }
-//   }, buffer || buffers.none(), matcher || defaultMatcher);
-// }

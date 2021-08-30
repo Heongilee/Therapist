@@ -14,6 +14,7 @@ function* loginSaga() {
         const { info } = yield take(LOGIN_REQUEST);
 
 
+
         try {
             const { success, token } = yield call(userApi, info);    
             yield put(user_actions.setValue('token', token));
