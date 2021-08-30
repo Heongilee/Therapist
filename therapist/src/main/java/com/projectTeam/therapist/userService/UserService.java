@@ -12,11 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,21 +47,6 @@ public class UserService {
     private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
 
     public UserDto save(UserDto userDto) {
-//        if (userRepository.countByUserName(user.getUserName()) >= 1L) {
-//            return null;
-//        } else {
-//            // 비밀번호 암호화
-//            String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-//            user.setUserPassword(encodedPassword);
-//
-//            // 기본 활성화 상태
-//            user.setUserEnabled(true);
-//            RoleDto roleDto = new RoleDto();
-//            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
-//            user.getRoles().add(roleDto);
-//
-//            return userRepository.save(user);
-//        }
         if (userRepository.findOneWithAuthoritiesByUserName(userDto.getUserName()).orElse(null) != null) {
             throw new RuntimeException("already exist user");
         }
@@ -166,12 +146,9 @@ public class UserService {
             e.printStackTrace();
         }
 
-        System.out.println("테라피스트의 유저네임 = " + kakaoProfileDto.getKakao_account().getEmail() + "_" + kakaoProfileDto.getId());
-//        System.out.println("테라피스트의 이메일 = " + kakaoProfileDto.getKakao_account().getEmail());
-
         KakaoProfileDto finalKakaoProfileDto = kakaoProfileDto;
         return new HashMap<>(){{
-            put("username", finalKakaoProfileDto.getKakao_account().getEmail() + "_" + finalKakaoProfileDto.getId());
+            put("username", finalKakaoProfileDto.getKakao_account().getEmail());        // 카카오로 로그인 하는 사용자는 카카오 이메일이 곧 아이디가 되어 우리 DB에 저장됨
             put("password", String.valueOf(UUID.randomUUID()));
             put("profile_image", finalKakaoProfileDto.getProperties().getProfile_image());
             put("thumbnail_image", finalKakaoProfileDto.getProperties().getThumbnail_image());
@@ -186,15 +163,20 @@ public class UserService {
         return userRepository.findByUserName(username);
     }
 
-    public ResponseEntity<String> requestPostWithFormData(String contextPath, MultiValueMap<String, String> params) {
+    // 기존 /account/login으로 보내던 걸 /auth/authenticate로 보내 토큰 요청
+    public String requestPostWithFormData(String contextPath, LoginDto loginDto) {  // contextPath: "/auth/authenticate"
+        JSONObject input = new JSONObject();
+        input.put("username", loginDto.getUsername());
+        input.put("password", loginDto.getPassword());
+
         String url = "http://localhost:8080" + contextPath;
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity param= new HttpEntity(input, headers);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-
-        return restTemplate.postForEntity( url, request , String.class );
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.postForObject(url, param, String.class);
+        return result;
     }
 
     public UserDto modifyUserPassword(UserDto newUser) {
@@ -206,10 +188,10 @@ public class UserService {
             newUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));
 
             // 기본 활성화 상태
-            RoleDto roleDto = new RoleDto();
-            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
-            newUser.getRoles().add(roleDto);
-
+            RoleDto role = RoleDto.builder()
+                    .roleId(1L)                 // 기본 권한 1번 == ROLE_USER
+                    .build();
+            newUser.setRoles(Collections.singleton(role));
             return userRepository.save(newUser);
         } else {
             foundUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));

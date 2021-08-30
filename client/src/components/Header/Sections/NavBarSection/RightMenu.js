@@ -10,40 +10,31 @@ const { kakao } = window;
 function RightMenu() {
     
     const history = useHistory();
-
-    const temp = 2;
-
-
-
-    const onClick = () => {
+    const kakaoLoginClickHandler = () => {
         Kakao.Auth.login({
-            success: function(response) {
-              console.log(response);
+            success: function (authObj) {
+                fetch(`${"http://localhost:8080/auth/kakao/callback?accessToken="+authObj.access_token}`, {
+                    method: "GET",
+                })
+
+                .then(res => res.json())
+                .then(res => {
+                    localStorage.setItem("token", res.token);
+                    if (res.access_token) {
+                        alert("welcome")
+                        history.push("/");
+                    }
+                })
             },
-            fail: function(error) {
-              console.log(error);
-            },
-          });
+            fail: function (err) {
+                alert(JSON.stringify(err))
+            }
+        })
     };
 
-    if (temp === 1){
-
-        return (
-            <div className="nav_menu_right">
-                <Link to='/mypage'><div style={{marginRight:'1rem'}}>MyPage</div></Link>
-                <div>Logout</div>
-            </div>
-        );
-
-    } else {
-
-        return (
-            <div className="nav_menu_right" onClick={onClick}>
-                Login
-            </div>
-        );
-    };
-    
+    return (
+        <Button fill className="btn kakao" onClick={kakaoLoginClickHandler}>카카오 로그인</Button>
+    );
 };
 
 export default RightMenu;
