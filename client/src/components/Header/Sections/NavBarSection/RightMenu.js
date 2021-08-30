@@ -68,7 +68,34 @@ function RightMenu() {
             </div>
         );
     };
-    
-};
-
+}
 export default RightMenu;
+
+//     const kakaoLoginClickHandler = () => {
+//         Kakao.Auth.login({
+//             success: function (authObj) {
+//                 fetch(`${"http://localhost:8080/auth/kakao/callback?accessToken="+authObj.access_token}`, {
+//                     method: "GET",
+//                 })
+
+//                 .then(res => res.json())
+//                 .then(res => {
+//                     localStorage.setItem("token", res.token);
+//                     if (res.access_token) {
+//                         alert("welcome")
+//                         history.push("/");
+//                     }
+//                 })
+//             },
+//             fail: function (err) {
+//                 alert(JSON.stringify(err))
+//             }
+//         })
+//     };
+
+//     return (
+//         <Button fill className="btn kakao" onClick={kakaoLoginClickHandler}>카카오 로그인</Button>
+//     );
+// };
+
+// export default RightMenu;
