@@ -209,9 +209,6 @@ public class UserService {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId", userDto.getUserId());
         jsonObject.put("userName", userDto.getUserName());
-        jsonObject.put("userPassword", userDto.getUserPassword());
-        jsonObject.put("userEnabled", userDto.getUserEnabled());
-        jsonObject.put("roles", userDto.getRoles());
 
         if (menuType.equals("myPosts")) {
             // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
@@ -244,16 +241,41 @@ public class UserService {
                 userReplies.add(item);
             }
             jsonObject.put("userReplies", userReplies);
-        } else if (menuType.equals("myComments")) {
-            // 내가 쓴 댓글
-            // TODO: postComments + replyCOmments
+        } else if (menuType.equals("myPostComments")) {
+            // 내가 쓴 post 댓글
             Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
+            JSONArray cmtArray = new JSONArray();
 
             jsonObject.put("totalAmount", postComments.getTotalElements());
             jsonObject.put("totalPages", postComments.getTotalPages());
-            jsonObject.put("userPostComments", postComments.getContent());
+            for (PostCommentDto cmt : postComments.getContent()) {
+                JSONObject cmtObject = new JSONObject();
+
+                cmtObject.put("id", cmt.getPostDto().getPostId());
+                cmtObject.put("commentId", cmt.getPostCommentId());
+                cmtObject.put("content", cmt.getPostCommentContent());
+                cmtArray.add(cmtObject);
+            }
+            jsonObject.put("userPostComments", cmtArray);
+
+        } else if (menuType.equals("myReplyComments")){
+            // 내가 쓴 reply 댓글
+            Page<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDto(userDto, pageable);
+            JSONArray cmtArray = new JSONArray();
+
+            jsonObject.put("totalAmount", replyComments.getTotalElements());
+            jsonObject.put("totalPages", replyComments.getTotalPages());
+            for (ReplyCommentDto cmt : replyComments.getContent()) {
+                JSONObject cmtObject = new JSONObject();
+                cmtObject.put("id", cmt.getReplyDto().getReplyId());
+                cmtObject.put("commentId", cmt.getReplyCommentId());
+                cmtObject.put("content", cmt.getReplyCommentContent());
+                cmtArray.add(cmtObject);
+            }
+            jsonObject.put("userReplyComments", cmtArray);
         } else {
             // 예외 처리 ???
+
         }
 
         return jsonObject;
