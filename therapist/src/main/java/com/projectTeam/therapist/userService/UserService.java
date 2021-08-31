@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,6 +77,19 @@ public class UserService {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUserName);
     }
 
+    @Transactional(readOnly = true)
+    public JSONObject getUserInfo(String username) {
+
+        UserDto user = userRepository.findByUserName(username);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getUserId());
+        jsonObject.put("userName", user.getUserName());
+        jsonObject.put("userGrade", user.getUserGrade());
+        jsonObject.put("userStars", user.getUserStars());
+        jsonObject.put("userProfileImage", user.getUserProfileImage());
+
+        return jsonObject;
+    }
     //  authorizationCode 값으로 카카오 서버에서 access_token값을 받음.
     public String getAccessToken(String code) {
         // POST방식으로 Key=Value 데이터를 요청(카카오에게)
@@ -318,11 +332,28 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    // Called from UserApiController (POST /api/users/mypage )
-    public void deleteMyPosts(Map<Long, Long> posts) {
-        System.out.println(posts);
-        for (Long postId : posts.values()) {
-            postRepository.deleteById(postId);
+    // Called from UserApiController (POST /api/users/mypage/posts )
+    public void deleteMyPosts(String type, Map<String, Long> items) {
+        if (type.equals("post")) {
+            for (Long postId : items.values()) {
+                System.out.println("post id: " + postId);
+                postRepository.deleteById(postId);
+            }
+        } else if (type.equals("reply")) {
+            for (Long replyId : items.values()) {
+                replyRepository.deleteById(replyId);
+            }
+        } else if (type.equals("postComment")) {
+            for (Long postCommentId : items.values()) {
+                postCommentRepository.deleteById(postCommentId);
+            }
+        } else if (type.equals("replyComment")) {
+            for (Long replyCommentId : items.values()) {
+                replyCommentRepository.deleteById(replyCommentId);
+            }
+        } else {
+
         }
+
     }
 }
