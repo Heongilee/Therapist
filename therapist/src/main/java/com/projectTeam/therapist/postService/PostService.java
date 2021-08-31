@@ -1,8 +1,6 @@
 package com.projectTeam.therapist.postService;
 
-import com.projectTeam.therapist.model.PostCategory;
-import com.projectTeam.therapist.model.PostDto;
-import com.projectTeam.therapist.model.UserDto;
+import com.projectTeam.therapist.model.*;
 import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.ReplyRepository;
 import com.projectTeam.therapist.repository.UserRepository;
@@ -82,8 +80,33 @@ public class PostService {
         return postRepository.save(newPost);
     }
 
-    public PostDto findSingleItem(Long postId) {
-        return postRepository.findById(postId).orElse(null);
+    public JSONObject findSingleItem(Long postId) {
+        PostDto postDto = postRepository.findById(postId).orElse(null);
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("postId", postDto.getPostId());
+        jsonObject.put("postType", postDto.getPostType().toString());
+        jsonObject.put("postTitle", postDto.getPostTitle());
+        jsonObject.put("postContent", postDto.getPostContent());
+        jsonObject.put("postCreatedAt", postDto.getPostCreatedAt());
+        jsonObject.put("postUpdatedAt", postDto.getPostUpdatedAt());
+        JSONArray postCommentsJsonArray = new JSONArray();
+        for (PostCommentDto postComment : postDto.getPostComments()) {
+            postCommentsJsonArray.add(postComment);
+        }
+        jsonObject.put("postComments", postCommentsJsonArray);
+        JSONArray repliesJsonArray = new JSONArray();
+        for (ReplyDto reply : postDto.getReplies()) {
+            repliesJsonArray.add(reply);
+        }
+        jsonObject.put("replies", repliesJsonArray);
+        jsonObject.put("countOfReplies", postDto.getReplies().size());
+        JSONObject userJsonObject = new JSONObject();
+        userJsonObject.put("userId", postDto.getUserDto().getUserId());
+        userJsonObject.put("userName", postDto.getUserDto().getUserName());
+        jsonObject.put("userInfo", userJsonObject);
+
+        return jsonObject;
     }
 
     public PostDto modifyById(PostDto newPost, Long id) {
