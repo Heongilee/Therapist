@@ -1,6 +1,7 @@
 package com.projectTeam.therapist.boardService;
 
 import com.projectTeam.therapist.model.PostDto;
+import com.projectTeam.therapist.model.ReplyCommentDto;
 import com.projectTeam.therapist.model.ReplyDto;
 import com.projectTeam.therapist.model.UserDto;
 import com.projectTeam.therapist.repository.PostRepository;
@@ -9,6 +10,8 @@ import com.projectTeam.therapist.repository.UserRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -45,19 +48,19 @@ public class ReplyService {
         return jsonObject;
     }
 
-    public JSONObject findReplies(Long postId) {
-        PostDto post = postRepository.getById(postId);
-
+    public JSONObject findReplies(Long postId, Pageable pageable) {
+        PostDto post = postRepository.findById(postId).orElse(null);
+        Page<ReplyDto> replies = replyRepository.findByPostDto(post, pageable);
         JSONObject jsonObject = new JSONObject();
 
         JSONArray replyArray = new JSONArray();
-        for (ReplyDto reply : post.getReplies()) {
+        for (ReplyDto reply : replies) {
             JSONObject item = new JSONObject();
             item.put("replyId", reply.getReplyId());
             item.put("replyContent", reply.getReplyContent());
-            item.put("star", reply.getStar());
             item.put("postId", reply.getPostDto().getPostId());
             item.put("userId", reply.getUserDto().getUserId());
+            item.put("userName", reply.getUserDto().getUserName());
             item.put("replyStar", reply.getStar());
             replyArray.add(item);
         }
