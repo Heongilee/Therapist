@@ -3,9 +3,11 @@ import { OpenVidu } from 'openvidu-browser';
 import React, { Component } from 'react';
 import './App.css';
 import UserVideoComponent from './UserVideoComponent';
+import {AWS_IPV4_DNS, OPENVIDU_SECRET} from './conn';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
-const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
+// const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
+const OPENVIDU_SERVER_URL = 'https://' + AWS_IPV4_DNS;
+const OPENVIDU_SERVER_SECRET = OPENVIDU_SECRET;
 
 
 class App extends Component {
