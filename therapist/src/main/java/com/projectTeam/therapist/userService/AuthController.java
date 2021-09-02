@@ -71,6 +71,7 @@ public class AuthController {
         JSONParser parser = new JSONParser();
         Object token = parser.parse(response);
         JSONObject res = (JSONObject) token;
+        res.put("username", userMap.get("username"));
 
         return res;
     }
