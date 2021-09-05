@@ -59,9 +59,15 @@ public class ReplyService {
             item.put("replyId", reply.getReplyId());
             item.put("replyContent", reply.getReplyContent());
             item.put("postId", reply.getPostDto().getPostId());
-            item.put("userId", reply.getUserDto().getUserId());
-            item.put("userName", reply.getUserDto().getUserName());
+
+            JSONObject userInfo = new JSONObject();
+            userInfo.put("userId", reply.getUserDto().getUserId());
+            userInfo.put("userName", reply.getUserDto().getUserName());
+            userInfo.put("userGrade", reply.getUserDto().getUserGrade());
+            item.put("userInfo", userInfo);
+
             item.put("replyStar", reply.getStar());
+            item.put("replyCommentSize", reply.getReplyComments().size());
             replyArray.add(item);
         }
         jsonObject.put("replies", replyArray);
