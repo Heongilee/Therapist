@@ -1,63 +1,45 @@
-import { useState, useEffect} from "react";
-import { useHistory } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { URL } from '../config/confing.js';
+import { loading_actions } from '../_actions/loading_actions.js';
+import { LOADING_START, LOADING_END } from '../_actions/types'
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
  
-// const response = await axios.get(`http://localhost:8080/api/posts?postType=${postType}&page=${page}`);
-
-const useQuery = (url) => {
+            
+const useQuery = (endpoint) => {
   const history = useHistory();
   const [apiData, setApiData] = useState();
+  const dispatch = useDispatch();
 
   useEffect(async() => {
-    const response = await axios.get(url);
+    try {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+      const response = await axios.get(URL + endpoint);
+      console.log("res",response)
+      const { data } = response;
 
-    const { status, data  } = response;
-
-    if (status > 400) {
-      history.replace(history.location.pathname, {
-      errorStatusCode: status,
-      });
-    } else {
       setApiData(data);
+
+    } catch (error) {
+      console.log("error", error)
+      const { status } = error.response;
+
+      if (status === 400) {
+        history.replace(history.location.pathname, {
+        errorStatusCode: status,
+        });
+      } 
+      else if (status === 401) {
+        alert('로그인을 하세요');
+      }
     }
-    
-  }, [url]);
+   
+  }, [endpoint]);
 
   return apiData;
 };
 
 export default useQuery;
-
-
-
-// import { useState, useEffect} from "react";
-// import { useHistory } from "react-router-dom";
-// import axios from 'axios';
- 
-
-// const useQuery = (url) => {
-//   const history = useHistory();
-//   const [apiData, setApiData] = useState();
-
-//   useEffect(async() => {
-//                   // const response = await axios.get(`http://localhost:8080/api/posts?postType=${postType}&page=${page}`);
-//     console.log("여기는 쿼리", url)
-//     fetch(url)
-//       .then((data) => data.json())
-//       .then(({ code, status, ...apiData }) => {
-//         if (code > 400) {
-//           history.replace(history.location.pathname, {
-//           errorStatusCode: code,
-//           });
-//         } else {
-//           setApiData(apiData);
-//         }
-//       });
-//   }, [url]);
-
-//   return { data: apiData };
-// };
-
-// export default useQuery;
 
 

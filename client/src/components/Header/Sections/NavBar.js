@@ -6,10 +6,12 @@ import './NavBar.css';
 
 
 function NavBar() {
+
+
     return (
         <nav>
             <div className="nav_logo">
-                <Link to="/"><div>Home</div></Link>
+                <Link to="/">Home</Link>
             </div>
             
             <div className="nav_menu">

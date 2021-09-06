@@ -9,4 +9,4 @@ export const WRITE_TITLE = {
 
 
 /* selectbar */
-export const CATEGORY = ["category1", "category2", "category3", "category4"];
+export const CATEGORY = ["JOB", "COMPANYLIFE", "FAMILY"];

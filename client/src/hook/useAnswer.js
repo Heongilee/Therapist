@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import postApi from '../api/postApi.js';
 
+
 function useAnswer({ postId }) {
 
-    const currentPage = useRef(1);
+    const currentPage = useRef(0);
     const [ AnswerState, setAnswerState ] = useState({ answerData:[], loading:false });
 
     const loadAnswerData = async() => {
@@ -20,6 +21,8 @@ function useAnswer({ postId }) {
         loadAnswerData();
     }, []);
     
+
+
     return { AnswerState:AnswerState, currentPage:currentPage, loadAnswerData };
 };
 

@@ -15,3 +15,10 @@ nav {
     justify-content: space-between;
     align-items: center;
 } 
+
+@media only screen and (max-width: 980px) {
+    nav {
+        padding: 0 0.7rem;
+    }
+    
+}

@@ -1,5 +1,5 @@
-import loginSaga from './loginSaga.js';
 import socketSaga from './socketSaga.js';
+import loadingSaga from './loadingSaga.js';
 
 import { all, fork } from 'redux-saga/effects';
 
@@ -7,10 +7,10 @@ import { all, fork } from 'redux-saga/effects';
 
 function* rootSaga() {
     // yield all([
-    //     loginSaga()
     // ]);
 
-    yield fork(socketSaga, 'update');
+    // yield fork(loadingSaga);
+    // yield fork(socketSaga);
 };
   
 export default rootSaga;

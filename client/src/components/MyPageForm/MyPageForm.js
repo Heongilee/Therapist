@@ -7,12 +7,12 @@ import { Checkbox } from 'antd';
 import './MyPageForm.css';
 
 
-function MyPageForm({ postData, cateGory }) {
+function MyPageForm({ postData, cateGory, postType }) {
     
-    console.log("mypage");
 
     const [ CheckState, checkBoxhandler ] = useCheckBox({ postData });
-    const { showDeleteModal, handleOk, handleCancel, visible, confirmLoading } = useCheckBoxModal({ CheckState, postData });
+    const { showDeleteModal, handleOk, handleCancel, visible, confirmLoading } 
+    = useCheckBoxModal({ CheckState, postData, postType:postType });
 
     const postList = postData.map((data, index) => {
         return <li className="mypage_post_area" key={ "data" + index }>
@@ -22,6 +22,7 @@ function MyPageForm({ postData, cateGory }) {
                             <div className="mypage_post_header">
                                 <div>{data[cateGory[0]]}</div>   
                                 <div>{data[cateGory[1]]}</div>
+                                <div>{data[cateGory[2]]}</div>
                             </div>
                         </div>
                 </li>
@@ -32,9 +33,11 @@ function MyPageForm({ postData, cateGory }) {
                     <div className="mypage_posts_header">
                         <div className="mypage_category_name">카테고리 이름</div>
                     </div>
+
                     <ul className="mypage_posts_list">
                         { postList }
                     </ul>
+
                     <div className="mypage_posts_footer">
                     
                         <div className='post_delete_btn' >
@@ -43,6 +46,7 @@ function MyPageForm({ postData, cateGory }) {
                                     </ModernButton>  
                         </div>
                     </div>
+                    
                     <ModalForm modalText={"선택한 내용들을 삭제하시겠습니까?"}
                                 handleOk={ handleOk } handleCancel={ handleCancel } 
                                 visible= { visible } confirmLoading={ confirmLoading }

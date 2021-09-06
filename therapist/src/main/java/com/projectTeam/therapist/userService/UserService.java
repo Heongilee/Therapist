@@ -184,6 +184,7 @@ public class UserService {
 
         if (foundUser == null) {
             // 기존에 없는 경우 새로 객체를 만들어서 저장하기.
+            System.out.println("유저없음");
             // 비밀번호 암호화
             newUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));
 

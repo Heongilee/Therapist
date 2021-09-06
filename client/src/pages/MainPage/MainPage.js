@@ -6,7 +6,6 @@ import useVoiceRoom from '../../hook/useVoiceRoom.js';
 import useCreateRoom from '../../hook/useCreateRoom.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import { AudioOutlined, FormOutlined } from '@ant-design/icons';
-
 import './MainPage.css';
 
 function MainPage() {
@@ -18,6 +17,7 @@ function MainPage() {
     
     return (
         <section className="main_section">
+
             <div className="wrapper">
                 <div className="voice_room_title">            
                     <h2 onClick={onClick} style={{cursor: "pointer"}}>

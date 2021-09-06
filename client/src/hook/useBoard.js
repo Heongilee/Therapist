@@ -32,7 +32,7 @@ function useBoard({ PATH }) {
 
     const fetchMypage = async() => {
 
-        const response = await mypageApi.fetchMypage(category, page);
+        const response = await mypageApi.fetchMypage(postType, page);
         const { posts,totalPage,postType } = response[0];
                 setBoardState({...BoardState, posts:posts,
                     currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });

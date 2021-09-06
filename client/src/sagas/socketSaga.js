@@ -1,19 +1,69 @@
-import { fork, take, call} from 'redux-saga/effects';
+import { fork, take, call, put } from 'redux-saga/effects';
 import createSocketChannel from "./createSocketChannel";
-import socketIOClient from 'socket.io-client';
-// import createSocketConnection from '../socket';
+import { START_CHANNEL , STOP_CHANNEL, 
+          SOCKET_MESSAGE, NOTICE_COUNT, 
+          SEND_MESSAGE, GET_MESSAGE,
+        } from '../_actions/types';
 
+import { notification } from 'antd';
+
+
+const URL = 'ws://localhost:5000';
+
+const option ={
+  message: '메세지옴',
+  description: '하이',
+  placement:'bottomRight',
+};
+
+const openNotification = (type) => {
+  +
+  
+  notification[type](option);
+};
+
+function * sendMessageSaga(ws) {
+
+  while (true) {
+    
+    const { data } = yield take(SEND_MESSAGE);
+  
+    ws.send(
+      JSON.stringify(data))
+  }
+
+};
 
 function * initializeWebSocketsChannel() {
+  
   console.log("going to connect to WS")
-  const channel = yield call(createSocketChannel);
+  const ws = new WebSocket(URL);
+  const channel = yield call(createSocketChannel, ws);
   while (true) {
+
+      yield fork(sendMessageSaga, ws);
+
       const { data } = yield take(channel);
-      console.log("data", data)
+     
+      yield put({
+        type: SOCKET_MESSAGE,
+        key: 'message',
+        data: data
+      });
+      
+      yield put({ // push count
+        type: NOTICE_COUNT,
+      });
+
+      yield call(openNotification,'open');
   }
-}
+
+
+};
+
 
 function * socketSaga() {
+
   while (true) {
       // yield take(START_CHANNEL);
       yield call(initializeWebSocketsChannel)
@@ -23,41 +73,9 @@ function * socketSaga() {
       // });
 
       //if cancel wins the race we can close socket
-      ws.close();
-  };
+      // ws.close();
+  }
 };
 
 export default socketSaga;
 
-// import { fork, take, call} from 'redux-saga/effects';
-// import { SOCKET_START } from '../_actions/types';
-// import createSocketChannel from "./createSocketChannel";
-// import socketIOClient from 'socket.io-client';
-// import createSocketConnection from '../socket';
-
-
-// function* socketSaga(type) {
-
-//     // yield take(SOCKET_START);
-//     const socket = yield call(createSocketConnection)
-
-
-//     const socketChannel = yield call(createSocketChannel, socket)
-
-//     while (true) {
-//         try {
-          
-//         console.log("어디서막힌걸까")
-
-//         const message = yield take(socketChannel);
-    
-//         console.log(message);
-
-//         } catch (error) {
-//           alert(error.message);
-//         }
-//     }
-    
-// };
-
-// export default socketSaga; 

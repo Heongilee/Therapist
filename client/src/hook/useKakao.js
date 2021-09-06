@@ -1,31 +1,26 @@
-import React, { useEffect, useCallback } from 'react';
+import { useState } from 'react';
+import { Auth } from '../config/confing.js';
+
+const { Kakao } = window;
 
 
 function useKakao() {
 
-    useEffect(() => {
-       
-    }, []);
-    
-    const checkToken = useCallback(
-        () => {
-            localStorage.getItem('token')
-        },
-    []);
+    const [LoginState, setLoginState] = useState(localStorage.getItem('token') ? true : false);
 
     const kakaoLoginClickHandler = () => {
         Kakao.Auth.login({
             success: function (authObj) {
-                fetch(`${"http://localhost:8080/auth/kakao/callback?accessToken="+authObj.access_token}`, {
+                fetch(`${Auth + "/auth/kakao/callback?accessToken="+authObj.access_token}`, {
                         method: "GET",
                     })
                     .then(res => res.json())
                     .then(res => {
                         localStorage.setItem("token", res.token);
-                        console.log("res.access_token", res.access_token)
-                        if (res.access_token) {
+                        localStorage.setItem("username", res.username);
+                        if (res.token) {
                             alert("welcome")
-                            history.push("/");
+                            setLoginState(!LoginState);
                         }
                     })
                 },
@@ -35,8 +30,27 @@ function useKakao() {
                 }
             })
         };
+    
+    const kakaoLogoutClickHandler = () => {
 
-    return { kakaoLoginClickHandler };
+        Kakao.API.request({
+            //로그아웃하고
+            url: '/v1/user/unlink',
+            success: function (response) {
+                alert("bye bye")
+                Kakao.Auth.setAccessToken(undefined)
+                setLoginState(!LoginState);
+                localStorage.clear(); 
+            },
+            fail: function (error) {
+              console.log(error)
+            },
+          })
+   
+    
+    };
+
+    return { kakaoLoginClickHandler, kakaoLogoutClickHandler, LoginState:LoginState };
 };
 
 export default useKakao;

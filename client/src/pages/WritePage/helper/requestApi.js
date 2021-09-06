@@ -1,5 +1,7 @@
 import writeApi from '../../../api/writeApi.js';
 
+
+
 export const requestApi = async({ userId=null, replyId=null, postId=null, 
                             title=null, content=null, type=null, 
                             postType=null }) => {
@@ -19,8 +21,8 @@ export const requestApi = async({ userId=null, replyId=null, postId=null,
         case 'writeAnswer':{
             const response = await writeApi.fetchAnswerRegister({
                 postId: postId,
-                userName: userId,
-                replyContent: content
+                userId: userId,
+                content: content
             });
             return response;    
         }
@@ -48,17 +50,4 @@ export const requestApi = async({ userId=null, replyId=null, postId=null,
     };     
 };
 
-
-
-// import { writeCase } from '../../../utils/writeCase';
-
-// export const requestApi = async({ userId, replyId, postId, 
-//                             title, content, type, 
-//                             CateGoryState, postType }) => {
-        
-//         const respose = await writeCase({ userId, replyId, postId, 
-//                                 title, content, type, 
-//                                 CateGoryState, postType });
-//         return respose;                
-// };
 

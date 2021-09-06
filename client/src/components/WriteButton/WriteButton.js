@@ -8,7 +8,8 @@ function WriteButton({}) {
 
     return (
         <div className="writeButton" >
-            <Link to={{ pathname: `/write`, data:{ type:"writeQuestion",userId:"Faker" }}}>
+            <Link to={{ pathname: `/write`, 
+                    data:{ type:"writeQuestion",userId: localStorage.getItem('username') }}}>
                 <Button><EditOutlined/>글쓰기</Button>
             </Link>
         </div>

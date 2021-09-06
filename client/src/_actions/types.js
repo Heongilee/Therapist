@@ -1,12 +1,14 @@
-// user
-export const AUTH_USER = "auth_user";
-export const LOGIN_REQUEST = "login_request"
-export const SAVE_TOKEN = "save_token"
-
-
-
 // socket
-export const SAVE_STATE = "save_state";
-export const SOCKET_START = "socket_start"
+export const START_CHANNEL = "start_channel";
+export const STOP_CHANNEL = "stop_channel";
+export const SOCKET_MESSAGE = "socket_message";
+export const NOTICE_COUNT = "notice_count";
+export const SEND_MESSAGE = "send_message";
+export const GET_MESSAGE = "get_message";
 
-export const PUSH_DATA = "push_data";
+
+//loading
+export const LOADING_START = "loading_start";
+export const LOADING_END = "loading_end";
+
+

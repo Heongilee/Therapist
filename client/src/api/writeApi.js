@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { URL } from '../config/confing.js'
 
 
 const writeApi = {
@@ -8,11 +8,10 @@ const writeApi = {
     fetchRegisterPost: async({ userName, postType, postTitle, postContent }) => {
         const body = { userName: userName, postType: postType
             ,postTitle: postTitle, postContent: postContent }
-
+        
         try {
-
-            // const response = await axios.post('/posts', body );
-            const response = true;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            const response = await axios.post(`${URL}/posts`, body );
             
             return response;
 
@@ -27,8 +26,9 @@ const writeApi = {
             ,postTitle: postTitle, postContent: postContent }
 
         try { 
-            // const response = await axios.put('/posts/${postId}', body );
-            const response = true;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            const response = await axios.put(`${URL}/posts/${postId}`, body );
+            // const response = true;
             
             return response;
 
@@ -38,13 +38,19 @@ const writeApi = {
     }, 
     
     // 답글 등록
-    fetchAnswerRegister: async({ postId, userName, content }) => {
-        const body = { postId: postId, userName: userName, content: content }
-        try {
-            // const response = await axios.post(`/replies/${postId}`, body);
-            const response = true;
+    fetchAnswerRegister: async({ postId, userId, content }) => {
 
-            return response;
+        const body = { postId: postId, userName: localStorage.getItem('username'),
+                        userId:userId, replyContent: content };
+
+        try {
+
+            const response = await axios.post(`${URL}/replies/${postId}`, body);
+
+            if (response.status === 200){
+                return true;
+            }
+            
 
         } catch (error) {
             console.log("fetchAnswerRegister", error);
@@ -55,9 +61,12 @@ const writeApi = {
     fetchAnswerModify: async( { replyContent, replyId }) => {
         const body = { replyContent: replyContent, replyId: replyId }
 
-        try {
-            // const response = await axios.put(`/replies/${replyId}`, body);
-            const response = true;
+        axios.defaults.headers.common['Authorization'] 
+           = `Bearer ${localStorage.getItem('token')}`;
+
+           try {
+            const response = await axios.put(`${URL}/replies/${replyId}`, body);
+
 
             return response;
 
@@ -65,8 +74,47 @@ const writeApi = {
             console.log("fetchAnswerModify", error);
         }
     
-    }
+    },
 
+
+    // 질문글 삭제
+    fetchQuestionDelete: async(endpoint) => {
+        
+        try {
+            const response = await axios.delete(`${URL + endpoint}`);
+            return response;
+
+        } catch (error) {
+            console.log("fetchQuestionDelete", error);
+        }
+    
+    },
+
+     // 답글 삭제
+     fetchAnswerDelete: async(endpoint) => {
+
+        try {
+            const response = await axios.delete(`${URL + endpoint}`);
+            return response;
+
+        } catch (error) {
+            console.log("fetchAnswerDelete", error);
+        }
+    
+    },
+    
+    // 질문글에 달린 댓글 삭제
+    fetchPostCommentDelete: async(endpoint) => {
+
+        try {
+            const response = await axios.delete(`${URL + endpoint}`);
+            return response;
+
+        } catch (error) {
+            console.log("fetchPostCommentDelete", error);
+        }
+    
+    },
 
 };
 

@@ -11,6 +11,7 @@ const reduxTools =  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default function configureStore() {
 
   const store = createStore(rootReducer, reduxTools(applyMiddleware(sagaMiddleware)))
+  
 
   sagaMiddleware.run(rootSaga);
 
