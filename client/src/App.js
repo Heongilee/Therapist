@@ -14,8 +14,6 @@ import LoadingBar from './components/LoadingBar/LoadingBar.js';
 import { Page404 } from './pages/ErrorPage/ErrorPage';
 import { ErrorHandler } from './utils/ErrorHandler.js';
 
-
-
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <ErrorHandler>
@@ -27,6 +25,7 @@ const App = () => (
                 <Route exact path="/posts/:postId" component={ PostPage } />
                 <Route exact path="/write" component={ WritePage } />
                 <Route exact path="/mypage" component={ MyPage } />
+
                 <Route exact path="/notice" component={ NoticePage } />
                 <Route component={ Page404 } />
             </Switch>

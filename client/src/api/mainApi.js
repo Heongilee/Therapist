@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { URL } from '../config/confing';
 
+// const API = "http://ec2-184-73-134-45.compute-1.amazonaws.com:8080/api/main/posts"
 
 const mainApi = {
 

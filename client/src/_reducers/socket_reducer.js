@@ -1,11 +1,13 @@
 import {
     START_CHANNEL, STOP_CHANNEL, SOCKET_MESSAGE, NOTICE_COUNT, SEND_MESSAGE, GET_MESSAGE
+
 } from '../_actions/types';
 
 import { createReducer } from "@reduxjs/toolkit"; 
 import { setValueReducer } from '../utils/reduxHelper';
 
 
+ 
 const INITIALSTATE = { connect: false , message: null, count: 0, sendMessage: null };
 
 const socket_reducer = createReducer(INITIALSTATE, {
@@ -14,7 +16,7 @@ const socket_reducer = createReducer(INITIALSTATE, {
     [SOCKET_MESSAGE] : (state, action) =>  setValueReducer(state, action),
     [NOTICE_COUNT] : (state, action) =>  ({...state, count: state.count + 1 }),
     [SEND_MESSAGE] : (state, action) =>  ({...state, sendMessage: action.data }),
-    
+ 
 }); 
 
 export default socket_reducer;

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { URL } from '../config/confing.js';
 
 
+
 const boardApi = {
 
     fetchPosts: async(postType='JOB') => {

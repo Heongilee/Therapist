@@ -22,7 +22,7 @@ ReactDOM.render(
           </ModalProvider>
       </BrowserRouter>
   </Provider>
-        
+
     ,document.getElementById('root')
 );
 

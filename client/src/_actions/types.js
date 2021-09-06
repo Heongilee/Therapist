@@ -1,3 +1,4 @@
+ 
 // socket
 export const START_CHANNEL = "start_channel";
 export const STOP_CHANNEL = "stop_channel";
@@ -10,5 +11,3 @@ export const GET_MESSAGE = "get_message";
 //loading
 export const LOADING_START = "loading_start";
 export const LOADING_END = "loading_end";
-
-

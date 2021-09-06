@@ -1,7 +1,6 @@
 
 
 export const createSetValueAction = (type) => {
-
     return (key, value) => ({ type, key, value });
 };
 
