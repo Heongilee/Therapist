@@ -104,6 +104,7 @@ public class PostService {
         JSONObject userJsonObject = new JSONObject();
         userJsonObject.put("userId", postDto.getUserDto().getUserId());
         userJsonObject.put("userName", postDto.getUserDto().getUserName());
+        userJsonObject.put("userGrade", postDto.getUserDto().getUserGrade());
         jsonObject.put("userInfo", userJsonObject);
 
         return jsonObject;
