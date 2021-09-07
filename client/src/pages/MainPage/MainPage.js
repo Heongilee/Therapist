@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CardSection from './sections/CardSection.js';
 import BoardSection from './sections/BoardSection.js';
 import useRecentBoard from '../../hook/useRecentBoard.js';
@@ -6,7 +6,6 @@ import useVoiceRoom from '../../hook/useVoiceRoom.js';
 import useCreateRoom from '../../hook/useCreateRoom.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import { AudioOutlined, FormOutlined } from '@ant-design/icons';
-
 import './MainPage.css';
 
 function MainPage() {
@@ -15,10 +14,10 @@ function MainPage() {
     const PostState = useRecentBoard();
     const { ModalRoomRender, onClick } = useCreateRoom();
 
-
     
     return (
         <section className="main_section">
+
             <div className="wrapper">
                 <div className="voice_room_title">            
                     <h2 onClick={onClick} style={{cursor: "pointer"}}>

@@ -1,7 +1,6 @@
 import React, { createContext } from 'react';
 import useModal from '../hook/useModal.js';
 
-
 export const ModalContext = createContext({
     showDeleteModal() {},
     showStarModal() {},

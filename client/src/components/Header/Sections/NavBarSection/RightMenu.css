@@ -1,8 +1,14 @@
 
 .nav_menu_right { 
     display: flex;
+    align-items: center;
 }
 
 .nav_menu_right > a { 
     color: #000;
 }
+
+.nav_menu_right > * {
+    cursor: pointer;
+}
+

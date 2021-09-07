@@ -8,7 +8,7 @@ import mypageApi from '../api/mypageApi.js';
 function useBoard({ PATH }) {
     
     const [BoardState, setBoardState] = useState({posts :null,currentPage:null,currentType:null,totalPage: null});
-    const { page, category } = useGetQuery();
+    const { page, postType } = useGetQuery();
     const history = useHistory();
 
 
@@ -20,31 +20,33 @@ function useBoard({ PATH }) {
             fetchMypage();
         }
 
-    }, [page, category]);
+    }, [page, postType]);
     
     const fetchPosts = async() => {
-
-        const response = await boardApi.fetchPosts(category, page);
-        const { posts, totalPage, postType } = response[0];
+        const response = await boardApi.fetchPosts('JOB', page);
+        const { posts, totalPages, postType, totalAmount } = response[0];
                 setBoardState({...BoardState, posts:posts,
                     currentPage:page ? parseInt(page) : '1', 
-                    totalPage: totalPage, currentType:postType });
+                    totalPages: totalAmount, postType:postType });
     };
 
     const fetchMypage = async() => {
 
-        const response = await mypageApi.fetchMypage(category, page);
+        const response = await mypageApi.fetchMypage(postType, page);
         const { posts,totalPage,postType } = response[0];
                 setBoardState({...BoardState, posts:posts,
                     currentPage:page ? parseInt(page) : '1', totalPage: totalPage, currentType:postType });
     };
 
     const categorySelect = (key) => {
-        history.push(`/${PATH}?category=${key}&page=${'1'}`);
+        
+        history.push(`/${PATH}?postType=${key}&page=${'1'}`);
     }
 
     const pageSelect = page => {
-        history.push(`/${PATH}?category=${BoardState.currentType}&page=${page}`);                                        
+        console.log("postType", BoardState.postType)
+
+        history.push(`/${PATH}?postType=${BoardState.postType}&page=${page}`);                                        
     };
     
     return { BoardState, categorySelect, pageSelect };

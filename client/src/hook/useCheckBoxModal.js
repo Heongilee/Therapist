@@ -2,7 +2,7 @@ import { useState } from 'react';
 import mypageApi from '../api/mypageApi.js';
 
 
-export default function useCheckBoxModal({ CheckState, postData }) {
+export default function useCheckBoxModal({ CheckState, postData, postType }) {
 
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -51,7 +51,7 @@ export default function useCheckBoxModal({ CheckState, postData }) {
         const checkData = await dataProcessing();
 
 
-        const response = await mypageApi.fetchMypageDelete(checkData);
+        const response = await mypageApi.fetchMypageDelete(postType, checkData);
         if (response){
             setConfirmLoading(true);
             setVisible(false);

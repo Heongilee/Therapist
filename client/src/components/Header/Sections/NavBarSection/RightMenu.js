@@ -1,89 +1,42 @@
-import React, { useState } from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import ModalPortal from '../../../../portal/ModalPortal.js';
-import { useHistory } from "react-router-dom";
+ 
+import React from 'react';
+import useKakao from '../../../../hook/useKakao.js';
+import usePushMessage from '../../../../hook/usePushMessage.js';
+import { Link } from 'react-router-dom';
+
+import { Badge } from 'antd';
+import { BellOutlined } from '@ant-design/icons';
+
 
 import './RightMenu.css';
 
-const { kakao } = window;
 
 function RightMenu() {
     
-    const history = useHistory();
-    const kakaoLoginClickHandler = () => {
-        Kakao.Auth.login({
-            success: function (authObj) {
-                fetch(`${"http://localhost:8080/auth/kakao/callback?accessToken="+authObj.access_token}`, {
-                    method: "GET",
-                })
+    const { kakaoLoginClickHandler, kakaoLogoutClickHandler, LoginState } = useKakao();
 
-                .then(res => res.json())
-                .then(res => {
-                    localStorage.setItem("token", res.token);
-                    if (res.access_token) {
-                        alert("welcome")
-                        history.push("/");
-                    }
-                })
-            },
-            fail: function (err) {
-                alert(JSON.stringify(err))
-            }
-        })
-    };
+    const { count, noticeHendler } = usePushMessage();
 
     return (
-        <Button fill className="btn kakao" onClick={kakaoLoginClickHandler}>카카오 로그인</Button>
+        <>
+            { LoginState ? 
+                <div className="nav_menu_right">
+
+                    <Badge count={count}  style={{marginRight:'0.9rem'}}>
+                        <BellOutlined onClick={noticeHendler} style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
+                    </Badge>
+
+                    <Link to='/mypage'>
+                        <div style={{marginRight:'0.9rem'}}>MyPage</div>
+                    </Link>
+
+                    <div onClick={ kakaoLogoutClickHandler }>Logout</div> 
+                </div> : 
+                <div className="nav_menu_right">
+                    <div onClick={ kakaoLoginClickHandler }>Login</div>
+                </div> }           
+        </>
     );
 };
 
 export default RightMenu;
-
-
-// import React, { useState } from 'react';
-// import { withRouter, Link } from 'react-router-dom';
-// import useLoginModal from '../../../../hook/useLoginModal.js';
-// import ModalPortal from '../../../../portal/ModalPortal.js';
-// import { useHistory } from "react-router-dom";
-
-// import './RightMenu.css';
-
-// const { kakao } = window;
-
-// function RightMenu() {
-    
-//     const history = useHistory();
-
-//     const temp = 2;
-//     const { renderLoginModal } = useLoginModal();
-//     const [LoginModalstate, setLoginModalstate] = useState(false);
-
-
-//     const onClick = () => {
-//         setLoginModalstate(!LoginModalstate);
-//     };
-
-//     if (temp === 1){
-
-//         return (
-//             <div className="nav_menu_right">
-//                 <Link to='/mypage'><div style={{marginRight:'1rem'}}>MyPage</div></Link>
-//                 <div>Logout</div>
-//             </div>
-//         );
-
-//     } else {
-
-//         return (
-//             <div className="nav_menu_right">
-//                 <div onClick={onClick}>Login</div>
-//                 <ModalPortal>
-//                     {renderLoginModal({LoginModalstate})}
-//                 </ModalPortal>
-//             </div>
-//         );
-//     };
-    
-// };
-
-// export default RightMenu;

@@ -1,10 +1,15 @@
 import { combineReducers } from 'redux';
-import user from './user_reducer';
+import socket from './socket_reducer';
+
+import loading from './loading_reducer';
 
 
 
 const rootReducer = combineReducers({
-    user
+ 
+    socket: socket,
+    loading: loading
+
 })
 
 export default rootReducer;

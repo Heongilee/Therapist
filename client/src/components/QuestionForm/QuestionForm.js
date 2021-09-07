@@ -7,10 +7,11 @@ import PaginationCmp from '../Pagination/PaginationCmp.js';
 import CommentForm from '../CommentForm/CommentForm.js';
 import WriteLinkButton from '../WriteLinkButton/WriteLinkButton.js'
 import useComment from '../../hook/useComment.js';
+import DropButton from '../DropButton/DropButton.js';
+
 import { ROOT_INDEX } from '../../constants/postPageConstants';
 import { ENDPOINT_DIC } from '../../constants/modalConstants';
 import { Link } from "react-router-dom";
-
 
 import { Button } from 'antd';
 
@@ -21,50 +22,72 @@ import { QuestionCircleTwoTone } from '@ant-design/icons';
 
 function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
 
-
+    console.log("questionData", questionData)
     const { CommentData, CommentState, MessageIconOnClick, commentRegister } 
                                             = useComment({
                                                 COMMENT_ENDPOINT:ENDPOINT_DIC['postComments'], 
-                                                id:questionData[0].postId});
-    
+                                                id:questionData.postId,
+                                                userName:questionData.userInfo.userName,
+                                                });
+                                                
+                                            
     const questionInfo = { 
-                        "type": "questionModify", "userId":questionData[0].userId, 
-                        "title": questionData[0].postTitle, "content": questionData[0].postContent,
-                        "postId":questionData[0].postId,  "postType":questionData[0].postType, 
+                        "type": "questionModify", "userId":questionData.userInfo.userId, 
+                        "title": questionData.postTitle, "content": questionData.postContent,
+                        "postId":questionData.postId,  "postType":questionData.postType, 
                         "buttonName":"수정" };
+
+    const handleMenuClick = event => {
+                if (event.key === 'delete'){
+                        showDeleteModal(ENDPOINT_DIC['posts'], questionData.postId)
+                }
+    };
+
 
     return (
         <div className="question_area" >
             
             <div className="question_header">
-                <h1><QuestionCircleTwoTone style={ { marginRight:'10px' }} 
-                    twoToneColor="#52c41a" />{ questionData[0].postTitle }</h1>
-                    <div className="question_header_btn" > 
+            <QuestionCircleTwoTone style={ { marginRight:'10px', fontSize: '2rem' }} 
+                    twoToneColor="#52c41a" />
+                <h1>{ questionData.postTitle }</h1>
+                    {localStorage.getItem('username') === questionData.userInfo.userName ?
+                        <div> 
+                                {/* 삭제, 수정 버튼 */}
+                                <DropButton info={questionInfo}
+                                            handleMenuClick={handleMenuClick}
+                                            ENDPOINT_DIC={ENDPOINT_DIC}
+                                            >
+                                </DropButton>    
+                        </div> : null
+                    }
                     
-                        <WriteLinkButton data={questionInfo}></WriteLinkButton> 
-                            
-                        <Button data-name={ questionData[0].postId } 
-                                onClick={(event) => showDeleteModal(ENDPOINT_DIC['posts'],{event}) }>삭제</Button>
-                    </div>
             </div> 
-            
+
                 <div className="question_content">
-                    <div>{ questionData[0].postContent }</div>   
+                     { questionData.postContent.split("\n").map((line, index) => 
+                     {
+                        return <span key={"postContent" + index}>{line}<br /></span>
+                    })}
                 </div>
 
             <div className="question_footer">
-                <AvatarField></AvatarField>
+                <AvatarField userid={questionData.userInfo.userName}></AvatarField>
                 <div className="question_footer_reply">
                     <div className="question_footer_reply_button">
+
+                    {localStorage.getItem('username') !== questionData.userInfo.userName ?
                         <Button>
                             <Link to={{pathname :`/write`,
                                 data:{ type:"writeAnswer",
-                                       userId:questionData[0].userId,
-                                       postId: questionData[0].postId}
+                                       userId:questionData.userInfo.userId,
+                                       postId: questionData.postId,
+                                       userName: questionData.userInfo.userName }
                             }}>답변등록</Link>
-                        </Button>
+                        </Button> : null }
+
                         <div onClick={() => MessageIconOnClick(ENDPOINT_DIC['postComments'], ROOT_INDEX)}>
-                            <MessageIcon></MessageIcon>
+                            <MessageIcon commentCount={questionData.postComments.length}></MessageIcon>
                         </div>
                     </div>
                 </div>
@@ -74,11 +97,13 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
             
             {CommentState ? [ 
                             <CommentForm key="CommentForm" onFinish={commentRegister}></CommentForm>,
-                            <CommentField key="commentField" 
+                            <CommentField key="commentField"
+                            showDeleteModal={showDeleteModal}
                             commentData={ CommentData } 
                             COMMENT_ENDPOINT={ENDPOINT_DIC['postComments']}>
                             </CommentField>,
-                            <PaginationCmp key="PaginationCmp"/>]: null}
+                            <PaginationCmp totalPages={CommentData.length} 
+                                                    key="PaginationCmp"/>]: null}
         </div>
     );
 };

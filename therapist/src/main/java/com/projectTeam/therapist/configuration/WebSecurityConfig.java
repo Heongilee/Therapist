@@ -55,6 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .authorizeRequests()
+
                 .antMatchers("/api/main/posts").permitAll()
                 .antMatchers("/api/main/voiceChatRoom").permitAll()
                 .antMatchers("/account/register").permitAll()
