@@ -2,6 +2,7 @@ package com.projectTeam.therapist.restService;
 
 import com.projectTeam.therapist.model.UserDto;
 import com.projectTeam.therapist.userService.UserService;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,9 +26,13 @@ class UserApiController {
 
     // 마이페이지를 눌렀을때의 요청 API + 작성글 조회
     @GetMapping("/users/{userName}")
-    @PreAuthorize("hasAnyRole('USER')")     // authorize 적용, USER 롤을 가진 사용자만 접근 가능
     public ResponseEntity<UserDto> findUser(@PathVariable String userName) {
         return ResponseEntity.ok(userService.getMyUserWithRoles().get());
+    }
+
+    @GetMapping("/users/info/{userName}")
+    public JSONObject findUserInfo(@PathVariable String userName) {
+        return userService.getUserInfo(userName);
     }
 //    UserDto findUser(@PathVariable String userName) {
 //        return userService.findUser(userName);
@@ -50,7 +55,8 @@ class UserApiController {
 
     // 마이페이지 체크 박스에 따른 게시글 / 댓글 삭제
     @PostMapping("/users/mypage")
-    void deleteMyPosts(@RequestBody Map<Long, Long> posts) {
-        userService.deleteMyPosts(posts);
+    void deleteMyPosts(@RequestBody Map<String, Long> items,
+                       @RequestParam String type) {
+        userService.deleteMyPosts(type, items);
     }
 }

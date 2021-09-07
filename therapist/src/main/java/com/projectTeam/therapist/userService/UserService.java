@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -76,6 +77,19 @@ public class UserService {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUserName);
     }
 
+    @Transactional(readOnly = true)
+    public JSONObject getUserInfo(String username) {
+
+        UserDto user = userRepository.findByUserName(username);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getUserId());
+        jsonObject.put("userName", user.getUserName());
+        jsonObject.put("userGrade", user.getUserGrade());
+        jsonObject.put("userStars", user.getUserStars());
+        jsonObject.put("userProfileImage", user.getUserProfileImage());
+
+        return jsonObject;
+    }
     //  authorizationCode 값으로 카카오 서버에서 access_token값을 받음.
     public String getAccessToken(String code) {
         // POST방식으로 Key=Value 데이터를 요청(카카오에게)
@@ -210,9 +224,6 @@ public class UserService {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId", userDto.getUserId());
         jsonObject.put("userName", userDto.getUserName());
-        jsonObject.put("userPassword", userDto.getUserPassword());
-        jsonObject.put("userEnabled", userDto.getUserEnabled());
-        jsonObject.put("roles", userDto.getRoles());
 
         if (menuType.equals("myPosts")) {
             // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
@@ -245,16 +256,41 @@ public class UserService {
                 userReplies.add(item);
             }
             jsonObject.put("userReplies", userReplies);
-        } else if (menuType.equals("myComments")) {
-            // 내가 쓴 댓글
-            // TODO: postComments + replyCOmments
+        } else if (menuType.equals("myPostComments")) {
+            // 내가 쓴 post 댓글
             Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
+            JSONArray cmtArray = new JSONArray();
 
             jsonObject.put("totalAmount", postComments.getTotalElements());
             jsonObject.put("totalPages", postComments.getTotalPages());
-            jsonObject.put("userPostComments", postComments.getContent());
+            for (PostCommentDto cmt : postComments.getContent()) {
+                JSONObject cmtObject = new JSONObject();
+
+                cmtObject.put("id", cmt.getPostDto().getPostId());
+                cmtObject.put("commentId", cmt.getPostCommentId());
+                cmtObject.put("content", cmt.getPostCommentContent());
+                cmtArray.add(cmtObject);
+            }
+            jsonObject.put("userPostComments", cmtArray);
+
+        } else if (menuType.equals("myReplyComments")){
+            // 내가 쓴 reply 댓글
+            Page<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDto(userDto, pageable);
+            JSONArray cmtArray = new JSONArray();
+
+            jsonObject.put("totalAmount", replyComments.getTotalElements());
+            jsonObject.put("totalPages", replyComments.getTotalPages());
+            for (ReplyCommentDto cmt : replyComments.getContent()) {
+                JSONObject cmtObject = new JSONObject();
+                cmtObject.put("id", cmt.getReplyDto().getReplyId());
+                cmtObject.put("commentId", cmt.getReplyCommentId());
+                cmtObject.put("content", cmt.getReplyCommentContent());
+                cmtArray.add(cmtObject);
+            }
+            jsonObject.put("userReplyComments", cmtArray);
         } else {
             // 예외 처리 ???
+
         }
 
         return jsonObject;
@@ -297,11 +333,28 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    // Called from UserApiController (POST /api/users/mypage )
-    public void deleteMyPosts(Map<Long, Long> posts) {
-        System.out.println(posts);
-        for (Long postId : posts.values()) {
-            postRepository.deleteById(postId);
+    // Called from UserApiController (POST /api/users/mypage/posts )
+    public void deleteMyPosts(String type, Map<String, Long> items) {
+        if (type.equals("post")) {
+            for (Long postId : items.values()) {
+                System.out.println("post id: " + postId);
+                postRepository.deleteById(postId);
+            }
+        } else if (type.equals("reply")) {
+            for (Long replyId : items.values()) {
+                replyRepository.deleteById(replyId);
+            }
+        } else if (type.equals("postComment")) {
+            for (Long postCommentId : items.values()) {
+                postCommentRepository.deleteById(postCommentId);
+            }
+        } else if (type.equals("replyComment")) {
+            for (Long replyCommentId : items.values()) {
+                replyCommentRepository.deleteById(replyCommentId);
+            }
+        } else {
+
         }
+
     }
 }

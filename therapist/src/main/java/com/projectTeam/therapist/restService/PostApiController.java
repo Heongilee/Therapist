@@ -46,7 +46,7 @@ class PostApiController {
 
     // Single item
     @GetMapping("/posts/{postId}")
-    PostDto one(@PathVariable Long postId) {
+    JSONObject one(@PathVariable Long postId) {
         return postService.findSingleItem(postId);
     }
 
