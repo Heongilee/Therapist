@@ -17,7 +17,7 @@ public interface PostRepository extends JpaRepository<PostDto, Long> {
     long countByPostType(PostCategory postType);
 //    Page<PostDto> findByPostType(PostCategory postType, Pageable pageable);       // Pageable을 사용할 경우
     List<PostDto> findByPostType(PostCategory postType);                            // 전체 데이터를 불러올 경우
-    Page<PostDto> findByUserDto(UserDto userDto, Pageable pageable);
+    List<PostDto> findByUserDto(UserDto userDto);
     List<PostDto> findTop6ByOrderByPostCreatedAtDesc();
 
     PostDto getById(Long postId);

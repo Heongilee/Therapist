@@ -217,7 +217,7 @@ public class UserService {
         }
     }
 
-    public JSONObject searchMyData(String userName, String menuType, Pageable pageable) {
+    public JSONObject searchMyData(String userName, String menuType) {
         // contextPath로 입력받은 userName을 가지고 UserDto객체를 얻은 다음에...
         UserDto userDto = userRepository.findByUserName(userName);
 
@@ -227,12 +227,11 @@ public class UserService {
 
         if (menuType.equals("myPosts")) {
             // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
-            Page<PostDto> posts = postRepository.findByUserDto(userDto, pageable);
+            List<PostDto> posts = postRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", posts.size());
 
-            jsonObject.put("totalAmount", posts.getTotalElements());
-            jsonObject.put("totalPages", posts.getTotalPages());
             JSONArray userPosts = new JSONArray();
-            for (PostDto post : posts.getContent()) {
+            for (PostDto post : posts) {
                 JSONObject item = new JSONObject();
                 item.put("postId", post.getPostId());
                 item.put("postType", post.getPostType());
@@ -243,12 +242,11 @@ public class UserService {
             jsonObject.put("userPosts", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
-            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
+            List<ReplyDto> replies = replyRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", replies.size());
 
-            jsonObject.put("totalAmount", replies.getTotalElements());
-            jsonObject.put("totalPages", replies.getTotalPages());
             JSONArray userReplies = new JSONArray();
-            for (ReplyDto reply : replies.getContent()) {
+            for (ReplyDto reply : replies) {
                 JSONObject item = new JSONObject();
                 item.put("replyId", reply.getReplyId());
                 item.put("postTitle", reply.getPostDto().getPostTitle() + "에 대한 답글");
@@ -258,12 +256,11 @@ public class UserService {
             jsonObject.put("userReplies", userReplies);
         } else if (menuType.equals("myPostComments")) {
             // 내가 쓴 post 댓글
-            Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
-            JSONArray cmtArray = new JSONArray();
+            List<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", postComments.size());
 
-            jsonObject.put("totalAmount", postComments.getTotalElements());
-            jsonObject.put("totalPages", postComments.getTotalPages());
-            for (PostCommentDto cmt : postComments.getContent()) {
+            JSONArray cmtArray = new JSONArray();
+            for (PostCommentDto cmt : postComments) {
                 JSONObject cmtObject = new JSONObject();
 
                 cmtObject.put("id", cmt.getPostDto().getPostId());
@@ -275,12 +272,11 @@ public class UserService {
 
         } else if (menuType.equals("myReplyComments")){
             // 내가 쓴 reply 댓글
-            Page<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDto(userDto, pageable);
-            JSONArray cmtArray = new JSONArray();
+            List<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", replyComments.size());
 
-            jsonObject.put("totalAmount", replyComments.getTotalElements());
-            jsonObject.put("totalPages", replyComments.getTotalPages());
-            for (ReplyCommentDto cmt : replyComments.getContent()) {
+            JSONArray cmtArray = new JSONArray();
+            for (ReplyCommentDto cmt : replyComments) {
                 JSONObject cmtObject = new JSONObject();
                 cmtObject.put("id", cmt.getReplyDto().getReplyId());
                 cmtObject.put("commentId", cmt.getReplyCommentId());
