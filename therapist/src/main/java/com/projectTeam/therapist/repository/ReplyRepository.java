@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ReplyRepository extends JpaRepository<ReplyDto, Long> {
-    Page<ReplyDto> findByUserDto(UserDto userDto, Pageable pageable);
+    List<ReplyDto> findByUserDto(UserDto userDto);
     Page<ReplyDto> findByPostDto(PostDto postDto, Pageable pageable);
 }
