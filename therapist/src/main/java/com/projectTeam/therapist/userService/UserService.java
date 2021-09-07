@@ -235,11 +235,11 @@ public class UserService {
                 JSONObject item = new JSONObject();
                 item.put("postId", post.getPostId());
                 item.put("postType", post.getPostType());
-                item.put("postTitle", post.getPostTitle());
-                item.put("postContent", post.getPostContent());
+                item.put("title", post.getPostTitle());
+                item.put("content", post.getPostContent());
                 userPosts.add(item);
             }
-            jsonObject.put("userPosts", userPosts);
+            jsonObject.put("postData", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
             List<ReplyDto> replies = replyRepository.findByUserDto(userDto);
@@ -249,11 +249,12 @@ public class UserService {
             for (ReplyDto reply : replies) {
                 JSONObject item = new JSONObject();
                 item.put("replyId", reply.getReplyId());
-                item.put("postTitle", reply.getPostDto().getPostTitle() + "에 대한 답글");
-                item.put("replyContent", reply.getReplyContent());
+                item.put("postId", reply.getPostDto().getPostId());
+                item.put("title", reply.getPostDto().getPostTitle());
+                item.put("content", reply.getReplyContent());
                 userReplies.add(item);
             }
-            jsonObject.put("userReplies", userReplies);
+            jsonObject.put("postData", userReplies);
         } else if (menuType.equals("myPostComments")) {
             // 내가 쓴 post 댓글
             List<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto);
@@ -263,12 +264,13 @@ public class UserService {
             for (PostCommentDto cmt : postComments) {
                 JSONObject cmtObject = new JSONObject();
 
-                cmtObject.put("id", cmt.getPostDto().getPostId());
+                cmtObject.put("postId", cmt.getPostDto().getPostId());
+                cmtObject.put("title", cmt.getPostDto().getPostTitle());
                 cmtObject.put("commentId", cmt.getPostCommentId());
                 cmtObject.put("content", cmt.getPostCommentContent());
                 cmtArray.add(cmtObject);
             }
-            jsonObject.put("userPostComments", cmtArray);
+            jsonObject.put("postData", cmtArray);
 
         } else if (menuType.equals("myReplyComments")){
             // 내가 쓴 reply 댓글
@@ -278,12 +280,13 @@ public class UserService {
             JSONArray cmtArray = new JSONArray();
             for (ReplyCommentDto cmt : replyComments) {
                 JSONObject cmtObject = new JSONObject();
-                cmtObject.put("id", cmt.getReplyDto().getReplyId());
+                cmtObject.put("postId", cmt.getReplyDto().getPostDto().getPostId());
                 cmtObject.put("commentId", cmt.getReplyCommentId());
+                cmtObject.put("title", cmt.getReplyDto().getPostDto().getPostTitle());
                 cmtObject.put("content", cmt.getReplyCommentContent());
                 cmtArray.add(cmtObject);
             }
-            jsonObject.put("userReplyComments", cmtArray);
+            jsonObject.put("postData", cmtArray);
         } else {
             // 예외 처리 ???
 
