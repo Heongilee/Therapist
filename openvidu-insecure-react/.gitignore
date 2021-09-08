@@ -1,5 +1,10 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+
+# configuration file
+src/conn.js
+package-lock.json
+
 # dependencies
 /node_modules
 
