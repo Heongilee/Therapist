@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Auth } from '../config/confing.js';
+import { useHistory } from "react-router-dom";
 
 const { Kakao } = window;
 
@@ -24,30 +25,20 @@ function useKakao() {
                         }
                     })
                 },
-                
+
                 fail: function (err) {
                     alert(JSON.stringify(err))
                 }
             })
         };
-    
-    const kakaoLogoutClickHandler = () => {
 
-        Kakao.API.request({
-            //로그아웃하고
-            url: '/v1/user/unlink',
-            success: function (response) {
-                alert("bye bye")
-                Kakao.Auth.setAccessToken(undefined)
-                setLoginState(!LoginState);
-                localStorage.clear(); 
-            },
-            fail: function (error) {
-              console.log(error)
-            },
-          })
-   
-    
+    const kakaoLogoutClickHandler = () => {
+        Kakao.Auth.logout(function() {
+            alert("bye bye")
+            localStorage.clear();
+            setLoginState(!LoginState);
+            history.push(`/`);
+        });
     };
 
     return { kakaoLoginClickHandler, kakaoLogoutClickHandler, LoginState:LoginState };

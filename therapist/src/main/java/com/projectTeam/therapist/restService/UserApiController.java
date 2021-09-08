@@ -34,9 +34,6 @@ class UserApiController {
     public JSONObject findUserInfo(@PathVariable String userName) {
         return userService.getUserInfo(userName);
     }
-//    UserDto findUser(@PathVariable String userName) {
-//        return userService.findUser(userName);
-//    }
 
     @PostMapping("/users")
     UserDto newUser(@RequestBody UserDto userDto) {
