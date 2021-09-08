@@ -11,6 +11,7 @@ function useKakao() {
 
     const kakaoLoginClickHandler = () => {
         Kakao.Auth.login({
+            scope: 'profile_nickname, account_email',
             success: function (authObj) {
                 fetch(`${Auth + "/auth/kakao/callback?accessToken="+authObj.access_token}`, {
                         method: "GET",
