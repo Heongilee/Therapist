@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 1rem;
 }   
   
@@ -58,6 +58,7 @@
     }
 
     .footer_section {
+        margin-top: 0.7rem;
         font-size: 0.85rem;
     }
 }

@@ -11,7 +11,6 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
 
     const commentId = COMMENT_KINDS[COMMENT_ENDPOINT]['commentId'];
     const content = COMMENT_KINDS[COMMENT_ENDPOINT]['content'];
-
     // const { showDeleteModal } = useContextModal();
     return (
         <div className="comment_area" >
@@ -20,13 +19,18 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
 
                     return <li className="comment" key={ "comment" + index }>
                                 <div className="comment_header">
-                                    { data.userId }
+                                    { data.userName }
                                 </div>
                         
                                 <div className="comment_content">
-                                    <div> { data[content] } </div>
+                                    <div> { data[content].split("\n").map((line, index) => {
+                                            return <span key={"content" + index}>{line}<br /></span>
+                                         })}
+                                    </div>
+
+                                    
                                         <Text data-name={ data[commentId] }  
-                                            onClick={(event) => showDeleteModal(COMMENT_ENDPOINT,{ event}) } 
+                                            onClick={() => showDeleteModal(COMMENT_ENDPOINT,data[commentId]  ) } 
                                             type={ "secondary" }>삭제</Text>
                                 </div>
                             </li> 

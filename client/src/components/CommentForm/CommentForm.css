@@ -1,6 +1,5 @@
 
 .reply_area {
-    margin-left: 40px;
     margin-bottom: 24px;
 }
 
@@ -24,3 +23,9 @@
     background-color: #e9e7e7;
 }
 
+/* @media only screen and (max-width: 980px) {
+    .reply_area {
+        margin-left: 0;
+    }
+    
+} */

@@ -60,7 +60,9 @@
 @media only screen and (max-width: 980px) {
     .question_area {
         width: 100%;
-        margin: 0;
+        margin-top: 0.7rem;
+        /* margin: 0.7rem 0.2rem 0 0.2rem; */
+
         padding: 2rem;
         font-size: 1rem;
     }  
@@ -82,3 +84,4 @@
         display: none;
     }
 }
+

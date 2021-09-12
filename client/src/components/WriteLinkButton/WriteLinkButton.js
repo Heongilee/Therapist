@@ -6,10 +6,9 @@ import './WriteLinkButton.css';
 
 function WriteLinkButton({ data }) {
 
-    const { type=null, userId=null, title=null, content=null, 
+    const { type=null, userId=null, title=null, content=null,postType=null,
         postId=null, replyId=null, buttonName=null } = data;
-
-
+    
     return (
             <Button> <Link to={{pathname :`/write`,
                     data : { 
@@ -19,7 +18,8 @@ function WriteLinkButton({ data }) {
                         "content": content,
                         "postId": postId,
                         "replyId": replyId,
-                        "buttonName": buttonName
+                        "buttonName": buttonName,
+                        "postType":postType
             }}}>{ buttonName }</Link></Button>
     );
 };

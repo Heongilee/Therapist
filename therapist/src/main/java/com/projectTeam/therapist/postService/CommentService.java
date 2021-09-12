@@ -83,6 +83,8 @@ public class CommentService {
         ReplyDto replyDto = replyRepository.findById(replyId).orElse(null);
         Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDto(replyDto, pageable);
         JSONObject jsonObject = new JSONObject();
+        jsonObject.put("replyCommentSize", replyComments.getTotalElements());
+
         JSONArray jsonArray = new JSONArray();
         for (ReplyCommentDto replyComment : replyComments) {
             JSONObject item = new JSONObject();

@@ -4,15 +4,14 @@ import { Rate } from 'antd';
 
 function StarButton({ REPLY_ENDPOINT, id }) {
 
-    const { DESC, StarValue, StarState, handleChange } = useStar({REPLY_ENDPOINT, id});
+    const { StarValue, StarState, handleChange } = useStar({REPLY_ENDPOINT, id});
 
 
     return (
             <>
-                <Rate tooltips={ DESC } onChange={ handleChange }  
+                <Rate onChange={ handleChange }  
                         disabled={StarState} value={StarValue} />
-                {StarValue ? <span className="ant-rate-text">
-                        {DESC[StarValue - 1]}</span> : '' }
+                
             </>
         )
 };

@@ -12,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,21 +48,6 @@ public class UserService {
     private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
 
     public UserDto save(UserDto userDto) {
-//        if (userRepository.countByUserName(user.getUserName()) >= 1L) {
-//            return null;
-//        } else {
-//            // 비밀번호 암호화
-//            String encodedPassword = passwordEncoder.encode(user.getUserPassword());
-//            user.setUserPassword(encodedPassword);
-//
-//            // 기본 활성화 상태
-//            user.setUserEnabled(true);
-//            RoleDto roleDto = new RoleDto();
-//            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
-//            user.getRoles().add(roleDto);
-//
-//            return userRepository.save(user);
-//        }
         if (userRepository.findOneWithAuthoritiesByUserName(userDto.getUserName()).orElse(null) != null) {
             throw new RuntimeException("already exist user");
         }
@@ -96,6 +77,19 @@ public class UserService {
         return SecurityUtil.getCurrentUsername().flatMap(userRepository::findOneWithAuthoritiesByUserName);
     }
 
+    @Transactional(readOnly = true)
+    public JSONObject getUserInfo(String username) {
+
+        UserDto user = userRepository.findByUserName(username);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("userId", user.getUserId());
+        jsonObject.put("userName", user.getUserName());
+        jsonObject.put("userGrade", user.getUserGrade());
+        jsonObject.put("userStars", user.getUserStars());
+        jsonObject.put("userProfileImage", user.getUserProfileImage());
+
+        return jsonObject;
+    }
     //  authorizationCode 값으로 카카오 서버에서 access_token값을 받음.
     public String getAccessToken(String code) {
         // POST방식으로 Key=Value 데이터를 요청(카카오에게)
@@ -166,12 +160,9 @@ public class UserService {
             e.printStackTrace();
         }
 
-        System.out.println("테라피스트의 유저네임 = " + kakaoProfileDto.getKakao_account().getEmail() + "_" + kakaoProfileDto.getId());
-//        System.out.println("테라피스트의 이메일 = " + kakaoProfileDto.getKakao_account().getEmail());
-
         KakaoProfileDto finalKakaoProfileDto = kakaoProfileDto;
         return new HashMap<>(){{
-            put("username", finalKakaoProfileDto.getKakao_account().getEmail() + "_" + finalKakaoProfileDto.getId());
+            put("username", finalKakaoProfileDto.getKakao_account().getEmail());        // 카카오로 로그인 하는 사용자는 카카오 이메일이 곧 아이디가 되어 우리 DB에 저장됨
             put("password", String.valueOf(UUID.randomUUID()));
             put("profile_image", finalKakaoProfileDto.getProperties().getProfile_image());
             put("thumbnail_image", finalKakaoProfileDto.getProperties().getThumbnail_image());
@@ -186,15 +177,20 @@ public class UserService {
         return userRepository.findByUserName(username);
     }
 
-    public ResponseEntity<String> requestPostWithFormData(String contextPath, MultiValueMap<String, String> params) {
+    // 기존 /account/login으로 보내던 걸 /auth/authenticate로 보내 토큰 요청
+    public String requestPostWithFormData(String contextPath, LoginDto loginDto) {  // contextPath: "/auth/authenticate"
+        JSONObject input = new JSONObject();
+        input.put("username", loginDto.getUsername());
+        input.put("password", loginDto.getPassword());
+
         String url = "http://localhost:8080" + contextPath;
-        RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity param= new HttpEntity(input, headers);
 
-        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-
-        return restTemplate.postForEntity( url, request , String.class );
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.postForObject(url, param, String.class);
+        return result;
     }
 
     public UserDto modifyUserPassword(UserDto newUser) {
@@ -202,14 +198,15 @@ public class UserService {
 
         if (foundUser == null) {
             // 기존에 없는 경우 새로 객체를 만들어서 저장하기.
+            System.out.println("유저없음");
             // 비밀번호 암호화
             newUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));
 
             // 기본 활성화 상태
-            RoleDto roleDto = new RoleDto();
-            roleDto.setRoleId(1L);              // 기본 권한 1번 == ROLE_USER
-            newUser.getRoles().add(roleDto);
-
+            RoleDto role = RoleDto.builder()
+                    .roleId(1L)                 // 기본 권한 1번 == ROLE_USER
+                    .build();
+            newUser.setRoles(Collections.singleton(role));
             return userRepository.save(newUser);
         } else {
             foundUser.setUserPassword(passwordEncoder.encode(newUser.getUserPassword()));
@@ -220,58 +217,79 @@ public class UserService {
         }
     }
 
-    public JSONObject searchMyData(String userName, String menuType, Pageable pageable) {
+    public JSONObject searchMyData(String userName, String menuType) {
         // contextPath로 입력받은 userName을 가지고 UserDto객체를 얻은 다음에...
         UserDto userDto = userRepository.findByUserName(userName);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("userId", userDto.getUserId());
         jsonObject.put("userName", userDto.getUserName());
-        jsonObject.put("userPassword", userDto.getUserPassword());
-        jsonObject.put("userEnabled", userDto.getUserEnabled());
-        jsonObject.put("roles", userDto.getRoles());
 
         if (menuType.equals("myPosts")) {
             // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
-            Page<PostDto> posts = postRepository.findByUserDto(userDto, pageable);
+            List<PostDto> posts = postRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", posts.size());
 
-            jsonObject.put("totalAmount", posts.getTotalElements());
-            jsonObject.put("totalPages", posts.getTotalPages());
             JSONArray userPosts = new JSONArray();
-            for (PostDto post : posts.getContent()) {
+            for (PostDto post : posts) {
                 JSONObject item = new JSONObject();
                 item.put("postId", post.getPostId());
                 item.put("postType", post.getPostType());
-                item.put("postTitle", post.getPostTitle());
-                item.put("postContent", post.getPostContent());
+                item.put("title", post.getPostTitle());
+                item.put("content", post.getPostContent());
                 userPosts.add(item);
             }
-            jsonObject.put("userPosts", userPosts);
+            jsonObject.put("postData", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
-            Page<ReplyDto> replies = replyRepository.findByUserDto(userDto, pageable);
+            List<ReplyDto> replies = replyRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", replies.size());
 
-            jsonObject.put("totalAmount", replies.getTotalElements());
-            jsonObject.put("totalPages", replies.getTotalPages());
             JSONArray userReplies = new JSONArray();
-            for (ReplyDto reply : replies.getContent()) {
+            for (ReplyDto reply : replies) {
                 JSONObject item = new JSONObject();
                 item.put("replyId", reply.getReplyId());
-                item.put("postTitle", reply.getPostDto().getPostTitle() + "에 대한 답글");
-                item.put("replyContent", reply.getReplyContent());
+                item.put("postId", reply.getPostDto().getPostId());
+                item.put("title", reply.getPostDto().getPostTitle());
+                item.put("content", reply.getReplyContent());
                 userReplies.add(item);
             }
-            jsonObject.put("userReplies", userReplies);
-        } else if (menuType.equals("myComments")) {
-            // 내가 쓴 댓글
-            // TODO: postComments + replyCOmments
-            Page<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto, pageable);
+            jsonObject.put("postData", userReplies);
+        } else if (menuType.equals("myPostComments")) {
+            // 내가 쓴 post 댓글
+            List<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", postComments.size());
 
-            jsonObject.put("totalAmount", postComments.getTotalElements());
-            jsonObject.put("totalPages", postComments.getTotalPages());
-            jsonObject.put("userPostComments", postComments.getContent());
+            JSONArray cmtArray = new JSONArray();
+            for (PostCommentDto cmt : postComments) {
+                JSONObject cmtObject = new JSONObject();
+
+                cmtObject.put("postId", cmt.getPostDto().getPostId());
+                cmtObject.put("title", cmt.getPostDto().getPostTitle());
+                cmtObject.put("commentId", cmt.getPostCommentId());
+                cmtObject.put("content", cmt.getPostCommentContent());
+                cmtArray.add(cmtObject);
+            }
+            jsonObject.put("postData", cmtArray);
+
+        } else if (menuType.equals("myReplyComments")){
+            // 내가 쓴 reply 댓글
+            List<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDto(userDto);
+            jsonObject.put("totalAmount", replyComments.size());
+
+            JSONArray cmtArray = new JSONArray();
+            for (ReplyCommentDto cmt : replyComments) {
+                JSONObject cmtObject = new JSONObject();
+                cmtObject.put("postId", cmt.getReplyDto().getPostDto().getPostId());
+                cmtObject.put("commentId", cmt.getReplyCommentId());
+                cmtObject.put("title", cmt.getReplyDto().getPostDto().getPostTitle());
+                cmtObject.put("content", cmt.getReplyCommentContent());
+                cmtArray.add(cmtObject);
+            }
+            jsonObject.put("postData", cmtArray);
         } else {
             // 예외 처리 ???
+
         }
 
         return jsonObject;
@@ -314,11 +332,28 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    // Called from UserApiController (POST /api/users/mypage )
-    public void deleteMyPosts(Map<Long, Long> posts) {
-        System.out.println(posts);
-        for (Long postId : posts.values()) {
-            postRepository.deleteById(postId);
+    // Called from UserApiController (POST /api/users/mypage/posts )
+    public void deleteMyPosts(String type, Map<String, Long> items) {
+        if (type.equals("post")) {
+            for (Long postId : items.values()) {
+                System.out.println("post id: " + postId);
+                postRepository.deleteById(postId);
+            }
+        } else if (type.equals("reply")) {
+            for (Long replyId : items.values()) {
+                replyRepository.deleteById(replyId);
+            }
+        } else if (type.equals("postComment")) {
+            for (Long postCommentId : items.values()) {
+                postCommentRepository.deleteById(postCommentId);
+            }
+        } else if (type.equals("replyComment")) {
+            for (Long replyCommentId : items.values()) {
+                replyCommentRepository.deleteById(replyCommentId);
+            }
+        } else {
+
         }
+
     }
 }

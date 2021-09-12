@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useContextModal }  from '../hook/useContextModal';
 import { ENDPOINT_DIC } from '../constants/modalConstants';
 
-const DESC = ['쓰레기', '벌레', '짐승', '사람', '신'];
 
 export default function useStar({ id }) {
     
@@ -16,5 +15,5 @@ export default function useStar({ id }) {
         showStarModal(ENDPOINT_DIC['star'], StarValue, id);
     };
 
-    return { DESC, StarValue, StarState, handleChange };
+    return {  StarValue, StarState, handleChange };
 };

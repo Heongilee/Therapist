@@ -6,7 +6,7 @@
 
 
  .editor {
-    font-size: 2rem;
+    /* font-size: 2rem; */
     background-color: #ffffff;
     height: 500px !important;
     border: 1px solid #f1f1f1 !important;
@@ -49,8 +49,25 @@
 
 .title_content {
     margin-top: 10px;
+    justify-content: flex-start;
 }
 
 .title_content .ant-input {
     margin-bottom: 8px;
+}
+
+@media only screen and (max-width: 980px) {
+    
+    .writepage_area {
+        margin:0;
+    }
+
+    .writepage_title_header{
+        justify-content: flex-end;
+    }
+
+    .writepage_title_header > h1{
+        display: none;
+        
+    }
 }

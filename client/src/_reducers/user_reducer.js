@@ -1,17 +1,17 @@
 import {
-    AUTH_USER
+    LOGIN_REQUEST,
+    SAVE_TOKEN
 } from '../_actions/types';
 
+import { createReducer } from "@reduxjs/toolkit"; 
+import { setValueReducer } from '../utils/reduxHelper';
 
-export default function (state = {}, action) {
 
-    switch(action.type) {
+const INITIALSTATE = { token:null };
 
-        case AUTH_USER:{
-                return { ...state };
-            }
+const user_reducer = createReducer(INITIALSTATE, {
+    [SAVE_TOKEN] : setValueReducer
+}); 
 
-            default:
-                return state;
-    };
-};
+export default user_reducer;
+

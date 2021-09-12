@@ -5,53 +5,68 @@ import MessageIcon from '../MessageIcon/MessageIcon.js';
 import CommentField from '../CommentField/CommentField.js';
 import PaginationCmp from '../Pagination/PaginationCmp.js';
 import CommentForm from '../CommentForm/CommentForm.js';
-import WriteLinkButton from '../WriteLinkButton/WriteLinkButton.js'
 import useComment from '../../hook/useComment.js';
-import { Button } from 'antd';
-import  { ENDPOINT_DIC } from '../../constants/modalConstants';
+import DropButton from '../DropButton/DropButton.js';
+
+import { ENDPOINT_DIC } from '../../constants/modalConstants';
 import './AnswerForm.css';
 
 
-function AnswerForm({ data, index, showDeleteModal, questionName, postId }) {
-
+function AnswerForm({ data, index, showDeleteModal, postId }) {
 
     const { CommentData, CommentState, MessageIconOnClick, PageState,
                             pageSelect, commentRegister  } 
                                                 = useComment( { COMMENT_ENDPOINT:ENDPOINT_DIC['replyComments'], 
                                                                 id:data.replyId });
     
-
-    const answerInfo = { "type": "answerModify", "userId":questionName, 
+    const answerInfo = { "type": "answerModify", "userId":null, 
                          "content": data.replyContent, "postId":postId,
                          "replyId":data.replyId, "buttonName":"수정" };
+    
+    const handleMenuClick = event => {
+        if (event.key === 'delete'){
+            showDeleteModal(ENDPOINT_DIC['replies'], data.replyId)
+        }
+    };
 
     return (
         <div className="answer_area" key={"answer_area" + index}>
             <ul className="answer_list" >
                 <li className="answer">
                     <div className="answer_header">
-                        <AvatarField userid={data.userId} grade={data.grade}></AvatarField>
-                        <div>
-                            <WriteLinkButton data={answerInfo}></WriteLinkButton>
-                            <Button data-name={ data.replyId } 
-                                onClick={(event) => showDeleteModal(ENDPOINT_DIC['replies'],{event}) }>삭제</Button>
-                        </div>
+                        <AvatarField userid={data.userName} grade={data.grade}></AvatarField>
+                        {localStorage.getItem('username') === data.userName  ?
+                            <div>
+
+                                {/* 삭제, 수정 버튼 */}
+                                <DropButton info={answerInfo}
+                                            handleMenuClick={handleMenuClick}
+                                            ENDPOINT_DIC={ENDPOINT_DIC}
+                                            >
+                                </DropButton>
+
+                            </div>
+                                : null}
                     </div>
                     <div className="answer_content">
-                        <p> { data.replyContent }</p>
+                        { data.replyContent.split("\n").map((line, index) => {
+                           return <span key={"replyContent" + index}>{line}<br /></span>
+                        })}
                     </div>
                     <div className="answer_footer">
-                        <StarButton id={data.replyId}></StarButton>
+                    
+                            <StarButton id={data.replyId}></StarButton> 
+                        
                         <div onClick={() => MessageIconOnClick(ENDPOINT_DIC['replyComments'], index)}>
-                            <MessageIcon></MessageIcon>
+                            <MessageIcon commentCount={0}></MessageIcon>
                         </div>
+
                     </div>
                 </li>
-            </ul>
+            
 
-            {/*   댓글 작성   */}
-
-            { CommentState ? [ 
+                {/*   댓글 작성   */}
+                { CommentState ? [ 
                     <CommentForm key={ "CommentForm" + index } userId={data.replyId} 
                                         onFinish={commentRegister}></CommentForm>,
 
@@ -62,9 +77,14 @@ function AnswerForm({ data, index, showDeleteModal, questionName, postId }) {
                     </CommentField>,
 
                     <PaginationCmp key={ "AnswerPage" + index } currentPage={PageState}
-                                    totalPage={12}
+                            totalPages={CommentData.length}
                                     pageSelect={pageSelect}
                                     />]: null}
+            
+            </ul>
+
+
+            
         </div>
     );
 };

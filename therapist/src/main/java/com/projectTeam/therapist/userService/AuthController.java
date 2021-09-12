@@ -6,6 +6,8 @@ import com.projectTeam.therapist.model.LoginDto;
 import com.projectTeam.therapist.model.TokenDto;
 import com.projectTeam.therapist.model.UserDto;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -34,11 +36,12 @@ public class AuthController {
         this.tokenProvider = tokenProvider;
     }
 
+    @CrossOrigin("*")
     @GetMapping("/kakao/callback")
-    public ResponseEntity<String> kakaoCallback(String code) { // @ResponseBody : Data를 리턴해주는 컨트롤러 함수
-        String accessToken = userService.getAccessToken(code);
+    public JSONObject kakaoCallback(String accessToken) throws ParseException { // @ResponseBody : Data를 리턴해주는 컨트롤러 함수
+        // 프론트에서 Kakao 서버로 인증코드 받아 인증된 사용자면 access token을 보내옴
         Map<String, String> userMap = userService.requestKakaoUserInfo(accessToken);
-
+        System.out.println("accessToken: " + accessToken);
         RestTemplate rt = new RestTemplate();
 
         // builder 이용하여 UserDto 필드 초기화
@@ -49,12 +52,6 @@ public class AuthController {
                 .userThumbnailImage(userMap.get("thumbnail_image"))
                 .userEnabled(true)
                 .build();
-//        UserDto newUser = new UserDto();
-//        newUser.setUserName(userMap.get("username"));
-//        newUser.setUserPassword(userMap.get("password"));
-//        newUser.setUserProfileImage(userMap.get("profile_image"));
-//        newUser.setUserThumbnailImage(userMap.get("thumbnail_image"));
-//        newUser.setUserEnabled(true);
 
         HttpEntity<UserDto> requestEntity = new HttpEntity<>(newUser);
         rt.exchange(
@@ -64,12 +61,19 @@ public class AuthController {
             Void.class
         );
 
-        UserDto kakaoUser = userService.findKakaoUser(userMap.get("username"));
-//        System.out.println("Encrypted Password = " + kakaoUser.getUserPassword());
-        return userService.requestPostWithFormData("/account/login", new LinkedMultiValueMap<String, String>() {{
-            add("username", kakaoUser.getUserName());
-            add("password", userMap.get("password"));
-        }});
+        LoginDto loginDto = LoginDto.builder()
+                .username(userMap.get("username"))
+                .password(userMap.get("password"))
+                .build();
+
+        // LoginDto에 사용자 정보 담아 /auth/authenticate(아래 authorize 메서드) 로 보내면 이를 가지고 jwt 토큰 생성 후 반환
+        String response = userService.requestPostWithFormData("/auth/authenticate", loginDto);
+        JSONParser parser = new JSONParser();
+        Object token = parser.parse(response);
+        JSONObject res = (JSONObject) token;
+        res.put("username", userMap.get("username"));
+
+        return res;
     }
 
     // jwt 토큰 받아오기
