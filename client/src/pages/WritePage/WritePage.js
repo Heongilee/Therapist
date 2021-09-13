@@ -47,7 +47,7 @@ function WritePage({ location }){
             if (type === 'writeAnswer'){ 
                 const message = {
                     type:"message",
-                    senderUsername: localStorage.getItem('username'),
+                    senderUserName: localStorage.getItem('username'),
                     postType: "reply",
                     receivedUserName: userName
                 }

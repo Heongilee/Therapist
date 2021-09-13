@@ -3,6 +3,7 @@ import { eventChannel } from 'redux-saga';
 
 
 export default function createSocketChannel(ws) {
+    const useName = localStorage.getItem('username');
 
     return eventChannel(emit => {
         
@@ -13,6 +14,19 @@ export default function createSocketChannel(ws) {
               console.log("ERROR: ", error);
           };
           ws.onmessage = e => {
+            console.log(">>>>>>>>>>>"+e.data);
+            const receivedMsg = JSON.parse(e.data);
+            if (receivedMsg.type === 'getUsername') {
+              console.log("getUsername");
+              const sendMsg = {
+                  type:"register",
+                  username: useName
+              }
+              ws.send(JSON.stringify(sendMsg));
+            }
+            else {
+                console.log("notice message"+e.data);
+            }
               return emit({data: e.data})
           };
           ws.onclose = e => {
