@@ -40,7 +40,7 @@ function useComment({ COMMENT_ENDPOINT, id, userName }) {
         if (response){
             const message = {
                 type:"message",
-                senderUsername: useName,
+                senderUserName: useName,
                 postType: COMMENT_ENDPOINT,
                 receivedUserName: userName
             }
