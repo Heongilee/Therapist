@@ -25,6 +25,8 @@ public class CommentService {
     private ReplyRepository replyRepository;
     @Autowired
     private ReplyCommentRepository replyCommentRepository;
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // PostComment에 관한 비즈니스 로직
@@ -45,6 +47,15 @@ public class CommentService {
         String postCommentContent = (params == null) ? "" : (String) params.get("postCommentContent");
         UserDto foundUserDto = userRepository.findByUserName(userName);
         PostDto foundPostDto = postRepository.findById(postId).orElse(null);
+
+        // save notice of receiver
+        NoticeDto noticeDto = NoticeDto.builder()
+                .is_check(false)
+                .post_id(postId)
+                .type("postComment")
+                .username(foundPostDto.getUserDto().getUserName())
+                .build();
+        noticeRepository.save(noticeDto);
 
         // build DTO object.
         PostCommentDto newPostComment = new PostCommentDto();
@@ -69,6 +80,15 @@ public class CommentService {
         String replyCommentContent = (params == null) ? "" : (String) params.get("replyCommentContent");
         UserDto foundUserDto = userRepository.findByUserName(userName);
         ReplyDto foundReplyDto = replyRepository.findById(replyId).orElse(null);
+
+        // save notice of receiver
+        NoticeDto noticeDto = NoticeDto.builder()
+                .is_check(false)
+                .post_id(foundReplyDto.getPostDto().getPostId())
+                .type("replyComment")
+                .username(foundReplyDto.getUserDto().getUserName())
+                .build();
+        noticeRepository.save(noticeDto);
 
         ReplyCommentDto newReplyComment = new ReplyCommentDto();
         newReplyComment.setReplyCommentContent(replyCommentContent);
