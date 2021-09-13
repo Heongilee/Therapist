@@ -17,6 +17,7 @@ import { ErrorHandler } from './utils/ErrorHandler.js';
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <ErrorHandler>
+            <LoadingBar/>
             <Header/>
             <MainImg/>
             <Switch>

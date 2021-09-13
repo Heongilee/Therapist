@@ -5,7 +5,7 @@ import { eventChannel } from 'redux-saga';
 export default function createSocketChannel(ws) {
 
     return eventChannel(emit => {
-
+        
         ws.onopen = () => {
               console.log("Opening Websocket");
           };

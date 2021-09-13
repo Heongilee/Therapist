@@ -22,8 +22,10 @@ import { QuestionCircleTwoTone } from '@ant-design/icons';
 
 function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
 
-    console.log("questionData", questionData)
-    const { CommentData, CommentState, MessageIconOnClick, commentRegister } 
+
+    const { CommentData, CommentState, 
+            MessageIconOnClick, commentRegister,
+            pageSelect, PageState } 
                                             = useComment({
                                                 COMMENT_ENDPOINT:ENDPOINT_DIC['postComments'], 
                                                 id:questionData.postId,
@@ -72,7 +74,8 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
                 </div>
 
             <div className="question_footer">
-                <AvatarField userid={questionData.userInfo.userName}></AvatarField>
+                <AvatarField userid={questionData.userInfo.userName}
+                             grade={questionData.userInfo.userGrade}></AvatarField>
                 <div className="question_footer_reply">
                     <div className="question_footer_reply_button">
 
@@ -102,8 +105,11 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
                             commentData={ CommentData } 
                             COMMENT_ENDPOINT={ENDPOINT_DIC['postComments']}>
                             </CommentField>,
-                            <PaginationCmp totalPages={CommentData.length} 
-                                                    key="PaginationCmp"/>]: null}
+                            <PaginationCmp totalPages={questionData.postComments.length} 
+                                            key="PaginationCmp"
+                                            pageSelect={pageSelect}
+                                            currentPage={PageState}
+                                            />]: null}
         </div>
     );
 };

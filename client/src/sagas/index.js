@@ -9,7 +9,7 @@ function* rootSaga() {
     // yield all([
     // ]);
 
-    // yield fork(loadingSaga);
+    yield fork(loadingSaga);
     // yield fork(socketSaga);
 };
   

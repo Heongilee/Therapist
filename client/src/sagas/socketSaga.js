@@ -1,4 +1,4 @@
-import { fork, take, call, put } from 'redux-saga/effects';
+import { fork, take, call, put, race } from 'redux-saga/effects';
 import createSocketChannel from "./createSocketChannel";
 import { START_CHANNEL , STOP_CHANNEL, 
           SOCKET_MESSAGE, NOTICE_COUNT, 
@@ -8,7 +8,8 @@ import { START_CHANNEL , STOP_CHANNEL,
 import { notification } from 'antd';
 
 
-const URL = 'ws://localhost:5000';
+// const URL = 'ws://localhost:5000';
+const URL = 'ws://ec2-54-227-110-34.compute-1.amazonaws.com:8080/socket';
 
 const option ={
   message: '메세지옴',
@@ -17,7 +18,7 @@ const option ={
 };
 
 const openNotification = (type) => {
-  +
+  
   
   notification[type](option);
 };
@@ -37,7 +38,7 @@ function * sendMessageSaga(ws) {
 function * initializeWebSocketsChannel() {
   
   console.log("going to connect to WS")
-  const ws = new WebSocket(URL);
+  const ws = new WebSocket(URL,);
   const channel = yield call(createSocketChannel, ws);
   while (true) {
 
@@ -72,7 +73,6 @@ function * socketSaga() {
       //     cancel: take(STOP_CHANNEL),
       // });
 
-      //if cancel wins the race we can close socket
       // ws.close();
   }
 };

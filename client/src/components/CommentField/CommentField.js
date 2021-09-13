@@ -23,6 +23,7 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
                                 </div>
                         
                                 <div className="comment_content">
+                                    {/* <div>{data[content]}</div> */}
                                     <div> { data[content].split("\n").map((line, index) => {
                                             return <span key={"content" + index}>{line}<br /></span>
                                          })}

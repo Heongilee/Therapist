@@ -44,7 +44,6 @@ function useBoard({ PATH }) {
     }
 
     const pageSelect = page => {
-        console.log("postType", BoardState.postType)
 
         history.push(`/${PATH}?postType=${BoardState.postType}&page=${page}`);                                        
     };

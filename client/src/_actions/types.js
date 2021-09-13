@@ -11,3 +11,5 @@ export const GET_MESSAGE = "get_message";
 //loading
 export const LOADING_START = "loading_start";
 export const LOADING_END = "loading_end";
+export const LOADING_RESET = "loading_reset";
+export const LOADING = "loading";

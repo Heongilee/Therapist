@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import { Auth } from '../config/confing.js';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+import { socket_actions } from '../_actions/socket_actions';
+import { useDispatch } from 'react-redux';
+
+
 
 const { Kakao } = window;
 
 
 function useKakao() {
-
+    const dispatch = useDispatch();
     const [LoginState, setLoginState] = useState(localStorage.getItem('token') ? true : false);
 
     const kakaoLoginClickHandler = () => {
@@ -23,15 +27,18 @@ function useKakao() {
                         if (res.token) {
                             alert("welcome")
                             setLoginState(!LoginState);
+                            // dispatch(socket_actions.connectChannel());
                         }
                     })
                 },
 
                 fail: function (err) {
-                    alert(JSON.stringify(err))
+                    alert(JSON.stringify(err));
+                    
                 }
             })
         };
+
 
     const kakaoLogoutClickHandler = () => {
         Kakao.Auth.logout(function() {

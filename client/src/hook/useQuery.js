@@ -9,31 +9,45 @@ import axios from 'axios';
             
 const useQuery = (endpoint) => {
   const history = useHistory();
-  const [apiData, setApiData] = useState();
   const dispatch = useDispatch();
-
+  const [apiData, setApiData] = useState();
+  
   useEffect(async() => {
+    // console.log("endpoint", endpoint)  
     try {
+
+      dispatch(loading_actions.loadingStart());
+
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
       const response = await axios.get(URL + endpoint);
-      console.log("res",response)
-      const { data } = response;
 
-      setApiData(data);
+      // console.log("데이터!!!!1",  response)
+
+      const { data, status } = response;
+
+      if (status === 200) {
+        setApiData(data);
+        dispatch(loading_actions.loadingEnd());
+      }
+      
 
     } catch (error) {
-      console.log("error", error)
+      dispatch(loading_actions.loadingReset());
+
+      // dispatch(loading_actions.loadingReset());
+      console.log("error", error);
+
       const { status } = error.response;
 
-      if (status === 400) {
-        history.replace(history.location.pathname, {
-        errorStatusCode: status,
+      if (status === 401) {
+        alert('로그인 하세요');
+        history.push('/');
+      } else if  (status >= 400) {
+        history.replace(history.location.pathname, { errorStatusCode: status,
         });
-      } 
-      else if (status === 401) {
-        alert('로그인을 하세요');
       }
-    }
+      
+    };
    
   }, [endpoint]);
 
@@ -41,5 +55,3 @@ const useQuery = (endpoint) => {
 };
 
 export default useQuery;
-
-
