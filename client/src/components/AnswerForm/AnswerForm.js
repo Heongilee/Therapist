@@ -12,7 +12,7 @@ import { ENDPOINT_DIC } from '../../constants/modalConstants';
 import './AnswerForm.css';
 
 
-function AnswerForm({ data, index, showDeleteModal, postId }) {
+function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
 
     const { CommentData, CommentState, MessageIconOnClick, PageState,
                             pageSelect, commentRegister  } 
@@ -34,8 +34,9 @@ function AnswerForm({ data, index, showDeleteModal, postId }) {
             <ul className="answer_list" >
                 <li className="answer">
                     <div className="answer_header">
-                        <AvatarField userid={data.userName} grade={data.grade}></AvatarField>
-                        {localStorage.getItem('username') === data.userName  ?
+                        <AvatarField userid={data.userInfo.userName} 
+                                    grade={data.userInfo.userGrade}></AvatarField>
+                        {localStorage.getItem('username') === data.userInfo.userName  ?
                             <div>
 
                                 {/* 삭제, 수정 버튼 */}
@@ -54,11 +55,14 @@ function AnswerForm({ data, index, showDeleteModal, postId }) {
                         })}
                     </div>
                     <div className="answer_footer">
-                    
-                            <StarButton id={data.replyId}></StarButton> 
-                        
+
+                        <StarButton isCheked={localStorage.getItem('username') === questId ? false : true } 
+                                    id={data.replyId}
+                                    replyStar={data.replyStar}
+                                    ></StarButton> 
+                                                 
                         <div onClick={() => MessageIconOnClick(ENDPOINT_DIC['replyComments'], index)}>
-                            <MessageIcon commentCount={0}></MessageIcon>
+                            <MessageIcon commentCount={data.replyCommentSize}></MessageIcon>
                         </div>
 
                     </div>
@@ -77,7 +81,7 @@ function AnswerForm({ data, index, showDeleteModal, postId }) {
                     </CommentField>,
 
                     <PaginationCmp key={ "AnswerPage" + index } currentPage={PageState}
-                            totalPages={CommentData.length}
+                            totalPages={data.replyCommentSize}
                                     pageSelect={pageSelect}
                                     />]: null}
             

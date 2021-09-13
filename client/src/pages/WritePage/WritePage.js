@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ModernButton from '../../components/Atoms/ModernButton/ModernButton.js';
 import InputField from '../../components/Atoms/InputField/InputField.js';
@@ -39,7 +39,7 @@ function WritePage({ location }){
         const response = await requestApi({ 
             userId:userId, replyId:replyId, postId:postId, 
             title: title && title.state.value, content:content, type, 
-            postType: CateGoryState || postType
+            postType: CateGoryState || postType, history:history
          });
         
          if (response){
@@ -105,4 +105,3 @@ function WritePage({ location }){
 };
 
 export default WritePage;
-

@@ -27,9 +27,10 @@ function PostPage({ match }) {
             return <AnswerForm  key={'AnswerForm' + index} data={data} index={index}
                                 showDeleteModal={showDeleteModal}
                                 postId={ postId.current }
+                                questId= {QuestionData && QuestionData.userInfo.userName}
                                 >
              </AnswerForm>
-        }), [answerData, currentPage])
+        }), [answerData, currentPage, QuestionData])
 
     return (
         <section className="postPage">
