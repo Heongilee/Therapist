@@ -1,9 +1,7 @@
 package com.projectTeam.therapist.boardService;
 
-import com.projectTeam.therapist.model.PostDto;
-import com.projectTeam.therapist.model.ReplyCommentDto;
-import com.projectTeam.therapist.model.ReplyDto;
-import com.projectTeam.therapist.model.UserDto;
+import com.projectTeam.therapist.model.*;
+import com.projectTeam.therapist.repository.NoticeRepository;
 import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.ReplyRepository;
 import com.projectTeam.therapist.repository.UserRepository;
@@ -22,6 +20,8 @@ public class ReplyService {
     private UserRepository userRepository;
     @Autowired
     private ReplyRepository replyRepository;
+    @Autowired
+    private NoticeRepository noticeRepository;
 
     public JSONObject writeReply(JSONObject requestBody, Long postId) {
         if (requestBody.get("userName") == null) {
@@ -30,6 +30,15 @@ public class ReplyService {
 
         UserDto userDto = userRepository.findByUserName((String) requestBody.get("userName"));
         PostDto postDto = postRepository.getById(postId);
+
+        // save notice of receiver
+        NoticeDto noticeDto = NoticeDto.builder()
+                .is_check(false)
+                .post_id(postId)
+                .type("reply")
+                .username(postDto.getUserDto().getUserName())
+                .build();
+        noticeRepository.save(noticeDto);
 
         ReplyDto newReply = new ReplyDto();
         newReply.setUserDto(userDto);
