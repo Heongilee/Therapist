@@ -107,9 +107,9 @@ public class ReplyService {
     }
 
     // make grade with star point
-    // TODO : (Note) uses unchecked or unsafe operations.
-    public void makeGrade(Long replyId, String userName, int starPoint) {
-        UserDto user = userRepository.findByUserName(userName);
+    public void makeGrade(Long replyId, int starPoint) {
+        ReplyDto reply = replyRepository.getById(replyId);
+        UserDto user = reply.getUserDto();
         int star = user.getUserStars();
         String grade = user.getUserGrade();
         if (star < 50) {
@@ -119,10 +119,9 @@ public class ReplyService {
         } else {
             grade = "GOLD";
         }
-        userRepository.findByUserName(userName)
-                .setUserGrade(grade);
-        userRepository.findByUserName(userName)
-                .setUserStars(star+starPoint);
+        user.setUserGrade(grade);
+        user.setUserStars(star+starPoint);
+        userRepository.save(user);
 
         replyRepository.findById(replyId)
                 .map(replyDto -> {
