@@ -59,7 +59,7 @@ public class ReplyService {
 
     public JSONObject findReplies(Long postId, Pageable pageable) {
         PostDto post = postRepository.findById(postId).orElse(null);
-        Page<ReplyDto> replies = replyRepository.findByPostDto(post, pageable);
+        Page<ReplyDto> replies = replyRepository.findByPostDtoOrderByPostCreatedAtDesc(post, pageable);
         JSONObject jsonObject = new JSONObject();
 
         JSONArray replyArray = new JSONArray();

@@ -23,7 +23,7 @@ public class NoticeService {
     }
 
     public JSONObject findByUsername(String username) {
-        List<NoticeDto> notices = noticeRepository.findByUsername(username);
+        List<NoticeDto> notices = noticeRepository.findByUsernameOrderByNoticeCreatedAtDesc(username);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("username", username);
@@ -43,7 +43,7 @@ public class NoticeService {
     }
 
     public int findTotalNotice(String username) {
-        List<NoticeDto> notices = noticeRepository.findByUsername(username);
+        List<NoticeDto> notices = noticeRepository.findByUsernameOrderByNoticeCreatedAtDesc(username);
         int totalNotices = 0;
 
         for (NoticeDto notice : notices) {
