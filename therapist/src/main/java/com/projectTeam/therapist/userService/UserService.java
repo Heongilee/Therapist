@@ -333,27 +333,29 @@ public class UserService {
     }
 
     // Called from UserApiController (POST /api/users/mypage/posts )
-    public void deleteMyPosts(String type, Map<String, Long> items) {
-        if (type.equals("post")) {
-            for (Long postId : items.values()) {
-                System.out.println("post id: " + postId);
+    public void deleteMyPosts(String type, JSONObject items) {
+        ArrayList<Integer> deleteList = (ArrayList<Integer>) items.get("deleteCheckList");
+
+        if (type.equals("myPosts")) {
+            for (int id : deleteList) {
+                Long postId = Long.valueOf(id);
                 postRepository.deleteById(postId);
             }
-        } else if (type.equals("reply")) {
-            for (Long replyId : items.values()) {
+        } else if (type.equals("myReplies")) {
+            for (int id : deleteList) {
+                Long replyId = Long.valueOf(id);
                 replyRepository.deleteById(replyId);
             }
-        } else if (type.equals("postComment")) {
-            for (Long postCommentId : items.values()) {
+        } else if (type.equals("myPostComments")) {
+            for (int id : deleteList) {
+                Long postCommentId = Long.valueOf(id);
                 postCommentRepository.deleteById(postCommentId);
             }
-        } else if (type.equals("replyComment")) {
-            for (Long replyCommentId : items.values()) {
+        } else if (type.equals("myReplyComments")) {
+            for (int id : deleteList) {
+                Long replyCommentId = Long.valueOf(id);
                 replyCommentRepository.deleteById(replyCommentId);
             }
-        } else {
-
         }
-
     }
 }
