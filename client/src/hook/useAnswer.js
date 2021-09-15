@@ -9,7 +9,11 @@ function useAnswer({ postId }) {
 
     const loadAnswerData = async() => {
         setAnswerState(prev => ({ ...prev, loading: true }));
+        console.log("currentPage.current", currentPage.current);
+        
         const data = await postApi.fetchAnswer(postId, currentPage.current);
+        currentPage.current += 1;
+        console.log("ddda", data)
         setAnswerState(prev => ({
         answerData: [...prev.answerData, ...data],
           loading: false

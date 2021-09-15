@@ -23,6 +23,7 @@ export default function createSocketChannel(ws) {
                   username: useName
               }
               ws.send(JSON.stringify(sendMsg));
+              return;
             }
             else {
                 console.log("notice message"+e.data);

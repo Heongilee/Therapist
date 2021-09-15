@@ -22,6 +22,7 @@ function PostPage({ match }) {
 
     const { answerData, loading } = AnswerState;
     
+
     const answerList = useCallback(() => answerData && 
         answerData.map( (data, index) => {
             return <AnswerForm  key={'AnswerForm' + index} data={data} index={index}

@@ -1,5 +1,6 @@
-import { fork, take, call, put, race } from 'redux-saga/effects';
+import { fork, take, call, put, race, takeLatest } from 'redux-saga/effects';
 import createSocketChannel from "./createSocketChannel";
+import { SOCKET_URL } from '../config/confing.js';
 import { START_CHANNEL , STOP_CHANNEL, 
           SOCKET_MESSAGE, NOTICE_COUNT, 
           SEND_MESSAGE, GET_MESSAGE,
@@ -7,9 +8,6 @@ import { START_CHANNEL , STOP_CHANNEL,
 
 import { notification } from 'antd';
 
-
-// const URL = 'ws://localhost:5000';
-const URL = 'ws://ec2-54-227-110-34.compute-1.amazonaws.com:8080/socket';
 
 const option ={
   message: '메세지옴',
@@ -23,12 +21,13 @@ const openNotification = (type) => {
   notification[type](option);
 };
 
-function * sendMessageSaga(ws) {
 
+function * sendMessageSaga(ws) {
+  
   while (true) {
     
     const { data } = yield take(SEND_MESSAGE);
-  
+    
     ws.send(
       JSON.stringify(data))
   }
@@ -37,15 +36,17 @@ function * sendMessageSaga(ws) {
 
 function * initializeWebSocketsChannel() {
   
-  console.log("going to connect to WS")
-  const ws = new WebSocket(URL,);
+  console.log("going to connect to WS");
+
+  const ws = new WebSocket(SOCKET_URL);
   const channel = yield call(createSocketChannel, ws);
+
+  yield fork(sendMessageSaga, ws);
+
   while (true) {
 
-      yield fork(sendMessageSaga, ws);
-
       const { data } = yield take(channel);
-     
+      
       yield put({
         type: SOCKET_MESSAGE,
         key: 'message',

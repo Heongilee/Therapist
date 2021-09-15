@@ -2,24 +2,30 @@ import { useEffect, useState } from 'react';
 
 
 function useInfiniteScroll( { currentPage, loadAnswerData, totalpage }) {
-
+    // console.log("totalpage",currentPage, totalpage,Math.ceil( totalpage/6))
     const [ target, setTarget ] = useState(null);
-
+  
     const onIntersect = async ([entry], observer) => {
         
-        if (currentPage.current === 0) {
-          currentPage.current += 1;
-          return;
-        }
+        // if (currentPage.current === 0) {
+        //   currentPage.current += 1;
+        //   return;
+        // }
         
 
         if (entry.isIntersecting) {
-            if (currentPage.current < ((parseInt(totalpage/3) + totalpage%3))){
-              currentPage.current += 1;
+            if(currentPage.current === totalpage/6){
+              console.log("currentPage.current", currentPage.current)
+              return;
+            }
+
+            if (currentPage.current < totalpage/6){
+              // currentPage.current += 1;
               observer.unobserve(entry.target);
               await loadAnswerData();
               observer.observe(entry.target);
             } else {
+              console.log("dd")
               currentPage.current += 1;
               observer.unobserve(entry.target);
             }

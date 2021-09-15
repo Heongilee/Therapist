@@ -25,8 +25,8 @@ function useModal() {
     
 
     const showStarModal = async(path, star, replyId) => {
-        // /replies/userId?point=<int> 평점 보내기
-        const endpoint = `/${path}/${replyId}?point=${star + 1}`
+        // /api/replies/<Long: replyId>/<String: userName}?point=<int>
+        const endpoint = `/replies/${replyId}?point=${star + 1}`
 
         setModalType(STAR_MODALTEXT);
         setPathState(path);

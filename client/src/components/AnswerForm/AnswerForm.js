@@ -14,6 +14,7 @@ import './AnswerForm.css';
 
 function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
 
+
     const { CommentData, CommentState, MessageIconOnClick, PageState,
                             pageSelect, commentRegister  } 
                                                 = useComment( { COMMENT_ENDPOINT:ENDPOINT_DIC['replyComments'], 
@@ -56,10 +57,12 @@ function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
                     </div>
                     <div className="answer_footer">
 
-                        <StarButton isCheked={localStorage.getItem('username') === questId ? false : true } 
+                        <StarButton isCheked={ (0 < data.replyStar || localStorage.getItem('username') !== questId) 
+                                            ? true : false } 
                                     id={data.replyId}
                                     replyStar={data.replyStar}
                                     ></StarButton> 
+
                                                  
                         <div onClick={() => MessageIconOnClick(ENDPOINT_DIC['replyComments'], index)}>
                             <MessageIcon commentCount={data.replyCommentSize}></MessageIcon>

@@ -7,7 +7,7 @@ import useQuery from '../hook/useQuery.js';
 function useBoardState({ PATH, ENDPOINT='', ININIAL_POSTTYPE='', userName }) {
     const { page, postType } = useGetQuery();
 
-    const TotalBoard = useQuery(
+    const noticeData = useQuery(
         `${ENDPOINT}${userName ? '/' + userName + '?menuType=': ''}${postType ? postType : ININIAL_POSTTYPE }`);
 
 
@@ -16,9 +16,6 @@ function useBoardState({ PATH, ENDPOINT='', ININIAL_POSTTYPE='', userName }) {
     
     const history = useHistory();
 
-    const categorySelect = key => {
-        history.push(`/${PATH}?postType=${key}&page=${1}`);
-    };
 
     const pageSelect = (page) => {
         history.push(`/${PATH}?postType=${BoardState.postType}&page=${page}`);

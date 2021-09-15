@@ -35,23 +35,41 @@ export default function useCheckBoxModal({ CheckState, postData, postType }) {
     };
 
     const dataProcessing = () => {
+        
         const deleteData = CheckState.reduce((accumulator, data, index, array) => {
             if(data){
-                const { postId, replyId } = postData[index];
-                accumulator[index] = postId || replyId;
-                return accumulator;
+                console.log("postData[index]", postData[index], postType)
+                const { postId, replyId, commentId } = postData[index];
+
+                
+                return [...accumulator, commentId ? commentId : postId || replyId]
             } else {
                 return accumulator;
             }
 
-         },{}) 
+         },[]);
+        
+        const checkList = {"deleteCheckList": deleteData };
+        return checkList;
+    }
+    // const dataProcessing = () => {
+    //     console.log("CheckState", CheckState)
+    //     const deleteData = CheckState.reduce((accumulator, data, index, array) => {
+    //         if(data){
+    //             const { postId, replyId } = postData[index];
+    //             accumulator[index] = postId || replyId;
+    //             return accumulator;
+    //         } else {
+    //             return accumulator;
+    //         }
 
-        return deleteData;
-    };
+    //      },{}) 
+
+    //     return deleteData;
+    // };
 
     const handleOk = async() => {
         const checkData = await dataProcessing();
-
         const endpoint = `users/mypage?type=${postType}`;
         const response = await api.fetchRegister(endpoint,checkData,history); 
 
@@ -59,7 +77,7 @@ export default function useCheckBoxModal({ CheckState, postData, postType }) {
             setConfirmLoading(true);
             setVisible(false);
             setConfirmLoading(false);
-            window.location.reload();  
+            // window.location.reload();  
         }       
     };
 

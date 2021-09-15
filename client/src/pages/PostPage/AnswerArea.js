@@ -6,7 +6,7 @@ function AnswerArea({totalpage, currentPage, loadAnswerData, loading}) {
 
     const setTarget = useInfiniteScroll({ currentPage, loadAnswerData, totalpage });
 
-
+    
     return (
         <>
             <div ref={setTarget}> {loading && "loading..."}</div>
