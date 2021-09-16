@@ -148,7 +148,7 @@ public class PostService {
     }
 
     public JSONObject findByPostType(PostCategory postType) {
-        List<PostDto> posts = postRepository.findByPostType(postType);
+        List<PostDto> posts = postRepository.findByPostTypeOrderByPostCreatedAtDesc(postType);
 
         // 검색된 카테고리 게시글 개수
         JSONObject jsonObject = new JSONObject();

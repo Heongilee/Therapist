@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Builder
 @AllArgsConstructor
@@ -22,4 +23,22 @@ public class NoticeDto {
     private Long post_id;
     @Builder.Default
     private boolean is_check = false;
+
+    @Column(updatable = false)
+    private LocalDateTime noticeCreatedAt;
+    private LocalDateTime noticeUpdatedAt;
+
+    // DB에 INSERT를 날리기전에 해당 메서드를 먼저 실행하여 현재시각과 업데이트 시각을 설정한다.
+    @PrePersist
+    public void prePersist() {
+        LocalDateTime now = LocalDateTime.now();
+        this.noticeCreatedAt = now;
+        this.noticeUpdatedAt = now;
+    }
+
+    // 해당 테이블로 UPDATE문이 들어왔을때 트리거처럼 호출되며 업데이트 시각을 현재시각으로 설정한다.
+    @PreUpdate
+    public void preUpdate() {
+        this.noticeUpdatedAt = LocalDateTime.now();
+    }
 }
