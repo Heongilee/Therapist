@@ -31,7 +31,7 @@ function PopOverContent() {
 
 
   return (
-    <PerfectScrollbar style={{ height: "300px" }}>
+    <PerfectScrollbar style={{ height: "350px" }}>
         <div>
           {
             noticeData && noticeList()

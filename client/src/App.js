@@ -8,7 +8,6 @@ import BoardPage from './pages/BoardPage/BoardPage.js';
 import WritePage from './pages/WritePage/WritePage.js';
 import PostPage from './pages/PostPage/PostPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
-import NoticePage from './pages/NoticePage/NoticePage.js';
 import WebRtcPage from './pages/WebRtcPage/WebRtcPage.js';
 
 import LoadingBar from './components/LoadingBar/LoadingBar.js';
@@ -32,7 +31,6 @@ const App = () => (
                 <Route exact path="/mypage" component={ MyPage } />
                 
                 <Route exact path="/webrtc" component={ WebRtcPage } />
-                <Route exact path="/notice" component={ NoticePage } />
                 <Route component={ Page404 } />
             </Switch>
             <Footer/>

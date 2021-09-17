@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Auth } from '../config/confing.js';
 import { useHistory } from 'react-router-dom';
 import { socket_actions } from '../_actions/socket_actions';
+import { loading_actions } from '../_actions/loading_actions';
 import { useDispatch } from 'react-redux';
 
 
@@ -10,10 +11,12 @@ const { Kakao } = window;
 
 
 function useKakao() {
+    const history = useHistory();
     const dispatch = useDispatch();
     const [LoginState, setLoginState] = useState(localStorage.getItem('token') ? true : false);
 
     const kakaoLoginClickHandler = () => {
+        
         Kakao.Auth.login({
             scope: 'profile_nickname, account_email',
             success: function (authObj) {
@@ -28,13 +31,13 @@ function useKakao() {
                             alert("welcome")
                             setLoginState(!LoginState);
                             // dispatch(socket_actions.connectChannel());
+                            
                         }
                     })
                 },
 
                 fail: function (err) {
                     alert(JSON.stringify(err));
-                    
                 }
             })
         };

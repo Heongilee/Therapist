@@ -1,6 +1,6 @@
 import React from 'react';
 import useInfiniteScroll from '../../hook/useInfiniteScroll';
-
+import SpinLoadIcon from '../SpinLoadIcon/SpinLoadIcon.js';
 
 function InfiniteArea({totalpage, currentPage, loadData, loading}) {
 
@@ -9,7 +9,7 @@ function InfiniteArea({totalpage, currentPage, loadData, loading}) {
     
     return (
         <>
-            <div ref={setTarget}> {loading && "loading..."}</div>
+            <div ref={setTarget}> {loading && <SpinLoadIcon/>}</div>
         </>
     )
 }

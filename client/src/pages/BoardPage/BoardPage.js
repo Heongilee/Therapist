@@ -38,7 +38,8 @@ function BoardPage() {
                                             postData={TotalBoard.posts} 
                                             currentPage={BoardState.currentPage}
                                             cateGory={BoardState.postType}></BoardForm>}
-                            <WriteButton></WriteButton>
+                            
+                            {TotalBoard && <WriteButton></WriteButton>}
                             {TotalBoard && 
                             <PaginationCmp currentPage={BoardState.currentPage} 
                                 totalPages={TotalBoard.totalAmount} pageSelect={pageSelect}></PaginationCmp>}    

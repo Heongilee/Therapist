@@ -7,7 +7,7 @@ import { eventChannel, END } from 'redux-saga';
 function progress(num) {
     return eventChannel(emitter => {
       const count = setInterval(() => {
-        num += Math.random() * 10;
+        num += Math.random() * 7;
         
         if (num < 95) emitter(num);
         else {
@@ -15,7 +15,7 @@ function progress(num) {
         }
       }, 50);
       return () => {
-        emitter(100)
+        // emitter(100)
         clearInterval(count);
       };
     });
@@ -36,7 +36,6 @@ function* loadingSaga() {
           });
 
         if (cancel) {
-          console.log("dd", cancel)
             yield put({type:LOADING_RESET })
             break;
         }
