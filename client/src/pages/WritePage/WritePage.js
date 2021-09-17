@@ -32,6 +32,7 @@ function WritePage({ location }){
 
     const handleButtonClick = async() => {
         
+    
         const title = titleRef.current;
         const content = editorRef.current.getInstance().getMarkdown();
         // const content = editorRef.current.getInstance().getHTML();
@@ -94,6 +95,7 @@ function WritePage({ location }){
                         initialEditType="wysiwyg"
                         useCommandShortcut={true}
                         ref={editorRef}
+                        
                         language="ko"
                     />
                     </div> 

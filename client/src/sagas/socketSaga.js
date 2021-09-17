@@ -67,12 +67,12 @@ function * initializeWebSocketsChannel() {
 function * socketSaga() {
 
   while (true) {
-      // yield take(START_CHANNEL);
+      yield take(START_CHANNEL);
       yield call(initializeWebSocketsChannel)
-      // yield race({
-      //     task: call(initializeWebSocketsChannel),
-      //     cancel: take(STOP_CHANNEL),
-      // });
+      yield race({
+          task: call(initializeWebSocketsChannel),
+          cancel: take(STOP_CHANNEL),
+      });
 
       // ws.close();
   }
