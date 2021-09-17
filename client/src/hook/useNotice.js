@@ -1,38 +1,38 @@
-import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import useGetQuery from './useGetQuery.js';
-import useQuery from '../hook/useQuery.js';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom'; 
+import api from '../api/api.js';
 
 
-function useBoardState({ PATH, ENDPOINT='', ININIAL_POSTTYPE='', userName }) {
-    const { page, postType } = useGetQuery();
-
-    const noticeData = useQuery(
-        `${ENDPOINT}${userName ? '/' + userName + '?menuType=': ''}${postType ? postType : ININIAL_POSTTYPE }`);
-
-
-    const [BoardState, setBoardState] = useState({ 
-        currentPage: page ? page : 1, postType:postType ? postType : ININIAL_POSTTYPE});
-    
+function useNotice() {
     const history = useHistory();
+    const currentPage = useRef(0);
+    const [ NoticeState, setNoticeState ] = useState({ noticeData:[], loading:false });
 
+    const loadNoticeData = async() => {
+        setNoticeState(prev => ({ ...prev, loading: true }));
+        
+        const endPoint = `notice/${localStorage.getItem('username')}`
+        const data = await api.fetchGet(endPoint, history);
+        console.log("loadNoticeData", data)
 
-    const pageSelect = (page) => {
-        history.push(`/${PATH}?postType=${BoardState.postType}&page=${page}`);
-    }
-   
+        currentPage.current += 1;
+
+        setNoticeState(prev => ({
+          noticeData: [...prev.noticeData, ...data.notices],
+          loading: false
+        }));
+  
+      };
+  
     useEffect(() => {
-        setBoardState({...BoardState, currentPage: page ? page : 1, 
-                                    postType:postType ? postType : ININIAL_POSTTYPE });
-    }, [page, postType]);
-
-   
- 
-    return { BoardState, categorySelect, pageSelect, TotalBoard };
+        loadNoticeData();
+    }, []);
+    
 
 
+    return { NoticeState:NoticeState, currentPage:currentPage, loadNoticeData };
 };
 
-export default useBoardState;
+export default useNotice;
 
 

@@ -33,11 +33,8 @@ export const modalCase = async(PathState, EndpointState, history) => {
         
         //평점
         case 'star': {
-            //replies/14?point=5
-            console.log("별", EndpointState)
             await api.fetchGet(EndpointState, history);
-            
-            // window.location.reload();  
+            window.location.reload();  
         }
         default:
             return;

@@ -16,6 +16,8 @@ import LoadingBar from './components/LoadingBar/LoadingBar.js';
 import { Page404 } from './pages/ErrorPage/ErrorPage';
 import { ErrorHandler } from './utils/ErrorHandler.js';
 
+
+
 const App = () => (
     <Suspense fallback={(<div>loading...</div>)}>
         <ErrorHandler>

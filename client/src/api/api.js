@@ -8,9 +8,13 @@ const api = {
         
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            const { status } = await axios.get(`${URL}/${endPoint}`);
+            const { data, status } = await axios.get(`${URL}/${endPoint}`);
 
             if (status === 200){
+                if (data){
+                    return data
+                }
+
                 return true;
             }
 

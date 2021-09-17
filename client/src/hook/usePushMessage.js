@@ -7,13 +7,14 @@ function usePushMessage() {
 
     const count = useSelector(state => state.socket.count);
     
-    console.log("state", count)
     const history = useHistory();
 
     //Notification
     
     const noticeHendler = () => {
-        history.push(`/notice`);                                        
+        console.log("하이")
+        // document.body.style.overflow = "hidden";
+        // history.push(`/notice`);                                        
     };
 
     return { count, noticeHendler };
