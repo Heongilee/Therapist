@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col,Button } from 'antd';
+import useOpenVidu from '../../hook/useOpenVidu.js';
 import WebCard from './WebCard.js';
 
 import './WebRtcPage.css';
@@ -15,20 +16,26 @@ const spanState = {
 
 function WebRtcPage() {
 
+
     const [state, setstate] = useState([]);
     const [cnt, setcnt] = useState(1);
     const onClick = () => {
         setcnt(cnt => cnt + 1)
     };
 
+    const { joinSession, leaveSession, session} = useOpenVidu({nickName:localStorage.getItem('nickname')});
     
+    // 임시
+    useEffect(() => {
+        joinSession();
+    }, [])
 
     return (
         <section className="webrtc">
             <div className="wrapper">
                 <Row className="webcard_row">
-                    {spanState[cnt].map((value, index) => {
-                        return <WebCard key={'WebCard' + index} span={value}></WebCard>
+                    {session && spanState[cnt].map((value, index) => {
+                        return <WebCard session={session} key={'WebCard' + index} span={value}></WebCard>
                     })}
                 </Row>    
             </div>

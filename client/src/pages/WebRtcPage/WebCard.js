@@ -4,8 +4,9 @@ import { UserOutlined } from '@ant-design/icons';
 
 import './WebCard.css';
 
-function WebCard({ span }) {
+function WebCard({ span, session }) {
 
+    console.log("session", session)
     return (
         <Col span={ span } className="webcard_col">
                 <div className="webrtc_card">

@@ -1,18 +1,24 @@
 import axios from 'axios';
 
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
-const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
+const OPENVIDU_SERVER_URL = 'https://ec2-52-90-238-195.compute-1.amazonaws.com';
+
+const OPENVIDU_SERVER_SECRET = 'therapist';
 
 
 
 export const getToken = sessionId => {
+    console.log("세션아이디", sessionId)
    return createSession(sessionId).then(sessionId => createToken(sessionId));
 };
 
 
 const createSession = sessionId => {
+    
+
  return new Promise((resolve, reject) => {
+    
+
      var data = JSON.stringify({ customSessionId: sessionId });
      axios
          .post(OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {

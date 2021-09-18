@@ -6,7 +6,6 @@ import { useContextModal } from '../../hook/useContextModal';
 import useAnswer from '../../hook/useAnswer.js';
 import InfiniteArea from '../../components/InfiniteArea/InfiniteArea.js';
 
-import AnswerArea from './AnswerArea.js';
 
 import './PostPage.css';
 

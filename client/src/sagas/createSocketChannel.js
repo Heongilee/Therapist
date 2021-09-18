@@ -31,7 +31,7 @@ export default function createSocketChannel(ws) {
               return emit({data: e.data})
           };
           ws.onclose = e => {
-              console.log("e",e)
+              console.log("WebSocket Error",e)
               if (e.code === 1005) {
                   console.log("WebSocket: closed");
               } else {
