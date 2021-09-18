@@ -54,6 +54,7 @@ public class CommentService {
                 .post_id(postId)
                 .type("postComment")
                 .username(foundPostDto.getUserDto().getUserName())
+                .senderUser(foundUserDto.getUserName())
                 .build();
         noticeRepository.save(noticeDto);
 
@@ -87,6 +88,7 @@ public class CommentService {
                 .post_id(foundReplyDto.getPostDto().getPostId())
                 .type("replyComment")
                 .username(foundReplyDto.getUserDto().getUserName())
+                .senderUser(foundUserDto.getUserName())
                 .build();
         noticeRepository.save(noticeDto);
 

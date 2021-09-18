@@ -1,5 +1,6 @@
 package com.projectTeam.therapist.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class NoticeDto {
     private String type;
     private String username;
     private Long post_id;
+    private String senderUser;
     @Builder.Default
     private boolean is_check = false;
 
