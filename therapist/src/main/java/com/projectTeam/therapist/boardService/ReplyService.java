@@ -37,6 +37,7 @@ public class ReplyService {
                 .post_id(postId)
                 .type("reply")
                 .username(postDto.getUserDto().getUserName())
+                .senderUser(userDto.getUserName())
                 .build();
         noticeRepository.save(noticeDto);
 
