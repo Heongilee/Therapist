@@ -1,13 +1,17 @@
 import React from 'react';
 import GridCard from './GridCard.js';
 import SideBarCard from './SideBarCard.js';
+import { useContextOpv } from '../../../hook/useContextOpv.js';
 import { Row, Col } from 'antd';
 
     
 import './SideBarLayout.css';
 
-
-function SideBarLayout({ publisher, subscriber, changeSpotlight }) {
+//publisher, subscriber, changeSpotlight
+function SideBarLayout() {
+    
+    const { publisher, subscriber, changeSpotlight } = useContextOpv();
+        
     
     const onClick = name => {
         changeSpotlight(name)

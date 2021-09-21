@@ -3,16 +3,13 @@ import GridLayout from './GridLayout.js';
 import SideBarLayout from './SideBarLayout.js';
 
 
-function OpenViduLayout({ LayoutState, publisher, subscriber, changeSpotlight }) {
+function OpenViduLayout({ LayoutState }) {
     
     if (LayoutState === "grid"){
         return <GridLayout></GridLayout>;
     } 
     else if (LayoutState === "sidebar" ){
-        return <SideBarLayout 
-                publisher={publisher} 
-                subscriber={subscriber}
-                changeSpotlight={changeSpotlight}>
+        return <SideBarLayout>
                 </SideBarLayout>;
     }
 
