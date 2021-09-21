@@ -8,7 +8,7 @@ import BoardPage from './pages/BoardPage/BoardPage.js';
 import WritePage from './pages/WritePage/WritePage.js';
 import PostPage from './pages/PostPage/PostPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
-import WebRtcPage from './pages/WebRtcPage/WebRtcPage.js';
+import OpenViduPage from './pages/OpenViduPage/OpenViduPage.js';
 
 import LoadingBar from './components/LoadingBar/LoadingBar.js';
 
@@ -30,7 +30,7 @@ const App = () => (
                 <Route exact path="/write" component={ WritePage } />
                 <Route exact path="/mypage" component={ MyPage } />
                 
-                <Route exact path="/webrtc" component={ WebRtcPage } />
+                <Route exact path="/webrtc" component={ OpenViduPage } />
                 <Route component={ Page404 } />
             </Switch>
             <Footer/>

@@ -1,0 +1,82 @@
+
+.webrtc {
+    position: absolute;
+    font-size: 1.2rem;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e9ecef;
+}
+
+.webcard_content{
+    display: flex;    
+    padding: 3rem 3rem 0.8rem 3rem;
+}
+
+.openvidu_row_publisher {
+    width: 100%;
+    height: 770px;   
+}
+
+.openvidu_col_publisher{
+    margin-bottom: 11px;
+}
+
+.openvidu_publisher{
+    border-radius: 8px;
+    height: 100%;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+
+.openvidu_col_subscriber {
+    width: 30%;
+    height: 770px;   
+}
+
+.openvidu_row_subscriber{
+    height: 100%;
+ }
+
+.openvidu_subscriber{
+    border-radius: 8px;
+    margin-bottom: 11px;
+    width: 100%;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+
+/* .openvidu_footer {
+    display: flex;
+    background:whitesmoke;
+    justify-content: center;
+    align-items: center;
+}
+
+ .circle {
+    width: 50px;
+    height: 50px;
+    margin: 5px; 
+    background: #666;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    
+ }
+
+ .circle span {
+    color: #fff;
+ } 
+
+ .circle:hover {
+    cursor: pointer;
+} */

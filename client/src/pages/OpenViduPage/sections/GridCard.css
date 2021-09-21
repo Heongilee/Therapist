@@ -1,0 +1,25 @@
+
+
+.grid_card {
+    position: relative;
+    /* border-radius: 8px; */
+    margin-bottom: 11px;
+    height: 100%; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.grid_nickname {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+}
+
+
+/* .openvidu_card:hover {
+    cursor: pointer;
+    border: solid;
+} */

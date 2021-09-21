@@ -1,6 +1,6 @@
 import React from 'react';
 import WriteForm from '../WriteForm/WriteForm.js';
-import './ModalRoomCreate.css';
+import './Modal.css';
 
 
 const ModalRoomCreate = ({ onFinish, onCancel, ModalState, overlayClick }) => {
