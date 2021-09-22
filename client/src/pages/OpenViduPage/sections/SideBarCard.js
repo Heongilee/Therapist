@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Avatar } from 'antd';
+import { Avatar, Tooltip } from 'antd';
 import { UserOutlined, PushpinFilled, PushpinOutlined } from '@ant-design/icons';
 import OpenViduVideo from './OpenViduVideo.js';
 
@@ -10,8 +10,9 @@ function SideBarCard({ span, publisher, onClick=null, nickName }) {
     
     return (
         <div className="sidebar_card">
-            <PushpinFilled 
-                        onClick={() => onClick(nickName)}/>
+            <Tooltip placement="bottom" title={<span>고정</span>}>
+                <PushpinFilled onClick={() => onClick(nickName)}/>
+            </Tooltip>
             <Avatar size={100} icon={<UserOutlined />} />
             <div className="sidebar_nickname">{nickName}</div>
         </div>

@@ -2,8 +2,12 @@
 
 .sidebar_card {
     position: relative;
+    overflow: hidden;
+
     /* border-radius: 8px; */
-    width: 100%; 
+    width: 100%;
+    height: auto;
+    
     display: flex; 
     justify-content: center;
     align-items: center;
@@ -18,16 +22,26 @@
     font-size: 1rem;
 }
 
-/* 
-.sidebar_card:hover {
-    cursor: pointer;
-    border: 0.5px solid;
-} */
-
-
 
 .anticon-pushpin {
     position: absolute;
+    top: -150%;
+    right: 0;
+    transition:all .30s;
+    color: #666;
+    z-index: 2;
+}
+
+
+.sidebar_card:hover {
+    cursor: pointer;
+    border:  solid #666;
+}
+
+.sidebar_card:hover .anticon-pushpin{
     top: 20px;
     right: 20px;
 }
+
+
+

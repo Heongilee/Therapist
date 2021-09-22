@@ -4,10 +4,9 @@ import SideBarCard from './SideBarCard.js';
 import { useContextOpv } from '../../../hook/useContextOpv.js';
 import { Row, Col } from 'antd';
 
-    
 import './SideBarLayout.css';
 
-//publisher, subscriber, changeSpotlight
+
 function SideBarLayout() {
     
     const { publisher, subscriber, changeSpotlight } = useContextOpv();

@@ -2,7 +2,7 @@
 
 .openvidu_sidebar_col {
     width: 30%;
-    height: 770px;   
+    max-height: 770px;   
 }
 
 .openvidu_sidebar_row {
