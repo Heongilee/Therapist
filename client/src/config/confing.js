@@ -10,4 +10,5 @@ export const OPENVIDU_SERVER_URL
 
 
 
+
 export const MAIN_ENDPOINT = '/main/posts';

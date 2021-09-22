@@ -14,6 +14,8 @@ function OpenViduPage() {
     
     const { ModalRedioRender, onLayoutHandler, LayoutState } = useRedioModal();
 
+
+
     return (    
         <section className="webrtc">
 
@@ -21,6 +23,7 @@ function OpenViduPage() {
                 
                     <OpenViduLayout LayoutState={LayoutState}>
                     </OpenViduLayout>
+
             </div>
             
             <OpenViduFooter onLayoutHandler={onLayoutHandler}></OpenViduFooter>

@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 import useOpenVidu from '../hook/useOpenVidu.js';
 
+
 const first = ['성진'];
 const second = ['헌기', '유라'];
 
@@ -28,10 +29,3 @@ export const OpenViduProvider = ({ children }) => {
 };
 
 
-// return ( 
-//     <OpenViduContext.Provider
-//         value={{ publisher:First, subscriber:Second, 
-//                 setFirstState, setSecondState, changeSpotlight }}>
-//         { children }
-//     </OpenViduContext.Provider>
-//  ); 

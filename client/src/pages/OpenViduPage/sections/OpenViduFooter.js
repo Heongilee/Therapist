@@ -3,6 +3,7 @@ import { Row, Col, Button, Avatar, Tooltip } from 'antd';
 import { useHistory } from "react-router-dom";
 import {useContextOpv} from '../../../hook/useContextOpv';
 
+
 import { UserOutlined, VideoCameraOutlined, 
     SoundOutlined, AppstoreOutlined, ExportOutlined } from '@ant-design/icons';
 
@@ -27,6 +28,7 @@ function OpenViduFooter({onLayoutHandler}) {
     const onCloseHandler = () => {
         history.push('/');
         leaveSession();
+
     };
 
     return (
