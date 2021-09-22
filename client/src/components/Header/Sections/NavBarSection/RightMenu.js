@@ -44,7 +44,7 @@ function RightMenu() {
                     <Popover placement="bottomRight" key={"popover"} 
                     title={"알림"} content={<PopOverContent/>} 
                     onVisibleChange={onVisibleChange}
-                    
+                    visible={state}
                     trigger="click">
                     
                         <Badge count={count}  style={{marginRight:'0.9rem'}}>

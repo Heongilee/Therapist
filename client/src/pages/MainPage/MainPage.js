@@ -13,7 +13,8 @@ function MainPage() {
  
     const CardDataState  = useVoiceRoom();
     const PostState = useRecentBoard();
-    const { ModalRoomRender, onClick } = useCreateRoom();
+    const { renderRoomCreate, showCrearteRoomModal } = useCreateRoom();
+    
     const { renderWriteModal, showWriteModal } = useWriteModal();
     
     return (
@@ -21,7 +22,7 @@ function MainPage() {
 
             <div className="wrapper">
                 <div className="voice_room_title">            
-                    <h2 onClick={onClick} style={{cursor: "pointer"}}>
+                    <h2 onClick={showCrearteRoomModal} style={{cursor: "pointer"}}>
                         고민을 들어주세요 
                         <AudioOutlined /></h2>
                 </div>
@@ -34,8 +35,8 @@ function MainPage() {
                 {PostState && <BoardSection postData={PostState}></BoardSection>}
             </div>
             <ModalPortal>
-                { ModalRoomRender()}
-                {renderWriteModal()}
+                { renderRoomCreate()}
+                { renderWriteModal()}
             </ModalPortal>
         </section>
     );
