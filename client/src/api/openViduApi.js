@@ -7,7 +7,6 @@ const OPENVIDU_SERVER_SECRET = 'therapist';
 
 
 
-
 export const getToken = sessionId => {
     console.log("세션아이디", sessionId)
    return createSession(sessionId).then(sessionId => createToken(sessionId));

@@ -51,7 +51,7 @@ function useOpenVidu() {
         // We avoid this execution.
         if (session === undefined)
           return;
-        
+
         // On every new Stream received...
         session.on('streamCreated', (event) => {
           let subscriber = session.subscribe(event.stream, undefined);
@@ -60,6 +60,7 @@ function useOpenVidu() {
         });
     
         getToken(sessionId).then(token => {
+
           session.connect(token)
           .then(() => {
             let publisher = OV.initPublisher(undefined);
@@ -74,6 +75,7 @@ function useOpenVidu() {
       }, [session, OV, sessionId]);
       
       return { joinSession, leaveSession, publisher, subscriber };
+
 };
 
 export default useOpenVidu;

@@ -37,6 +37,7 @@ public class ReplyService {
                 .post_id(postId)
                 .type("reply")
                 .username(postDto.getUserDto().getUserName())
+                .senderUser(userDto.getUserName())
                 .build();
         noticeRepository.save(noticeDto);
 
@@ -59,7 +60,7 @@ public class ReplyService {
 
     public JSONObject findReplies(Long postId, Pageable pageable) {
         PostDto post = postRepository.findById(postId).orElse(null);
-        Page<ReplyDto> replies = replyRepository.findByPostDto(post, pageable);
+        Page<ReplyDto> replies = replyRepository.findByPostDtoOrderByPostCreatedAtDesc(post, pageable);
         JSONObject jsonObject = new JSONObject();
 
         JSONArray replyArray = new JSONArray();
@@ -107,9 +108,9 @@ public class ReplyService {
     }
 
     // make grade with star point
-    // TODO : (Note) uses unchecked or unsafe operations.
-    public void makeGrade(Long replyId, String userName, int starPoint) {
-        UserDto user = userRepository.findByUserName(userName);
+    public void makeGrade(Long replyId, int starPoint) {
+        ReplyDto reply = replyRepository.getById(replyId);
+        UserDto user = reply.getUserDto();
         int star = user.getUserStars();
         String grade = user.getUserGrade();
         if (star < 50) {
@@ -119,10 +120,9 @@ public class ReplyService {
         } else {
             grade = "GOLD";
         }
-        userRepository.findByUserName(userName)
-                .setUserGrade(grade);
-        userRepository.findByUserName(userName)
-                .setUserStars(star+starPoint);
+        user.setUserGrade(grade);
+        user.setUserStars(star+starPoint);
+        userRepository.save(user);
 
         replyRepository.findById(replyId)
                 .map(replyDto -> {

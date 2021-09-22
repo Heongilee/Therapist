@@ -5,6 +5,8 @@ import com.projectTeam.therapist.jwt.TokenProvider;
 import com.projectTeam.therapist.model.LoginDto;
 import com.projectTeam.therapist.model.TokenDto;
 import com.projectTeam.therapist.model.UserDto;
+import com.projectTeam.therapist.postService.NoticeService;
+import com.projectTeam.therapist.repository.NoticeRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -27,7 +29,8 @@ import java.util.Map;
 public class AuthController {
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private NoticeService noticeService;
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
@@ -65,13 +68,14 @@ public class AuthController {
                 .username(userMap.get("username"))
                 .password(userMap.get("password"))
                 .build();
-
+        int totalNotices = noticeService.findTotalNotice(userMap.get("username"));
         // LoginDto에 사용자 정보 담아 /auth/authenticate(아래 authorize 메서드) 로 보내면 이를 가지고 jwt 토큰 생성 후 반환
         String response = userService.requestPostWithFormData("/auth/authenticate", loginDto);
         JSONParser parser = new JSONParser();
         Object token = parser.parse(response);
         JSONObject res = (JSONObject) token;
         res.put("username", userMap.get("username"));
+        res.put("totalNotices", totalNotices);
 
         return res;
     }

@@ -42,3 +42,7 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+jar {
+	enabled = false
+}

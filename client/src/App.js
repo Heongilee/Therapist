@@ -10,6 +10,7 @@ import PostPage from './pages/PostPage/PostPage.js';
 import MyPage from './pages/Mypage/Mypage.js';
 import OpenViduPage from './pages/OpenViduPage/OpenViduPage.js';
 
+
 import LoadingBar from './components/LoadingBar/LoadingBar.js';
 
 import { Page404 } from './pages/ErrorPage/ErrorPage';
@@ -31,6 +32,7 @@ const App = () => (
                 <Route exact path="/mypage" component={ MyPage } />
                 
                 <Route exact path="/webrtc" component={ OpenViduPage } />
+
                 <Route component={ Page404 } />
             </Switch>
             <Footer/>
