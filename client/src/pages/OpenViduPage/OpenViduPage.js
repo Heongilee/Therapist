@@ -10,22 +10,17 @@ import './OpenViduPage.css';
 
 
 function OpenViduPage() {
-    const { joinSession, leaveSession, publisher, subscriber  } = useOpenVidu({nickName:localStorage.getItem('nickname')});
+    // const { joinSession, leaveSession, publisher, subscriber  } = useOpenVidu({nickName:localStorage.getItem('nickname')});
     
     const { ModalRedioRender, onLayoutHandler, LayoutState } = useRedioModal();
-
-    const onByeByeClick = () => {
-        leaveSession();
-    };
 
     return (    
         <section className="webrtc">
 
             <div className="webcard_content">
-                <OpenViduProvider>
+                
                     <OpenViduLayout LayoutState={LayoutState}>
                     </OpenViduLayout>
-                </OpenViduProvider>
             </div>
             
             <OpenViduFooter onLayoutHandler={onLayoutHandler}></OpenViduFooter>

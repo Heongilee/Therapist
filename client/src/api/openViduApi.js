@@ -1,10 +1,8 @@
 import axios from 'axios';
+// import { OPENVIDU_SERVER_URL } from '../config/confing.js';
 
-
-const OPENVIDU_SERVER_URL = 'https://ec2-52-90-238-195.compute-1.amazonaws.com';
-
+const OPENVIDU_SERVER_URL = 'https://ec2-54-85-138-63.compute-1.amazonaws.com';
 const OPENVIDU_SERVER_SECRET = 'therapist';
-
 
 
 

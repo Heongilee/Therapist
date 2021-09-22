@@ -9,6 +9,8 @@ import promisMiddleware from 'redux-promise';
 import Reducer from './_reducers/index.js';
 import ReduxThunk from 'redux-thunk';
 import { ModalProvider } from './context/modalContext';
+import { OpenViduProvider } from './context/openViduContext';
+
 import ScrollToTop from './utils/ScrollToTop';
 import store from './config/store';
 
@@ -18,7 +20,9 @@ ReactDOM.render(
       <BrowserRouter>
           <ScrollToTop/>
           <ModalProvider>
+          <OpenViduProvider>
             <App />
+          </OpenViduProvider>
           </ModalProvider>
       </BrowserRouter>
   </Provider>

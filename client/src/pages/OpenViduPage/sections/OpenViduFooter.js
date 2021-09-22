@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Button, Avatar, Tooltip } from 'antd';
 import { useHistory } from "react-router-dom";
+import {useContextOpv} from '../../../hook/useContextOpv';
 
 import { UserOutlined, VideoCameraOutlined, 
     SoundOutlined, AppstoreOutlined, ExportOutlined } from '@ant-design/icons';
@@ -13,6 +14,7 @@ function OpenViduFooter({onLayoutHandler}) {
     const [MicState, setMicState] = useState(false);
     const history = useHistory();
 
+    const { leaveSession } = useContextOpv();
 
     const onCameraHandler = () => {
         setCamerState(!CamerState);
@@ -24,6 +26,7 @@ function OpenViduFooter({onLayoutHandler}) {
 
     const onCloseHandler = () => {
         history.push('/');
+        leaveSession();
     };
 
     return (

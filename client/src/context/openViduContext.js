@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import useOpenVidu from '../hook/useOpenVidu.js';
 
 const first = ['성진'];
 const second = ['헌기', '유라'];
@@ -15,12 +16,22 @@ export const OpenViduProvider = ({ children }) => {
         setSecondState([...Second.filter(data => data !== name), ...First]);
     };
 
+    const {joinSession, leaveSession, publisher, subscriber} = useOpenVidu();
+
     return ( 
-        <OpenViduContext.Provider
-            value={{ publisher:First, subscriber:Second, 
-                    setFirstState, setSecondState, changeSpotlight }}>
-            { children }
-        </OpenViduContext.Provider>
-     ); 
+    <OpenViduContext.Provider
+        value={{ publisher:First, subscriber:Second, 
+                setFirstState, setSecondState, changeSpotlight, joinSession, leaveSession }}>
+        { children }
+    </OpenViduContext.Provider>
+ ); 
 };
 
+
+// return ( 
+//     <OpenViduContext.Provider
+//         value={{ publisher:First, subscriber:Second, 
+//                 setFirstState, setSecondState, changeSpotlight }}>
+//         { children }
+//     </OpenViduContext.Provider>
+//  ); 
