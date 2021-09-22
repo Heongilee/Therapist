@@ -54,6 +54,7 @@ public class CommentService {
                 .post_id(postId)
                 .type("postComment")
                 .username(foundPostDto.getUserDto().getUserName())
+                .senderUser(foundUserDto.getUserName())
                 .build();
         noticeRepository.save(noticeDto);
 
@@ -87,6 +88,7 @@ public class CommentService {
                 .post_id(foundReplyDto.getPostDto().getPostId())
                 .type("replyComment")
                 .username(foundReplyDto.getUserDto().getUserName())
+                .senderUser(foundUserDto.getUserName())
                 .build();
         noticeRepository.save(noticeDto);
 
@@ -101,7 +103,7 @@ public class CommentService {
     // read Reply Comment find by replyId
     public JSONObject findReplyComments(Long replyId, Pageable pageable) {
         ReplyDto replyDto = replyRepository.findById(replyId).orElse(null);
-        Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDto(replyDto, pageable);
+        Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDtoOrderByCommentCreatedAtDesc(replyDto, pageable);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("replyCommentSize", replyComments.getTotalElements());
 
@@ -125,7 +127,7 @@ public class CommentService {
 
     public JSONObject findAllPostCommentsByPostId(Long postId, Pageable pageable) {
         PostDto postDto = postRepository.findById(postId).orElse(null);
-        Page<PostCommentDto> postComments = postCommentRepository.findByPostDto(postDto, pageable);
+        Page<PostCommentDto> postComments = postCommentRepository.findByPostDtoOrderByCommentCreatedAtDesc(postDto, pageable);
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         for (PostCommentDto postComment : postComments) {

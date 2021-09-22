@@ -227,7 +227,7 @@ public class UserService {
 
         if (menuType.equals("myPosts")) {
             // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
-            List<PostDto> posts = postRepository.findByUserDto(userDto);
+            List<PostDto> posts = postRepository.findByUserDtoOrderByPostCreatedAtDesc(userDto);
             jsonObject.put("totalAmount", posts.size());
 
             JSONArray userPosts = new JSONArray();
@@ -242,7 +242,7 @@ public class UserService {
             jsonObject.put("postData", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
-            List<ReplyDto> replies = replyRepository.findByUserDto(userDto);
+            List<ReplyDto> replies = replyRepository.findByUserDtoOrderByPostCreatedAtDesc(userDto);
             jsonObject.put("totalAmount", replies.size());
 
             JSONArray userReplies = new JSONArray();
@@ -257,7 +257,7 @@ public class UserService {
             jsonObject.put("postData", userReplies);
         } else if (menuType.equals("myPostComments")) {
             // 내가 쓴 post 댓글
-            List<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto);
+            List<PostCommentDto> postComments = postCommentRepository.findByUserDtoOrderByCommentCreatedAtDesc(userDto);
             jsonObject.put("totalAmount", postComments.size());
 
             JSONArray cmtArray = new JSONArray();
@@ -274,7 +274,7 @@ public class UserService {
 
         } else if (menuType.equals("myReplyComments")){
             // 내가 쓴 reply 댓글
-            List<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDto(userDto);
+            List<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDtoOrderByCommentCreatedAtDesc(userDto);
             jsonObject.put("totalAmount", replyComments.size());
 
             JSONArray cmtArray = new JSONArray();
@@ -333,27 +333,29 @@ public class UserService {
     }
 
     // Called from UserApiController (POST /api/users/mypage/posts )
-    public void deleteMyPosts(String type, Map<String, Long> items) {
-        if (type.equals("post")) {
-            for (Long postId : items.values()) {
-                System.out.println("post id: " + postId);
+    public void deleteMyPosts(String type, JSONObject items) {
+        ArrayList<Integer> deleteList = (ArrayList<Integer>) items.get("deleteCheckList");
+
+        if (type.equals("myPosts")) {
+            for (int id : deleteList) {
+                Long postId = Long.valueOf(id);
                 postRepository.deleteById(postId);
             }
-        } else if (type.equals("reply")) {
-            for (Long replyId : items.values()) {
+        } else if (type.equals("myReplies")) {
+            for (int id : deleteList) {
+                Long replyId = Long.valueOf(id);
                 replyRepository.deleteById(replyId);
             }
-        } else if (type.equals("postComment")) {
-            for (Long postCommentId : items.values()) {
+        } else if (type.equals("myPostComments")) {
+            for (int id : deleteList) {
+                Long postCommentId = Long.valueOf(id);
                 postCommentRepository.deleteById(postCommentId);
             }
-        } else if (type.equals("replyComment")) {
-            for (Long replyCommentId : items.values()) {
+        } else if (type.equals("myReplyComments")) {
+            for (int id : deleteList) {
+                Long replyCommentId = Long.valueOf(id);
                 replyCommentRepository.deleteById(replyCommentId);
             }
-        } else {
-
         }
-
     }
 }

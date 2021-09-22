@@ -53,7 +53,6 @@ function useOpenVidu() {
         if (session === undefined)
           return;
         
-        console.log("sessionId", sessionId);
         
         // On every new Stream received...
         session.on('streamCreated', (event) => {
