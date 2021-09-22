@@ -1,0 +1,47 @@
+
+
+.sidebar_card {
+    position: relative;
+    overflow: hidden;
+
+    /* border-radius: 8px; */
+    width: 100%;
+    height: auto;
+    
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.sidebar_nickname {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    font-size: 1rem;
+}
+
+
+.anticon-pushpin {
+    position: absolute;
+    top: -150%;
+    right: 0;
+    transition:all .30s;
+    color: #666;
+    z-index: 2;
+}
+
+
+.sidebar_card:hover {
+    cursor: pointer;
+    border:  solid #666;
+}
+
+.sidebar_card:hover .anticon-pushpin{
+    top: 20px;
+    right: 20px;
+}
+
+
+
