@@ -5,12 +5,13 @@ import { all, fork } from 'redux-saga/effects';
 
 
 
-function* rootSaga() {
-    // yield all([
-    // ]);
 
-    yield fork(loadingSaga);
-    // yield fork(socketSaga);
+
+function* rootSaga() {
+    yield all([
+        yield fork(loadingSaga),
+        yield fork(socketSaga)
+    ]);
 };
   
 export default rootSaga;

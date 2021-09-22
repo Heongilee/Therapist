@@ -4,8 +4,37 @@ import axios from 'axios';
 
 const api = {
 
-    fetchRegister: async(endPoint, body, history) => {
+    fetchGet: async(endPoint, history) => {
         
+        try {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            const { data, status } = await axios.get(`${URL}/${endPoint}`);
+
+            if (status === 200){
+                if (data){
+                    return data
+                }
+
+                return true;
+            }
+
+        } catch (error) {
+
+            console.log("fetchGet", error);
+            const { status } = error.response;
+
+            if (status === 401) {
+                alert('로그인이 필요한 서비스입니다');
+                history.push('/');
+            } else if  (status >= 400) {
+                history.replace(history.location.pathname, { errorStatusCode: status,
+            });
+            }
+        }
+    },
+
+    fetchRegister: async(endPoint, body, history) => {
+
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             const { status } = await axios.post(`${URL}/${endPoint}`, body);

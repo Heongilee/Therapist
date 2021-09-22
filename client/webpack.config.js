@@ -42,11 +42,6 @@ module.exports = {
         template: 'public/index.html', // public/index.html 를 템플릿으로 지정
         }),
         
-      // new JsDocPlugin({
-      //     conf: 'jsdoc.conf.js',
-      //     cwd: '.',
-      //     preserveTmpFile: false,
-      // })
       ],
 
     devServer: {  // 개발서버

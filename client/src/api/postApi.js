@@ -7,7 +7,7 @@ const postApi = {
 
         const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
         try {
-            const response = await axios.get(`${URL}/replies/${postId}`, headers);
+            const response = await axios.get(`${URL}/replies/${postId}?page=${currentPage}`, headers);
             const { replies } = response.data;
 
             return replies;

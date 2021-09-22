@@ -33,8 +33,7 @@ export const modalCase = async(PathState, EndpointState, history) => {
         
         //평점
         case 'star': {
-            // await api.fetchDelete(EndpointState);
-            // 스타 못누르게 설정해줘야함
+            await api.fetchGet(EndpointState, history);
             window.location.reload();  
         }
         default:

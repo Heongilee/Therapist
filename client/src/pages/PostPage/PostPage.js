@@ -4,8 +4,8 @@ import AnswerForm from '../../components/AnswerForm/AnswerForm.js';
 import useQuestion  from '../../hook/useQuestion.js';
 import { useContextModal } from '../../hook/useContextModal';
 import useAnswer from '../../hook/useAnswer.js';
+import InfiniteArea from '../../components/InfiniteArea/InfiniteArea.js';
 
-import AnswerArea from './AnswerArea.js';
 
 import './PostPage.css';
 
@@ -22,6 +22,7 @@ function PostPage({ match }) {
 
     const { answerData, loading } = AnswerState;
     
+
     const answerList = useCallback(() => answerData && 
         answerData.map( (data, index) => {
             return <AnswerForm  key={'AnswerForm' + index} data={data} index={index}
@@ -45,10 +46,10 @@ function PostPage({ match }) {
             </div>
 
             {QuestionData && 
-                <AnswerArea currentPage={currentPage} loadAnswerData={loadAnswerData}
+                <InfiniteArea currentPage={currentPage} loadData={loadAnswerData}
                 totalpage={QuestionData.replies.length} loading={loading}
                 >
-                </AnswerArea>     
+                </InfiniteArea>     
             } 
                 {/* <div ref={setTarget}> {loading && "loading..."}</div> */}
              { renderModal() }    

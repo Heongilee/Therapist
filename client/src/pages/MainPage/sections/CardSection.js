@@ -3,14 +3,14 @@ import { LeftCircleFilled, RightCircleFilled } from '@ant-design/icons';
 import useSlide from '../../../hook/useSlide.js';
 import './CardSection.css';
 
-function CardSection({ cardData }) {
+function CardSection({ cardData, showWriteModal }) {
     
     const { prevSlide, nextSlide, slideRef } = useSlide({ totalRoom:cardData.length});
-
-
+    
+    
     const cardList = cardData.map((data, index) => {
          
-        return <li className="card" key={"data" + index}>
+        return <li className="card" key={"data" + index} onClick={showWriteModal}>
                     <div className="card_img">
                     </div>
               </li>

@@ -26,6 +26,11 @@ function useComment({ COMMENT_ENDPOINT, id, userName }) {
     };
 
     const commentRegister = async(userId, { comment }) => {
+        
+        if (comment.length < 7){
+            alert("7자이상 적어주세요");
+            return;
+        }
 
         const body = COMMENT_ENDPOINT === 'postComments' ? 
                     { postCommentContent : comment }
