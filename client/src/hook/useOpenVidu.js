@@ -59,7 +59,8 @@ function useOpenVidu() {
           // Update the state with the new subscriber
           setSubscriber(subscriber);
         });
-    
+        
+        //`{\"clientData\":\"${Nickname}\",\"avatar\":\"assets/images/openvidu_globe.png\"}`
         getToken(sessionId).then(token => {
 
           session.connect(token)

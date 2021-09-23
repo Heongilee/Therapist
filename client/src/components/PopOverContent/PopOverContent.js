@@ -9,17 +9,24 @@ import "./PopOverContent.css";
 
 const noticeType = {reply:'답글', replyComment:'댓글', postComment:'댓글'};
 
-function PopOverContent() { 
+function PopOverContent({ setPopOverState }) { 
 
   const { NoticeState, currentPage, loadNoticeData } = useNotice();
 
   const { noticeData, loading } = NoticeState;
 
+  const onClick = () => {
+          const scrollY = document.body.style.top;
+          document.body.style.cssText = '';
+          window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+          setPopOverState(false);
+  };
+
   const noticeList = useCallback(() => noticeData && 
             noticeData.map( (data, index) => {
             const type = data.type;
             return <div key={"notice"+index} className='notice_content'>
-                    <Link to={`/posts/${data.postId}`}>
+                    <Link to={`/posts/${data.postId}`} onClick={onClick}>
                       <p>{data.senderUsername.split('@')[0]+'님께서 '}
                           {localStorage.getItem('username').split('@')[0]+'님의 글에 '+ 
                             noticeType[type] + '을 다셨습니다'}.</p></Link>
