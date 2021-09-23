@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import "react-perfect-scrollbar/dist/css/styles.css";
 import "./PopOverContent.css";
 
-const noticeType = {reply:'답글', replyComment:'댓글', postComment:'댓글'};
+const NOTICE_TYPE = {reply:'답글', replyComment:'댓글', postComment:'댓글'};
 
 function PopOverContent({ setPopOverState }) { 
 
@@ -29,7 +29,7 @@ function PopOverContent({ setPopOverState }) {
                     <Link to={`/posts/${data.postId}`} onClick={onClick}>
                       <p>{data.senderUsername.split('@')[0]+'님께서 '}
                           {localStorage.getItem('username').split('@')[0]+'님의 글에 '+ 
-                            noticeType[type] + '을 다셨습니다'}.</p></Link>
+                            NOTICE_TYPE[type] + '을 다셨습니다'}.</p></Link>
                   </div>
              
         }), [noticeData, currentPage])
