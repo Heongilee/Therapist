@@ -14,7 +14,6 @@ function MainPage() {
     const CardDataState  = useVoiceRoom();
     const PostState = useRecentBoard();
     const { renderRoomCreate, showCrearteRoomModal } = useCreateRoom();
-    
     const { renderWriteModal, showWriteModal } = useWriteModal();
     
     return (

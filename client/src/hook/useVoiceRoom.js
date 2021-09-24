@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { CARD_DATA } from '../constants/MainPageConstants';
 import api from '../api/api.js';
+
+
 
 function useVoiceRoom() {
 
@@ -13,17 +15,20 @@ function useVoiceRoom() {
         
         const request = async() => {
             const endpoint = '/sessions';
-            // const response = await api.fetchGetOpenvidu(endpoint, history);
-            // console.log("방정보", response);
-       
-            // setCardDataState(response);
-            //sessionId, token 
-            // 
-        }
+            const { numberOfElements, content } = await api.fetchGetOpenvidu(endpoint, history);
+            
+            console.log("카드정보", numberOfElements, content);
+            if (numberOfElements === 0) {
+                setCardDataState(CARD_DATA);
+            }
+
+        };
 
         request();
 
     }, [])
+
+
 
     return CardDataState;
 };

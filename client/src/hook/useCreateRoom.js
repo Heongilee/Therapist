@@ -11,7 +11,7 @@ function useCreateRoom() {
     const [RoomState, setRoomState] = useState("");
     const history = useHistory();
 
-    const { joinSession, setFirstState } = useContextOpv();
+    const { joinSession } = useContextOpv();
 
 
     const showCrearteRoomModal = () => {
@@ -27,18 +27,9 @@ function useCreateRoom() {
         const endpoint='/sessions';
         const response = await api.fetchGetOpenvidu(endpoint, history);
         console.log("방정보", response);
-        
-        const temp = response.content.filter(data  => {
-            return data.id === RoomState
-        })
-
-        if (temp.length){
-            alert('중복된 방제목입니다.')
-        } else {
-            joinSession(RoomState);
-            history.push('/webrtc');
-        }
-
+        joinSession(RoomState);
+        history.push('/webrtc');
+    
         setVisible(!Visible);   
     };
 
