@@ -1,8 +1,10 @@
 package com.projectTeam.therapist.boardService;
 
-import com.projectTeam.therapist.model.*;
+import com.projectTeam.therapist.model.NoticeDto;
+import com.projectTeam.therapist.model.PostDto;
+import com.projectTeam.therapist.model.ReplyDto;
+import com.projectTeam.therapist.model.UserDto;
 import com.projectTeam.therapist.repository.NoticeRepository;
-import com.projectTeam.therapist.repository.Repository;
 import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.ReplyRepository;
 import com.projectTeam.therapist.repository.UserRepository;
