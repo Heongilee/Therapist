@@ -1,16 +1,40 @@
-import React, { useState } from 'react';
-import { Row, Col,Button, Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Avatar } from 'antd';
+import { UserOutlined, AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
 import OpenViduVideo from './OpenViduVideo.js';
 
 import './GridCard.css';
 
-function GridCard({ span, publisher, onClick=null, nickName=null }) {
+function GridCard({ span, streamManager, onClick=null, nickName=null, CamerState }) {
     
+    // audioActive
+    //console.log("스트림!!", streamManager.stream.videoActive)
     return (
-        <div className="grid_card" onClick={onClick}>
-            <Avatar size={150} icon={<UserOutlined />} />
-            <div className="grid_nickname">{nickName}</div>
+        <div className="grid_card" 
+             style={{ 
+                    backgroundColor: streamManager.stream.videoActive ? '#000' : '#4e4e4e'}}>
+            
+
+            {!streamManager.stream.videoActive ? 
+
+                    (streamManager.stream.audioActive ? 
+                        <div className="grid_icon">
+                            <div className="grid_icon_circle"> <AudioOutlined></AudioOutlined></div>
+                        </div> :
+                        <div className="grid_icon">
+                            <div className="grid_icon_circle"> <AudioMutedOutlined></AudioMutedOutlined></div>
+                        </div>
+                        )
+                : null
+            }
+
+            
+            {!CamerState && streamManager.stream.videoActive ? 
+                          <OpenViduVideo streamManager={ streamManager }></OpenViduVideo>
+                        : <Avatar size={120} icon={<UserOutlined />} /> 
+            }
+             
+            {/* <div className="grid_nickname">{nickName}</div> */}
         </div>
     );
 };
@@ -18,24 +42,3 @@ function GridCard({ span, publisher, onClick=null, nickName=null }) {
 export default GridCard;
 
 
-
-// import React, { useState } from 'react';
-// import { Row, Col,Button, Avatar } from 'antd';
-// import { UserOutlined } from '@ant-design/icons';
-// import OpenViduVideo from './OpenViduVideo.js';
-
-// import './WebCard.css';
-
-// function OpenViduCard({ span, publisher }) {
-
-//     return (
-//         <Col span={ span } className="webcard_col">
-//                 <div className="webrtc_card">
-//                     {/* <OpenViduVideo streamManager={publisher}></OpenViduVideo> */}
-//                     <Avatar size={150} icon={<UserOutlined />} />
-//                 </div>
-//         </Col>
-//     );
-// };
-
-// export default OpenViduCard;

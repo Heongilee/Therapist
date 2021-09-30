@@ -10,6 +10,9 @@ function useOpenVidu() {
     const [publisher, setPublisher] = useState(undefined);
     const [Nickname, setNickname] = useState(undefined);
     const [OV, setOV] = useState(undefined);
+    const [isLocalVideoActive, setIsLocalVideoActive] = useState(false);
+
+
 
     const leaveSession = useCallback(() => {
         if (session)
@@ -63,11 +66,22 @@ function useOpenVidu() {
         });
         
         //`{\"clientData\":\"${Nickname}\",\"avatar\":\"assets/images/openvidu_globe.png\"}`
-        getToken(sessionId,`{\"clientData\":\"${Nickname}\"}`).then(token => {
+        // `{\"clientData\":\"${Nickname}\"}`
+        getToken(sessionId).then(token => {
 
           session.connect(token)
           .then(() => {
-            let publisher = OV.initPublisher(undefined);
+            let publisher = OV.initPublisher('', {
+              audioSource: undefined,
+              videoSource: undefined,
+              publishAudio: true,
+              publishVideo: true,
+              resolution: '640x480',
+              frameRate: 30,
+              insertMode: 'APPEND',
+              mirror: false,
+            });
+            
             setPublisher(publisher);
             session.publish(publisher);
           })

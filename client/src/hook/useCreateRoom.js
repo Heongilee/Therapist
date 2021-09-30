@@ -25,8 +25,8 @@ function useCreateRoom() {
     const handleOk = async() => {
 
         const endpoint='/sessions';
-        const response = await api.fetchGetOpenvidu(endpoint, history);
-        console.log("방정보", response);
+        // const response = await api.fetchGetOpenvidu(endpoint, history);
+        // console.log("방정보", response);
         joinSession(RoomState);
         history.push('/webrtc');
     

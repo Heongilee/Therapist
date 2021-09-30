@@ -12,9 +12,9 @@ function OpenViduPage() {
     const { ModalRedioRender, onLayoutHandler, LayoutState } = useRedioModal();
 
     return (    
-        <section className="webrtc">
-
-            <div className="webcard_content">
+        <section className="openvidu_page">
+                
+            <div className="openvidu_page_content">
                 
                     <OpenViduLayout LayoutState={LayoutState}>
                     </OpenViduLayout>
