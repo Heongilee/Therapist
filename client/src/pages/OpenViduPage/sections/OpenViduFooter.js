@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Col, Button, Avatar, Tooltip } from 'antd';
+import React from 'react';
+import { Tooltip } from 'antd';
 import { useHistory } from "react-router-dom";
 import {useContextOpv} from '../../../hook/useContextOpv';
 
@@ -11,21 +11,25 @@ import './OpenViduFooter.css';
 
 function OpenViduFooter({onLayoutHandler}) {
 
-    const [CamerState, setCamerState] = useState(false);
-    const [MicState, setMicState] = useState(false);
     const history = useHistory();
 
-    const { leaveSession } = useContextOpv();
+    const { leaveSession, publisher,CamerState, setCamerState,
+            MicState, setMicState } = useContextOpv();
 
     const onCameraHandler = () => {
+        publisher.publishVideo(CamerState);
         setCamerState(!CamerState);
     };
 
     const onMicHandler = () => {
+        publisher.publishAudio(MicState);
         setMicState(!MicState);
     };
 
     const onCloseHandler = () => {
+        setCamerState(false)
+        setMicState(false);
+
         history.push('/');
         leaveSession();
 

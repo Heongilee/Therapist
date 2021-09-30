@@ -2,17 +2,21 @@
 
 .sidebar_card {
     position: relative;
-    overflow: hidden;
-
-    /* border-radius: 8px; */
     width: 100%;
-    height: auto;
-    
+    margin: 0.5rem;
     display: flex; 
     justify-content: center;
     align-items: center;
-    background-color: whitesmoke;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 10px;
+    background-color: #4e4e4e;
+}
+
+.sidebar_card:first-child{
+    margin-top: 0;
+}
+
+.sidebar_card:last-child{
+    margin-bottom: 0;
 }
 
 .sidebar_nickname {

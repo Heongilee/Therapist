@@ -3,7 +3,7 @@ import ModalRedio from '../components/Modal/ModalRedio.js';
 
 
 function useRedioModal() {
-
+    // sidebar, grid
     const [LayoutState, setLayoutState] = useState("sidebar");
     const [ModalState, setModalState] = useState(false);
 
