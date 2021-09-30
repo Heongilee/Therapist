@@ -3,7 +3,7 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import './AvatarField.css';
 
-function AvatarField({ userid='Soraka', grade='Gold'}) {
+function AvatarField({ userid='', grade=''}) {
     return (
         <div className="avater_area">
             <Avatar size="large" icon={<UserOutlined />} />

@@ -31,13 +31,15 @@ function useKakao() {
                     })
                     .then(res => res.json())
                     .then(res => {
+                        console.log("Res", res);
+
                         localStorage.setItem("token", res.token);
                         localStorage.setItem("username", res.username);
                         if (res.token) {
                             alert("welcome")
                             setLoginState(!LoginState);
+                            dispatch(socket_actions.setNoticeCount(res.totalNotices));
                             dispatch(socket_actions.connectChannel());
-                            
                         }
                     })
                 },

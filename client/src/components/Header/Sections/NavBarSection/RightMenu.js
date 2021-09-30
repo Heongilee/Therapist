@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import useKakao from '../../../../hook/useKakao.js';
 import usePushMessage from '../../../../hook/usePushMessage.js';
+import usePopOver from '../../../../hook/usePopOver.js';
+
 
 import { Link } from 'react-router-dom';
 import { Popover, Badge } from 'antd';
@@ -19,32 +21,16 @@ function RightMenu() {
 
     const { count, noticeHendler } = usePushMessage();
 
-    const [state, setstate] = useState(false);
-
-    const onVisibleChange = visible => {
-        if (visible) {
-            document.body.style.cssText = `
-            position: fixed; 
-            top: -${window.scrollY}px;
-            overflow-y: scroll;
-            width: 100%;`;    
-
-        } else {
-            const scrollY = document.body.style.top;
-            document.body.style.cssText = '';
-            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
-        }
-        setstate(!state);
-    };
+    const { PopOverState, setPopOverState, onVisibleChange } = usePopOver();
 
     return (
         <>
             { LoginState ? 
                 <div className="nav_menu_right">
                     <Popover placement="bottomRight" key={"popover"} 
-                    title={"알림"} content={<PopOverContent/>} 
+                    title={"알림"} content={<PopOverContent setPopOverState={setPopOverState}/>} 
                     onVisibleChange={onVisibleChange}
-                    visible={state}
+                    visible={PopOverState}
                     trigger="click">
                     
                         <Badge count={count}  style={{marginRight:'0.9rem'}}>

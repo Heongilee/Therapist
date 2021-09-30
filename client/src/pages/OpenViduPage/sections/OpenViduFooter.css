@@ -1,7 +1,7 @@
 
 .openvidu_footer {
     display: flex;
-    /* background:whitesmoke; */
+    background: #000;
     justify-content: center;
     align-items: center;
 }
@@ -14,7 +14,6 @@
     border-radius: 50%;
     text-align: center;
     line-height: 50px;
-    
  }
 
  .circle span {
