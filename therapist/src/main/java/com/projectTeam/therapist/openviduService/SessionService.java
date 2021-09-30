@@ -30,7 +30,7 @@ public class SessionService {
         for (SessionDto session : sessions) {
             JSONObject item = new JSONObject();
             item.put("sessionId", session.getSessionId());
-            item.put("sessionTtiel", session.getSessionTitle());
+            item.put("sessionTitle", session.getSessionTitle());
             result.add(item);
         }
 
