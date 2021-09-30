@@ -17,12 +17,18 @@ export const OpenViduProvider = ({ children }) => {
         setSecondState([...Second.filter(data => data !== name), ...First]);
     };
 
+    const [CamerState, setCamerState] = useState(false);
+    const [MicState, setMicState] = useState(false);
+    
     const {joinSession, leaveSession, publisher, subscriber} = useOpenVidu();
 
     return ( 
     <OpenViduContext.Provider
-        value={{ publisher:First, subscriber:Second, 
-                setFirstState, setSecondState, changeSpotlight, joinSession, leaveSession }}>
+        value={{ publisher:publisher, subscriber:subscriber, 
+                setFirstState, setSecondState, changeSpotlight,
+                 joinSession, leaveSession, CamerState:CamerState, setCamerState,
+                 MicState:MicState, setMicState,
+                  }}>
         { children }
     </OpenViduContext.Provider>
  ); 

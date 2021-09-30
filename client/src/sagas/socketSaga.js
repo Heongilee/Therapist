@@ -1,23 +1,27 @@
-import { fork, take, call, put, race, takeLatest } from 'redux-saga/effects';
+import { fork, take, call, put, race } from 'redux-saga/effects';
 import createSocketChannel from "./createSocketChannel";
 import { SOCKET_URL } from '../config/confing.js';
 import { START_CHANNEL , STOP_CHANNEL, 
           SOCKET_MESSAGE, NOTICE_COUNT, 
-          SEND_MESSAGE, GET_MESSAGE,
+          SEND_MESSAGE,
         } from '../_actions/types';
 
 import { notification } from 'antd';
 
+const NOTICE_TYPE = { reply:'답글', replyComment:'댓글', postComment:'댓글' };
 
-const option ={
-  message: '메세지옴',
-  description: '하이',
-  placement:'bottomRight',
-};
+const openNotification = ({ type, data }) => {
+  
+  const {senderUserName, postType } = data;                 
+  
+  const option = {
+    message: '알림',
+    description: `${senderUserName.split('@')[0]}님께서 
+                  ${localStorage.getItem('username').split('@')[0]}님의 글에
+                  ${NOTICE_TYPE[postType]}을 달았습니다.`,
+    placement:'bottomRight',
+  };
 
-const openNotification = (type) => {
-  
-  
   notification[type](option);
 };
 
@@ -57,7 +61,7 @@ function * initializeWebSocketsChannel() {
         type: NOTICE_COUNT,
       });
 
-      yield call(openNotification,'open');
+      yield call(openNotification,{type:'open',data:data});
   }
 
 

@@ -1,15 +1,18 @@
 import { useState, useCallback, useEffect } from 'react';
 import { OpenVidu } from 'openvidu-browser';
-
 import { getToken } from '../api/openViduApi';
 
 function useOpenVidu() {
     
     const [session, setSession] = useState(undefined);
-    const [sessionId, setSessionId] = useState(undefined);
+    const [sessionId, setSessionId] = useState('SessionA');
     const [subscriber, setSubscriber] = useState(undefined);
     const [publisher, setPublisher] = useState(undefined);
+    const [Nickname, setNickname] = useState(undefined);
     const [OV, setOV] = useState(undefined);
+    const [isLocalVideoActive, setIsLocalVideoActive] = useState(false);
+
+
 
     const leaveSession = useCallback(() => {
         if (session)
@@ -37,8 +40,10 @@ function useOpenVidu() {
       };
     
 
-      const joinSession = title => {
-        setSessionId(title);
+      const joinSession = nickName => {
+
+        setNickname(nickName);
+        
         // state won't be updated immediately. We need a callback for
         // when the state is updated. We use useEffect below for this reason.
         let OV = new OpenVidu();
@@ -59,12 +64,24 @@ function useOpenVidu() {
           // Update the state with the new subscriber
           setSubscriber(subscriber);
         });
-    
+        
+        //`{\"clientData\":\"${Nickname}\",\"avatar\":\"assets/images/openvidu_globe.png\"}`
+        // `{\"clientData\":\"${Nickname}\"}`
         getToken(sessionId).then(token => {
 
           session.connect(token)
           .then(() => {
-            let publisher = OV.initPublisher(undefined);
+            let publisher = OV.initPublisher('', {
+              audioSource: undefined,
+              videoSource: undefined,
+              publishAudio: true,
+              publishVideo: true,
+              resolution: '640x480',
+              frameRate: 30,
+              insertMode: 'APPEND',
+              mirror: false,
+            });
+            
             setPublisher(publisher);
             session.publish(publisher);
           })

@@ -9,13 +9,13 @@ const api = {
         try {
             // password 환경변수로 놓을것
             const { data, status } 
-                    = await axios.get(`${OPENVIDU_SERVER_URL}${endPoint}`,{
+                    = await axios.get(`${URL}${endPoint}`,{
                         auth:{
                             username : 'OPENVIDUAPP',
                             password : 'therapist'
                         }});
 
-
+            
             if (status === 200){
                 if (data){
                     return data
