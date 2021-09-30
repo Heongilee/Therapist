@@ -31,6 +31,7 @@ public class WebSecurityConfig {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http
+                    .cors().and()
                     .antMatcher("/api/openvidu/**")
                     .csrf().disable().formLogin().disable()
                     .authorizeRequests(authorize -> authorize.anyRequest().hasRole("OPENVIDU"))
