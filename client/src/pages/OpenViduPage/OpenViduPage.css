@@ -1,7 +1,8 @@
 
 
 .openvidu_page {
-    position: fixed;
+    position: absolute;
+
     font-size: 1.2rem;
     top: 60px;
     left: 0;
@@ -11,8 +12,8 @@
 }
 
 .openvidu_page_content{
-    height: 700px;
     display: flex;
-    margin: 50px;
+    margin: 2rem;
+
 }
 

@@ -7,38 +7,51 @@ const { TextArea } = Input;
 
 function WriteForm({ onFinish=null, onCancel=null }) {
 
-    const tailLayout = {
-        wrapperCol: {
-          offset: 20,
-          span:1,
-        },
-      };
-
+    
     return (
-        <div className="writePage">
-            <div className="writePage_container">
-                <div className="writePage_area">
-                    <Form onFinish={onFinish}>
-                        
-                        <Form.Item name="title">
-                            <Input/>
-                        </Form.Item>
+        <Form
+          name="basic"
+          labelCol={{
+            span: 8,
+          }}
+          wrapperCol={{
+            span: 16,
+          }}
+          initialValues={{
+            remember: true,
+          }}
+          onFinish={onFinish}
+        //onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="title"
+            name="title"
+            rules={[
+              {
+                required: true,
+                message: '!!!!!!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-                        <Form.Item name="content">
-                            <TextArea style={{height:"240px"}}/>
-                        </Form.Item >
+        <Form.Item
+            label="name"
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: '!!!!!!',
+              },
+            ]}
+        >
+            <Input />
+        </Form.Item>
 
-                            <Form.Item>
-                                <div style={{float:'right'}}>
-                                    <Button htmlType="submit">등록</Button>
-                                    <Button onClick={ onCancel }>취소</Button>
-                                </div>
-                            </Form.Item>
-                    </Form>
-                </div>
-            </div>
-        </div>
-    );
+        </Form>
+      );
 };
 
 export default WriteForm;

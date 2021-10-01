@@ -5,13 +5,15 @@ import OpenViduVideo from './OpenViduVideo.js';
 
 import './GridCard.css';
 
-function GridCard({ span, streamManager, onClick=null, nickName=null, CamerState }) {
+const GridCard = ({ cardHeight, streamManager }) =>{
     
     // audioActive
-    //console.log("스트림!!", streamManager.stream.videoActive)
+    console.log("스트림!!", streamManager.stream.videoActive)
     return (
         <div className="grid_card" 
-             style={{ 
+             style={{
+                    height:cardHeight,
+
                     backgroundColor: streamManager.stream.videoActive ? '#000' : '#4e4e4e'}}>
             
 
@@ -29,7 +31,8 @@ function GridCard({ span, streamManager, onClick=null, nickName=null, CamerState
             }
 
             
-            {!CamerState && streamManager.stream.videoActive ? 
+            {streamManager.stream.videoActive ? 
+
                           <OpenViduVideo streamManager={ streamManager }></OpenViduVideo>
                         : <Avatar size={120} icon={<UserOutlined />} /> 
             }

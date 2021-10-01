@@ -5,31 +5,7 @@ import { useContextOpv } from '../../../hook/useContextOpv.js';
 
 import './GridLayout.css';
 
-const tempSpan = {
-    1:[24],
-    2:[12,12],
-    3:[24,12,12],
-    4:[12,12,12,12],
-    5:[8,8,8,12,12],
-    6:[8,8,8,8,8,8]
-};
 
-const PUB_SPAN = {
-    1:24,
-    2:12,
-    3:24,
-    4:12,
-    5:12,
-    6:8
-};
-
-const SUBS_SPAN = {
-    2:[12],
-    3:[12,12],
-    4:[12,12,12],
-    5:[12,8,8,8],
-    6:[8,8,8,8,8]
-};
 
 function GridLayout() {
 
@@ -37,26 +13,59 @@ function GridLayout() {
     const { publisher, subscriber, CamerState, MicState } = useContextOpv();
 
     return (
-        <Row gutter={[0, 32]} className="openvidu_grid_row">
+        <Row justify="space-around" align="middle" className="openvidu_grid_row">
             
             {/* you */}
             {publisher &&
-            <Col span={PUB_SPAN[3]} className="openvidu_grid_col">
-                    <GridCard streamManager={publisher} CamerState={CamerState}></GridCard>
+            <Col span={PUB_SPAN[1]} className="openvidu_grid_col">
+                    <GridCard streamManager={publisher} 
+                                CamerState={CamerState}
+                                cardHeight={CARD_HEIGHT[1]}
+                                ></GridCard>
+
             </Col> 
             }
 
             {/* other */}
-            {publisher && SUBS_SPAN[3].map((data, index)=>{
+            {subscriber && SUBS_SPAN[2].map((data, index) => {
                 
             return <Col span={data} className="openvidu_grid_col" key={'subcard'+index}> 
-                        <GridCard streamManager={publisher} CamerState={CamerState}></GridCard>
-                    </Col> 
+                        <GridCard streamManager={publisher} 
+                        CamerState={CamerState}
+                        cardHeight={CARD_HEIGHT[1]}
+                        ></GridCard>
+                   </Col> 
             }
             )}
-                  
+
         </Row>
     );
 };
 
 export default GridLayout;
+
+const PUB_SPAN = {
+    1:24,
+    2:12,
+    3:8,
+    4:8,
+    5:8,
+    6:8
+};
+
+const SUBS_SPAN = {
+    2:[12],
+    3:[8,8],
+    4:[8,8,8],
+    5:[8,8,8,8],
+    6:[8,8,8,8,8]
+};
+
+const CARD_HEIGHT = {
+    1:'700px',
+    2:'700px',
+    3:'360px',
+    4:'360px',
+    5:'360px',
+    6:'360px'
+};

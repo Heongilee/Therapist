@@ -17,7 +17,8 @@ function OpenViduFooter({onLayoutHandler}) {
             MicState, setMicState } = useContextOpv();
 
     const onCameraHandler = () => {
-        publisher.publishVideo(CamerState);
+        publisher.publishVideo(!CamerState);
+
         setCamerState(!CamerState);
     };
 
@@ -38,10 +39,10 @@ function OpenViduFooter({onLayoutHandler}) {
     return (
         <div className="openvidu_footer">
                 
-                <Tooltip placement="top" title={<span>카메라 {CamerState ? "켜기" : "끄기"}</span>}>
+                <Tooltip placement="top" title={<span>카메라 {!CamerState ? "켜기" : "끄기"}</span>}>
                     <div className="circle" 
                         onClick={onCameraHandler}
-                        style={{ background:CamerState ? "#ccc" : "#666" }}>
+                        style={{ background:!CamerState ? "#ccc" : "#666" }}>
                         <VideoCameraOutlined/> 
                     </div>
                 </Tooltip>

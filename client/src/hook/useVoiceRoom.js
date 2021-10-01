@@ -14,14 +14,13 @@ function useVoiceRoom() {
     useEffect(() => {
         
         const request = async() => {
-            const endpoint = '/openvidu/sessions';
-            const data = await api.fetchGetOpenvidu(endpoint, history);
-            
+            // const endpoint = '/openvidu/sessions';
+            // const data = await api.fetchGetOpenvidu(endpoint, history);
+                        
+            //title, content, sessionId, numberOfElements
+              
+            setCardDataState(CARD_DATA);
 
-            console.log("카드정보", data);
-            // if (numberOfElements === 0) {
-            //     setCardDataState(CARD_DATA);
-            // }
 
         };
 
