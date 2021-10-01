@@ -30,3 +30,16 @@
     background-color: #fff;
     font-size: 0.9rem;
 }
+
+.modal_create_room > .ant-modal-content {
+    border-radius: 10px;
+}
+
+.modal_create_room > .ant-modal-content > .ant-modal-header{
+    border-bottom: 0;
+    border-radius: 10px;
+}
+
+.modal_create_room > .ant-modal-content > .ant-modal-footer{
+    border-top: 0;
+}

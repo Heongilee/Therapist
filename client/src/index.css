@@ -8,7 +8,6 @@
 body {
     font-family: "Spoqa Han Sans Neo", "Sans-serif";
     font-size: 62.5%;
-    padding-top: 60px;
     background-color: #e9ecef;
 }
 
@@ -17,6 +16,13 @@ body {
     height: 100%; 
     margin:0 auto;
 }
+
+
+.ant-scrolling-effect {
+    position: initial !important;
+    width: auto !important;
+    overflow: auto !important;
+  }
 
 
 /* 최소 width가 1200px일때  */
