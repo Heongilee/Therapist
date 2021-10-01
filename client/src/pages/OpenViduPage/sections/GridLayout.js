@@ -22,6 +22,7 @@ function GridLayout() {
                                 CamerState={CamerState}
                                 cardHeight={CARD_HEIGHT[1]}
                                 ></GridCard>
+
             </Col> 
             }
 
@@ -36,6 +37,7 @@ function GridLayout() {
                    </Col> 
             }
             )}
+
         </Row>
     );
 };

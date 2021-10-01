@@ -39,6 +39,7 @@ function useCreateRoom() {
         
         joinSession(String(sessionId), NameState);
         history.push('/webrtc');
+
         setVisible(!Visible);   
     };
 

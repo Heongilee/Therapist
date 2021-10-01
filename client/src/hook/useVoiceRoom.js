@@ -21,7 +21,7 @@ function useVoiceRoom() {
               
             setCardDataState(CARD_DATA);
 
-  
+
         };
 
         request();

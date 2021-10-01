@@ -2,6 +2,7 @@
 
 .openvidu_page {
     position: absolute;
+
     font-size: 1.2rem;
     top: 60px;
     left: 0;
@@ -13,5 +14,6 @@
 .openvidu_page_content{
     display: flex;
     margin: 2rem;
+
 }
 

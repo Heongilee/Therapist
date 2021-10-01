@@ -10,6 +10,7 @@ function useOpenVidu() {
     const [subscriber, setSubscriber] = useState(undefined);
     const [publisher, setPublisher] = useState(undefined);
     const [UserName, setUserName] = useState(undefined);
+
     const [OV, setOV] = useState(undefined);
     const [isLocalVideoActive, setIsLocalVideoActive] = useState(false);
 
@@ -50,6 +51,7 @@ function useOpenVidu() {
 
         setSessionId(sessionId);
         setUserName(userName);
+
         
         // state won't be updated immediately. We need a callback for
         // when the state is updated. We use useEffect below for this reason.
@@ -77,12 +79,14 @@ function useOpenVidu() {
         getToken(SessionId).then(token => {
           
           session.connect(token, { clientData: UserName })
+
           .then(() => {
             let publisher = OV.initPublisher('', {
               audioSource: undefined,
               videoSource: undefined,
               publishAudio: true,
               publishVideo: false,
+
               resolution: '640x480',
               frameRate: 30,
               insertMode: 'APPEND',

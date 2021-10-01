@@ -18,6 +18,7 @@ function OpenViduFooter({onLayoutHandler}) {
 
     const onCameraHandler = () => {
         publisher.publishVideo(!CamerState);
+
         setCamerState(!CamerState);
     };
 

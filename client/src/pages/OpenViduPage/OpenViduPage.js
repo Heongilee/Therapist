@@ -1,4 +1,5 @@
 import React, {useRef} from 'react';
+
 import useRedioModal from '../../hook/useRedioModal.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import OpenViduLayout from './sections/OpenViduLayout.js';
@@ -14,6 +15,7 @@ function OpenViduPage() {
     
     return (    
         <section className="openvidu_page">
+
                 
             <div className="openvidu_page_content">
                     <OpenViduLayout LayoutState={LayoutState}>
