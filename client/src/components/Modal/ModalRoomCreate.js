@@ -1,28 +1,40 @@
-import React from 'react';
-import WriteForm from '../WriteForm/WriteForm.js';
-import './Modal.css';
+import React, { useEffect } from 'react';
+import InputField from '../Atoms/InputField/InputField.js';
+import { Input } from 'antd';
 
+import { Modal } from 'antd';
 
-const ModalRoomCreate = ({ onFinish, onCancel, ModalState, overlayClick }) => {
-
-
-  if (ModalState === false){
-    return null;
-
-  } else {
+const ModalRoomCreate = ({ 
+    title="Therapist", handleOk, handleCancel, 
+    visible, 
+    onTitleHandler,
+    onNameHandler 
+  }) => {
     
-    return (
-      <div className="modal_wrapper">
-              <div className="modal_overlay" onClick={ overlayClick }>
-              </div>
-              <WriteForm  onFinish={ onFinish }
-                onCancel={ onCancel }></WriteForm>
-      </div>
+  return (
+    
+      <Modal
+        className="modal_create_room"
+        title={title} 
+        centered               
+        visible={visible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        width={360}
 
-    );
-  };
-  
+      >
 
+        <Input style={{marginBottom:'10px', borderRadius:'10px'}} 
+        placeholder="제목을 입력해주세요" onChange={onTitleHandler}/>
+
+        <Input style={{ borderRadius:'10px'}} 
+        placeholder="이름을 입력해 주세요" onChange={onNameHandler}/>
+
+      </Modal>
+    
+  );
 };
 
 export default ModalRoomCreate;
+
+

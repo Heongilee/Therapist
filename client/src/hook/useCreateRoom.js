@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import ModalWriteForm from '../components/Modal/ModalWriteForm.js';
+import React, { useState, useEffect } from 'react';
+import ModalRoomCreate from '../components/Modal/ModalRoomCreate.js';
 import {useContextOpv} from './useContextOpv.js';
 import { useHistory } from 'react-router-dom';
 
@@ -7,45 +7,55 @@ import api from '../api/api.js';
 
 function useCreateRoom() {
     
-    const [Visible, setVisible] = useState(false);;
-    const [RoomState, setRoomState] = useState("");
+    const [Visible, setVisible] = useState(false);
+    const [TitleState, setTitleState] = useState("");
+    const [NameState, setNameState] = useState("");
+
+
     const history = useHistory();
 
     const { joinSession } = useContextOpv();
 
 
+
     const showCrearteRoomModal = () => {
+
         setVisible(true);
     };
 
-    const onCreateRoomHandler = (event) => {
-        setRoomState(event.currentTarget.value);
+    const onTitleHandler = (event) => {
+        setTitleState(event.currentTarget.value);
     }
 
+    const onNameHandler = (event) => {
+        setNameState(event.currentTarget.value);
+    }
+    
     const handleOk = async() => {
 
-        const endpoint='/sessions';
-        // const response = await api.fetchGetOpenvidu(endpoint, history);
-        // console.log("방정보", response);
-        joinSession(RoomState);
+        const endpoint='/openvidu/session';
+        const titleData = { sessionTitle:TitleState };
+        const { sessionId } = await api.fetchPostOpenvidu(endpoint, titleData, history);
+        
+        joinSession(String(sessionId), NameState);
         history.push('/webrtc');
-    
         setVisible(!Visible);   
     };
 
     const handleCancel = () => {
         setVisible(!Visible);
-
-        setRoomState("");
+        setTitleState("");
+        setNameState("");
     };
 
     const renderRoomCreate = () => (
-        <ModalWriteForm title={ "방제목을 입력해주세요" }
+        <ModalRoomCreate title={ "방제목 이름을 입력해주세요" }
                         handleOk={ handleOk } 
                         handleCancel={ handleCancel } 
                         visible= { Visible } 
-                        onNameHandler={onCreateRoomHandler}
-                            />
+                        onTitleHandler={onTitleHandler}
+                        onNameHandler={onNameHandler}
+                        />
      );
 
     return { renderRoomCreate, showCrearteRoomModal };
@@ -53,40 +63,3 @@ function useCreateRoom() {
 
 export default useCreateRoom;
 
-
-
-// import React, { useState } from 'react';
-// import ModalRoomCreate from '../components/Modal/ModalRoomCreate.js';
-
-// function useCreateRoom() {
-    
-//     const [ModalState, setModalState] = useState(false);
-
-//     const onClick = () => {
-//         setModalState(!ModalState);
-//     };
-
-//     const overlayClick = () => {
-//         setModalState(!ModalState);
-//     };
-
-//     const onFinish = (values) => {
-//         const { title, content } = values;
-//         // api 요청해야함
-//     };
-
-//     const onCancel = () => {
-//         setModalState(!ModalState);
-//     };
-
-//     const ModalRoomRender = () => {
-//         return <ModalRoomCreate overlayClick={ overlayClick }
-//                 onFinish={ onFinish }
-//                 onCancel={ onCancel }
-//                 ModalState={ ModalState }></ModalRoomCreate>
-//     };
-
-//     return { ModalRoomRender, onClick };
-// };
-
-// export default useCreateRoom;

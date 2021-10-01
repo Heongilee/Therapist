@@ -4,6 +4,44 @@ import axios from 'axios';
 
 const api = {
 
+    
+
+    
+    fetchPostOpenvidu: async(endPoint, titleData, history) => {
+       
+        try {
+            // password 환경변수로 놓을것
+            const { data, status } 
+                    = await axios.post(`${URL}${endPoint}`,titleData,{
+                        auth:{
+                            username : 'OPENVIDUAPP',
+                            password : 'therapist'
+                        }});
+
+            
+            if (status === 200){
+                if (data){
+                    return data
+                }
+
+                return true;
+            }
+
+        } catch (error) {
+
+            console.log("fetchGetOpenvidu", error);
+            const { status } = error.response;
+
+            if (status === 401) {
+                alert('로그인이 필요한 서비스입니다');
+                history.push('/');
+            } else if  (status >= 400) {
+                history.replace(history.location.pathname, { errorStatusCode: status,
+            });
+            }
+        }
+    },
+
     fetchGetOpenvidu: async(endPoint, history) => {
        
         try {
