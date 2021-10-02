@@ -24,6 +24,12 @@ public class SessionDto {
     private LocalDateTime sessionCreatedAt;
     private LocalDateTime sessionUpdatedAt;
 
+    @Column(columnDefinition = "integer default 0")
+    private Integer numConnectedObject;
+
+    @Column(columnDefinition = "varchar(255) default 'Anonymous'")
+    private String sessionModerator;
+
     // DB에 INSERT를 날리기전에 해당 메서드를 먼저 실행하여 현재시각과 업데이트 시각을 설정한다.
     @PrePersist
     public void prePersist() {
