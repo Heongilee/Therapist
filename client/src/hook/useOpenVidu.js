@@ -3,77 +3,92 @@ import { OpenVidu } from 'openvidu-browser';
 import { getToken } from '../api/openViduApi';
 import api from '../api/api.js';
 
-function useOpenVidu() {
+function useOpenVidu({ sessionId }) {
     
     const [session, setSession] = useState(undefined);
-    const [SessionId, setSessionId] = useState(undefined);
-    const [subscriber, setSubscriber] = useState(undefined);
+    const [SessionId, setSessionId] = useState(sessionId);
+    const [Subscriber, setSubscriber] = useState([]);
     const [publisher, setPublisher] = useState(undefined);
     const [UserName, setUserName] = useState(undefined);
     const [OV, setOV] = useState(undefined);
-    const [isLocalVideoActive, setIsLocalVideoActive] = useState(false);
 
 
 
     const leaveSession = useCallback(() => {
         if (session)
             session.disconnect();
-    
+
         setOV(undefined);
         setSession(undefined);
         setSessionId(SessionId);
-        setSubscriber(undefined);
+        setSubscriber([]);
         setPublisher(undefined);
       }, [session]);
 
 
-
-
+      
       useEffect(() => {
         window.addEventListener('beforeunload', leaveSession);
-        
 
+        // init
+        if (!OV){
+          setOV(new OpenVidu());
+        }
 
-        // returned function will be called on component unmount 
         return () => {
           window.removeEventListener('beforeunload', leaveSession);
+
         }
       }, [leaveSession]);
     
-
-      const sessionIdChangeHandler = (event) => {
-        setSessionId(event.target.value);
-      };
-    
-      
-      const joinSession = (sessionId, userName) => {
-
-        setSessionId(sessionId);
-        setUserName(userName);
-        
-        // state won't be updated immediately. We need a callback for
-        // when the state is updated. We use useEffect below for this reason.
-        let OV = new OpenVidu();
-        setOV(OV);
+      // init session
+      useEffect(() => {
+        if (!OV) return;
         setSession(OV.initSession());
+      }, [OV]);
+      
+      
+      const subscribeStateChange = () => {
+        session.on('streamPropertyChanged', (e) => {
+          let remoteUser = Subscriber;
+          setSubscriber([...remoteUser]);
+        });
       };
-    
+      
+      const subscribeLeft = () => {
+        session.on('streamDestroyed', (event) => {
+          // remove the stream from subscriber array
+          deleteSubscriber(event.stream.streamManager);
+        });
+      };
+
+      const deleteSubscriber = (streamManager) => {
+        let subs = Subscriber;
+        let idx = subs.indexOf(streamManager, 0);
+        if (idx > -1) {
+          subs.splice(idx, 1);
+          setSubscriber([...subs]);
+        }
+      };
 
       useEffect(() => {
         // useEffect is executed upon first render when session is undefined.
         // We avoid this execution.
         if (session === undefined)
           return;
-        console.log("sessiion", SessionId)
+
         // On every new Stream received...
         session.on('streamCreated', (event) => {
           let subscriber = session.subscribe(event.stream, undefined);
           // Update the state with the new subscriber
-          setSubscriber(subscriber);
+          let subs = Subscriber;
+          subs.push(subscriber);
+          setSubscriber([...subs]);      
         });
-        
-        //`{\"clientData\":\"${Nickname}\",\"avatar\":\"assets/images/openvidu_globe.png\"}`
-        // `{\"clientData\":\"${Nickname}\"}`
+
+        subscribeStateChange();
+        subscribeLeft();
+
         getToken(SessionId).then(token => {
           
           session.connect(token, { clientData: UserName })
@@ -99,7 +114,7 @@ function useOpenVidu() {
     
       }, [session, OV, SessionId]);
       
-      return { joinSession, leaveSession, publisher, subscriber };
+      return { leaveSession, publisher, subscriber:Subscriber };
 
 };
 

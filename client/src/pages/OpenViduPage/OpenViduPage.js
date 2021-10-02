@@ -1,27 +1,38 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import useRedioModal from '../../hook/useRedioModal.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import OpenViduLayout from './sections/OpenViduLayout.js';
 import OpenViduFooter from './sections/OpenViduFooter.js';
+import useOpenVidu from '../../hook/useOpenVidu.js';
 
 import './OpenViduPage.css';
 
 
-function OpenViduPage() {
-    
+function OpenViduPage({ match }) {
+
+    const sessionId = match.params.sessionId;
     const { ModalRedioRender, onLayoutHandler, LayoutState } = useRedioModal();
 
+    const { publisher, subscriber, leaveSession } = useOpenVidu({ sessionId:sessionId });
     
     return (    
         <section className="openvidu_page">
                 
             <div className="openvidu_page_content">
-                    <OpenViduLayout LayoutState={LayoutState}>
-                    </OpenViduLayout>
+                {publisher && subscriber &&
+                    <OpenViduLayout 
+                                publisher={publisher}
+                                subscriber={subscriber}
+                                LayoutState={LayoutState}>
+                    </OpenViduLayout>}
 
             </div>
-            
-            <OpenViduFooter onLayoutHandler={onLayoutHandler}></OpenViduFooter>
+            {publisher &&
+                <OpenViduFooter
+                                publisher={publisher}
+                                leaveSession={leaveSession}
+                                onLayoutHandler={onLayoutHandler}>
+                                </OpenViduFooter>}
 
             <ModalPortal>
                 { ModalRedioRender() }

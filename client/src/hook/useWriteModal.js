@@ -1,14 +1,21 @@
 import React, { useState, useRef } from 'react';
 import ModalWriteForm from '../components/Modal/ModalWriteForm.js';
 import { useHistory } from 'react-router-dom';
+import {useContextOpv} from './useContextOpv.js';
 
 function useWriteModal() {
 
     const [Visible, setVisible] = useState(false);
     const [NameState, setNameState] = useState("");
+    const { joinSession } = useContextOpv();
     const history = useHistory();
 
-    const showWriteModal = () => {
+    const showWriteModal = sessionId => {
+        console.log("showWriteModal", sessionId);
+
+        //joinSession(String(sessionId), NameState);
+        //history.push({ pathname: "/webrtc" });
+
         setVisible(true);
     };
 
