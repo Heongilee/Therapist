@@ -10,6 +10,7 @@ function useOpenVidu({ sessionId }) {
     const [Subscriber, setSubscriber] = useState([]);
     const [publisher, setPublisher] = useState(undefined);
     const [UserName, setUserName] = useState(undefined);
+
     const [OV, setOV] = useState(undefined);
 
 
@@ -22,6 +23,7 @@ function useOpenVidu({ sessionId }) {
         setSession(undefined);
         setSessionId(SessionId);
         setSubscriber([]);
+
         setPublisher(undefined);
       }, [session]);
 
@@ -34,6 +36,7 @@ function useOpenVidu({ sessionId }) {
         if (!OV){
           setOV(new OpenVidu());
         }
+
 
         return () => {
           window.removeEventListener('beforeunload', leaveSession);
@@ -69,14 +72,14 @@ function useOpenVidu({ sessionId }) {
           subs.splice(idx, 1);
           setSubscriber([...subs]);
         }
-      };
+
 
       useEffect(() => {
         // useEffect is executed upon first render when session is undefined.
         // We avoid this execution.
         if (session === undefined)
           return;
-
+        console.log("sessiion", SessionId)
         // On every new Stream received...
         session.on('streamCreated', (event) => {
           let subscriber = session.subscribe(event.stream, undefined);
@@ -92,12 +95,20 @@ function useOpenVidu({ sessionId }) {
         getToken(SessionId).then(token => {
           
           session.connect(token, { clientData: UserName })
+        
+        //`{\"clientData\":\"${Nickname}\",\"avatar\":\"assets/images/openvidu_globe.png\"}`
+        // `{\"clientData\":\"${Nickname}\"}`
+        getToken(SessionId).then(token => {
+          
+          session.connect(token, { clientData: UserName })
+
           .then(() => {
             let publisher = OV.initPublisher('', {
               audioSource: undefined,
               videoSource: undefined,
               publishAudio: true,
               publishVideo: false,
+
               resolution: '640x480',
               frameRate: 30,
               insertMode: 'APPEND',

@@ -12,9 +12,11 @@ function useCreateRoom() {
     const [NameState, setNameState] = useState("");
 
 
+
     const history = useHistory();
 
     // const { joinSession } = useContextOpv();
+
 
     const showCrearteRoomModal = () => {
 
@@ -37,6 +39,7 @@ function useCreateRoom() {
         
         // joinSession(String(sessionId), NameState);
         history.push(`/webrtc/${String(sessionId)}`);
+
         setVisible(!Visible);   
     };
 

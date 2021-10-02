@@ -22,6 +22,7 @@ function GridLayout({ publisher, subscriber }) {
                                 CamerState={CamerState}
                                 cardHeight={CARD_HEIGHT[subscriber.length + 1]}
                                 ></GridCard>
+
             </Col> 
             }
 
@@ -32,10 +33,12 @@ function GridLayout({ publisher, subscriber }) {
                         <GridCard streamManager={data} 
                         CamerState={CamerState}
                         cardHeight={CARD_HEIGHT[subscriber.length + 1]}
+
                         ></GridCard>
                    </Col> 
             }
             )}
+
         </Row>
     );
 };
@@ -57,6 +60,7 @@ const SUBS_SPAN = {
     4:8,
     5:8,
     6:8
+
 };
 
 const CARD_HEIGHT = {

@@ -8,7 +8,6 @@ import './GridCard.css';
 const GridCard = ({ cardHeight, streamManager }) =>{
     
     // audioActive
-    // console.log("스트림!!", streamManager.stream.videoActive)
     return (
         <div className="grid_card" 
              style={{
