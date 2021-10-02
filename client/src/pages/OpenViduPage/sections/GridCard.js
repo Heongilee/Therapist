@@ -8,12 +8,10 @@ import './GridCard.css';
 const GridCard = ({ cardHeight, streamManager }) =>{
     
     // audioActive
-    console.log("스트림!!", streamManager.stream.videoActive)
     return (
         <div className="grid_card" 
              style={{
                     height:cardHeight,
-
                     backgroundColor: streamManager.stream.videoActive ? '#000' : '#4e4e4e'}}>
             
 
@@ -32,7 +30,6 @@ const GridCard = ({ cardHeight, streamManager }) =>{
 
             
             {streamManager.stream.videoActive ? 
-
                           <OpenViduVideo streamManager={ streamManager }></OpenViduVideo>
                         : <Avatar size={120} icon={<UserOutlined />} /> 
             }

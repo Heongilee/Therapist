@@ -14,14 +14,15 @@ function useVoiceRoom() {
     useEffect(() => {
         
         const request = async() => {
-            // const endpoint = '/openvidu/sessions';
-            // const data = await api.fetchGetOpenvidu(endpoint, history);
-                        
-            //title, content, sessionId, numberOfElements
+            const endpoint = '/openvidu/sessions';
+            const data = await api.fetchGetOpenvidu(endpoint, history);
+            console.log("data", data)
+            //title, content, sessionId, sessionTitle, sessionId
               
-            setCardDataState(CARD_DATA);
+            setCardDataState(data);
 
 
+  
         };
 
         request();
