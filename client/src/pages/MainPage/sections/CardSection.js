@@ -11,12 +11,12 @@ function CardSection({ cardData, showWriteModal }) {
     
     const cardList = cardData.map((data, index) => {
          
-        return <li className="card" key={"data" + index} onClick={showWriteModal}>
+        return <li className="card" key={"data" + index} onClick={() => showWriteModal(data.sessionId)}>
                     <div className="card_img">
                         <div className="card_wrapper">
                                 <div className="card_header">
                                         <AvatarField/>
-                                        {data.title}
+                                        {data.sessionTitle}
                                 </div>
                                 <div className="card_content">
                                         {data.content}

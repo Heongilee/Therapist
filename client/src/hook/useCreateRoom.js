@@ -14,7 +14,7 @@ function useCreateRoom() {
 
     const history = useHistory();
 
-    const { joinSession } = useContextOpv();
+    // const { joinSession } = useContextOpv();
 
 
 
@@ -37,8 +37,9 @@ function useCreateRoom() {
         const titleData = { sessionTitle:TitleState };
         const { sessionId } = await api.fetchPostOpenvidu(endpoint, titleData, history);
         
-        joinSession(String(sessionId), NameState);
-        history.push('/webrtc');
+        // joinSession(String(sessionId), NameState);
+        history.push(`/webrtc/${String(sessionId)}`);
+
 
         setVisible(!Visible);   
     };
