@@ -33,6 +33,7 @@ public class SessionService {
             JSONObject item = new JSONObject();
             item.put("sessionId", session.getSessionId());
             item.put("sessionTitle", session.getSessionTitle());
+            item.put("sessionModerator", session.getSessionModerator());
             result.add(item);
         }
 
