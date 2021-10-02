@@ -31,7 +31,7 @@ const App = () => (
                 <Route exact path="/write" component={ WritePage } />
                 <Route exact path="/mypage" component={ MyPage } />
                 
-                <Route exact path="/webrtc" component={ OpenViduPage } />
+                <Route exact path="/webrtc/:sessionId" component={ OpenViduPage } />
 
                 <Route component={ Page404 } />
             </Switch>
