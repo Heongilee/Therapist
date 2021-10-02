@@ -30,6 +30,7 @@ const GridCard = ({ cardHeight, streamManager }) =>{
 
             
             {streamManager.stream.videoActive ? 
+
                           <OpenViduVideo streamManager={ streamManager }></OpenViduVideo>
                         : <Avatar size={120} icon={<UserOutlined />} /> 
             }

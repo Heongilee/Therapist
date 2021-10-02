@@ -8,6 +8,7 @@ function useOpenVidu({ sessionId }) {
     const [session, setSession] = useState(undefined);
     const [SessionId, setSessionId] = useState(sessionId);
     const [Subscriber, setSubscriber] = useState([]);
+
     const [publisher, setPublisher] = useState(undefined);
     const [UserName, setUserName] = useState(undefined);
 
@@ -23,7 +24,6 @@ function useOpenVidu({ sessionId }) {
         setSession(undefined);
         setSessionId(SessionId);
         setSubscriber([]);
-
         setPublisher(undefined);
       }, [session]);
 
@@ -36,7 +36,6 @@ function useOpenVidu({ sessionId }) {
         if (!OV){
           setOV(new OpenVidu());
         }
-
 
         return () => {
           window.removeEventListener('beforeunload', leaveSession);

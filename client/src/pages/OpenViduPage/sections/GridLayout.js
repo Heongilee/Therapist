@@ -9,6 +9,7 @@ import './GridLayout.css';
 
 function GridLayout({ publisher, subscriber }) {
 
+
     
     const { CamerState, MicState, RoomState } = useContextOpv();
 
@@ -21,6 +22,7 @@ function GridLayout({ publisher, subscriber }) {
                     <GridCard streamManager={publisher} 
                                 CamerState={CamerState}
                                 cardHeight={CARD_HEIGHT[subscriber.length + 1]}
+
                                 ></GridCard>
 
             </Col> 

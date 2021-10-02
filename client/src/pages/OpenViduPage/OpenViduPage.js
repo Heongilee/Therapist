@@ -16,6 +16,7 @@ function OpenViduPage({ match }) {
 
     const { publisher, subscriber, leaveSession } = useOpenVidu({ sessionId:sessionId });
 
+
     
     return (    
         <section className="openvidu_page">
@@ -29,6 +30,7 @@ function OpenViduPage({ match }) {
                                 LayoutState={LayoutState}>
                     </OpenViduLayout>}
 
+=
 
             </div>
             {publisher &&
