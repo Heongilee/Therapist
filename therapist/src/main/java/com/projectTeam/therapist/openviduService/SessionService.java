@@ -1,19 +1,26 @@
 package com.projectTeam.therapist.openviduService;
 
+import com.projectTeam.therapist.RestTemplate.ApiService;
+import com.projectTeam.therapist.model.MediaServerConnectionPool;
 import com.projectTeam.therapist.model.SessionDto;
 import com.projectTeam.therapist.repository.SessionRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SessionService {
     @Autowired
     private SessionRepository sessionRepository;
+    @Autowired
+    private MediaServerConnectionPool mscp;
+    @Autowired
+    private ApiService<Response> apiService;
+
 
     public SessionDto createSession(JSONObject requestBody) {
         SessionDto sessionDto = SessionDto.builder()
@@ -85,9 +92,12 @@ public class SessionService {
     }
 
     public SessionDto updateSessionModerator(Long sessionId, JSONObject requestBody) {
-        SessionDto sessionDto = sessionRepository.findById(sessionId).orElse(null);
+        // https://ec2-18-234-102-149.compute-1.amazonaws.com/openvidu/api/sessions/354
+        String url = mscp.PROTOCOL + "://" + mscp.DOMAIN + mscp.URI_PREFIX + "/sessions/" + String.valueOf(sessionId);
 
-        sessionDto.setSessionModerator((String) requestBody.get("sessionModerator"));
-        return sessionRepository.save(sessionDto);
+//        SessionDto sessionDto = sessionRepository.findById(sessionId).orElse(null);
+//
+//        sessionDto.setSessionModerator((String) requestBody.get("sessionModerator"));
+//        return sessionRepository.save(sessionDto);
     }
 }
