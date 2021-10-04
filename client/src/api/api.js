@@ -79,6 +79,7 @@ const api = {
             // password 환경변수로 놓을것
             const { data, status } 
                     = await axios.post(`${URL}${endPoint}`,roomInfo,{
+
                         auth:{
                             username : 'OPENVIDUAPP',
                             password : 'therapist'

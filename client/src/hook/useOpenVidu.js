@@ -10,6 +10,7 @@ function useOpenVidu({ sessionId }) {
     const [SessionId, setSessionId] = useState(sessionId);
     const [Subscriber, setSubscriber] = useState([]);
     const [Publisher, setPublisher] = useState(undefined);
+
     const [OV, setOV] = useState(undefined);
 
     const history = useHistory();
@@ -29,6 +30,7 @@ function useOpenVidu({ sessionId }) {
 
         const deleteEndPoint=`/openvidu/session/${SessionId}`;
         await api.fetchDeleteSession(deleteEndPoint);
+
 
         setOV(undefined);
         setSession(undefined);
@@ -77,6 +79,23 @@ function useOpenVidu({ sessionId }) {
         });
       };
       
+        }
+      }, [leaveSession]);
+    
+      // init session
+      useEffect(() => {
+        if (!OV) return;
+        setSession(OV.initSession());
+      }, [OV]);
+      
+      
+      const subscribeStateChange = () => {
+        session.on('streamPropertyChanged', (e) => {
+          let remoteUser = Subscriber;
+          setSubscriber([...remoteUser]);
+        });
+      };
+      
       const subscribeLeft = () => {
         session.on('streamDestroyed', (event) => {
           // remove the stream from subscriber array
@@ -92,6 +111,7 @@ function useOpenVidu({ sessionId }) {
           setSubscriber([...subs]);
         }
       };
+
 
       useEffect(() => {
         // useEffect is executed upon first render when session is undefined.
@@ -154,6 +174,7 @@ function useOpenVidu({ sessionId }) {
 
 
       return { leaveSession, publisher:Publisher, subscriber:Subscriber, changeSpotlight };
+
 
 };
 

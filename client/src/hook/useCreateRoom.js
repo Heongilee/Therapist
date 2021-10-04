@@ -14,6 +14,7 @@ function useCreateRoom() {
 
     const history = useHistory();
 
+
     const showCrearteRoomModal = () => {
 
         setVisible(true);
@@ -35,6 +36,7 @@ function useCreateRoom() {
                         sessionTitle:TitleState,
                         sessionModerator:NameState
         };
+
 
         const { sessionId } = await api.fetchPostOpenvidu(endpoint, roomInfo, history);
         

@@ -13,6 +13,7 @@ function useWriteModal() {
 
     const showWriteModal = sessionId => {
         setSessionId(String(sessionId));
+
         setVisible(true);
     };
 

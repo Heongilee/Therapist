@@ -15,6 +15,9 @@ function OpenViduPage({ match }) {
     const { publisher, subscriber, leaveSession, changeSpotlight } = useOpenVidu({ sessionId:sessionId });
 
 
+    const { publisher, subscriber, leaveSession } = useOpenVidu({ sessionId:sessionId });
+
+
     
     return (    
         <section className="openvidu_page">
@@ -28,6 +31,7 @@ function OpenViduPage({ match }) {
                                 LayoutState={LayoutState}
                                 changeSpotlight={changeSpotlight}>
                     </OpenViduLayout>}
+
 
 
             </div>

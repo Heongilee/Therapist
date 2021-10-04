@@ -16,6 +16,7 @@ function CardSection({ cardData, showWriteModal }) {
                                         () => showWriteModal(data.sessionId) : null
                                         
                                         }>
+
                     <div className="card_img">
                         <div className="card_wrapper">
                                 <div className="card_header">

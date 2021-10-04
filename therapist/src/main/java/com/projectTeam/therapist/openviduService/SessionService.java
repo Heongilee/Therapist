@@ -18,6 +18,8 @@ public class SessionService {
     public SessionDto createSession(JSONObject requestBody) {
         SessionDto sessionDto = SessionDto.builder()
                 .sessionTitle((String) requestBody.get("sessionTitle"))
+                .numConnectedObject(0)
+                .sessionModerator((String) requestBody.get("sessionModerator"))
                 .build();
 
         return sessionRepository.save(sessionDto);
@@ -31,6 +33,8 @@ public class SessionService {
             JSONObject item = new JSONObject();
             item.put("sessionId", session.getSessionId());
             item.put("sessionTitle", session.getSessionTitle());
+            item.put("numConnectedObject", session.getNumConnectedObject());
+            item.put("sessionModerator", session.getSessionModerator());
             result.add(item);
         }
 
@@ -49,5 +53,40 @@ public class SessionService {
 
     public void removeSession(Long sessionId) {
         sessionRepository.deleteById(sessionId);
+    }
+
+    public JSONObject incrementConnectedObject(Long sessionId) {
+        SessionDto sessionDto = sessionRepository.findById(sessionId).orElse(null);
+        JSONObject result = new JSONObject();
+        String myStatus = (sessionDto.getNumConnectedObject() >= 6) ? "FAILED" : "SUCCESS";
+        result.put("status", myStatus);
+        if (sessionDto.getNumConnectedObject() < 6) {
+            sessionDto.setNumConnectedObject(sessionDto.getNumConnectedObject() + 1);
+        }
+        result.put("numConnectedObject", sessionDto.getNumConnectedObject());
+        sessionRepository.save(sessionDto);
+
+        return result;
+    }
+
+    public JSONObject decrementConnectedObject(Long sessionId) {
+        SessionDto sessionDto = sessionRepository.findById(sessionId).orElse(null);
+        JSONObject result = new JSONObject();
+        String myStatus = (sessionDto.getNumConnectedObject() <= 0) ? "FAILED" : "SUCCESS";
+        result.put("status", myStatus);
+        if (sessionDto.getNumConnectedObject() > 0) {
+            sessionDto.setNumConnectedObject(sessionDto.getNumConnectedObject() - 1);
+        }
+        result.put("numConnectedObject", sessionDto.getNumConnectedObject());
+        sessionRepository.save(sessionDto);
+
+        return result;
+    }
+
+    public SessionDto updateSessionModerator(Long sessionId, JSONObject requestBody) {
+        SessionDto sessionDto = sessionRepository.findById(sessionId).orElse(null);
+
+        sessionDto.setSessionModerator((String) requestBody.get("sessionModerator"));
+        return sessionRepository.save(sessionDto);
     }
 }

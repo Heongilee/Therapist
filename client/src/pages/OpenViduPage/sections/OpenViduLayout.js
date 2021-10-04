@@ -4,6 +4,7 @@ import SideBarLayout from './SideBarLayout.js';
 
 
 function OpenViduLayout({ LayoutState, publisher, subscriber, changeSpotlight}) {
+
     
     if (LayoutState === "grid"){
         return <GridLayout publisher={publisher} subscriber={subscriber}></GridLayout>;

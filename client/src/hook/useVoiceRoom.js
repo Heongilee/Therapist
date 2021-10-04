@@ -28,6 +28,7 @@ function useVoiceRoom() {
                     setCardDataState([...data, ...CARD_DUMMY_DATA[dummyDataSize].map(()=> {return {sessionTitle: '빈방이에요.'}})]);
                 }
             }
+
         };
 
         request();
