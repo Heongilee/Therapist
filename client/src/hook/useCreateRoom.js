@@ -14,10 +14,6 @@ function useCreateRoom() {
 
     const history = useHistory();
 
-    // const { joinSession } = useContextOpv();
-
-
-
     const showCrearteRoomModal = () => {
 
         setVisible(true);
@@ -34,14 +30,28 @@ function useCreateRoom() {
     const handleOk = async() => {
 
         const endpoint='/openvidu/session';
-        const titleData = { sessionTitle:TitleState };
-        const { sessionId } = await api.fetchPostOpenvidu(endpoint, titleData, history);
         
-        // joinSession(String(sessionId), NameState);
-        history.push(`/webrtc/${String(sessionId)}`);
+        const roomInfo = { 
+                        sessionTitle:TitleState,
+                        sessionModerator:NameState
+        };
 
-
-        setVisible(!Visible);   
+        const { sessionId } = await api.fetchPostOpenvidu(endpoint, roomInfo, history);
+        
+        localStorage.setItem('nickName', NameState);
+        
+        //방생성시 count api 호출
+        const roomEndPoint=`/openvidu/session/${String(sessionId)}/enter`;
+        const response = await api.fetchRoomCount(roomEndPoint, history);
+        if (response){
+            setVisible(!Visible);   
+            localStorage.setItem('nickName', NameState);
+            history.push(`/webrtc/${String(sessionId)}`);
+            
+        } else {
+            alert('방생성 에러');
+        }
+        
     };
 
     const handleCancel = () => {

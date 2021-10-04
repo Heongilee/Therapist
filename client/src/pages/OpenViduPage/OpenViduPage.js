@@ -1,5 +1,4 @@
-import React, {useRef} from 'react';
-
+import React from 'react';
 import useRedioModal from '../../hook/useRedioModal.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import OpenViduLayout from './sections/OpenViduLayout.js';
@@ -13,8 +12,7 @@ function OpenViduPage({ match }) {
 
     const sessionId = match.params.sessionId;
     const { ModalRedioRender, onLayoutHandler, LayoutState } = useRedioModal();
-
-    const { publisher, subscriber, leaveSession } = useOpenVidu({ sessionId:sessionId });
+    const { publisher, subscriber, leaveSession, changeSpotlight } = useOpenVidu({ sessionId:sessionId });
 
 
     
@@ -27,10 +25,10 @@ function OpenViduPage({ match }) {
                     <OpenViduLayout 
                                 publisher={publisher}
                                 subscriber={subscriber}
-                                LayoutState={LayoutState}>
+                                LayoutState={LayoutState}
+                                changeSpotlight={changeSpotlight}>
                     </OpenViduLayout>}
 
-=
 
             </div>
             {publisher &&

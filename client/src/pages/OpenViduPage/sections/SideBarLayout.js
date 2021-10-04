@@ -10,35 +10,29 @@ import './SideBarLayout.css';
 
 const temp = [1,2];
 
-function SideBarLayout() {
+function SideBarLayout({ publisher, subscriber, changeSpotlight }) {
     
-    const { publisher, subscriber, changeSpotlight } = useContextOpv();
-        
-    
-    const onClick = name => {
-        changeSpotlight(name);
-    };
 
     return (
         <>
             <Row className="openvidu_grid_row" >
                 <Col span={24} className="openvidu_grid_col">
-                    <Avatar size={90} icon={<UserOutlined />} />
-                    {/* { publisher && <GridCard streamManager={publisher}></GridCard>} */}
+                    { publisher && <GridCard 
+                                            streamManager={publisher}
+                                            cardHeight={'700px'}
+                                            ></GridCard>}
                 </Col>   
-                    
-              
             </Row>
-          
+            
             {/* subscriber */}
             <Col className="openvidu_sidebar_col" >
                 <Row className="openvidu_sidebar_row">
-                    { temp.map((data, index) => {
+                    { subscriber && subscriber.map((data, index) => {
                         return <SideBarCard 
                                 key={'sidebarcard'+index}
-                                streamManager={publisher}
-                                onClick={onClick}
-                                nickName={data}></SideBarCard>;
+                                streamManager={subscriber}
+                                changeSpotlight={changeSpotlight}
+                                ></SideBarCard>
                     })}
 
                 </Row>   

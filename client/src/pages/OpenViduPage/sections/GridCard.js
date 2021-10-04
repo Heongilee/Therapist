@@ -1,12 +1,12 @@
 import React from 'react';
-import { Avatar } from 'antd';
-import { UserOutlined, AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
+import { AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
 import OpenViduVideo from './OpenViduVideo.js';
 
 import './GridCard.css';
 
 const GridCard = ({ cardHeight, streamManager }) =>{
-    
+
+
     // audioActive
     return (
         <div className="grid_card" 
@@ -28,14 +28,8 @@ const GridCard = ({ cardHeight, streamManager }) =>{
                 : null
             }
 
+            <OpenViduVideo streamManager={ streamManager }></OpenViduVideo>
             
-            {streamManager.stream.videoActive ? 
-
-                          <OpenViduVideo streamManager={ streamManager }></OpenViduVideo>
-                        : <Avatar size={120} icon={<UserOutlined />} /> 
-            }
-             
-            {/* <div className="grid_nickname">{nickName}</div> */}
         </div>
     );
 };

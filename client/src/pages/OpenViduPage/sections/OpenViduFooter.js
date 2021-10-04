@@ -29,10 +29,7 @@ function OpenViduFooter({publisher, onLayoutHandler, leaveSession}) {
     const onCloseHandler = () => {
         setCamerState(false)
         setMicState(false);
-
-        history.push('/');
         leaveSession();
-
     };
 
     return (
