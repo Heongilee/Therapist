@@ -3,16 +3,18 @@
 .sidebar_card {
     position: relative;
     width: 100%;
+    height: 220px;
     margin: 0.5rem;
     display: flex; 
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    background-color: #4e4e4e;
+    overflow: hidden;
+    /* background-color: #4e4e4e; */
 }
 
 .sidebar_card:first-child{
-    margin-top: 0;
+    margin-top: 1rem;
 }
 
 .sidebar_card:last-child{
@@ -26,26 +28,34 @@
     font-size: 1rem;
 }
 
-
-.anticon-pushpin {
-    position: absolute;
-    top: -150%;
-    right: 0;
-    transition:all .30s;
-    color: #666;
-    z-index: 2;
-}
-
-
-.sidebar_card:hover {
-    cursor: pointer;
-    border:  solid #666;
-}
-
 .sidebar_card:hover .anticon-pushpin{
     top: 20px;
     right: 20px;
 }
 
+.side_icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 101;
+}
+
+.side_icon_circle {
+    width: 46px;
+    height: 46px;
+    margin: 5px; 
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    background: #292929;
+ }
+
+ .side_icon_circle span {
+     font-size: 23px;
+     color: #fff;
+ }
 
 
+ .sidebar_card:hover .hovericon{
+    bottom: 12%;
+}
