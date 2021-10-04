@@ -12,16 +12,12 @@
 
 }
 
-.grid_nickname {
-    position: absolute;
-    left: 20px;
-    bottom: 20px;
-}
 
 .grid_icon {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 101;
 }
 
 .grid_icon_circle {

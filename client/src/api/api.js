@@ -4,15 +4,82 @@ import axios from 'axios';
 
 const api = {
 
+    fetchDeleteSession: async(endPoint) => {
+        try {
+            const { data, status } 
+                    = await axios.delete(`${URL}${endPoint}`,{
+                        auth:{
+                            username : 'OPENVIDUAPP',
+                            password : 'therapist'
+                        }});
+            
+            console.log("fetchDeleteSession", data);
+
+            if (status === 200) {
+                return true;
+            }
+
+        } catch (error) {
+
+            console.log("fetchDeleteSession", error);
+          
+        }
+    },
+
+    fetchGetSession: async(endPoint) => {
+        try {
+            const { data, status } 
+                    = await axios.get(`${OPENVIDU_SERVER_URL}${endPoint}`,{
+                        auth:{
+                            username : 'OPENVIDUAPP',
+                            password : 'therapist'
+                        }});
+
+            console.log("fetchGetSession", data);
+
+        } catch (error) {
+
+            console.log("fetchGetSession", error);
+          
+        }
+    },
     
+    fetchRoomCount: async(endPoint, history) => {
+        try {
+            
+            const { data, status } 
+                    = await axios.put(`${URL}${endPoint}`,{},{
+                        auth:{
+                            username : 'OPENVIDUAPP',
+                            password : 'therapist'
+                        }});
+
+            console.log("데이터터",data)
+            if (status === 200){
+
+                const { status } = data;
+                if (status === 'SUCCESS'){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        } catch (error) {
+
+            console.log("fetchRoomCount", error);
+          
+        }
+    },
 
     
-    fetchPostOpenvidu: async(endPoint, titleData, history) => {
+    fetchPostOpenvidu: async(endPoint, roomInfo, history) => {
        
         try {
             // password 환경변수로 놓을것
             const { data, status } 
-                    = await axios.post(`${URL}${endPoint}`,titleData,{
+                    = await axios.post(`${URL}${endPoint}`,roomInfo,{
+
                         auth:{
                             username : 'OPENVIDUAPP',
                             password : 'therapist'
