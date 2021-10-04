@@ -47,6 +47,7 @@ public class SessionService {
         JSONObject result = new JSONObject();
         result.put("sessionId", sessionDto.getSessionId());
         result.put("sessionTitle", sessionDto.getSessionTitle());
+        result.put("sessionModerator", sessionDto.getSessionModerator());
 
         return result;
     }
