@@ -2,10 +2,15 @@ package com.projectTeam.therapist.restService;
 
 import com.projectTeam.therapist.model.SessionDto;
 import com.projectTeam.therapist.openviduService.SessionService;
+import lombok.SneakyThrows;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @CrossOrigin("*")
@@ -43,8 +48,9 @@ public class OpenviduApiController {
     }
 
     // PUT 방장 교체하는 API
+    @SneakyThrows
     @PutMapping("/session/{sessionId}")
-    SessionDto updateSessionModerator(@PathVariable Long sessionId, @RequestBody JSONObject requestBody) {
+    SessionDto updateSessionModerator(@PathVariable String sessionId, @RequestBody JSONObject requestBody) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
         return sessionService.updateSessionModerator(sessionId, requestBody);
     }
 
