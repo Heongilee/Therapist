@@ -32,22 +32,6 @@ const boardApi = {
         }
         
     },
-
-    fetchDeletePost: async(checkData=null) => {
-
-        console.log("checkData", checkData)
-        try {
-            // const response = await axios.post();
-            const response = true;
-            
-            return response;
-    
-        } catch (error) {
-            console.log("requestBoardList", error);
-        }
-        
-    },
-
 };
 
 

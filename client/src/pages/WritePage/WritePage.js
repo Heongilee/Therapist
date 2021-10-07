@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ModernButton from '../../components/Atoms/ModernButton/ModernButton.js';
 import InputField from '../../components/Atoms/InputField/InputField.js';
 import SelectBar from '../../components/SelectBar/SelectBar.js';
@@ -35,16 +34,17 @@ function WritePage({ location }){
         const title = titleRef.current;
         const content = editorRef.current.getInstance().getMarkdown();
         // const content = editorRef.current.getInstance().getHTML();
-
-        console.log("확인1",CateGoryState)
-        console.log("확인2",postType)
-        console.log("확인3",type)
-
-        if (title.state.value && title.state.value.length < 7){
-            alert("제목을 7글자이상 적어주세요");
-            return;
+    
+        
+        if (title){
+            if (title.state.value === null || title.state.value.length < 7){
+                alert("제목을 7글자이상 적어주세요");
+                return;
+            }
         }
+
         if (content.length < 7){
+            console.log("!!!!")
             alert("내용을 7글자 이상 적어주세요");
             return;
         }
@@ -54,6 +54,7 @@ function WritePage({ location }){
             return;
         }
 
+        console.log("!!!!!!")
         const response = await requestApi({ 
             userId:userId, replyId:replyId, postId:postId, 
             title: title && title.state.value, content:content, type, 

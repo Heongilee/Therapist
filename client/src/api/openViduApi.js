@@ -1,13 +1,11 @@
 import axios from 'axios';
-// import { OPENVIDU_SERVER_URL } from '../config/confing.js';
+import { OPENVIDU_SERVER_URL } from '../config/confing';
 
-const OPENVIDU_SERVER_URL = 'https://ec2-18-234-102-149.compute-1.amazonaws.com';
+
 const OPENVIDU_SERVER_SECRET = 'therapist';
 
 
-
 export const getToken = sessionId => {
-    console.log("세션아이디", sessionId)
    return createSession(sessionId).then(sessionId => createToken(sessionId));
 };
 
