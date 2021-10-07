@@ -25,7 +25,7 @@ function CardSection({ cardData, showWriteModal }) {
                                 </div>
                                 <div className="card_content">
                                 { data.sessionModerator ?`${data.sessionModerator}님 외 
-                                        ${data.numConnectedObject}명이 대화중입니다.`
+                                        ${data.numConnectedObject - 1}명이 대화중입니다.`
                                 : '마이크 아이콘을 클릭하여 방을 만들어 주세요.'
                                 }
                                 </div>

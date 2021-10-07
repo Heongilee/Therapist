@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { OpenVidu } from 'openvidu-browser';
 import { getToken } from '../api/openViduApi';
 import { useHistory } from "react-router-dom";
@@ -10,6 +10,8 @@ function useOpenVidu({ sessionId }) {
     const [SessionId, setSessionId] = useState(sessionId);
     const [Subscriber, setSubscriber] = useState([]);
     const [Publisher, setPublisher] = useState(undefined);
+    const [Spotlight, setSpotlight] = useState(undefined);
+    const currentSpotLight = useRef(0);
 
     const [OV, setOV] = useState(undefined);
 
@@ -19,18 +21,32 @@ function useOpenVidu({ sessionId }) {
    
       if (session)
             session.disconnect();
+
         // 방장이 현재 누구인지
-        // api/openvidu/session/<SESSION_ID>
+        const getSessionEndPoint = `/openvidu/session/${SessionId}`;
+        const { sessionModerator } = await api.fetchGetSession(getSessionEndPoint);
+        
+        // 나혼자 있는 경우
+        if (Subscriber.length < 1){
+            const deleteEndPoint=`/openvidu/session/${SessionId}`;
+            await api.fetchDeleteSession(deleteEndPoint);
+        } else {
+          
+          // 방장이 나자신이면  + 방장교체
+          if (sessionModerator === localStorage.getItem('nickName')){
+            console.log("나자신");
+            const changeModEndPoint=`/openvidu/session/${SessionId}`;
+            const userData = { sessionModerator: localStorage.getItem('nickName') };
+            await api.fetchChangeModerator(changeModEndPoint, userData);
 
-        // 방장이 나자신이면 카운트만 호출
-        // 방장이 내가 아니면 방장교체 + 카운트 호출
+          } 
+            const exitEndPoint=`/openvidu/session/${SessionId}/exit`;
+            await api.fetchRoomCount(exitEndPoint);
+            
+            // const deleteEndPoint=`/openvidu/session/${SessionId}`;
+            // await api.fetchDeleteSession(deleteEndPoint);
 
-        const exitEndPoint=`/openvidu/session/${SessionId}/exit`;
-        await api.fetchRoomCount(exitEndPoint);
-
-        const deleteEndPoint=`/openvidu/session/${SessionId}`;
-        await api.fetchDeleteSession(deleteEndPoint);
-
+        }
 
         setOV(undefined);
         setSession(undefined);
@@ -72,22 +88,6 @@ function useOpenVidu({ sessionId }) {
         }
       };
       
-      const subscribeStateChange = () => {
-        session.on('streamPropertyChanged', (e) => {
-          let remoteUser = Subscriber;
-          setSubscriber([...remoteUser]);
-        });
-      };
-      
-        }
-      }, [leaveSession]);
-    
-      // init session
-      useEffect(() => {
-        if (!OV) return;
-        setSession(OV.initSession());
-      }, [OV]);
-      
       
       const subscribeStateChange = () => {
         session.on('streamPropertyChanged', (e) => {
@@ -106,6 +106,11 @@ function useOpenVidu({ sessionId }) {
       const deleteSubscriber = (streamManager) => {
         let subs = Subscriber;
         let idx = subs.indexOf(streamManager, 0);
+
+        if (currentSpotLight.current === idx + 1){
+          setSpotlight(undefined);
+        }
+        
         if (idx > -1) {
           subs.splice(idx, 1);
           setSubscriber([...subs]);
@@ -156,24 +161,22 @@ function useOpenVidu({ sessionId }) {
     
       }, [session]);
       
-      const changeSpotlight = name => {
-        console.log("이름", name)
-        // console.log("이르음", JSON.parse(publisher?.stream.connection.data).clientData);
-        // const temp = [...Publisher.filter(data => 
-        //   JSON.parse(data?.stream.connection.data).clientData === name)]
-
-        // console.log("temp", temp);
+      const changeSpotlight = index => {
+        console.log("인덱스", index);
         
-        // setPublisher(...Subscriber.filter(data => 
-        //   JSON.parse(data?.stream.connection.data).clientData === name));
-
-        // setSubscriber([...Subscriber.filter(data => 
-        //   JSON.parse(data?.stream.connection.data).clientData !== name), ...Publisher])
+        // const temp = [...Subscriber.filter(data => 
+        //   JSON.parse(data?.stream.connection.data).clientData === name)]
 
     };
 
 
-      return { leaveSession, publisher:Publisher, subscriber:Subscriber, changeSpotlight };
+      return { leaveSession, 
+        publisher:Publisher, 
+        subscriber:Subscriber, 
+        spotlight:Spotlight,
+        currentSpotLight:currentSpotLight,
+        setSpotlight
+      };
 
 
 };

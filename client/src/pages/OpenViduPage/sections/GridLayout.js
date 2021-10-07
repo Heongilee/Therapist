@@ -9,13 +9,12 @@ import './GridLayout.css';
 
 function GridLayout({ publisher, subscriber }) {
 
-
     
     const { CamerState, MicState, RoomState } = useContextOpv();
 
     return (
         <Row justify="space-around" align="middle" className="openvidu_grid_row">
-            
+           
             {/* you */}
             {publisher &&
             <Col span={PUB_SPAN[subscriber.length + 1]} className="openvidu_grid_col">

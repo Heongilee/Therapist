@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
-import InputField from '../Atoms/InputField/InputField.js';
-import { Input } from 'antd';
-
-import { Modal } from 'antd';
+import React from 'react';
+import { Modal, Input } from 'antd';
 
 const ModalRoomCreate = ({ 
     title="Therapist", handleOk, handleCancel, 

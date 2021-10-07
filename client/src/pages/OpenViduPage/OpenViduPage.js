@@ -12,10 +12,8 @@ function OpenViduPage({ match }) {
 
     const sessionId = match.params.sessionId;
     const { ModalRedioRender, onLayoutHandler, LayoutState } = useRedioModal();
-    const { publisher, subscriber, leaveSession, changeSpotlight } = useOpenVidu({ sessionId:sessionId });
+    const { publisher, subscriber, spotlight, leaveSession, setSpotlight, currentSpotLight } = useOpenVidu({ sessionId:sessionId });
 
-
-    const { publisher, subscriber, leaveSession } = useOpenVidu({ sessionId:sessionId });
 
 
     
@@ -24,12 +22,14 @@ function OpenViduPage({ match }) {
 
                 
             <div className="openvidu_page_content">
-                {publisher && subscriber &&
-                    <OpenViduLayout 
+                {publisher && subscriber && <OpenViduLayout 
                                 publisher={publisher}
                                 subscriber={subscriber}
+                                spotlight={spotlight}
+                                currentSpotLight={currentSpotLight}
+                                setSpotlight={setSpotlight}
                                 LayoutState={LayoutState}
-                                changeSpotlight={changeSpotlight}>
+                                >
                     </OpenViduLayout>}
 
 
