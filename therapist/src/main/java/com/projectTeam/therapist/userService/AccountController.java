@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-@Controller
-@RequestMapping("/account")
+@RestController
+@RequestMapping("/api/account")
 public class AccountController {
     @Autowired
     private UserService userService;

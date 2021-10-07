@@ -55,7 +55,7 @@ public class AuthController {
 
         HttpEntity<UserDto> requestEntity = new HttpEntity<>(newUser);
         rt.exchange(
-            "http://localhost:8080/account/register",
+            "http://localhost:8080/api/account/register",
             HttpMethod.PUT,
             requestEntity,
             Void.class
