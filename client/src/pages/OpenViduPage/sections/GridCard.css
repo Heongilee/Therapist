@@ -34,3 +34,16 @@
      font-size: 23px;
      color: #fff;
  }
+
+ .avatar_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color:#4e4e4e;
+
+    
+    z-index: 100;
+}

@@ -4,6 +4,34 @@ import axios from 'axios';
 
 const api = {
 
+    fetchChangeModerator: async(endPoint, userData) => {
+        try {
+            
+            const { data, status } 
+                    = await axios.put(`${URL}${endPoint}`,userData,{
+                        auth:{
+                            username : 'OPENVIDUAPP',
+                            password : 'therapist'
+                        }});
+
+            console.log("fetchChangeModerator",data)
+            if (status === 200){
+
+                const { status } = data;
+                if (status === 'SUCCESS'){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        } catch (error) {
+
+            console.log("fetchRoomCount", error);
+          
+        }
+    },
+
     fetchDeleteSession: async(endPoint) => {
         try {
             const { data, status } 
@@ -29,13 +57,16 @@ const api = {
     fetchGetSession: async(endPoint) => {
         try {
             const { data, status } 
-                    = await axios.get(`${OPENVIDU_SERVER_URL}${endPoint}`,{
+                    = await axios.get(`${URL}${endPoint}`,{
                         auth:{
                             username : 'OPENVIDUAPP',
                             password : 'therapist'
                         }});
-
-            console.log("fetchGetSession", data);
+            
+                        if (status === 200) {
+                            console.log("fetchGetSession", data);
+                            return data;
+                        }
 
         } catch (error) {
 

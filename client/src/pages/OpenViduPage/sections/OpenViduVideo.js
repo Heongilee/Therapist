@@ -33,7 +33,9 @@ function OpenViduVideo({ streamManager, avatarSize=120 }){
                                     />  
                         </>
                         
-        ): null
+        ): (<div className="avatar_area">
+            <Avatar size={avatarSize} icon={<UserOutlined />} /> 
+            </div>)
             }
         </>
     );

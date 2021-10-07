@@ -7,6 +7,7 @@ import useCreateRoom from '../../hook/useCreateRoom.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import useWriteModal from '../../hook/useWriteModal.js';
 import { AudioOutlined, FormOutlined } from '@ant-design/icons';
+
 import './MainPage.css';
 
 function MainPage() {
@@ -23,13 +24,15 @@ function MainPage() {
                 <div className="voice_room_title">            
                     <h2 onClick={showCrearteRoomModal} style={{cursor: "pointer"}}>
                         고민을 들어주세요 
-                        <AudioOutlined /></h2>
+                
+                        <AudioOutlined /> 
+                    </h2>
                 </div>
                 {CardDataState && <CardSection cardData={CardDataState}
                                                 showWriteModal={showWriteModal}></CardSection>}
                 
                 <div className="voice_room_title">            
-                    <h2>고민을 들려주세요 <FormOutlined /></h2>
+                    <h2>고민을 들려주세요</h2>
                 </div>
                 {PostState && <BoardSection postData={PostState}></BoardSection>}
             </div>

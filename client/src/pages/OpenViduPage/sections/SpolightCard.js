@@ -1,12 +1,11 @@
 import React from 'react';
-import { AudioOutlined, AudioMutedOutlined, UserOutlined } from '@ant-design/icons';
+import { AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
 import OpenViduVideo from './OpenViduVideo.js';
-import { Avatar } from 'antd';
 import { motion } from "framer-motion";
 
-import './GridCard.css';
+import './SpolightCard.css';
 
-const GridCard = ({ cardHeight, streamManager }) =>{
+const SpolightCard = ({ cardHeight, streamManager }) =>{
 
     const variants = {
         closed: { opacity: 0 },
@@ -14,9 +13,7 @@ const GridCard = ({ cardHeight, streamManager }) =>{
       };
 
     return (
-        <>
-        {streamManager !== undefined  ?
-        (<motion.div 
+        <motion.div 
             layout
             variants={variants}
             initial="closed"
@@ -42,27 +39,10 @@ const GridCard = ({ cardHeight, streamManager }) =>{
 
             <OpenViduVideo streamManager={ streamManager }></OpenViduVideo>
             
-        </motion.div>) : 
-        <motion.div 
-                layout
-                variants={variants}
-                initial="closed"
-                animate="open"
-                className="grid_card" 
-                style={{
-                    height:cardHeight,
-                    }}
-                >
-
-            <div className="avatar_area">
-                <Avatar size={110} icon={<UserOutlined />} /> 
-            </div>
         </motion.div>
-        }
-        </>
     );
 };
 
-export default GridCard;
+export default SpolightCard;
 
 
