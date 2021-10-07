@@ -15,7 +15,6 @@ function useVoiceRoom() {
         const request = async() => {
             const endpoint = '/openvidu/sessions';
             const data = await api.fetchGetOpenvidu(endpoint, history);
-            console.log("카드데이터", data);              
 
             if(data.length === 0){
                 const dummyData = CARD_DUMMY_DATA[4].map(()=> {return {sessionTitle: '빈방이에요.'}});

@@ -12,12 +12,12 @@ function useAnswer({ postId }) {
     const loadAnswerData = async() => {
         setAnswerState(prev => ({ ...prev, loading: true }));
 
-        const data = await postApi.fetchAnswer(postId, currentPage.current, history);
+        const { replies } = await postApi.fetchAnswer(postId, currentPage.current, history);
 
         currentPage.current += 1;
 
         setAnswerState(prev => ({
-        answerData: [...prev.answerData, ...data],
+        answerData: [...prev.answerData, ...replies],
           loading: false
         }));
   
