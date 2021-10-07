@@ -183,7 +183,7 @@ public class UserService {
         input.put("username", loginDto.getUsername());
         input.put("password", loginDto.getPassword());
 
-        String url = "http://localhost:8080" + contextPath;
+        String url = "http://ec2-18-235-96-9.compute-1.amazonaws.com" + contextPath;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity param= new HttpEntity(input, headers);
