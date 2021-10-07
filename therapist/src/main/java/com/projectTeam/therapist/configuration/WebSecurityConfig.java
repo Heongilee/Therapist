@@ -89,8 +89,8 @@ public class WebSecurityConfig {
                     .antMatchers("/socket").permitAll()
                     .antMatchers("/api/main/posts").permitAll()
                     .antMatchers("/api/main/voiceChatRoom").permitAll()
-                    .antMatchers("/account/register").permitAll()
-                    .antMatchers("/auth/**").permitAll()
+                    .antMatchers("/api/account/register").permitAll()
+                    .antMatchers("/api/auth/**").permitAll()
                     .antMatchers("/", "/css/**", "/js/**", "/img/**").permitAll() 	                            // "/"이나, "/home"같은 URI는 누구나 접근할 수 있다, 또한 css 접근 권한을 저렇게 명시해서 css디렉토리 하위에 대한 권한을 줄 수 있따.
                     .anyRequest().authenticated()			                                                                // 그 밖의 어느 요청이 무엇이든, 인증 절차(authenticated)를 걸쳐야 한다.
 

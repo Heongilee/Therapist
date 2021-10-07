@@ -45,7 +45,7 @@ public class UserService {
 
     private final String clientId = "bee5cefdb5d9d94c0b32f71cf0de38e7";
     private final String clientSecret = "LcnyKGSgPVuOolspq5ococnDLfrlDqXM";
-    private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
+    private final String redirectUri = "http://localhost:8080/api/auth/kakao/callback";
 
     public UserDto save(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUserName(userDto.getUserName()).orElse(null) != null) {
