@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import GridCard from './GridCard.js';
 import SideBarCard from './SideBarCard.js';
-import { useContextOpv } from '../../../hook/useContextOpv.js';
-import { Row, Col, Avatar } from 'antd';
-import { UserOutlined, PushpinFilled, 
-    PushpinOutlined, AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
+import { Row, Col } from 'antd';
 
 import './SideBarLayout.css';
 
-const temp = [1,2];
 
-function SideBarLayout({ publisher, subscriber, changeSpotlight }) {
+function SideBarLayout({ publisher, subscriber,spotlight, setSpotlight,currentSpotLight }) {
     
+    // const [Spotlight, setSpotlight] = useState(undefined);
+
+    
+    const changeSpotlight = (streamManager, index) => {
+        currentSpotLight.current = index;
+        setSpotlight(streamManager);
+    };
 
     return (
         <>
             <Row className="openvidu_grid_row" >
                 <Col span={24} className="openvidu_grid_col">
-                    { publisher && <GridCard 
-                                            streamManager={publisher}
+                    { <GridCard 
+                                            streamManager={spotlight}
                                             cardHeight={'700px'}
                                             ></GridCard>}
                 </Col>   
@@ -27,11 +30,21 @@ function SideBarLayout({ publisher, subscriber, changeSpotlight }) {
             {/* subscriber */}
             <Col className="openvidu_sidebar_col" >
                 <Row className="openvidu_sidebar_row">
-                    { subscriber && subscriber.map((data, index) => {
+                    <SideBarCard
+                                index={0}
+                                streamManager={publisher}
+                                changeSpotlight={changeSpotlight}
+                                setSpotlight={setSpotlight}
+                                >
+                                </SideBarCard>
+
+                    { subscriber.length >=1 && subscriber.map((data, index) => {
                         return <SideBarCard 
                                 key={'sidebarcard'+index}
-                                streamManager={subscriber}
+                                index={index + 1}
+                                streamManager={data}
                                 changeSpotlight={changeSpotlight}
+                                setSpotlight={setSpotlight}
                                 ></SideBarCard>
                     })}
 

@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Tooltip } from 'antd';
-import { PushpinFilled, 
+import { PushpinFilled,
+        PushpinOutlined,
         MinusCircleOutlined, 
         SyncOutlined } from '@ant-design/icons';
     
 import './HoverIconForm.css';
 
-const HoverIconForm = ({ changeSpotlight, nickName }) =>{
+const HoverIconForm = ({ changeSpotlight, index, streamManager }) =>{
+
+    const [isPush, setIsPush] = useState(false);
 
     return (
         <div className="hovericon">
-            <Tooltip placement="bottom" title={<span>고정</span>}>
-                <PushpinFilled onClick={() => changeSpotlight(nickName)} style={{cursor:'pointer'}}/>
-            </Tooltip>
+            
+                { isPush ?
+                <Tooltip placement="bottom" title={<span>스포트라이트 해제</span>}>
+                        <PushpinFilled 
+                        onClick={() => {changeSpotlight(undefined, index); setIsPush(!isPush)}} 
+                        style={{cursor:'pointer'}}/>
+                </Tooltip>
+                    :
+                <Tooltip placement="bottom" title={<span>스포트라이트 고정</span>}>
+                    <PushpinOutlined 
+                        onClick={() => {changeSpotlight(streamManager, index); setIsPush(!isPush)}} 
+                        style={{cursor:'pointer'}}/>
+                </Tooltip>
+                }
+           
 
             <Tooltip placement="bottom" title={<span>기능미정</span>}>
                 <SyncOutlined style={{

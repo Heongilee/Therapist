@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AudioOutlined, AudioMutedOutlined } from '@ant-design/icons';
 import OpenViduVideo from './OpenViduVideo.js';
 import HoverIconForm from '../../../components/HoverIconForm/HoverIconForm.js';
+import { motion } from 'framer-motion';
 
 import './SideBarCard.css';
 
-function SideBarCard({ span, streamManager, changeSpotlight }) {
+function SideBarCard({ streamManager, changeSpotlight, index }) {
     
-    return (
+    const variants = {
+        open: { 
+            opacity: 1,
+        },
+        closed: { 
+            opacity: 0,
+        }
+    };
 
-        <div className="sidebar_card">
+    console.log("인덱스 바뀌는지 확인!", index)
+
+    return (                                
+
+        <motion.div className="sidebar_card"
+                    layout
+                    variants={variants}
+                    initial="closed"
+                    animate="open"
+                    >
      
             <HoverIconForm 
-                    changeSpotlight={changeSpotlight} 
-                    nickName={JSON.parse(streamManager?.stream.connection.data).clientData}
+                    index={index}
+                    changeSpotlight={changeSpotlight}
+                    streamManager={streamManager}
             />
 
             {!streamManager.stream.videoActive ? 
@@ -33,7 +51,7 @@ function SideBarCard({ span, streamManager, changeSpotlight }) {
                             streamManager={ streamManager }
                             avatarSize={90}>
                             </OpenViduVideo>
-        </div>
+        </motion.div>
     );
 };
 

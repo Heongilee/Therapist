@@ -1,12 +1,12 @@
 import React from 'react';
-import InputField from '../Atoms/InputField/InputField.js';
-import { Modal } from 'antd';
+import { Modal, Input } from 'antd';
 
 const ModalForm = ({ title="Therapist", handleOk, handleCancel, visible, onNameHandler }) => {
 
   return (
     
-      <Modal
+      <Modal 
+        className="modal_create_room"
         title={title} 
         centered               
         visible={visible}
@@ -14,7 +14,7 @@ const ModalForm = ({ title="Therapist", handleOk, handleCancel, visible, onNameH
         onCancel={handleCancel}
         width={300}
       >
-        <InputField onChange={onNameHandler}/>
+        <Input placeholder="3글자 이상 입력해주세요" onChange={onNameHandler}/>
       </Modal>
     
   );
