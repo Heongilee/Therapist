@@ -29,10 +29,10 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
                                          })}
                                     </div>
 
-                                    
+                                    {localStorage.getItem('username') === data.userName &&
                                         <Text data-name={ data[commentId] }  
                                             onClick={() => showDeleteModal(COMMENT_ENDPOINT,data[commentId]  ) } 
-                                            type={ "secondary" }>삭제</Text>
+                                            type={ "secondary" }>삭제</Text>}
                                 </div>
                             </li> 
                 })}

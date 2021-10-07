@@ -52,32 +52,20 @@ export default function useCheckBoxModal({ CheckState, postData, postType }) {
         const checkList = {"deleteCheckList": deleteData };
         return checkList;
     }
-    // const dataProcessing = () => {
-    //     console.log("CheckState", CheckState)
-    //     const deleteData = CheckState.reduce((accumulator, data, index, array) => {
-    //         if(data){
-    //             const { postId, replyId } = postData[index];
-    //             accumulator[index] = postId || replyId;
-    //             return accumulator;
-    //         } else {
-    //             return accumulator;
-    //         }
 
-    //      },{}) 
-
-    //     return deleteData;
-    // };
 
     const handleOk = async() => {
         const checkData = await dataProcessing();
+
         const endpoint = `users/mypage?type=${postType}`;
         const response = await api.fetchRegister(endpoint,checkData,history); 
+
 
         if (response){
             setConfirmLoading(true);
             setVisible(false);
             setConfirmLoading(false);
-            // window.location.reload();  
+            window.location.reload();  
         }       
     };
 

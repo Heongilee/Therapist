@@ -1,5 +1,6 @@
-import { URL, OPENVIDU_SERVER_URL } from '../config/confing.js';
+import { URL } from '../config/confing.js';
 import axios from 'axios';
+
 
 
 const api = {
@@ -107,7 +108,6 @@ const api = {
     fetchPostOpenvidu: async(endPoint, roomInfo, history) => {
        
         try {
-            // password 환경변수로 놓을것
             const { data, status } 
                     = await axios.post(`${URL}${endPoint}`,roomInfo,{
 
@@ -143,7 +143,7 @@ const api = {
     fetchGetOpenvidu: async(endPoint, history) => {
        
         try {
-            // password 환경변수로 놓을것
+
             const { data, status } 
                     = await axios.get(`${URL}${endPoint}`,{
                         auth:{

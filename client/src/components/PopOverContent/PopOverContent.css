@@ -9,3 +9,7 @@
 .notice_content > a {
     color: #000;
 }
+
+.notice_content > a > p:hover {
+    text-decoration:underline;
+}
