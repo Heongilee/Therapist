@@ -6,7 +6,6 @@ import com.projectTeam.therapist.model.LoginDto;
 import com.projectTeam.therapist.model.TokenDto;
 import com.projectTeam.therapist.model.UserDto;
 import com.projectTeam.therapist.postService.NoticeService;
-import com.projectTeam.therapist.repository.NoticeRepository;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -16,8 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -25,7 +22,7 @@ import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
     private UserService userService;
@@ -70,7 +67,7 @@ public class AuthController {
                 .build();
         int totalNotices = noticeService.findTotalNotice(userMap.get("username"));
         // LoginDto에 사용자 정보 담아 /auth/authenticate(아래 authorize 메서드) 로 보내면 이를 가지고 jwt 토큰 생성 후 반환
-        String response = userService.requestPostWithFormData("/auth/authenticate", loginDto);
+        String response = userService.requestPostWithFormData("/api/auth/authenticate", loginDto);
         JSONParser parser = new JSONParser();
         Object token = parser.parse(response);
         JSONObject res = (JSONObject) token;

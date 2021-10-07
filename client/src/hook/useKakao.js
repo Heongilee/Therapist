@@ -26,7 +26,7 @@ function useKakao() {
         Kakao.Auth.login({
             scope: 'profile_nickname, account_email',
             success: function (authObj) {
-                fetch(`${Auth + "/auth/kakao/callback?accessToken="+authObj.access_token}`, {
+                fetch(`${Auth + "/api/auth/kakao/callback?accessToken="+authObj.access_token}`, {
                         method: "GET",
                     })
                     .then(res => res.json())
