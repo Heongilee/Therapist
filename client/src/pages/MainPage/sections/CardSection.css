@@ -94,10 +94,12 @@
 
 @media only screen and (max-width: 980px) {
 
+    .card_container {
+        display: none;
+    }
 
     .card_left_arrow {
         display: none;
-
     }
 
     .card_right_arrow {
