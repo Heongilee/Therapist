@@ -56,7 +56,7 @@ module.exports = webpackEnv => {
 
     devServer: {  // 개발서버
         historyApiFallback: true,  // router 새로고침 404 해결
-        host: 'localhost',
+        host: '0.0.0.0',
         port: port,
         open: true, // 서버가 실행될 때 브라우저를 자동으로 열어줄지 결정
     },

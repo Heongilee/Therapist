@@ -17,3 +17,11 @@
     color:var(--color-gray);
     margin:0
 }
+
+@media only screen and (max-width: 980px) {
+
+    .voice_room_title {
+        display: none;
+    }
+
+}
