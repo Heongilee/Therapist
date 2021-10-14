@@ -40,7 +40,6 @@ function * sendMessageSaga(ws) {
 
 function * initializeWebSocketsChannel() {
   
-  console.log("going to connect to WS");
 
   const ws = new WebSocket(SOCKET_URL);
   const channel = yield call(createSocketChannel, ws);

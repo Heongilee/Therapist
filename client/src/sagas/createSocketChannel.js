@@ -14,10 +14,8 @@ export default function createSocketChannel(ws) {
               console.log("ERROR: ", error);
           };
           ws.onmessage = e => {
-            console.log(">>>>>>>>>>>"+e.data);
             const receivedMsg = JSON.parse(e.data);
             if (receivedMsg.type === 'getUsername') {
-              console.log("getUsername");
               const sendMsg = {
                   type:"register",
                   username: useName
@@ -35,14 +33,12 @@ export default function createSocketChannel(ws) {
               if (e.code === 1005) {
                   console.log("WebSocket: closed");
               } else {
-                  console.log('Socket is closed Unexpectedly. Reconnect will be attempted in 4 second.', e.reason);
                   setTimeout(() =>  {
                     createSocketChannel();
                   }, 4000);
               }
           };
           return () => {
-              console.log("Closing Websocket");
               ws.close();
           };
       });
