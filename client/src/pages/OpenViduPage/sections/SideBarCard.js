@@ -17,7 +17,6 @@ function SideBarCard({ streamManager, changeSpotlight, index }) {
         }
     };
 
-    console.log("인덱스 바뀌는지 확인!", index)
 
     return (                                
 

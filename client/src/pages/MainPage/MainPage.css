@@ -12,6 +12,20 @@
     font-size:1rem;
 }
 
+.board_title {
+    position:relative;
+    display: flex;
+    top:0; 
+    margin: 1.5rem 0 1rem 0.7rem;
+    font-size:1rem;
+}
+
+.board_title > h2 {
+    font-weight: 600;
+    color:var(--color-gray);
+    margin:0
+}
+
 .voice_room_title > h2 {
     font-weight: 600;
     color:var(--color-gray);

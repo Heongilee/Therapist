@@ -31,7 +31,7 @@ function MainPage() {
                 {CardDataState && <CardSection cardData={CardDataState}
                                                 showWriteModal={showWriteModal}></CardSection>}
                 
-                <div className="voice_room_title">            
+                <div className="board_title">            
                     <h2>고민을 들려주세요</h2>
                 </div>
                 {PostState && <BoardSection postData={PostState}></BoardSection>}

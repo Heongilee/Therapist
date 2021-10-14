@@ -31,7 +31,6 @@ function useKakao() {
                     })
                     .then(res => res.json())
                     .then(res => {
-                        console.log("Res", res);
 
                         localStorage.setItem("token", res.token);
                         localStorage.setItem("username", res.username);
