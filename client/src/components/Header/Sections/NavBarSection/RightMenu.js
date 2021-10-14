@@ -17,7 +17,7 @@ function RightMenu() {
     
     const { kakaoLoginClickHandler, kakaoLogoutClickHandler, LoginState } = useKakao();
 
-    const { count, noticeHendler } = usePushMessage();
+    const { count } = usePushMessage();
 
     const { PopOverState, setPopOverState, onVisibleChange } = usePopOver();
 

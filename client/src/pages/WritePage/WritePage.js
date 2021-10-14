@@ -44,7 +44,6 @@ function WritePage({ location }){
         }
 
         if (content.length < 7){
-            console.log("!!!!")
             alert("내용을 7글자 이상 적어주세요");
             return;
         }
@@ -54,7 +53,6 @@ function WritePage({ location }){
             return;
         }
 
-        console.log("!!!!!!")
         const response = await requestApi({ 
             userId:userId, replyId:replyId, postId:postId, 
             title: title && title.state.value, content:content, type, 

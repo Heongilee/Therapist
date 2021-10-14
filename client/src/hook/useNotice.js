@@ -13,7 +13,6 @@ function useNotice() {
         
         const endPoint = `notice/${localStorage.getItem('username')}`
         const data = await api.fetchGet(endPoint, history);
-        console.log("loadNoticeData", data)
 
         currentPage.current += 1;
 

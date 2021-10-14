@@ -25,7 +25,6 @@ const createSession = sessionId => {
              },
          })
          .then((response) => {
-             console.log('CREATE SESION', response);
              resolve(response.data.id);
          })
          .catch((response) => {
@@ -66,7 +65,6 @@ const createToken = sessionId => {
              },
          })
          .then((response) => {
-             console.log('TOKEN', response);
              resolve(response.data.token);
          })
          .catch((error) => reject(error));

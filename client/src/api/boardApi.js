@@ -19,19 +19,6 @@ const boardApi = {
         
     },
     
-    fetchMypage: async(postType='category1', page='1') => {
-
-        try {
-            // const response = await axios.get(`/api/posts?postType=${postType}`);
-            const response = await temp2(postType);
-    
-            return response;
-    
-        } catch (error) {
-            console.log("requestBoardList", error);
-        }
-        
-    },
 };
 
 

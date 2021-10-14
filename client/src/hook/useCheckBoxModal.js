@@ -38,7 +38,6 @@ export default function useCheckBoxModal({ CheckState, postData, postType }) {
         
         const deleteData = CheckState.reduce((accumulator, data, index, array) => {
             if(data){
-                console.log("postData[index]", postData[index], postType)
                 const { postId, replyId, commentId } = postData[index];
 
                 

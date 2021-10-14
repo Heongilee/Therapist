@@ -34,7 +34,6 @@ function useOpenVidu({ sessionId }) {
           
           // 방장이 나자신이면  + 방장교체
           if (sessionModerator === localStorage.getItem('nickName')){
-            console.log("나자신");
             const changeModEndPoint=`/openvidu/session/${SessionId}`;
             const userData = { sessionModerator: localStorage.getItem('nickName') };
             await api.fetchChangeModerator(changeModEndPoint, userData);
@@ -63,7 +62,6 @@ function useOpenVidu({ sessionId }) {
         window.addEventListener('keydown', noRefreshEvent);
 
         return () => {
-          console.log("언마운트")
           window.removeEventListener('beforeunload', leaveSession);
           window.removeEventListener('keydown', noRefreshEvent);
 
@@ -161,13 +159,7 @@ function useOpenVidu({ sessionId }) {
     
       }, [session]);
       
-      const changeSpotlight = index => {
-        console.log("인덱스", index);
-        
-        // const temp = [...Subscriber.filter(data => 
-        //   JSON.parse(data?.stream.connection.data).clientData === name)]
-
-    };
+     
 
 
       return { leaveSession, 

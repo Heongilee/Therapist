@@ -13,7 +13,6 @@ const useQuery = (endpoint) => {
   const [apiData, setApiData] = useState();
   
   useEffect(async() => {
-    // console.log("endpoint", endpoint)  
     try {
 
       dispatch(loading_actions.loadingStart());
@@ -21,7 +20,6 @@ const useQuery = (endpoint) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
       const response = await axios.get(URL + endpoint);
 
-      // console.log("데이터!!!!1",  response)
 
       const { data, status } = response;
 
@@ -32,11 +30,8 @@ const useQuery = (endpoint) => {
       
 
     } catch (error) {
+
       dispatch(loading_actions.loadingReset());
-
-      // dispatch(loading_actions.loadingReset());
-      console.log("error", error);
-
       const { status } = error.response;
 
       if (status === 401) {
