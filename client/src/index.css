@@ -1,4 +1,3 @@
-
 * {
     box-sizing: border-box;
 }
@@ -20,6 +19,64 @@ body {
     background-color: #e9ecef;
 }
 
+
+.ant-btn-primary {
+    background-color: #99AD00;
+    border-color:#99AD00;
+}
+
+.ant-btn:hover {
+    color: #000;
+    border-color:#5d7808;
+}
+
+.ant-btn-primary:hover {
+    background:#5d7808;
+    border-color:#5d7808;
+}
+
+.ant-input:hover {
+    border-color: #99AD00;
+    outline: 0;
+    
+}
+
+.ant-input:focus {
+    border-color: #5d7808;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #ecf0da;
+}
+
+.ant-menu-item-selected {
+    color: #5d7808;
+}
+
+.ant-menu-light .ant-menu-item:hover, .ant-menu-light .ant-menu-item-active, .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-light .ant-menu-submenu-active, .ant-menu-light .ant-menu-submenu-title:hover {
+    color: #5d7808;
+}
+
+
+.ant-pagination-item-active{
+    border-color: #5d7808;
+}
+
+.ant-pagination-item-active a {
+    color: #5d7808;
+}
+
+.ant-pagination-prev:hover .ant-pagination-item-link,
+    .ant-pagination-next:hover .ant-pagination-item-link,
+    .ant-pagination-prev:focus:hover .ant-pagination-item-link,
+    .ant-pagination-next:focus:hover .ant-pagination-item-link {
+      border-color: #5d7808;
+      color: #5d7808;
+}
+
 .wrapper{
     width:100%;
     height: 100%; 
@@ -31,7 +88,7 @@ body {
     position: initial !important;
     width: auto !important;
     overflow: auto !important;
-  }
+}
 
 
 /* 최소 width가 1200px일때  */

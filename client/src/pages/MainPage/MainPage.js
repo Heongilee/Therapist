@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import CardSection from './sections/CardSection.js';
 import BoardSection from './sections/BoardSection.js';
 import useRecentBoard from '../../hook/useRecentBoard.js';
@@ -6,7 +6,9 @@ import useVoiceRoom from '../../hook/useVoiceRoom.js';
 import useCreateRoom from '../../hook/useCreateRoom.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import useWriteModal from '../../hook/useWriteModal.js';
-import { AudioOutlined, FormOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+
+import { AudioOutlined, PlusCircleOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 import './MainPage.css';
 
@@ -22,11 +24,13 @@ function MainPage() {
 
             <div className="wrapper">
                 <div className="voice_room_title">            
-                    <h2 onClick={showCrearteRoomModal} style={{cursor: "pointer"}}>
+                    <h2>
                         고민을 들어주세요 
-                
-                        <AudioOutlined /> 
                     </h2>
+                    <Button shape="round" onClick={showCrearteRoomModal} icon={<AudioOutlined />} size={'large'}>
+                    방 추가
+                    </Button>
+
                 </div>
                 {CardDataState && <CardSection cardData={CardDataState}
                                                 showWriteModal={showWriteModal}></CardSection>}

@@ -1,5 +1,5 @@
-import { useEffect, useState, useMemo } from 'react';
-import useGetQuery from './useGetQuery.js'
+import { useEffect, useState } from 'react';
+import useGetQuery from './useGetQuery.js';
 import { useHistory } from "react-router-dom";
 import boardApi from '../api/boardApi.js';
 import mypageApi from '../api/mypageApi.js';
