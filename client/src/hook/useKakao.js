@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Auth } from '../config/confing.js';
+import { Auth } from '../config/config.js';
 import { useHistory } from 'react-router-dom';
 import { socket_actions } from '../_actions/socket_actions';
 import { useDispatch } from 'react-redux';

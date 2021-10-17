@@ -1,5 +1,7 @@
 import useQuery from './useQuery.js';
-import { MAIN_ENDPOINT } from '../config/confing.js';
+
+const MAIN_ENDPOINT = '/main/posts';
+
 
 function useRecentBoard() {
 

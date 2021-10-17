@@ -38,11 +38,12 @@ function RightMenu() {
 
                     </Popover>
 
-                    <Link to='/mypage'>
-                        <div style={{marginRight:'0.9rem'}}>MyPage</div>
-                    </Link>
-
-                    <div onClick={ kakaoLogoutClickHandler }>Logout</div> 
+                    <div className="nav_menu_right_mypage">
+                        <Link to='/mypage'>
+                            MyPage
+                        </Link>
+                    </div>
+                    <div className="nav_menu_right_logout" onClick={ kakaoLogoutClickHandler }>Logout</div> 
                 </div> 
                 
                 : 

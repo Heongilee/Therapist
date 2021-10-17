@@ -41,9 +41,7 @@ function useOpenVidu({ sessionId }) {
           } 
             const exitEndPoint=`/openvidu/session/${SessionId}/exit`;
             await api.fetchRoomCount(exitEndPoint);
-            
-            // const deleteEndPoint=`/openvidu/session/${SessionId}`;
-            // await api.fetchDeleteSession(deleteEndPoint);
+
 
         }
 
@@ -52,7 +50,8 @@ function useOpenVidu({ sessionId }) {
         setSessionId(SessionId);
         setSubscriber([]);
         setPublisher(undefined);
-        history.push('/');
+        // history.push('/');
+        window.close();
       }, [session]);
 
   
@@ -60,7 +59,7 @@ function useOpenVidu({ sessionId }) {
       useEffect(() => {
         window.addEventListener('beforeunload', leaveSession);
         window.addEventListener('keydown', noRefreshEvent);
-
+        
         return () => {
           window.removeEventListener('beforeunload', leaveSession);
           window.removeEventListener('keydown', noRefreshEvent);

@@ -8,3 +8,7 @@
 .nav_menu_left > a {
     color: #000;
 }
+
+.nav_menu_left > a:hover {
+    color: #99AD00;
+}

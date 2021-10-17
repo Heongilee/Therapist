@@ -51,7 +51,6 @@ function PostPage({ match }) {
                 >
                 </InfiniteArea>     
             } 
-                {/* <div ref={setTarget}> {loading && "loading..."}</div> */}
              { renderModal() }    
         </section>
     );

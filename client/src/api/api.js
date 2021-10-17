@@ -1,4 +1,4 @@
-import { URL } from '../config/confing.js';
+import { URL } from '../config/config.js';
 import axios from 'axios';
 
 
