@@ -7,6 +7,8 @@
 .voice_room_title {
     position:relative;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     top:0; 
     margin: 1.5rem 0 1rem 0.7rem;
     font-size:1rem;
@@ -30,6 +32,18 @@
     font-weight: 600;
     color:var(--color-gray);
     margin:0
+}
+
+.voice_room_title > .ant-btn {
+    margin-right: 0.8rem;
+    color: #fff;
+    background:#99AD00;
+    border-color:#99AD00;
+}
+
+.voice_room_title > .ant-btn:hover {
+    background:#5d7808;
+    border-color:#5d7808;
 }
 
 @media only screen and (max-width: 980px) {

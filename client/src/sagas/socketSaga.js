@@ -1,6 +1,6 @@
 import { fork, take, call, put, race } from 'redux-saga/effects';
 import createSocketChannel from "./createSocketChannel";
-import { SOCKET_URL } from '../config/confing.js';
+import { SOCKET_URL } from '../config/config.js';
 import { START_CHANNEL , STOP_CHANNEL, 
           SOCKET_MESSAGE, NOTICE_COUNT, 
           SEND_MESSAGE,

@@ -31,22 +31,3 @@ ReactDOM.render(
 );
 
 
-// const createStoreWithMiddleware = applyMiddleware(promisMiddleware, ReduxThunk)(createStore);
-
-// ReactDOM.render(
-//     <Provider
-//         store={createStoreWithMiddleware(Reducer,
-//           window.__REDUX_DEVTOOLS_EXTENSION__ &&
-//           window.__REDUX_DEVTOOLS_EXTENSION__()
-//         )}
-//     >
-//       <BrowserRouter>
-//           <ScrollToTop/>
-//           <ModalProvider>
-//             <App />
-//           </ModalProvider>
-//       </BrowserRouter>
-        
-//     </Provider>
-//     , document.getElementById('root')
-// );

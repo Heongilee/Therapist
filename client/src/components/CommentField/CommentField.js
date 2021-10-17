@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from 'antd';
-// import { useContextModal } from '../../hook/useContextModal.js'
 import { COMMENT_KINDS } from '../../constants/postPageConstants';
 import './CommentField.css';
 
@@ -11,7 +10,7 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
 
     const commentId = COMMENT_KINDS[COMMENT_ENDPOINT]['commentId'];
     const content = COMMENT_KINDS[COMMENT_ENDPOINT]['content'];
-    // const { showDeleteModal } = useContextModal();
+
     return (
         <div className="comment_area" >
             <ul className="comment_list">
@@ -23,7 +22,6 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
                                 </div>
                         
                                 <div className="comment_content">
-                                    {/* <div>{data[content]}</div> */}
                                     <div> { data[content].split("\n").map((line, index) => {
                                             return <span key={"content" + index}>{line}<br /></span>
                                          })}

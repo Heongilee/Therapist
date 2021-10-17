@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { OPENVIDU_SERVER_URL } from '../config/confing';
+import { OPENVIDU_SERVER_URL } from '../config/config';
 
 
 const OPENVIDU_SERVER_SECRET = 'therapist';
