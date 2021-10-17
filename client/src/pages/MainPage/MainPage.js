@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import CardSection from './sections/CardSection.js';
 import BoardSection from './sections/BoardSection.js';
 import useRecentBoard from '../../hook/useRecentBoard.js';
@@ -8,7 +8,7 @@ import ModalPortal from '../../portal/ModalPortal.js';
 import useWriteModal from '../../hook/useWriteModal.js';
 import { Button } from 'antd';
 
-import { AudioOutlined, PlusCircleOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { AudioOutlined } from '@ant-design/icons';
 
 import './MainPage.css';
 

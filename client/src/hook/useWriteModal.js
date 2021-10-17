@@ -30,7 +30,8 @@ function useWriteModal() {
 
         if (response){
             localStorage.setItem('nickName', NameState);
-            history.push(`/webrtc/${SessionId}`);
+            // history.push(`/webrtc/${SessionId}`);
+            window.open(`/webrtc/${SessionId}`, "", "_blank");
         } else {
             alert('방인원이 초과하였습니다.');
         }

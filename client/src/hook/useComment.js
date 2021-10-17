@@ -26,9 +26,14 @@ function useComment({ COMMENT_ENDPOINT, id, userName }) {
     };
 
     const commentRegister = async(userId, { comment }) => {
-        
-        if (comment.length < 7){
-            alert("7자이상 적어주세요");
+
+        if (comment === undefined){
+            alert("3글자이상 적어주세요");
+            return;
+        }
+
+        if (comment.length < 3){
+            alert("3글자이상 적어주세요");
             return;
         }
 

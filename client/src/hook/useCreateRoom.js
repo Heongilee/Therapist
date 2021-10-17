@@ -48,7 +48,8 @@ function useCreateRoom() {
         if (response){
             setVisible(!Visible);   
             localStorage.setItem('nickName', NameState);
-            history.push(`/webrtc/${String(sessionId)}`);
+            // history.push(`/webrtc/${String(sessionId)}`);
+            window.open(`/webrtc/${String(sessionId)}`, "", "_blank");
             
         } else {
             alert('방생성 에러');

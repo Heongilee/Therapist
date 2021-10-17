@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from '../config/confing.js';
+import { URL } from '../config/config.js';
 
 
 

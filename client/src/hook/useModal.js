@@ -25,7 +25,7 @@ function useModal() {
     
 
     const showStarModal = async(path, star, replyId) => {
-        const endpoint = `star/${replyId}?point=${star + 1}`
+        const endpoint = `star/${replyId}?point=${star}`
 
         setModalType(STAR_MODALTEXT);
         setPathState(path);

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { URL } from '../config/confing.js';
+import { URL } from '../config/config.js';
 import { loading_actions } from '../_actions/loading_actions.js';
 import { LOADING_START, LOADING_END } from '../_actions/types'
 import { useDispatch } from 'react-redux';
