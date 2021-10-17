@@ -14,7 +14,7 @@ import './AnswerForm.css';
 
 function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
 
-
+    
     const { CommentData, CommentState, MessageIconOnClick, PageState,
                             pageSelect, commentRegister  } 
                                                 = useComment( { COMMENT_ENDPOINT:ENDPOINT_DIC['replyComments'], 
