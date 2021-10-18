@@ -104,7 +104,7 @@ public class CommentService {
     // read Reply Comment find by replyId
     public JSONObject findReplyComments(Long replyId, Pageable pageable) {
         ReplyDto replyDto = replyRepository.findById(replyId).orElse(null);
-        Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDtoOrderByCommentCreatedAtDesc(replyDto, pageable);
+        Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDtoOrderByCommentCreatedAtAsc(replyDto, pageable);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("replyCommentSize", replyComments.getTotalElements());
 
@@ -130,7 +130,7 @@ public class CommentService {
 
     public JSONObject findAllPostCommentsByPostId(Long postId, Pageable pageable) {
         PostDto postDto = postRepository.findById(postId).orElse(null);
-        Page<PostCommentDto> postComments = postCommentRepository.findByPostDtoOrderByCommentCreatedAtDesc(postDto, pageable);
+        Page<PostCommentDto> postComments = postCommentRepository.findByPostDtoOrderByCommentCreatedAtAsc(postDto, pageable);
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         for (PostCommentDto postComment : postComments) {
