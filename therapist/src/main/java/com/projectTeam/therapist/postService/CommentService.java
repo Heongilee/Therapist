@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -112,6 +113,8 @@ public class CommentService {
             JSONObject item = new JSONObject();
             item.put("replyCommentId", replyComment.getReplyCommentId());
             item.put("replyCommentContent", replyComment.getReplyCommentContent());
+            item.put("commentCreatedAt", replyComment.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            item.put("commentUpdatedAt", replyComment.getCommentUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             item.put("userId", replyComment.getUserDto().getUserId());
             item.put("userName", replyComment.getUserDto().getUserName());
             jsonArray.add(item);
@@ -134,6 +137,8 @@ public class CommentService {
             JSONObject item = new JSONObject();
             item.put("postCommentId", postComment.getPostCommentId());
             item.put("postCommentContent", postComment.getPostCommentContent());
+            item.put("commentCreatedAt", postComment.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            item.put("commentUpdatedAt", postComment.getCommentUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             item.put("userId", postComment.getUserDto().getUserId());
             item.put("userName", postComment.getUserDto().getUserName());
             jsonArray.add(item);

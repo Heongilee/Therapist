@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class ReplyService {
     @Autowired
@@ -71,6 +73,8 @@ public class ReplyService {
             JSONObject item = new JSONObject();
             item.put("replyId", reply.getReplyId());
             item.put("replyContent", reply.getReplyContent());
+            item.put("replyCreatedAt", reply.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            item.put("replyUpdatedAt", reply.getPostUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             item.put("postId", reply.getPostDto().getPostId());
 
             JSONObject userInfo = new JSONObject();
