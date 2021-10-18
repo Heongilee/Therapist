@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -103,7 +104,7 @@ public class CommentService {
     // read Reply Comment find by replyId
     public JSONObject findReplyComments(Long replyId, Pageable pageable) {
         ReplyDto replyDto = replyRepository.findById(replyId).orElse(null);
-        Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDtoOrderByCommentCreatedAtDesc(replyDto, pageable);
+        Page<ReplyCommentDto> replyComments = replyCommentRepository.findByReplyDtoOrderByCommentCreatedAtAsc(replyDto, pageable);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("replyCommentSize", replyComments.getTotalElements());
 
@@ -112,6 +113,8 @@ public class CommentService {
             JSONObject item = new JSONObject();
             item.put("replyCommentId", replyComment.getReplyCommentId());
             item.put("replyCommentContent", replyComment.getReplyCommentContent());
+            item.put("commentCreatedAt", replyComment.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            item.put("commentUpdatedAt", replyComment.getCommentUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             item.put("userId", replyComment.getUserDto().getUserId());
             item.put("userName", replyComment.getUserDto().getUserName());
             jsonArray.add(item);
@@ -127,13 +130,15 @@ public class CommentService {
 
     public JSONObject findAllPostCommentsByPostId(Long postId, Pageable pageable) {
         PostDto postDto = postRepository.findById(postId).orElse(null);
-        Page<PostCommentDto> postComments = postCommentRepository.findByPostDtoOrderByCommentCreatedAtDesc(postDto, pageable);
+        Page<PostCommentDto> postComments = postCommentRepository.findByPostDtoOrderByCommentCreatedAtAsc(postDto, pageable);
         JSONObject jsonObject = new JSONObject();
         JSONArray jsonArray = new JSONArray();
         for (PostCommentDto postComment : postComments) {
             JSONObject item = new JSONObject();
             item.put("postCommentId", postComment.getPostCommentId());
             item.put("postCommentContent", postComment.getPostCommentContent());
+            item.put("commentCreatedAt", postComment.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            item.put("commentUpdatedAt", postComment.getCommentUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             item.put("userId", postComment.getUserDto().getUserId());
             item.put("userName", postComment.getUserDto().getUserName());
             jsonArray.add(item);

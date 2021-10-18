@@ -20,6 +20,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 // @Service 어노테이션을 통해 비즈니스 로직을 작성할 수 있게 된다.
@@ -87,6 +88,9 @@ public class UserService {
         jsonObject.put("userGrade", user.getUserGrade());
         jsonObject.put("userStars", user.getUserStars());
         jsonObject.put("userProfileImage", user.getUserProfileImage());
+        jsonObject.put("userPostsLength", user.getPosts().size());
+        jsonObject.put("userRepliesLength", user.getReplies().size());
+        jsonObject.put("userCommentsLength", user.getUserPostComments().size() + user.getUserReplyComments().size());
 
         return jsonObject;
     }
@@ -237,6 +241,7 @@ public class UserService {
                 item.put("postType", post.getPostType());
                 item.put("title", post.getPostTitle());
                 item.put("content", post.getPostContent());
+                item.put("createdAt", post.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 userPosts.add(item);
             }
             jsonObject.put("postData", userPosts);
@@ -250,8 +255,9 @@ public class UserService {
                 JSONObject item = new JSONObject();
                 item.put("replyId", reply.getReplyId());
                 item.put("postId", reply.getPostDto().getPostId());
-                item.put("title", reply.getPostDto().getPostTitle());
+                item.put("title", "Re: " + reply.getPostDto().getPostTitle());
                 item.put("content", reply.getReplyContent());
+                item.put("createdAt", reply.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 userReplies.add(item);
             }
             jsonObject.put("postData", userReplies);
@@ -268,6 +274,7 @@ public class UserService {
                 cmtObject.put("title", cmt.getPostDto().getPostTitle());
                 cmtObject.put("commentId", cmt.getPostCommentId());
                 cmtObject.put("content", cmt.getPostCommentContent());
+                cmtObject.put("createdAt", cmt.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 cmtArray.add(cmtObject);
             }
             jsonObject.put("postData", cmtArray);
@@ -282,8 +289,9 @@ public class UserService {
                 JSONObject cmtObject = new JSONObject();
                 cmtObject.put("postId", cmt.getReplyDto().getPostDto().getPostId());
                 cmtObject.put("commentId", cmt.getReplyCommentId());
-                cmtObject.put("title", cmt.getReplyDto().getPostDto().getPostTitle());
+                cmtObject.put("title", "Re: " + cmt.getReplyDto().getPostDto().getPostTitle());
                 cmtObject.put("content", cmt.getReplyCommentContent());
+                cmtObject.put("createdAt", cmt.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 cmtArray.add(cmtObject);
             }
             jsonObject.put("postData", cmtArray);

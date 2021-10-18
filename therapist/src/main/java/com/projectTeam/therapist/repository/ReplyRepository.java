@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface ReplyRepository extends JpaRepository<ReplyDto, Long> {
     List<ReplyDto> findByUserDtoOrderByPostCreatedAtDesc(UserDto userDto);
-    Page<ReplyDto> findByPostDtoOrderByPostCreatedAtDesc(PostDto postDto, Pageable pageable);
+    Page<ReplyDto> findByPostDtoOrderByPostCreatedAtAsc(PostDto postDto, Pageable pageable);
 }

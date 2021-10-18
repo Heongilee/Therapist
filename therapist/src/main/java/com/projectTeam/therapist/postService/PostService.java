@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -88,8 +89,8 @@ public class PostService {
         jsonObject.put("postType", postDto.getPostType().toString());
         jsonObject.put("postTitle", postDto.getPostTitle());
         jsonObject.put("postContent", postDto.getPostContent());
-        jsonObject.put("postCreatedAt", postDto.getPostCreatedAt());
-        jsonObject.put("postUpdatedAt", postDto.getPostUpdatedAt());
+        jsonObject.put("postCreatedAt", postDto.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        jsonObject.put("postUpdatedAt", postDto.getPostUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
         JSONArray postCommentsJsonArray = new JSONArray();
         for (PostCommentDto postComment : postDto.getPostComments()) {
             postCommentsJsonArray.add(postComment);
