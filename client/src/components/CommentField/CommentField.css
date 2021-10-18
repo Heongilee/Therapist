@@ -16,9 +16,14 @@
 }
 
 .comment_header {
-    display: flex;
-    justify-content: flex-start;
+    /* display: flex; */
+    /* justify-content: flex-start; */
     font-weight: bold;
+}
+
+.comment_header > div {
+    color:#8c8c8c;
+    font-size: 0.9rem;
 }
 
 .comment_content {

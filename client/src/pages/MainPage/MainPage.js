@@ -6,6 +6,8 @@ import useVoiceRoom from '../../hook/useVoiceRoom.js';
 import useCreateRoom from '../../hook/useCreateRoom.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import useWriteModal from '../../hook/useWriteModal.js';
+import MainImg from '../../components/MainImg/MainImg.js';
+
 import { Button } from 'antd';
 
 import { AudioOutlined } from '@ant-design/icons';
@@ -21,7 +23,7 @@ function MainPage() {
     
     return (
         <section className="main_section">
-
+            <MainImg/>
             <div className="wrapper">
                 <div className="voice_room_title">            
                     <h2>

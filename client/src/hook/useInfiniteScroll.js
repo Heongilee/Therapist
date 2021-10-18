@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 
 function useInfiniteScroll( { currentPage, loadData, totalpage }) {
     const [ target, setTarget ] = useState(null);
-  
+
     const onIntersect = async ([entry], observer) => {
- 
+
         if (currentPage.current === 0){ //첫번째 페이지
           return;
         }

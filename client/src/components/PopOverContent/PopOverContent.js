@@ -13,7 +13,8 @@ function PopOverContent({ setPopOverState }) {
 
   const { NoticeState, currentPage, loadNoticeData } = useNotice();
 
-  const { noticeData, loading } = NoticeState;
+  const { noticeData, totalAmount, loading } = NoticeState;
+
 
   const onClick = () => {
           const scrollY = document.body.style.top;
@@ -28,7 +29,7 @@ function PopOverContent({ setPopOverState }) {
             return <div key={"notice"+index} className='notice_content'>
                     <Link to={`/posts/${data.postId}`} onClick={onClick}>
                       <p>{data.senderUsername.split('@')[0]+'님께서 '}
-                          {localStorage.getItem('username').split('@')[0]+'님의 글에 '+ 
+                          {'회원님의 글에 '+ 
                             NOTICE_TYPE[type] + '을 다셨습니다'}.</p></Link>
                   </div>
              
@@ -37,17 +38,18 @@ function PopOverContent({ setPopOverState }) {
 
 
   return (
-    <PerfectScrollbar style={{ maxHight: "350px" }}>
-        <div>
+    <PerfectScrollbar style={{ maxHeight: "200px" }}>
+          <div>
           {
             noticeData && noticeList()
           }
+          </div>
+      
           
-        </div>
 
-        {noticeData && 
+        {totalAmount && 
                 <InfiniteArea currentPage={currentPage} loadData={loadNoticeData}
-                totalpage={noticeData.totalAmount} loading={loading}
+                totalpage={totalAmount} loading={loading}
                 >
                 </InfiniteArea>     
             } 

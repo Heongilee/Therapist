@@ -23,7 +23,7 @@ const App = () => (
         <ErrorHandler>
             <LoadingBar/>
             <Header/>
-            <MainImg/>
+            {/* <MainImg/> */}
             <Switch>
                 <Route exact path="/" component={ MainPage } />
                 <Route exact path="/board" component={ BoardPage } />

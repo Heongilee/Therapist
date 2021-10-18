@@ -6,7 +6,6 @@ function InfiniteArea({totalpage, currentPage, loadData, loading}) {
 
     const setTarget = useInfiniteScroll({ currentPage, loadData, totalpage });
 
-    
     return (
         <>
             <div ref={setTarget}> {loading && <SpinLoadIcon/>}</div>

@@ -21,8 +21,8 @@ import { QuestionCircleTwoTone } from '@ant-design/icons';
 
 
 function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
-
-
+    
+    
     const { CommentData, CommentState, 
             MessageIconOnClick, commentRegister,
             pageSelect, PageState } 
@@ -67,7 +67,8 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
             </div> 
 
                 <div className="question_content">
-                     { questionData.postContent.split("\n").map((line, index) => 
+                    {/* <div>{questionData.postContent}</div> */}
+                     { questionData.postContent.split("<br>").map((line, index) => 
                      {
                         return <span key={"postContent" + index}>{line}<br /></span>
                     })}
@@ -75,7 +76,8 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
 
             <div className="question_footer">
                 <AvatarField userid={questionData.userInfo.userName}
-                             grade={questionData.userInfo.userGrade}></AvatarField>
+                             grade={questionData.userInfo.userGrade}
+                             time={questionData.postCreatedAt}></AvatarField>
                 <div className="question_footer_reply">
                     <div className="question_footer_reply_button">
 

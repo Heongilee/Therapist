@@ -76,9 +76,12 @@
         font-size: 1.4rem;
     }
 
+    .question_footer_reply_button {
+        display: inline;
+    }
+
     .question_footer_reply_button .ant-btn{
-        margin-left: 1rem;
-        display: none;
+        margin-bottom: 0.2rem;
     }
     .question_header_btn{
         display: none;

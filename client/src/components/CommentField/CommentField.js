@@ -10,7 +10,7 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
 
     const commentId = COMMENT_KINDS[COMMENT_ENDPOINT]['commentId'];
     const content = COMMENT_KINDS[COMMENT_ENDPOINT]['content'];
-
+    
     return (
         <div className="comment_area" >
             <ul className="comment_list">
@@ -19,6 +19,9 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
                     return <li className="comment" key={ "comment" + index }>
                                 <div className="comment_header">
                                     { data.userName }
+                                    <div>
+                                    {data.commentCreatedAt}
+                                    </div>
                                 </div>
                         
                                 <div className="comment_content">
