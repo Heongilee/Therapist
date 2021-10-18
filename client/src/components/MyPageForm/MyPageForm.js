@@ -8,13 +8,15 @@ import { Checkbox } from 'antd';
 import './MyPageForm.css';
 
 
-function MyPageForm({ postData, cateGory, postType, currentPage }) {
+function MyPageForm({ postData, cateGory, postType, currentPage, CATEGORY_HANGUL_LIST }) {
     
     const [ CheckState, checkBoxhandler ] = useCheckBox({ postData, currentPage });
 
 
     const { showDeleteModal, handleOk, handleCancel, visible, confirmLoading } 
     = useCheckBoxModal({ CheckState, postData, postType:postType });
+    
+    
 
     const postList = 
     postData.slice((currentPage - 1) * 6, ((currentPage - 1) * 6) + 6)
@@ -23,12 +25,32 @@ function MyPageForm({ postData, cateGory, postType, currentPage }) {
                         <Checkbox dataSet={index} checked={CheckState[index]} 
                                         onChange={(event)=>checkBoxhandler(event)}></Checkbox>
                         <div className="mypage_post">
+                        
                         <Link to={`/posts/${data.postId}`}>
                             <div className="mypage_post_header">
-                                <div>{ data.title }</div>   
-                                <div>{ data.content }</div>
+                                
+                                {postType === 'myPosts' ?
+                                    <>
+                                        <div>{ data.title }</div>   
+                                        <div>
+                                        { data.content.split('<br>').map((line, index) => {
+                                                return <span key={"content" + index}>{line}<br /></span>
+                                            })}
+                                        </div> 
+                                    </> : 
+                                    <>
+                                    <div>
+                                    { data.content.split('<br>').map((line, index) => {
+                                            return <span key={"content" + index}>{line}<br /></span>
+                                        })}
+                                    </div>
+                                    <div>{ data.title }</div>    
+                                    </>
+                                }
+                                
                             </div>
                         </Link>
+                            <div>{data.createdAt}</div>  
                         </div>
                 </li>
         });
@@ -36,7 +58,7 @@ function MyPageForm({ postData, cateGory, postType, currentPage }) {
         return (
                 <div className="mypage_posts">
                     <div className="mypage_posts_header">
-                        <div className="mypage_category_name">{postType}</div>
+                        <div className="mypage_category_name">{CATEGORY_HANGUL_LIST[postType]}</div>
                     </div>
 
                     <ul className="mypage_posts_list">

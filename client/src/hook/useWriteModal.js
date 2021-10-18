@@ -22,7 +22,16 @@ function useWriteModal() {
     }
 
     const handleOk = async() => {
-
+        console.log("NameState", NameState.length)
+        if (NameState.length === 0){
+            alert('닉네임을 입력해 주세요');
+            return;
+        }
+        if (NameState.length >= 8){
+            alert('닉네임이 너무 길어요^^');
+            return;
+        }
+        
         const roomEndPoint=`/openvidu/session/${SessionId}/enter`;
         const response = await api.fetchRoomCount(roomEndPoint, history);
         setNameState("");

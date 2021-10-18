@@ -5,6 +5,7 @@ import useQuestion  from '../../hook/useQuestion.js';
 import { useContextModal } from '../../hook/useContextModal';
 import useAnswer from '../../hook/useAnswer.js';
 import InfiniteArea from '../../components/InfiniteArea/InfiniteArea.js';
+import MainImg from '../../components/MainImg/MainImg.js';
 
 
 import './PostPage.css';
@@ -35,7 +36,7 @@ function PostPage({ match }) {
 
     return (
         <section className="postPage">
-            
+            <MainImg/>
             <div className="wrapper">
                 { QuestionData &&
                     <QuestionForm questionData={QuestionData} 

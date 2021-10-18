@@ -36,7 +36,10 @@ function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
                 <li className="answer">
                     <div className="answer_header">
                         <AvatarField userid={data.userInfo.userName} 
-                                    grade={data.userInfo.userGrade}></AvatarField>
+                                    grade={data.userInfo.userGrade}
+                                    time={data.userInfo.replyCreatedAt}
+                                    >
+                                    </AvatarField>
                         {localStorage.getItem('username') === data.userInfo.userName  ?
                             <div>
 
@@ -51,7 +54,7 @@ function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
                                 : null}
                     </div>
                     <div className="answer_content">
-                        { data.replyContent.split("\n").map((line, index) => {
+                        { data.replyContent.split('<br>').map((line, index) => {
                            return <span key={"replyContent" + index}>{line}<br /></span>
                         })}
                     </div>

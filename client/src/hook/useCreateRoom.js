@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ModalRoomCreate from '../components/Modal/ModalRoomCreate.js';
-import {useContextOpv} from './useContextOpv.js';
 import { useHistory } from 'react-router-dom';
 
 import api from '../api/api.js';
@@ -29,6 +28,22 @@ function useCreateRoom() {
     }
     
     const handleOk = async() => {
+
+        if (TitleState.length === 0){
+            alert('제목을 입력해 주세요');
+            return;
+        }
+        if (TitleState.length >= 15){
+            alert('제목이 너무 길어요^^');
+            return;
+        }
+        if (NameState.length === 0){
+            alert('닉네임을 입력해 주세요')
+        }
+        if (NameState.length >= 8){
+            alert('닉네임이 너무 길어요^^');
+            return;
+        }
 
         const endpoint='/openvidu/session';
         

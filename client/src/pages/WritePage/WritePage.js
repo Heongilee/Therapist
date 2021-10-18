@@ -37,14 +37,14 @@ function WritePage({ location }){
     
         
         if (title){
-            if (title.state.value === null || title.state.value.length < 7){
-                alert("제목을 7글자이상 적어주세요");
+            if (title.state.value === null || title.state.value.length < 3){
+                alert("제목을 3글자이상 적어주세요");
                 return;
             }
         }
 
-        if (content.length < 7){
-            alert("내용을 7글자 이상 적어주세요");
+        if (content.length < 3){
+            alert("내용을 3글자 이상 적어주세요");
             return;
         }
 

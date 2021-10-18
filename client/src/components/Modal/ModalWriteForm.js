@@ -14,7 +14,7 @@ const ModalForm = ({ title="Therapist", handleOk, handleCancel, visible, onNameH
         onCancel={handleCancel}
         width={300}
       >
-        <Input placeholder="3글자 이상 입력해주세요" onChange={onNameHandler}/>
+        <Input placeholder="닉네임을 입력해 주세요" onChange={onNameHandler}/>
       </Modal>
     
   );
