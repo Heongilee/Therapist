@@ -12,12 +12,12 @@ const NOTICE_TYPE = { reply:'답글', replyComment:'댓글', postComment:'댓글
 
 const openNotification = ({ type, data }) => {
   
-  const {senderUserName, postType } = data;                 
+  const {senderUserName, receivedUserName, postType } = JSON.parse(data);                 
   
   const option = {
     message: '알림',
     description: `${senderUserName.split('@')[0]}님께서 
-                  ${localStorage.getItem('username').split('@')[0]}님의 글에
+                  ${receivedUserName.split('@')[0]}님의 글에
                   ${NOTICE_TYPE[postType]}을 달았습니다.`,
     placement:'bottomRight',
   };

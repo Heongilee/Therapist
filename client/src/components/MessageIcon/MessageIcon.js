@@ -6,7 +6,7 @@ function MessageIcon( {commentCount = 0} ) {
 
     return (
         <div className="messageIcon" >
-            <MessageOutlined style={{ fontSize: '22px', marginLeft: '1rem'}} />
+            <MessageOutlined style={{ fontSize: '22px', marginLeft: '0.5rem'}} />
             <span style={{ marginLeft: '0.5rem'}}>{ commentCount }</span>
         </div>
     );

@@ -6,7 +6,7 @@ import api from '../api/api.js';
 function useNotice() {
     const history = useHistory();
     const currentPage = useRef(0);
-    const [ NoticeState, setNoticeState ] = useState({ noticeData:[], loading:false });
+    const [ NoticeState, setNoticeState ] = useState({ noticeData:[], loading:false,totalAmount:0 });
 
     const loadNoticeData = async() => {
         setNoticeState(prev => ({ ...prev, loading: true }));
@@ -18,6 +18,7 @@ function useNotice() {
 
         setNoticeState(prev => ({
           noticeData: [...prev.noticeData, ...data.notices],
+          totalAmount:data.totalAmount,
           loading: false
         }));
   

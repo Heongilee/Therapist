@@ -1,14 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './MainImg.css';
 
 
 function MainImg() {
+
     return (
         <section>
-            <div className="main_img">
+            <Link to='/'><div className="main_img">
                 <div className="main_img_wrapper">
                 </div>
-            </div>
+            </div></Link>
         </section>
     )
 }
