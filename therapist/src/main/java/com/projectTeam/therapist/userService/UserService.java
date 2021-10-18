@@ -88,6 +88,9 @@ public class UserService {
         jsonObject.put("userGrade", user.getUserGrade());
         jsonObject.put("userStars", user.getUserStars());
         jsonObject.put("userProfileImage", user.getUserProfileImage());
+        jsonObject.put("userPostsLength", user.getPosts().size());
+        jsonObject.put("userRepliesLength", user.getReplies().size());
+        jsonObject.put("userCommentsLength", user.getUserPostComments().size() + user.getUserReplyComments().size());
 
         return jsonObject;
     }
