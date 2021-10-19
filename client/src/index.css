@@ -5,23 +5,23 @@
     --color-gray: rgba(0, 0, 0, 0.6);
 }
 
-/* @font-face {
+@font-face {
     font-family: 'EliceDigitalBaeum_Bold';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Bold.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-} */
+}
 
-@font-face {
+/* @font-face {
     font-family: 'RIDIBatang';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 body {
-    /* font-family: "Spoqa Han Sans Neo", "Sans-serif"; */
-    font-family: "ridi", "RIDIBatang";
+    font-family: "elice", "EliceDigitalBaeum_Bold";
+    /* font-family: "ridi", "RIDIBatang"; */
     font-size: 62.5%;
     background-color: #e9ecef;
 }

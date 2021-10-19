@@ -33,9 +33,10 @@ const useQuery = (endpoint) => {
 
       dispatch(loading_actions.loadingReset());
       const { status } = error.response;
-
       if (status === 401) {
         alert('로그인 하세요');
+        localStorage.clear();
+        console.log("zz")
         history.push('/');
       } else if  (status >= 400) {
         history.replace(history.location.pathname, { errorStatusCode: status,
