@@ -17,7 +17,7 @@ const openNotification = ({ type, data }) => {
   const option = {
     message: '알림',
     description: `${senderUserName.split('@')[0]}님께서 
-                  ${receivedUserName.split('@')[0]}님의 글에
+                  회원님의 글에
                   ${NOTICE_TYPE[postType]}을 달았습니다.`,
     placement:'bottomRight',
   };

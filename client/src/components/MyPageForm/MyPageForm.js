@@ -50,7 +50,7 @@ function MyPageForm({ postData, cateGory, postType, currentPage, CATEGORY_HANGUL
                                 
                             </div>
                         </Link>
-                            <div>{data.createdAt}</div>  
+                            <div style={{color:"#8c8c8c"}}>{data.createdAt}</div>  
                         </div>
                 </li>
         });

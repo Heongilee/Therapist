@@ -5,6 +5,7 @@ import useBoardState from '../../hook/useBoardState.js';
 import MyPageForm from '../../components/MyPageForm/MyPageForm.js';
 import SelectCard from '../../components/SelectCard/SelectCard.js';
 import MainImg from '../../components/MainImg/MainImg.js';
+import MyInfoCard from './sections/MyInfoCard.js';
 
 import { PATH, CATEGORY_LIST, CATEGORY_DIC, 
                     ENDPOINT,ININIAL_POSTTYPE, CATEGORY_HANGUL_LIST  } from '../../constants/myPageConstants.js';
@@ -18,7 +19,8 @@ function Mypage() {
                                                 ININIAL_POSTTYPE, userName:localStorage.getItem('username') });
     return (
             <section className="myPage">
-                <MainImg/>
+                {/* <MainImg/> */}
+                <MyInfoCard/>
                 <div className="wrapper">
 
                 {TotalBoard && <SelectCard 

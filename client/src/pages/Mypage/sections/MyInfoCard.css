@@ -1,0 +1,93 @@
+
+
+.myinfo_container {
+    position: relative;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 9px;
+    margin-top: 5rem;
+    height: 240px;
+}
+
+.myinfo_card {
+    background-color:#fff;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 8px;
+    margin: 0 10px 0 10px;
+    font-size: 1.1rem;
+    width: 33.3%;
+}
+
+.myinfo_card_area {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    word-break:break-all;
+
+}
+
+
+.myinfo_card_header {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.myinfo_card_content {
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.myinfo_card_content_grade_star {
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 30px;
+}
+
+.myinfo_card_content_items{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+@media only screen and (max-width: 980px) {
+
+    .myinfo_card {
+        margin: 0;
+    }
+    .myinfo_card_area {
+        font-size: 13px;
+    }
+    .myinfo_card_header {
+        flex-direction: column;
+        justify-content: center;
+    }   
+
+    .myinfo_card_header > .avater_area{
+        display: inline-block;
+        height: 40px;
+    }
+
+    .myinfo_card{
+        border-radius: 0;
+    }
+    .myinfo_container {
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+    }
+    .myinfo_container > li:first-child {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    .myinfo_container > li:last-child {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+
+    
+}
