@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +38,13 @@ public class ReplyDto {
 
     @PrePersist
     public void prePersist() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime();
         this.postCreatedAt = now;
         this.postUpdatedAt = now;
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.postUpdatedAt = LocalDateTime.now();
+        this.postUpdatedAt = LocalDateTime.now().atZone(ZoneId.of("Asia/Seoul")).toLocalDateTime();
     }
 }
