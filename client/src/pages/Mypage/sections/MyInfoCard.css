@@ -42,6 +42,13 @@
     text-align: center;
 }
 
+.myinfo_card_content_grade_star {
+    width: 100%;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 30px;
+}
+
 .myinfo_card_content_items{
     display: flex;
     justify-content: space-around;
@@ -62,7 +69,8 @@
     }   
 
     .myinfo_card_header > .avater_area{
-        display: inline;
+        display: inline-block;
+        height: 40px;
     }
 
     .myinfo_card{

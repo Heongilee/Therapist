@@ -31,7 +31,7 @@ function MyInfoCard() {
 
                         <div className="myinfo_card_content">
                             <div className="myinfo_card_content_items">
-                                <span>{"내가 쓴 글"}</span>
+                                <span>{"내가 쓴 글　"}</span>
                                 <span>{MyInfoState.userPostsLength}</span>
                             </div>
                             
@@ -55,7 +55,7 @@ function MyInfoCard() {
                         <div className="myinfo_card_header">
                             <span>{"등급"}</span>
                         </div>
-                        <div className="myinfo_card_content">
+                        <div className="myinfo_card_content_grade_star">
                             <span>{MyInfoState.userGrade}</span>
                         </div>
 
@@ -68,7 +68,7 @@ function MyInfoCard() {
                         <div className="myinfo_card_header">
                             <span>{"평점"}</span>
                         </div>
-                        <div className="myinfo_card_content">
+                        <div className="myinfo_card_content_grade_star">
                             <span><StarFilled style={{color:"#ffff00"}} />{MyInfoState.userStars}</span>
                         </div>
 
