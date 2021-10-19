@@ -118,17 +118,17 @@ public class ReplyService {
     public void makeGrade(Long replyId, int starPoint) {
         ReplyDto reply = replyRepository.getById(replyId);
         UserDto user = reply.getUserDto();
-        int star = user.getUserStars();
-        String grade = user.getUserGrade();
-        if (star < 50) {
+        int totalStar = user.getUserStars() + starPoint;
+        String grade = "";
+        if (totalStar >= 0 && totalStar < 50) {
             grade = "BRONZE";
-        } else if (star >= 50 && star < 100) {
+        } else if (totalStar >= 50 && totalStar < 100) {
             grade = "SILVER";
         } else {
             grade = "GOLD";
         }
         user.setUserGrade(grade);
-        user.setUserStars(star+starPoint);
+        user.setUserStars(totalStar);
         userRepository.save(user);
 
         replyRepository.findById(replyId)
