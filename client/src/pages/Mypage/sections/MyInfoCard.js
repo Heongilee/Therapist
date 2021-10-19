@@ -27,6 +27,7 @@ function MyInfoCard() {
                             <AvatarField/>
                             <span>{localStorage.getItem('username').split('@')[0]}</span>
                             <span>{'@'+localStorage.getItem('username').split('@')[1]}</span>
+
                         </div>
 
                         <div className="myinfo_card_content">
