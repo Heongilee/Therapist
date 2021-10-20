@@ -5,7 +5,7 @@ import './PostSection.css';
 
 
 const PostSection = ({ postData }) => {
-    console.log("postData", postData)
+
     const posts = postData.map((data, index) => {
      
         return <li className="resent_post_area" key={ "data" + index }>
