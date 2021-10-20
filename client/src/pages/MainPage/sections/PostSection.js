@@ -22,7 +22,7 @@ const PostSection = ({ postData }) => {
                                 </div>
                             </Link>
                                 <div className="resent_post_footer">
-                                    <div>답변 { data.replyLength }</div>
+                                    <div>답변 { data.countOfReplies }</div>
                                 </div>
                 </li>
         });
