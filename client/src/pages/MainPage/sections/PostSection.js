@@ -5,7 +5,7 @@ import './PostSection.css';
 
 
 const PostSection = ({ postData }) => {
-
+    console.log("postData", postData)
     const posts = postData.map((data, index) => {
      
         return <li className="resent_post_area" key={ "data" + index }>
@@ -22,7 +22,7 @@ const PostSection = ({ postData }) => {
                                 </div>
                             </Link>
                                 <div className="resent_post_footer">
-                                    <div>답변 { data.replyLength }</div>
+                                    <div>답변 { data.countOfReplies }</div>
                                 </div>
                 </li>
         });
