@@ -92,6 +92,8 @@ body {
 }
 
 
+
+
 /* 최소 width가 1200px일때  */
 @media only screen and (min-width: 1200px) {
     .wrapper {

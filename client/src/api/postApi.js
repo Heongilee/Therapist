@@ -6,7 +6,7 @@ const postApi = {
 
     fetchAnswer: async(postId, currentPage,history) => {
 
-        const headers = { Authorization: `Bearer ${localStorage.getItem('token')}` };
+        const headers = { Authorization: `Bearer ${sessionStorage.getItem('token')}` };
         try {
             const { data, status } = await axios.get(`${URL}/replies/${postId}?page=${currentPage}`, headers);
 
@@ -34,7 +34,7 @@ const postApi = {
 
         try {
             axios.defaults.headers.common['Authorization'] 
-                = `Bearer ${localStorage.getItem('token')}`
+                = `Bearer ${sessionStorage.getItem('token')}`
 
             const response = await axios.get(`${URL}/${endpoint}/${id}?page=${page}`);
 

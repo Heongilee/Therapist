@@ -11,6 +11,7 @@
     display: flex;
     margin: 18px;
     background-color: #fff;
+    height: 900px;
     border-radius: 8px;
 }
 
@@ -34,6 +35,7 @@
         margin-top: 15px;
         margin-left: 0.2rem;
         margin-right: 0.2rem;
+        height:100%
     }
 
     .myPage_sideBar_area {

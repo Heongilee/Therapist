@@ -4,6 +4,7 @@ import './BoardForm.css';
 
 
 function BoardForm({ postData, cateGory, currentPage, CATEGORY_HANGUL_LIST }) {
+
     const postList = 
     postData.slice((currentPage - 1) * 6, ((currentPage - 1) * 6) + 6)
     .map((data, index) => {
