@@ -19,7 +19,6 @@ function Mypage() {
                                                 ININIAL_POSTTYPE, userName:localStorage.getItem('username') });
     return (
             <section className="myPage">
-                {/* <MainImg/> */}
                 <MyInfoCard/>
                 <div className="wrapper">
 

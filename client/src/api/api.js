@@ -178,7 +178,7 @@ const api = {
     fetchGet: async(endPoint, history) => {
         
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
             const { data, status } = await axios.get(`${URL}/${endPoint}`);
 
             if (status === 200){
@@ -207,7 +207,7 @@ const api = {
     fetchRegister: async(endPoint, body, history) => {
 
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
             const { status } = await axios.post(`${URL}/${endPoint}`, body);
 
             if (status === 200){
@@ -232,7 +232,7 @@ const api = {
     fetchModify: async(endPoint, body, history) => {
 
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
             const { status } = await axios.put(`${URL}/${endPoint}`, body);
             
             if (status === 200){
@@ -257,7 +257,7 @@ const api = {
     fetchDelete: async(endPoint, history) => {
 
         try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${sessionStorage.getItem('token')}`;
             const { status } = await axios.delete(`${URL}/${endPoint}`);
             
             if (status === 200){

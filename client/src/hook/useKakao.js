@@ -12,13 +12,13 @@ const { Kakao } = window;
 function useKakao() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const [LoginState, setLoginState] = useState(localStorage.getItem('token') ? true : false);
-
+    const [LoginState, setLoginState] = useState(sessionStorage.getItem('token') ? true : false);
+    
     useEffect(() => {
-        if (localStorage.getItem('token')){
+        if (LoginState){
             dispatch(socket_actions.connectChannel());
         }
-    }, []);
+    }, [LoginState]);
 
 
     const kakaoLoginClickHandler = () => {
@@ -32,7 +32,7 @@ function useKakao() {
                     .then(res => res.json())
                     .then(res => {
 
-                        localStorage.setItem("token", res.token);
+                        sessionStorage.setItem("token", res.token);
                         localStorage.setItem("username", res.username);
                         if (res.token) {
                             alert("welcome")
@@ -54,6 +54,7 @@ function useKakao() {
         Kakao.Auth.logout(function() {
             alert("bye bye")
             localStorage.clear();
+            sessionStorage.clear();
             setLoginState(!LoginState);
             dispatch(socket_actions.disConnectChannel());
             history.push(`/`);
