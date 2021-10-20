@@ -3,6 +3,7 @@ import useCheckBox from '../../hook/useCheckBox.js';
 import useCheckBoxModal from '../../hook/useCheckBoxModal.js';
 import ModalForm from '../Modal/ModalForm.js';
 import ModernButton from '../Atoms/ModernButton/ModernButton.js';
+import ToastViewer from '../ToastViewer/ToastViewer.js';
 import { Link } from 'react-router-dom';
 import { Checkbox } from 'antd';
 import './MyPageForm.css';
@@ -32,18 +33,16 @@ function MyPageForm({ postData, cateGory, postType, currentPage, CATEGORY_HANGUL
                                 {postType === 'myPosts' ?
                                     <>
                                         <div>{ data.title }</div>   
-                                        <div>
-                                        { data.content.split('<br>').map((line, index) => {
+                                        <ToastViewer text={data.content}/>
+                                        {/* { data.content.split('<br>').map((line, index) => {
                                                 return <span key={"content" + index}>{line}<br /></span>
-                                            })}
-                                        </div> 
+                                            })} */}
                                     </> : 
                                     <>
-                                    <div>
-                                    { data.content.split('<br>').map((line, index) => {
+                                    <ToastViewer text={data.content} className="temp"/>
+                                    {/* { data.content.split('<br>').map((line, index) => {
                                             return <span key={"content" + index}>{line}<br /></span>
-                                        })}
-                                    </div>
+                                        })} */}
                                     <div>{ data.title }</div>    
                                     </>
                                 }
