@@ -57,18 +57,54 @@
 
 - 클래스 다이어그램
     - empty
-    
-- UI 설계서
+
+- UI 설계서 + 시멘틱 마크업
     - empty
+
+| ERD |
+|:----------------------------------------:|
+|<img src="https://user-images.githubusercontent.com/55871242/138058773-735cb969-4e6c-4735-8549-d52ec2b030dc.png" width="1284px" height="583px"/>|
+   
+　
+   
+| 시스템 아키텍처 |
+|:----------------------------------------:|
+|<img src="https://user-images.githubusercontent.com/55871242/138059189-5249716f-3e22-4505-a06c-5db4a50475f6.png" width="1284px" height="650px"/>|
 　   
+    
+<br/>
+
 　   
 ## Development process :date:
 
-empty
+간트 차트
 　   
 　   
 ## Demo :computer:
 
-empty
-　   
-　   
+| 1 |
+|:----------------------------------------:|
+|<img src="https://via.placeholder.com/1100x497" width="1100px" height="497px"/>|
+| 내용1 |
+   
+   
+| 2 |
+|:----------------------------------------:|
+|<img src="https://via.placeholder.com/1100x497" width="1100px" height="497px"/>|
+| 내용2 |
+   
+   
+| 3 |
+|:----------------------------------------:|
+|<img src="https://via.placeholder.com/1100x497" width="1100px" height="497px"/>|
+| 내용3 |
+   
+   
+| 4 |
+|:----------------------------------------:|
+|<img src="https://via.placeholder.com/1100x497" width="1100px" height="497px"/>|
+| 내용4 |
+   
+   
+<br/>
+　
