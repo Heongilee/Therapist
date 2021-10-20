@@ -48,6 +48,9 @@
 
 @media only screen and (max-width: 980px) {
 
+    .board_title{
+        font-size: 0.8rem;
+    }
     .voice_room_title {
         display: none;
     }

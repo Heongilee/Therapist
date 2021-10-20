@@ -7,6 +7,7 @@ import PaginationCmp from '../Pagination/PaginationCmp.js';
 import CommentForm from '../CommentForm/CommentForm.js';
 import useComment from '../../hook/useComment.js';
 import DropButton from '../DropButton/DropButton.js';
+import ToastViewer from '../ToastViewer/ToastViewer.js';
 
 import { ENDPOINT_DIC } from '../../constants/modalConstants';
 import './AnswerForm.css';
@@ -54,9 +55,7 @@ function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
                                 : null}
                     </div>
                     <div className="answer_content">
-                        { data.replyContent.split('<br>').map((line, index) => {
-                           return <span key={"replyContent" + index}>{line}<br /></span>
-                        })}
+                        <ToastViewer text={data.replyContent}></ToastViewer>
                     </div>
                     <div className="answer_footer">
 

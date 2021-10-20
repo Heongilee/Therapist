@@ -1,13 +1,12 @@
 import React from 'react';
-import ModernButton from '../Atoms/ModernButton/ModernButton.js';
 import AvatarField from '../Atoms/AvatarField/AvatarField.js';
 import MessageIcon from '../MessageIcon/MessageIcon.js';
 import CommentField from '../CommentField/CommentField.js';
 import PaginationCmp from '../Pagination/PaginationCmp.js';
 import CommentForm from '../CommentForm/CommentForm.js';
-import WriteLinkButton from '../WriteLinkButton/WriteLinkButton.js'
 import useComment from '../../hook/useComment.js';
 import DropButton from '../DropButton/DropButton.js';
+import ToastViewer from '../ToastViewer/ToastViewer.js';
 
 import { ROOT_INDEX } from '../../constants/postPageConstants';
 import { ENDPOINT_DIC } from '../../constants/modalConstants';
@@ -67,11 +66,7 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
             </div> 
 
                 <div className="question_content">
-                    {/* <div>{questionData.postContent}</div> */}
-                     { questionData.postContent.split("<br>").map((line, index) => 
-                     {
-                        return <span key={"postContent" + index}>{line}<br /></span>
-                    })}
+                    <ToastViewer text={questionData.postContent}></ToastViewer>
                 </div>
 
             <div className="question_footer">

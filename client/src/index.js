@@ -4,10 +4,6 @@ import App from './App';
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
-import promisMiddleware from 'redux-promise';
-import Reducer from './_reducers/index.js';
-import ReduxThunk from 'redux-thunk';
 import { ModalProvider } from './context/modalContext';
 import { OpenViduProvider } from './context/openViduContext';
 
