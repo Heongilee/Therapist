@@ -63,13 +63,13 @@
 
 | ERD |
 |:----------------------------------------:|
-|<img src="https://user-images.githubusercontent.com/55871242/138058773-735cb969-4e6c-4735-8549-d52ec2b030dc.png" width="1284px" height="583px"/>|
+|<img src="https://user-images.githubusercontent.com/55871242/138058773-735cb969-4e6c-4735-8549-d52ec2b030dc.png" width="1284px" height="503px"/>|
    
 　
    
 | 시스템 아키텍처 |
 |:----------------------------------------:|
-|<img src="https://user-images.githubusercontent.com/55871242/138059189-5249716f-3e22-4505-a06c-5db4a50475f6.png" width="1284px" height="650px"/>|
+|<img src="https://user-images.githubusercontent.com/55871242/138059189-5249716f-3e22-4505-a06c-5db4a50475f6.png" width="1284px" height="523px"/>|
 　   
     
 <br/>
