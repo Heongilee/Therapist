@@ -128,26 +128,59 @@
 
 | 메인페이지 |
 |:----------------------------------------:|
-|![Main Page](https://therapistassets.s3.amazonaws.com/assets/GIF/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif)|
+|![Main Page](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)|
 | 내용1 |
    
    
-| 화상채팅 세션종료 |
+| 게시판 카테고리 글 조회 |
 |:----------------------------------------:|
-|![Disconnecting Session](https://therapistassets.s3.amazonaws.com/assets/GIF/%ED%99%94%EC%83%81%EC%B1%84%ED%8C%85_%EC%84%B8%EC%85%98%EC%A2%85%EB%A3%8C.gif)|
+|![Retrieving_Posts_Each_Category](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EA%B2%8C%EC%8B%9C%ED%8C%90_%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%EC%A1%B0%ED%9A%8C.gif?raw=true)|
 | 내용2 |
    
    
-| 평점 매기기 |
+| 게시판 글 작성 |
 |:----------------------------------------:|
-|![Grading_stars](https://therapistassets.s3.amazonaws.com/assets/GIF/%ED%8F%89%EC%A0%90%EB%A7%A4%EA%B8%B0%EA%B8%B0.gif)|
+|![Writing_Post](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EA%B2%8C%EC%8B%9C%ED%8C%90_%EA%B8%80%EC%9E%91%EC%84%B1.gif?raw=true)|
 | 내용3 |
    
    
-| 4 |
+| 댓글 알림 |
 |:----------------------------------------:|
-|<img src="https://via.placeholder.com/1100x497" width="1100px" height="497px"/>|
+|![Notifying_by_comments](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%8C%93%EA%B8%80%EC%95%8C%EB%A6%BC.gif?raw=true)|
 | 내용4 |
+   
+   
+| 답글 알림 |
+|:----------------------------------------:|
+|![Notifying_by_Replies](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%8B%B5%EA%B8%80%EC%95%8C%EB%A6%BC.gif?raw=true)|
+| 내용5 |
+   
+   
+| 마이페이지 |
+|:----------------------------------------:|
+|![MyPage](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)|
+| 내용6 |
+   
+   
+| 무한 스크롤 |
+|:----------------------------------------:|
+|![Infinity Scrolling](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4.gif?raw=true)|
+| 내용7 |
+   
+   
+| 세션 생성 |
+|:----------------------------------------:|
+|![Creating_Session](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EC%84%B8%EC%85%98%EC%83%9D%EC%84%B1.gif?raw=true)|
+| 내용8 |
+   
+   
+| 다자간 통신 |
+|:----------------------------------------:|
+|![Connecting_Multiple_ConnectObjects](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EC%97%B0%EA%B2%B0%EA%B0%9D%EC%B2%B4%EB%8B%A4%EC%88%98%EC%B0%B8%EA%B0%80.gif?raw=true)|
+| 내용9 |
+   
+   
+
    
    
 <br/>
