@@ -17,7 +17,6 @@ function MyPageForm({ postData, cateGory, postType, currentPage, CATEGORY_HANGUL
     const { showDeleteModal, handleOk, handleCancel, visible, confirmLoading } 
     = useCheckBoxModal({ CheckState, postData, postType:postType });
     
-    
 
     const postList = 
     postData.slice((currentPage - 1) * 6, ((currentPage - 1) * 6) + 6)
@@ -33,16 +32,20 @@ function MyPageForm({ postData, cateGory, postType, currentPage, CATEGORY_HANGUL
                                 {postType === 'myPosts' ?
                                     <>
                                         <div>{ data.title }</div>   
-                                        <ToastViewer text={data.content}/>
-                                        {/* { data.content.split('<br>').map((line, index) => {
+                                        {/* <ToastViewer text={data.content}/> */}
+                                        <div>
+                                        { data.content.split('<br>').map((line, index) => {
                                                 return <span key={"content" + index}>{line}<br /></span>
-                                            })} */}
+                                            })}
+                                        </div>
                                     </> : 
                                     <>
-                                    <ToastViewer text={data.content} className="temp"/>
-                                    {/* { data.content.split('<br>').map((line, index) => {
+                                    {/* <ToastViewer text={data.content}/> */}
+                                    <div>
+                                    { data.content.split('<br>').map((line, index) => {
                                             return <span key={"content" + index}>{line}<br /></span>
-                                        })} */}
+                                        })}
+                                        </div>
                                     <div>{ data.title }</div>    
                                     </>
                                 }
