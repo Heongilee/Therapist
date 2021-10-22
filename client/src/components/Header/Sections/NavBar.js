@@ -1,16 +1,17 @@
 import React from 'react'
 import LeftMenu from './NavBarSection/LeftMenu.js';
 import RightMenu from './NavBarSection/RightMenu.js';
+import { withRouter, Link } from 'react-router-dom';
 import './NavBar.css';
 
 
 function NavBar() {
 
-    
+
     return (
         <nav>
             <div className="nav_logo">
-                <a href="/">Home</a>
+                <Link to="/">Home</Link>
             </div>
             
             <div className="nav_menu">

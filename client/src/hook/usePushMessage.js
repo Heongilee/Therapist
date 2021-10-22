@@ -1,13 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 
 function usePushMessage() {
 
     const count = useSelector(state => state.socket.count);
+    
+    console.log("state", count)
+    const history = useHistory();
 
-    return { count };
+    //Notification
+    
+    const noticeHendler = () => {
+        history.push(`/notice`);                                        
+    };
+
+    return { count, noticeHendler };
 };
 
 

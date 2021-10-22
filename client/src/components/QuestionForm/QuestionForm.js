@@ -1,12 +1,13 @@
 import React from 'react';
+import ModernButton from '../Atoms/ModernButton/ModernButton.js';
 import AvatarField from '../Atoms/AvatarField/AvatarField.js';
 import MessageIcon from '../MessageIcon/MessageIcon.js';
 import CommentField from '../CommentField/CommentField.js';
 import PaginationCmp from '../Pagination/PaginationCmp.js';
 import CommentForm from '../CommentForm/CommentForm.js';
+import WriteLinkButton from '../WriteLinkButton/WriteLinkButton.js'
 import useComment from '../../hook/useComment.js';
 import DropButton from '../DropButton/DropButton.js';
-import ToastViewer from '../ToastViewer/ToastViewer.js';
 
 import { ROOT_INDEX } from '../../constants/postPageConstants';
 import { ENDPOINT_DIC } from '../../constants/modalConstants';
@@ -20,11 +21,9 @@ import { QuestionCircleTwoTone } from '@ant-design/icons';
 
 
 function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
-    
-    
-    const { CommentData, CommentState, 
-            MessageIconOnClick, commentRegister,
-            pageSelect, PageState } 
+
+    console.log("questionData", questionData)
+    const { CommentData, CommentState, MessageIconOnClick, commentRegister } 
                                             = useComment({
                                                 COMMENT_ENDPOINT:ENDPOINT_DIC['postComments'], 
                                                 id:questionData.postId,
@@ -66,13 +65,14 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
             </div> 
 
                 <div className="question_content">
-                    <ToastViewer text={questionData.postContent}></ToastViewer>
+                     { questionData.postContent.split("\n").map((line, index) => 
+                     {
+                        return <span key={"postContent" + index}>{line}<br /></span>
+                    })}
                 </div>
 
             <div className="question_footer">
-                <AvatarField userid={questionData.userInfo.userName}
-                             grade={questionData.userInfo.userGrade}
-                             time={questionData.postCreatedAt}></AvatarField>
+                <AvatarField userid={questionData.userInfo.userName}></AvatarField>
                 <div className="question_footer_reply">
                     <div className="question_footer_reply_button">
 
@@ -102,11 +102,8 @@ function QuestionForm({ questionData, showDeleteModal, modifyButton }) {
                             commentData={ CommentData } 
                             COMMENT_ENDPOINT={ENDPOINT_DIC['postComments']}>
                             </CommentField>,
-                            <PaginationCmp totalPages={questionData.postComments.length} 
-                                            key="PaginationCmp"
-                                            pageSelect={pageSelect}
-                                            currentPage={PageState}
-                                            />]: null}
+                            <PaginationCmp totalPages={CommentData.length} 
+                                                    key="PaginationCmp"/>]: null}
         </div>
     );
 };

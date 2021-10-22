@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import './BoardForm.css';
 
 
-function BoardForm({ postData, cateGory, currentPage, CATEGORY_HANGUL_LIST }) {
-
+function BoardForm({ postData, cateGory, currentPage }) {
     const postList = 
     postData.slice((currentPage - 1) * 6, ((currentPage - 1) * 6) + 6)
     .map((data, index) => {
@@ -15,12 +14,7 @@ function BoardForm({ postData, cateGory, currentPage, CATEGORY_HANGUL_LIST }) {
                               postId : data.postId }}>
                             <div className="post_header">
                                     <h1>{data.postTitle}</h1>   
-                                    {/* <div>{data.postContent}</div> */}
-                                    <div>
-                                    { data.postContent.split('<br>').map((line, index) => {
-                                        return <span key={"postContent" + index}>{line}<br /></span>
-                                    })}
-                                    </div>
+                                    <div>{data.postContent}</div>
                             </div>
                         </Link>
                             <div className="post_footer">
@@ -33,7 +27,7 @@ function BoardForm({ postData, cateGory, currentPage, CATEGORY_HANGUL_LIST }) {
         return (
                 <div className="posts">
                     <div className="posts_header">
-                        <div className="category_name">{CATEGORY_HANGUL_LIST[cateGory]}</div>
+                        <div className="category_name">{cateGory}</div>
                     </div>
                     <ul className="posts_list">
                         { postList }

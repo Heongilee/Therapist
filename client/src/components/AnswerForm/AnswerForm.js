@@ -7,15 +7,13 @@ import PaginationCmp from '../Pagination/PaginationCmp.js';
 import CommentForm from '../CommentForm/CommentForm.js';
 import useComment from '../../hook/useComment.js';
 import DropButton from '../DropButton/DropButton.js';
-import ToastViewer from '../ToastViewer/ToastViewer.js';
 
 import { ENDPOINT_DIC } from '../../constants/modalConstants';
 import './AnswerForm.css';
 
 
-function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
+function AnswerForm({ data, index, showDeleteModal, postId }) {
 
-    
     const { CommentData, CommentState, MessageIconOnClick, PageState,
                             pageSelect, commentRegister  } 
                                                 = useComment( { COMMENT_ENDPOINT:ENDPOINT_DIC['replyComments'], 
@@ -30,18 +28,14 @@ function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
             showDeleteModal(ENDPOINT_DIC['replies'], data.replyId)
         }
     };
-    
+
     return (
         <div className="answer_area" key={"answer_area" + index}>
             <ul className="answer_list" >
                 <li className="answer">
                     <div className="answer_header">
-                        <AvatarField userid={data.userInfo.userName} 
-                                    grade={data.userInfo.userGrade}
-                                    time={data.replyCreatedAt}
-                                    >
-                                    </AvatarField>
-                        {localStorage.getItem('username') === data.userInfo.userName  ?
+                        <AvatarField userid={data.userName} grade={data.grade}></AvatarField>
+                        {localStorage.getItem('username') === data.userName  ?
                             <div>
 
                                 {/* 삭제, 수정 버튼 */}
@@ -55,19 +49,16 @@ function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
                                 : null}
                     </div>
                     <div className="answer_content">
-                        <ToastViewer text={data.replyContent}></ToastViewer>
+                        { data.replyContent.split("\n").map((line, index) => {
+                           return <span key={"replyContent" + index}>{line}<br /></span>
+                        })}
                     </div>
                     <div className="answer_footer">
-
-                        <StarButton isCheked={ (0 < data.replyStar || localStorage.getItem('username') !== questId) 
-                                            ? true : false } 
-                                    id={data.replyId}
-                                    replyStar={data.replyStar}
-                                    ></StarButton> 
-
-                                                 
+                    
+                            <StarButton id={data.replyId}></StarButton> 
+                        
                         <div onClick={() => MessageIconOnClick(ENDPOINT_DIC['replyComments'], index)}>
-                            <MessageIcon commentCount={data.replyCommentSize}></MessageIcon>
+                            <MessageIcon commentCount={0}></MessageIcon>
                         </div>
 
                     </div>
@@ -86,7 +77,7 @@ function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
                     </CommentField>,
 
                     <PaginationCmp key={ "AnswerPage" + index } currentPage={PageState}
-                            totalPages={data.replyCommentSize}
+                            totalPages={CommentData.length}
                                     pageSelect={pageSelect}
                                     />]: null}
             

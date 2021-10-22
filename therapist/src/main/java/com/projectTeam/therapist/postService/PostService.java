@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -89,8 +88,8 @@ public class PostService {
         jsonObject.put("postType", postDto.getPostType().toString());
         jsonObject.put("postTitle", postDto.getPostTitle());
         jsonObject.put("postContent", postDto.getPostContent());
-        jsonObject.put("postCreatedAt", postDto.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-        jsonObject.put("postUpdatedAt", postDto.getPostUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        jsonObject.put("postCreatedAt", postDto.getPostCreatedAt());
+        jsonObject.put("postUpdatedAt", postDto.getPostUpdatedAt());
         JSONArray postCommentsJsonArray = new JSONArray();
         for (PostCommentDto postComment : postDto.getPostComments()) {
             postCommentsJsonArray.add(postComment);
@@ -149,7 +148,7 @@ public class PostService {
     }
 
     public JSONObject findByPostType(PostCategory postType) {
-        List<PostDto> posts = postRepository.findByPostTypeOrderByPostCreatedAtDesc(postType);
+        List<PostDto> posts = postRepository.findByPostType(postType);
 
         // 검색된 카테고리 게시글 개수
         JSONObject jsonObject = new JSONObject();

@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 
 
-function useCheckBox({postData, currentPage}) {
+function useCheckBox({postData}) {
 
     const [CheckState, setCheckState] = useState(Array(postData.length).fill(false));
 
     useEffect(() => {
         setCheckState(Array(postData.length).fill(false));
-    }, [postData, currentPage]);
+    }, [postData]);
                                      
     const checkBoxhandler = event => {
         

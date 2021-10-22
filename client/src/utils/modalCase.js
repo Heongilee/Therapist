@@ -1,43 +1,36 @@
-import api from '../api/api.js';
+import postApi from '../api/postApi.js';
 
-export const modalCase = async(PathState, EndpointState, history) => {
+export const modalCase = async(PathState, EndpointState) => {
     
     switch(PathState) {
-            
-        // 질문글 삭제
+
         case 'posts': {
-            await api.fetchDelete(EndpointState, history);
-            history.push('/board');
-            return;
-        } 
-        // 답글 삭제
-        case 'replies': {
-            await api.fetchDelete(EndpointState, history);
-            window.location.reload();  
-            return;
+            const response = await postApi.fetchDelete(EndpointState);
+            return response;
+                  
         }
-        
-        // 질문글에 달린 댓글 삭제
         case 'postComments': {
-            await api.fetchDelete(EndpointState, history);
-            window.location.reload();  
-            return;
+            const response = await postApi.fetchDelete(EndpointState);
+            return response;
         }
 
-        // 답글에 달린 댓글 삭제
+        case 'replies': {
+            const response = await postApi.fetchDelete(EndpointState);
+                return response;
+        }
+
         case 'replyComments': {
-            await api.fetchDelete(EndpointState, history);
-            window.location.reload();  
-            return;
+            const response = await postApi.fetchDelete(EndpointState);
+                return response;
+        }
+
+        case 'star': {
+            const response = await postApi.fetchDelete(EndpointState);
+                return response;
         }
         
-        //평점
-        case 'star': {
-            await api.fetchGet(EndpointState, history);
-            window.location.reload();  
-        }
         default:
-            return;
+            return false;
     }
     
 

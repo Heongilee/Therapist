@@ -3,10 +3,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    /* margin-top: 100vh; */
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 1rem;
- 
 }   
   
 .footer {
@@ -60,14 +58,7 @@
     }
 
     .footer_section {
-        font-size: 0.8rem;
-    }
-}
-
-
-@media only screen and (max-width: 320px) {
-
-    .footer_section {
-        font-size: 0.7rem;
+        margin-top: 0.7rem;
+        font-size: 0.85rem;
     }
 }

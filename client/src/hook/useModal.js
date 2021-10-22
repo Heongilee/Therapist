@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import ModalForm from '../components/Modal/ModalForm.js'
+import { useHistory } from "react-router-dom";
 import { modalCase } from '../utils/modalCase';
 import { DELETE_MODALTEXT, STAR_MODALTEXT } from '../constants/modalConstants';
-import { useHistory } from 'react-router-dom';
+import writeApi  from '../api/writeApi.js';
 
 function useModal() {
 
@@ -10,12 +11,12 @@ function useModal() {
     const [EndpointState, setEndpointState] = useState("");
     const [PathState, setPathState] = useState("");
     const [ModalType, setModalType] = useState("");
-    const history = useHistory();
 
+    const history = useHistory();
 
     const showDeleteModal = async(path, id) => {
 
-        const endpoint = path + '/' + id;
+        const endpoint = '/' + path + '/' + id;
 
         setModalType(DELETE_MODALTEXT);
         setPathState(path);
@@ -25,7 +26,8 @@ function useModal() {
     
 
     const showStarModal = async(path, star, replyId) => {
-        const endpoint = `star/${replyId}?point=${star}`
+        // /replies/userId?point=<int> 평점 보내기
+        const endpoint = `/${path}/${replyId}?point=${star + 1}`
 
         setModalType(STAR_MODALTEXT);
         setPathState(path);
@@ -33,9 +35,57 @@ function useModal() {
         setVisible(true);
     };
 
-    const handleOk = async() => {
+    const requestAfter = async(PathState) => {
+        switch(PathState) {
+            
+            // 질문글 삭제
+            case 'posts': {
+                await writeApi.fetchQuestionDelete(EndpointState);
+                history.push('/board');
+                return;
+            } 
+            // 답글 삭제
+            case 'replies': {
+                await writeApi.fetchAnswerDelete(EndpointState);
+                window.location.reload();  //새로고침
+                return;
+            }
+            
+            // 질문글에 달린 댓글 삭제
+            case 'postComments': {
+                await writeApi.fetchQuestionDelete(EndpointState);
+                window.location.reload();  //새로고침
+                return;
+            }
 
-        await modalCase(PathState, EndpointState, history);
+            // 답글에 달린 댓글 삭제
+            case 'replyComments': {
+                await writeApi.fetchQuestionDelete(EndpointState);
+                window.location.reload();  //새로고침
+                return;
+            }
+            
+            //평점
+            case 'star': {
+                // 스타 못누르게 설정해줘야함
+                window.location.reload();  //새로고침
+            }
+            default:
+                return;
+        }
+    };
+
+    const handleOk = async() => {
+        try {
+            const response = await modalCase(PathState, EndpointState);
+
+            if (response){
+                requestAfter(PathState);
+            }
+
+        } catch (error) {
+            console.log("error",error )
+        }
         setVisible(false);
     };
 

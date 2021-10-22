@@ -4,6 +4,7 @@ import './PaginationCmp.css';
 
 function PaginationCmp({ totalPages, pageSelect, currentPage=1 }) {
 
+    
     return (
         <div className="pagination" >
             <Pagination current={parseInt(currentPage)} 

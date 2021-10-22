@@ -1,0 +1,26 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title WebRTC를 사용해보자!
+        link(rel="stylesheet", href="https://unpkg.com/mvp.css")
+    body 
+        header
+            h1 Video Call 🎥
+        main
+            div#welcome
+                form
+                    input(placeholder="room name", required, type="text")
+                    button Enter room
+            div#call
+                div#myStream 
+                    video#myFace(autoplay, playsinline, width="400px", height="400px")
+                    button#mute Mute
+                    button#camera Turn Camera Off
+                    select#cameras 
+                    video#peerFace(autoplay, playsinline, width="400px", height="400px")
+
+        script(src="/socket.io/socket.io.js") 
+        script(src="/public/js/app.js") 

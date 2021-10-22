@@ -1,10 +1,9 @@
 package com.projectTeam.therapist.boardService;
 
-import com.projectTeam.therapist.model.NoticeDto;
 import com.projectTeam.therapist.model.PostDto;
+import com.projectTeam.therapist.model.ReplyCommentDto;
 import com.projectTeam.therapist.model.ReplyDto;
 import com.projectTeam.therapist.model.UserDto;
-import com.projectTeam.therapist.repository.NoticeRepository;
 import com.projectTeam.therapist.repository.PostRepository;
 import com.projectTeam.therapist.repository.ReplyRepository;
 import com.projectTeam.therapist.repository.UserRepository;
@@ -15,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.format.DateTimeFormatter;
-
 @Service
 public class ReplyService {
     @Autowired
@@ -25,8 +22,6 @@ public class ReplyService {
     private UserRepository userRepository;
     @Autowired
     private ReplyRepository replyRepository;
-    @Autowired
-    private NoticeRepository noticeRepository;
 
     public JSONObject writeReply(JSONObject requestBody, Long postId) {
         if (requestBody.get("userName") == null) {
@@ -35,16 +30,6 @@ public class ReplyService {
 
         UserDto userDto = userRepository.findByUserName((String) requestBody.get("userName"));
         PostDto postDto = postRepository.getById(postId);
-
-        // save notice of receiver
-        NoticeDto noticeDto = NoticeDto.builder()
-                .is_check(false)
-                .post_id(postId)
-                .type("reply")
-                .username(postDto.getUserDto().getUserName())
-                .senderUser(userDto.getUserName())
-                .build();
-        noticeRepository.save(noticeDto);
 
         ReplyDto newReply = new ReplyDto();
         newReply.setUserDto(userDto);
@@ -65,7 +50,7 @@ public class ReplyService {
 
     public JSONObject findReplies(Long postId, Pageable pageable) {
         PostDto post = postRepository.findById(postId).orElse(null);
-        Page<ReplyDto> replies = replyRepository.findByPostDtoOrderByPostCreatedAtAsc(post, pageable);
+        Page<ReplyDto> replies = replyRepository.findByPostDto(post, pageable);
         JSONObject jsonObject = new JSONObject();
 
         JSONArray replyArray = new JSONArray();
@@ -73,8 +58,6 @@ public class ReplyService {
             JSONObject item = new JSONObject();
             item.put("replyId", reply.getReplyId());
             item.put("replyContent", reply.getReplyContent());
-            item.put("replyCreatedAt", reply.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-            item.put("replyUpdatedAt", reply.getPostUpdatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
             item.put("postId", reply.getPostDto().getPostId());
 
             JSONObject userInfo = new JSONObject();
@@ -115,21 +98,22 @@ public class ReplyService {
     }
 
     // make grade with star point
-    public void makeGrade(Long replyId, int starPoint) {
-        ReplyDto reply = replyRepository.getById(replyId);
-        UserDto user = reply.getUserDto();
-        int totalStar = user.getUserStars() + starPoint;
-        String grade = "";
-        if (totalStar >= 0 && totalStar < 50) {
+    // TODO : (Note) uses unchecked or unsafe operations.
+    public void makeGrade(Long replyId, String userName, int starPoint) {
+        UserDto user = userRepository.findByUserName(userName);
+        int star = user.getUserStars();
+        String grade = user.getUserGrade();
+        if (star < 50) {
             grade = "BRONZE";
-        } else if (totalStar >= 50 && totalStar < 100) {
+        } else if (star >= 50 && star < 100) {
             grade = "SILVER";
         } else {
             grade = "GOLD";
         }
-        user.setUserGrade(grade);
-        user.setUserStars(totalStar);
-        userRepository.save(user);
+        userRepository.findByUserName(userName)
+                .setUserGrade(grade);
+        userRepository.findByUserName(userName)
+                .setUserStars(star+starPoint);
 
         replyRepository.findById(replyId)
                 .map(replyDto -> {

@@ -4,9 +4,11 @@ import App from './App';
 import './index.css';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
+import { applyMiddleware, createStore } from 'redux';
+import promisMiddleware from 'redux-promise';
+import Reducer from './_reducers/index.js';
+import ReduxThunk from 'redux-thunk';
 import { ModalProvider } from './context/modalContext';
-import { OpenViduProvider } from './context/openViduContext';
-
 import ScrollToTop from './utils/ScrollToTop';
 import store from './config/store';
 
@@ -16,9 +18,7 @@ ReactDOM.render(
       <BrowserRouter>
           <ScrollToTop/>
           <ModalProvider>
-          <OpenViduProvider>
             <App />
-          </OpenViduProvider>
           </ModalProvider>
       </BrowserRouter>
   </Provider>
@@ -27,3 +27,22 @@ ReactDOM.render(
 );
 
 
+// const createStoreWithMiddleware = applyMiddleware(promisMiddleware, ReduxThunk)(createStore);
+
+// ReactDOM.render(
+//     <Provider
+//         store={createStoreWithMiddleware(Reducer,
+//           window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//           window.__REDUX_DEVTOOLS_EXTENSION__()
+//         )}
+//     >
+//       <BrowserRouter>
+//           <ScrollToTop/>
+//           <ModalProvider>
+//             <App />
+//           </ModalProvider>
+//       </BrowserRouter>
+        
+//     </Provider>
+//     , document.getElementById('root')
+// );

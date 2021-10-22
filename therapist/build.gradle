@@ -13,7 +13,6 @@ repositories {
 }
 
 dependencies {
-	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5'								// ignoring SSL cert (https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient)
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'			        							// websocket library
 	implementation group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'	// 로그인 / 로그아웃에 따른 분기 처리를 해주기 위한 라이브러리.
 	implementation 'org.springframework.boot:spring-boot-starter-security'												// Spring Security를 위한 라이브러리 (1)

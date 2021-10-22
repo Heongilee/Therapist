@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PostCommentRepository extends JpaRepository<PostCommentDto, Long>{
-    Page<PostCommentDto> findByPostDtoOrderByCommentCreatedAtAsc(PostDto postDto, Pageable pageable);
-    List<PostCommentDto> findByUserDtoOrderByCommentCreatedAtDesc(UserDto userDto);
+    Page<PostCommentDto> findByPostDto(PostDto postDto, Pageable pageable);
+    List<PostCommentDto> findByUserDto(UserDto userDto);
 }

@@ -11,6 +11,6 @@ import java.util.List;
 
 
 public interface ReplyCommentRepository extends JpaRepository<ReplyCommentDto, Long> {
-    Page<ReplyCommentDto> findByReplyDtoOrderByCommentCreatedAtAsc(ReplyDto replyDto, Pageable pageable);
-    List<ReplyCommentDto> findByUserDtoOrderByCommentCreatedAtDesc(UserDto userDto);
+    Page<ReplyCommentDto> findByReplyDto(ReplyDto replyDto, Pageable pageable);
+    List<ReplyCommentDto> findByUserDto(UserDto userDto);
 }

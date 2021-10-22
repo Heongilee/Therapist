@@ -20,7 +20,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 // @Service 어노테이션을 통해 비즈니스 로직을 작성할 수 있게 된다.
@@ -46,7 +45,7 @@ public class UserService {
 
     private final String clientId = "bee5cefdb5d9d94c0b32f71cf0de38e7";
     private final String clientSecret = "LcnyKGSgPVuOolspq5ococnDLfrlDqXM";
-    private final String redirectUri = "http://localhost:8080/api/auth/kakao/callback";
+    private final String redirectUri = "http://localhost:8080/auth/kakao/callback";
 
     public UserDto save(UserDto userDto) {
         if (userRepository.findOneWithAuthoritiesByUserName(userDto.getUserName()).orElse(null) != null) {
@@ -88,9 +87,6 @@ public class UserService {
         jsonObject.put("userGrade", user.getUserGrade());
         jsonObject.put("userStars", user.getUserStars());
         jsonObject.put("userProfileImage", user.getUserProfileImage());
-        jsonObject.put("userPostsLength", user.getPosts().size());
-        jsonObject.put("userRepliesLength", user.getReplies().size());
-        jsonObject.put("userCommentsLength", user.getUserPostComments().size() + user.getUserReplyComments().size());
 
         return jsonObject;
     }
@@ -187,7 +183,7 @@ public class UserService {
         input.put("username", loginDto.getUsername());
         input.put("password", loginDto.getPassword());
 
-        String url = "http://ec2-18-235-96-9.compute-1.amazonaws.com" + contextPath;
+        String url = "http://localhost:8080" + contextPath;
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity param= new HttpEntity(input, headers);
@@ -231,7 +227,7 @@ public class UserService {
 
         if (menuType.equals("myPosts")) {
             // 위에서 얻어낸 UserDto를 가지고 내가 작성한 게시글을 조회한다.
-            List<PostDto> posts = postRepository.findByUserDtoOrderByPostCreatedAtDesc(userDto);
+            List<PostDto> posts = postRepository.findByUserDto(userDto);
             jsonObject.put("totalAmount", posts.size());
 
             JSONArray userPosts = new JSONArray();
@@ -241,13 +237,12 @@ public class UserService {
                 item.put("postType", post.getPostType());
                 item.put("title", post.getPostTitle());
                 item.put("content", post.getPostContent());
-                item.put("createdAt", post.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 userPosts.add(item);
             }
             jsonObject.put("postData", userPosts);
         } else if (menuType.equals("myReplies")) {
             // 내가 쓴 답글
-            List<ReplyDto> replies = replyRepository.findByUserDtoOrderByPostCreatedAtDesc(userDto);
+            List<ReplyDto> replies = replyRepository.findByUserDto(userDto);
             jsonObject.put("totalAmount", replies.size());
 
             JSONArray userReplies = new JSONArray();
@@ -255,15 +250,14 @@ public class UserService {
                 JSONObject item = new JSONObject();
                 item.put("replyId", reply.getReplyId());
                 item.put("postId", reply.getPostDto().getPostId());
-                item.put("title", "Re: " + reply.getPostDto().getPostTitle());
+                item.put("title", reply.getPostDto().getPostTitle());
                 item.put("content", reply.getReplyContent());
-                item.put("createdAt", reply.getPostCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 userReplies.add(item);
             }
             jsonObject.put("postData", userReplies);
         } else if (menuType.equals("myPostComments")) {
             // 내가 쓴 post 댓글
-            List<PostCommentDto> postComments = postCommentRepository.findByUserDtoOrderByCommentCreatedAtDesc(userDto);
+            List<PostCommentDto> postComments = postCommentRepository.findByUserDto(userDto);
             jsonObject.put("totalAmount", postComments.size());
 
             JSONArray cmtArray = new JSONArray();
@@ -274,14 +268,13 @@ public class UserService {
                 cmtObject.put("title", cmt.getPostDto().getPostTitle());
                 cmtObject.put("commentId", cmt.getPostCommentId());
                 cmtObject.put("content", cmt.getPostCommentContent());
-                cmtObject.put("createdAt", cmt.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 cmtArray.add(cmtObject);
             }
             jsonObject.put("postData", cmtArray);
 
         } else if (menuType.equals("myReplyComments")){
             // 내가 쓴 reply 댓글
-            List<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDtoOrderByCommentCreatedAtDesc(userDto);
+            List<ReplyCommentDto> replyComments = replyCommentRepository.findByUserDto(userDto);
             jsonObject.put("totalAmount", replyComments.size());
 
             JSONArray cmtArray = new JSONArray();
@@ -289,9 +282,8 @@ public class UserService {
                 JSONObject cmtObject = new JSONObject();
                 cmtObject.put("postId", cmt.getReplyDto().getPostDto().getPostId());
                 cmtObject.put("commentId", cmt.getReplyCommentId());
-                cmtObject.put("title", "Re: " + cmt.getReplyDto().getPostDto().getPostTitle());
+                cmtObject.put("title", cmt.getReplyDto().getPostDto().getPostTitle());
                 cmtObject.put("content", cmt.getReplyCommentContent());
-                cmtObject.put("createdAt", cmt.getCommentCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 cmtArray.add(cmtObject);
             }
             jsonObject.put("postData", cmtArray);
@@ -341,29 +333,27 @@ public class UserService {
     }
 
     // Called from UserApiController (POST /api/users/mypage/posts )
-    public void deleteMyPosts(String type, JSONObject items) {
-        ArrayList<Integer> deleteList = (ArrayList<Integer>) items.get("deleteCheckList");
-
-        if (type.equals("myPosts")) {
-            for (int id : deleteList) {
-                Long postId = Long.valueOf(id);
+    public void deleteMyPosts(String type, Map<String, Long> items) {
+        if (type.equals("post")) {
+            for (Long postId : items.values()) {
+                System.out.println("post id: " + postId);
                 postRepository.deleteById(postId);
             }
-        } else if (type.equals("myReplies")) {
-            for (int id : deleteList) {
-                Long replyId = Long.valueOf(id);
+        } else if (type.equals("reply")) {
+            for (Long replyId : items.values()) {
                 replyRepository.deleteById(replyId);
             }
-        } else if (type.equals("myPostComments")) {
-            for (int id : deleteList) {
-                Long postCommentId = Long.valueOf(id);
+        } else if (type.equals("postComment")) {
+            for (Long postCommentId : items.values()) {
                 postCommentRepository.deleteById(postCommentId);
             }
-        } else if (type.equals("myReplyComments")) {
-            for (int id : deleteList) {
-                Long replyCommentId = Long.valueOf(id);
+        } else if (type.equals("replyComment")) {
+            for (Long replyCommentId : items.values()) {
                 replyCommentRepository.deleteById(replyCommentId);
             }
+        } else {
+
         }
+
     }
 }

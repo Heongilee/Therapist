@@ -12,5 +12,5 @@ export const ENDPOINT_DIC = { 'posts':'posts',
                               'replies':'replies', 
                               'postComments':'postComments',
                               'replyComments':'replyComments',
-                              'star': 'star' };
+                              'star': 'star', };
 

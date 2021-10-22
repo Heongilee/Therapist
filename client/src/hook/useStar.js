@@ -12,7 +12,7 @@ export default function useStar({ id }) {
 
     const handleChange = value => {
         setStarValue(value);
-        showStarModal(ENDPOINT_DIC['star'], value, id);
+        showStarModal(ENDPOINT_DIC['star'], StarValue, id);
     };
 
     return {  StarValue, StarState, handleChange };

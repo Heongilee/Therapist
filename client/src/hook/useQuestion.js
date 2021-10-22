@@ -1,3 +1,5 @@
+import { useEffect, useState, useRef, useCallback } from 'react';
+import postApi from '../api/postApi.js';
 import useQuery from '../hook/useQuery.js';
 
 

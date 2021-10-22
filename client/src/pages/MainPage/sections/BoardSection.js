@@ -1,6 +1,7 @@
 import React from 'react';
 import TextButton from '../../../components/Atoms/TextButton/TextButton.js';
 import PostSection  from './PostSection.js';
+import { FormOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 

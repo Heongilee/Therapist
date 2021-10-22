@@ -9,7 +9,6 @@
     display: flex;
     list-style: none;
     flex-direction: column;
-    padding: 0;
 }
 
 .comment {
@@ -17,12 +16,9 @@
 }
 
 .comment_header {
+    display: flex;
+    justify-content: flex-start;
     font-weight: bold;
-}
-
-.comment_header > div {
-    color:#8c8c8c;
-    font-size: 0.9rem;
 }
 
 .comment_content {
@@ -31,8 +27,6 @@
     padding-top: 10px;
     padding-bottom: 20px;
     border-bottom: 1px solid #e9e7e7;
-    word-break:break-all;
-
 }
 
 .comment_content span {

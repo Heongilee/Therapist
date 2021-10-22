@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import ModernButton from '../../components/Atoms/ModernButton/ModernButton.js';
 import InputField from '../../components/Atoms/InputField/InputField.js';
 import SelectBar from '../../components/SelectBar/SelectBar.js';
@@ -30,33 +31,15 @@ function WritePage({ location }){
     const titleRef = useRef(null);
 
     const handleButtonClick = async() => {
-
+        
         const title = titleRef.current;
         const content = editorRef.current.getInstance().getMarkdown();
         // const content = editorRef.current.getInstance().getHTML();
-    
-        
-        if (title){
-            if (title.state.value === null || title.state.value.length < 3){
-                alert("제목을 3글자이상 적어주세요");
-                return;
-            }
-        }
-
-        if (content.length < 3){
-            alert("내용을 3글자 이상 적어주세요");
-            return;
-        }
-
-        if (type === 'writeQuestion' &&  CateGoryState === null){
-            alert("카테고리를 선택해주세요");
-            return;
-        }
-
+ 
         const response = await requestApi({ 
             userId:userId, replyId:replyId, postId:postId, 
             title: title && title.state.value, content:content, type, 
-            postType: CateGoryState || postType, history:history
+            postType: CateGoryState || postType
          });
         
          if (response){
@@ -64,7 +47,7 @@ function WritePage({ location }){
             if (type === 'writeAnswer'){ 
                 const message = {
                     type:"message",
-                    senderUserName: localStorage.getItem('username'),
+                    senderUsername: localStorage.getItem('username'),
                     postType: "reply",
                     receivedUserName: userName
                 }
@@ -88,7 +71,7 @@ function WritePage({ location }){
             <div className="writepage_area">
                 <div className="writepage_title_area">    
                     <div className="writepage_title_header">
-                        <h1>{localStorage.getItem('username')}{WRITE_TITLE[type]}</h1>
+                        <h1>{userId || replyId}{WRITE_TITLE[type]}</h1>
                         <div>
                             { type === 'writeQuestion' ? <SelectBar onChange={onChange}>
                                                         </SelectBar> : null}
@@ -111,7 +94,6 @@ function WritePage({ location }){
                         initialEditType="wysiwyg"
                         useCommandShortcut={true}
                         ref={editorRef}
-                        
                         language="ko"
                     />
                     </div> 
@@ -123,3 +105,4 @@ function WritePage({ location }){
 };
 
 export default WritePage;
+
