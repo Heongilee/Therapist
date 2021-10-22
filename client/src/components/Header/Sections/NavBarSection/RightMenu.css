@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+
+.nav_menu_right_mypage {
+    margin-right: 0.9rem;
+}
+
 .nav_menu_right > a { 
     color: #000;
 }
@@ -12,3 +17,26 @@
     cursor: pointer;
 }
 
+.nav_menu_right > * :hover{
+    color: #99AD00;
+    transition: color 0.3s;
+}
+
+
+.nav_menu_right_mypage > a { 
+    color: #000;
+}
+
+.nav_menu_right_mypage > a:hover { 
+    color: #99AD00;
+    transition: color 0.3s;
+}
+
+.nav_menu_right_logout:hover {
+    color: #99AD00;
+    transition: color 0.3s;
+}
+
+.ant-popover{
+    position: fixed;
+}

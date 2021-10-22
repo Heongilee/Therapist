@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from 'antd';
-// import { useContextModal } from '../../hook/useContextModal.js'
 import { COMMENT_KINDS } from '../../constants/postPageConstants';
 import './CommentField.css';
 
@@ -11,7 +10,7 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
 
     const commentId = COMMENT_KINDS[COMMENT_ENDPOINT]['commentId'];
     const content = COMMENT_KINDS[COMMENT_ENDPOINT]['content'];
-    // const { showDeleteModal } = useContextModal();
+    
     return (
         <div className="comment_area" >
             <ul className="comment_list">
@@ -20,6 +19,9 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
                     return <li className="comment" key={ "comment" + index }>
                                 <div className="comment_header">
                                     { data.userName }
+                                    <div>
+                                    {data.commentCreatedAt}
+                                    </div>
                                 </div>
                         
                                 <div className="comment_content">
@@ -28,10 +30,10 @@ function CommentField({ commentData, COMMENT_ENDPOINT, showDeleteModal }) {
                                          })}
                                     </div>
 
-                                    
+                                    {localStorage.getItem('username') === data.userName &&
                                         <Text data-name={ data[commentId] }  
                                             onClick={() => showDeleteModal(COMMENT_ENDPOINT,data[commentId]  ) } 
-                                            type={ "secondary" }>삭제</Text>
+                                            type={ "secondary" }>삭제</Text>}
                                 </div>
                             </li> 
                 })}

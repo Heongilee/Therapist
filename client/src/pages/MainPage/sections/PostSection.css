@@ -30,6 +30,12 @@
 }
 
 .resent_post_header > div:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-wrap:break-word; 
     font-size: 1rem;
     color: #000;
     font-weight: bold;   
@@ -61,6 +67,7 @@
 @media only screen and (max-width: 980px) {
     .resent_board_list {
         width: 100%;
+        padding-right: 40px;
     }
 
     .resent_board_list:first-child{

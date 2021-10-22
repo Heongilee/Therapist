@@ -1,18 +1,18 @@
 import React from 'react';
 import { Progress } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './LoadingBar.css';
 
 function LoadingBar() {
 
-    const loading = useSelector(state => state.loading.loadingState);
+    const loading = useSelector(state => state.loading);
 
-
-    if (loading){
+    if (loading.loadingState){
         return (
             <div className="loading_bar">
-            {loading }
-                <Progress percent={100} gapPosition={'top'} showInfo={false} />
+                <Progress percent={loading.progress} 
+                          size="small"
+                          gapPosition={'top'} showInfo={false} /> 
             </div>
         );
     } else {
