@@ -13,7 +13,6 @@ function useTotalBoard({ postType }) {
             const response = await boardApi.fetchPosts(type);
             const { posts, totalAmount } = response[0];
     
-            console.log("1번");
             setTotalBoard({...TotalBoard, posts: posts, totalPages: totalAmount});
         },
 

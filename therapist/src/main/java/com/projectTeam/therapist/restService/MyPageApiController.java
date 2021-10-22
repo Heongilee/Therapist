@@ -18,4 +18,9 @@ public class MyPageApiController {
     public JSONObject requestPostsOrCommentsOrReplies(@PathVariable String userName, @RequestParam(required = false, defaultValue = "myPosts") String menuType) {
         return userService.searchMyData(userName, menuType);
     }
+
+    @GetMapping("/mypage/info/{userName}")
+    public JSONObject requestUserInfo(@PathVariable String userName) {
+        return userService.getUserInfo(userName);
+    }
 }

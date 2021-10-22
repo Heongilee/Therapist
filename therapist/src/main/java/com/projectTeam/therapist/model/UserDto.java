@@ -20,7 +20,7 @@ public class UserDto {
     private String userPassword;
     private Boolean userEnabled;
     @Builder.Default
-    private String userGrade = "SILVER";
+    private String userGrade = "BRONZE";
     @Builder.Default
     private int userStars = 0;
 

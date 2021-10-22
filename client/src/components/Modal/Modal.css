@@ -1,0 +1,45 @@
+
+.modal_wrapper {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1002;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.modal_overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.363);
+}
+
+
+.modal_redio_container {    
+    width: 250px;
+    padding: 13px;
+    z-index: 201;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 0.9rem;
+}
+
+.modal_create_room > .ant-modal-content {
+    border-radius: 10px;
+}
+
+.modal_create_room > .ant-modal-content > .ant-modal-header{
+    border-bottom: 0;
+    border-radius: 10px;
+}
+
+.modal_create_room > .ant-modal-content > .ant-modal-footer{
+    border-top: 0;
+}

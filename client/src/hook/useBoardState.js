@@ -7,7 +7,8 @@ import useQuery from '../hook/useQuery.js';
 function useBoardState({ PATH, ENDPOINT='', ININIAL_POSTTYPE='', userName }) {
     const { page, postType } = useGetQuery();
 
-    const TotalBoard = useQuery(`${ENDPOINT}${userName ? '/' + userName + '?menuType=': ''}${postType ? postType : ININIAL_POSTTYPE}`);
+    const TotalBoard = useQuery(
+        `${ENDPOINT}${userName ? '/' + userName + '?menuType=': ''}${postType ? postType : ININIAL_POSTTYPE }`);
 
 
     const [BoardState, setBoardState] = useState({ 

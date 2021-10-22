@@ -1,50 +1,53 @@
 package com.projectTeam.therapist.notice;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class ReplyEchoHandler extends TextWebSocketHandler {
 
-    List<WebSocketSession> sessions = new ArrayList<>();
+    Map<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("연결 됨" + session);
-//        String senderId = getMemberId(session);
-        sessions.add(session);
+        System.out.println("websocket connect" + session);
+
+        if (sessionMap.containsValue(session.getId()) == false) {
+            JSONObject obj = new JSONObject();
+            obj.put("type", "getUsername");
+            session.sendMessage(new TextMessage(obj.toJSONString()));
+        }
     }
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         //chat service
 
-        String senderId = getMemberId(session);
         String msg = message.getPayload();
-        System.out.println("received msg: " + msg);
-        if (msg != null) {
-            String[] strings = msg.split(",");
-            if (strings != null) {
-                String caller = strings[0];
-                int caller_id = Integer.parseInt(strings[1]);
-                String receiver = strings[2];
-                String content = strings[3];
-//                WebSocketSession targetSession = sessions.get(receiver);
+        JSONObject parsedMsg = jsonToObjectParser(msg);
+        System.out.println("received msg: " + parsedMsg);
 
-                // 실시간 접속시
-                for (WebSocketSession webSocketSession : sessions) {
-                    if (webSocketSession.isOpen() && !session.getId().equals(webSocketSession.getId())) {
-                        WebSocketSession targetSession = webSocketSession;
-                        TextMessage tmpMsg = new TextMessage(caller + " send you a message: " + content);
-                        targetSession.sendMessage(tmpMsg);
+        if (parsedMsg.get("type").equals("register")) {
+            sessionMap.put((String) parsedMsg.get("username"), session);
+            System.out.println("session Map: "+sessionMap);
+        }
+        else if (parsedMsg.get("type").equals("message")) {
+            for (String username : sessionMap.keySet()) {
+                if (username.equals(parsedMsg.get("receivedUserName"))) {
+                    System.out.println("find receiver, parsedMsg:" + parsedMsg);
+                    WebSocketSession wss = sessionMap.get(username);
+                    try {
+                        wss.sendMessage(new TextMessage(parsedMsg.toJSONString()));
+                    }catch(Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -53,7 +56,7 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        sessions.remove(session);
+        sessionMap.remove(session);
     }
 
     // get Id of session
@@ -62,5 +65,15 @@ public class ReplyEchoHandler extends TextWebSocketHandler {
         Map<String, Object> httpSession = session.getAttributes();
 
         return session.getId();
+    }
+    private static JSONObject jsonToObjectParser(String jsonStr) {
+        JSONParser parser = new JSONParser();
+        JSONObject obj = null;
+        try {
+            obj = (JSONObject) parser.parse(jsonStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 }

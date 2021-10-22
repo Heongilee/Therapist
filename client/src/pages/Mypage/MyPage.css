@@ -11,6 +11,7 @@
     display: flex;
     margin: 18px;
     background-color: #fff;
+    height: 900px;
     border-radius: 8px;
 }
 
@@ -27,25 +28,18 @@
     flex-direction: column;
 }
 
-/* 
-.myPage_posts {
-    width: 100%;
-    height: 100%;
-    padding-right: 40px;
+
+
+@media only screen and (max-width: 980px) {
+    .myPage_area {
+        margin-top: 15px;
+        margin-left: 0.2rem;
+        margin-right: 0.2rem;
+        height:100%
+    }
+
+    .myPage_sideBar_area {
+        display: none;
+    }
+    
 }
-
-
-.myPage_posts_header {
-    display: flex;
-    align-items: center;
-    margin: 10px 0 10px 0;
-}
-
-
-.myPage_category_name {
-    width: 100%;
-    font-size: 20px;
-    font-weight: bold;
-    padding-left: 40px;
-} */
-

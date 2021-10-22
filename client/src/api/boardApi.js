@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { URL } from '../config/confing.js';
+import { URL } from '../config/config.js';
 
 
 
@@ -19,35 +19,6 @@ const boardApi = {
         
     },
     
-    fetchMypage: async(postType='category1', page='1') => {
-
-        try {
-            // const response = await axios.get(`/api/posts?postType=${postType}`);
-            const response = await temp2(postType);
-    
-            return response;
-    
-        } catch (error) {
-            console.log("requestBoardList", error);
-        }
-        
-    },
-
-    fetchDeletePost: async(checkData=null) => {
-
-        console.log("checkData", checkData)
-        try {
-            // const response = await axios.post();
-            const response = true;
-            
-            return response;
-    
-        } catch (error) {
-            console.log("requestBoardList", error);
-        }
-        
-    },
-
 };
 
 

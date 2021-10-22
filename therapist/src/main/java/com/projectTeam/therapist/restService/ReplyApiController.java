@@ -47,8 +47,8 @@ public class ReplyApiController {
     }
 
     // star point
-    @GetMapping("/replies/{replyId}/{userName}")
-    void grade(@PathVariable Long replyId, @PathVariable String userName, @RequestParam int point) {
-        replyService.makeGrade(replyId, userName, point);
+    @GetMapping("/star/{replyId}")
+    void grade(@PathVariable Long replyId, @RequestParam int point) {
+        replyService.makeGrade(replyId, point);
     }
 }

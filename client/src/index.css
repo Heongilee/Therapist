@@ -1,15 +1,81 @@
-
 * {
     box-sizing: border-box;
 }
 :root {
     --color-gray: rgba(0, 0, 0, 0.6);
 }
+
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
-    margin: 0 auto;
-    font-family: "Spoqa Han Sans Neo", "Sans-serif";
+    font-family: "gmarket", "GmarketSansMedium";
+    /* font-family: "ridi", "RIDIBatang"; */
     font-size: 62.5%;
     background-color: #e9ecef;
+}
+
+
+.ant-btn-primary {
+    background-color: #99AD00;
+    border-color:#99AD00;
+}
+
+.ant-btn:hover {
+    color: #000;
+    border-color:#5d7808;
+}
+
+.ant-btn-primary:hover {
+    background:#5d7808;
+    border-color:#5d7808;
+}
+
+.ant-input:hover {
+    border-color: #99AD00;
+    outline: 0;
+    
+}
+
+.ant-input:focus {
+    border-color: #5d7808;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #ecf0da;
+}
+
+.ant-menu-item-selected {
+    color: #5d7808;
+}
+
+.ant-menu-light .ant-menu-item:hover, .ant-menu-light .ant-menu-item-active, .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-light .ant-menu-submenu-active, .ant-menu-light .ant-menu-submenu-title:hover {
+    color: #5d7808;
+}
+
+
+.ant-pagination-item-active{
+    border-color: #5d7808;
+}
+
+.ant-pagination-item-active a {
+    color: #5d7808;
+}
+
+.ant-pagination-prev:hover .ant-pagination-item-link,
+    .ant-pagination-next:hover .ant-pagination-item-link,
+    .ant-pagination-prev:focus:hover .ant-pagination-item-link,
+    .ant-pagination-next:focus:hover .ant-pagination-item-link {
+      border-color: #5d7808;
+      color: #5d7808;
 }
 
 .wrapper{
@@ -17,6 +83,15 @@ body {
     height: 100%; 
     margin:0 auto;
 }
+
+
+.ant-scrolling-effect {
+    position: initial !important;
+    width: auto !important;
+    overflow: auto !important;
+}
+
+
 
 
 /* 최소 width가 1200px일때  */

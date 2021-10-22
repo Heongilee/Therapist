@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import postApi from '../api/postApi.js';
+import api from '../api/api.js';
+
 import { socket_actions } from '../_actions/socket_actions';
 
 import { useDispatch } from 'react-redux';
@@ -25,31 +27,43 @@ function useComment({ COMMENT_ENDPOINT, id, userName }) {
 
     const commentRegister = async(userId, { comment }) => {
 
+        if (comment === undefined){
+            alert("3글자이상 적어주세요");
+            return;
+        }
+
+        if (comment.length < 3){
+            alert("3글자이상 적어주세요");
+            return;
+        }
+
         const body = COMMENT_ENDPOINT === 'postComments' ? 
                     { postCommentContent : comment }
                 :
                     { replyCommentContent : comment };
 
         const useName = localStorage.getItem('username');
-        const endpoint = `/${COMMENT_ENDPOINT}/${useName}/${id}`;
+        const endpoint = `${COMMENT_ENDPOINT}/${useName}/${id}`;
 
-        await postApi.fetchCommentRegister(endpoint, body);
+        const response = await api.fetchRegister(endpoint, body);
 
-        const message = {
-            type:"message",
-            senderUsername: useName,
-            postType: COMMENT_ENDPOINT,
-            receivedUserName: userName
-        }
-
-        dispatch(socket_actions.sendMessage(message));
-
+        if (response){
+            const message = {
+                type:"message",
+                senderUserName: useName,
+                postType: COMMENT_ENDPOINT,
+                receivedUserName: userName
+            }
+    
+            dispatch(socket_actions.sendMessage(message));
+            window.location.reload();
+        };
     };
 
     const pageSelect = async(page) => {
-        const response = await postApi.fetchComment(COMMENT_ENDPOINT, id, page - 1);
-
-        setComment(response);
+        const { postComments, replyComments} = await postApi.fetchComment(COMMENT_ENDPOINT, id, page - 1);
+        
+        setComment(postComments || replyComments);
         setPageState(page);
     };
     

@@ -1,0 +1,9 @@
+.spin_area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ant-spin {
+    color: rgba(0, 0, 0, 0.85);
+}
