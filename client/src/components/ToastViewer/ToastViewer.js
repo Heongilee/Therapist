@@ -8,7 +8,6 @@ function ToastViewer({ text }){
 	return (
 	<Viewer
 	initialValue={text}
-    
       	/>
 	);
 }
