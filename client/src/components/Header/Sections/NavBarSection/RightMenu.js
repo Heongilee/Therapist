@@ -26,7 +26,9 @@ function RightMenu() {
             { LoginState ? 
                 <div className="nav_menu_right">
                     <Popover placement="bottomRight" key={"popover"} 
-                    title={"알림"} content={<PopOverContent setPopOverState={setPopOverState}/>} 
+                    title={"알림"} content={<PopOverContent 
+                                            PopOverState={PopOverState}
+                                            setPopOverState={setPopOverState}/>} 
                     onVisibleChange={onVisibleChange}
                     visible={PopOverState}
                     trigger="click">
