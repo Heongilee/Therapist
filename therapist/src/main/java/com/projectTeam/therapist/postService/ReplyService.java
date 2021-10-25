@@ -1,4 +1,4 @@
-package com.projectTeam.therapist.boardService;
+package com.projectTeam.therapist.postService;
 
 import com.projectTeam.therapist.model.NoticeDto;
 import com.projectTeam.therapist.model.PostDto;
@@ -95,16 +95,16 @@ public class ReplyService {
         JSONObject jsonObject = new JSONObject();
 
         replyRepository.findById(replyId)
-            .map(replyDto -> {
-                replyDto.setReplyContent((String) modifiedReply.get("replyContent"));
-                jsonObject.put("star", replyDto.getStar());
-                jsonObject.put("replyId", replyDto.getReplyId());
-                jsonObject.put("replyContent", replyDto.getReplyContent());
-                jsonObject.put("postId", replyDto.getPostDto().getPostId());
-                jsonObject.put("userName", replyDto.getUserDto().getUserName());
-                jsonObject.put("userId", replyDto.getUserDto().getUserId());
-                return replyRepository.save(replyDto);
-            });
+                .map(replyDto -> {
+                    replyDto.setReplyContent((String) modifiedReply.get("replyContent"));
+                    jsonObject.put("star", replyDto.getStar());
+                    jsonObject.put("replyId", replyDto.getReplyId());
+                    jsonObject.put("replyContent", replyDto.getReplyContent());
+                    jsonObject.put("postId", replyDto.getPostDto().getPostId());
+                    jsonObject.put("userName", replyDto.getUserDto().getUserName());
+                    jsonObject.put("userId", replyDto.getUserDto().getUserId());
+                    return replyRepository.save(replyDto);
+                });
 
         return jsonObject;
 
