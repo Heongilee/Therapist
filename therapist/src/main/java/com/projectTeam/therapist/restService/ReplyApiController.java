@@ -1,16 +1,12 @@
 package com.projectTeam.therapist.restService;
 
-import com.projectTeam.therapist.boardService.BoardServiceImpl;
-import com.projectTeam.therapist.boardService.ReplyService;
-import com.projectTeam.therapist.model.ReplyDto;
+import com.projectTeam.therapist.postService.ReplyService;
 import com.projectTeam.therapist.repository.ReplyRepository;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin("*")
 @RestController
