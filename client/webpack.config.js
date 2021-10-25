@@ -54,9 +54,6 @@ module.exports = webpackEnv => {
         template: 'public/index.html', // public/index.html 를 템플릿으로 지정
         }),
       new CleanWebpackPlugin(), // 성공적으로 다시 빌드 한 후 webpack의 output.path에있는 모든 빌드 폴더를 제거 및 정리    
-      new webpack.ProvidePlugin({
-        process: 'process/browser',
-      }),
       new webpack.DefinePlugin({
         'process.env': JSON.stringify(dotenv.config().parsed) // it will automatically pick up key values from .env file
      }),
