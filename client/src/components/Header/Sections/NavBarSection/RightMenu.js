@@ -1,4 +1,3 @@
- 
 import React, { useState } from "react";
 import useKakao from '../../../../hook/useKakao.js';
 import usePushMessage from '../../../../hook/usePushMessage.js';
@@ -6,9 +5,8 @@ import usePopOver from '../../../../hook/usePopOver.js';
 import { Link } from 'react-router-dom';
 import { Popover, Badge } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
-
 import PopOverContent from '../../../PopOverContent/PopOverContent.js';
-
+import Bell from '../../../Bell/Bell.js';
 
 import './RightMenu.css';
 
@@ -32,10 +30,10 @@ function RightMenu() {
                     onVisibleChange={onVisibleChange}
                     visible={PopOverState}
                     trigger="click">
-                    
+                        
+                        {/* <Bell></Bell> */}
                         <Badge count={count}  style={{marginRight:'0.9rem'}}>
-                        <BellOutlined   
-                        style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
+                            <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
                         </Badge>
 
                     </Popover>
