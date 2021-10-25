@@ -14,7 +14,6 @@ const openNotification = ({ type, data }) => {
   
   const {senderUserName, receivedUserName, postType } = JSON.parse(data);                 
  
-  console.log("NOTICE_TYPE[postType]", NOTICE_TYPE[postType], data)
   const option = {
     message: '알림',
     description: `${senderUserName.split('@')[0]}님께서 
