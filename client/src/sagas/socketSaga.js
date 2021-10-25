@@ -8,7 +8,7 @@ import { START_CHANNEL , STOP_CHANNEL,
 
 import { notification } from 'antd';
 
-const NOTICE_TYPE = { 'reply':'답글', 'replyComment':'댓글', 'postComment':'댓글' };
+const NOTICE_TYPE = { 'reply':'답글', 'replyComments':'댓글', 'postComments':'댓글' };
 
 const openNotification = ({ type, data }) => {
   

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { Popover, Badge } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import PopOverContent from '../../../PopOverContent/PopOverContent.js';
-import Bell from '../../../Bell/Bell.js';
+import BellCount from '../../../BellCount/BellCount.js';
 
 import './RightMenu.css';
 
@@ -30,8 +30,10 @@ function RightMenu() {
                     onVisibleChange={onVisibleChange}
                     visible={PopOverState}
                     trigger="click">
-                        
-                        {/* <Bell></Bell> */}
+                        {/* <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}>
+                            
+                        </BellOutlined>
+                        <BellCount/> */}
                         <Badge count={count}  style={{marginRight:'0.9rem'}}>
                             <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
                         </Badge>
