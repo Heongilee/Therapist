@@ -59,6 +59,7 @@
     flex-direction: column;
     justify-content: center;
     height: 85px;
+    overflow: hidden;
 }
 
 .mypage_post_header {
@@ -71,6 +72,7 @@
     color: #000;
 }
 
+
 .mypage_post_header > div:last-child {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -82,6 +84,12 @@
     font-size: 13px;
     color:#8c8c8c
 }
+
+.temp {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 .mypage_post_footer {
     padding-top: 5px;

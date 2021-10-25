@@ -1,4 +1,3 @@
- 
 import React, { useState } from "react";
 import useKakao from '../../../../hook/useKakao.js';
 import usePushMessage from '../../../../hook/usePushMessage.js';
@@ -6,9 +5,8 @@ import usePopOver from '../../../../hook/usePopOver.js';
 import { Link } from 'react-router-dom';
 import { Popover, Badge } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
-
 import PopOverContent from '../../../PopOverContent/PopOverContent.js';
-
+import BellCount from '../../../BellCount/BellCount.js';
 
 import './RightMenu.css';
 
@@ -26,14 +24,18 @@ function RightMenu() {
             { LoginState ? 
                 <div className="nav_menu_right">
                     <Popover placement="bottomRight" key={"popover"} 
-                    title={"알림"} content={<PopOverContent setPopOverState={setPopOverState}/>} 
+                    title={"알림"} content={<PopOverContent 
+                                            PopOverState={PopOverState}
+                                            setPopOverState={setPopOverState}/>} 
                     onVisibleChange={onVisibleChange}
                     visible={PopOverState}
                     trigger="click">
-                    
+                        {/* <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}>
+                            
+                        </BellOutlined>
+                        <BellCount/> */}
                         <Badge count={count}  style={{marginRight:'0.9rem'}}>
-                        <BellOutlined   
-                        style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
+                            <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
                         </Badge>
 
                     </Popover>

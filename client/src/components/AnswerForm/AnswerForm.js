@@ -15,11 +15,12 @@ import './AnswerForm.css';
 
 function AnswerForm({ data, index, showDeleteModal, postId, questId }) {
 
-    
+
     const { CommentData, CommentState, MessageIconOnClick, PageState,
                             pageSelect, commentRegister  } 
                                                 = useComment( { COMMENT_ENDPOINT:ENDPOINT_DIC['replyComments'], 
-                                                                id:data.replyId });
+                                                                id:data.replyId,
+                                                                userName: data.userInfo.userName });
     
     const answerInfo = { "type": "answerModify", "userId":null, 
                          "content": data.replyContent, "postId":postId,

@@ -7,8 +7,7 @@ import './ToastViewer.css';
 function ToastViewer({ text }){
 	return (
 	<Viewer
-    initialValue={text}
-    
+	initialValue={text}
       	/>
 	);
 }

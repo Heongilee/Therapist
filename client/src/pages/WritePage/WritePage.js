@@ -81,6 +81,7 @@ function WritePage({ location }){
     const onChange = (value) => {
         setCateGoryState(value)
     };
+    const toolbarItems = [['italic', 'bold']];
 
   return (
       <section className="writepage">
@@ -111,7 +112,7 @@ function WritePage({ location }){
                         initialEditType="wysiwyg"
                         useCommandShortcut={true}
                         ref={editorRef}
-                        
+                        toolbarItems={toolbarItems}
                         language="ko"
                     />
                     </div> 
