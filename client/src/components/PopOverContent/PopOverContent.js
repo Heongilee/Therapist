@@ -9,12 +9,11 @@ import "./PopOverContent.css";
 
 const NOTICE_TYPE = {reply:'답글', replyComment:'댓글', postComment:'댓글'};
 
-function PopOverContent({ setPopOverState }) { 
+function PopOverContent({ setPopOverState, PopOverState }) { 
 
-  const { NoticeState, currentPage, loadNoticeData } = useNotice();
+  const { NoticeState, currentPage, loadNoticeData } = useNotice({ PopOverState });
 
   const { noticeData, totalAmount, loading } = NoticeState;
-
 
   const onClick = () => {
           const scrollY = document.body.style.top;
@@ -22,6 +21,7 @@ function PopOverContent({ setPopOverState }) {
           window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
           setPopOverState(false);
   };
+
 
   const noticeList = useCallback(() => noticeData && 
             noticeData.map( (data, index) => {
@@ -47,11 +47,10 @@ function PopOverContent({ setPopOverState }) {
       
           
 
-        {totalAmount && 
+        {totalAmount ?
                 <InfiniteArea currentPage={currentPage} loadData={loadNoticeData}
-                totalpage={totalAmount} loading={loading}
-                >
-                </InfiniteArea>     
+                totalpage={totalAmount} loading={loading}>
+                </InfiniteArea>:null
             } 
 
     </PerfectScrollbar>

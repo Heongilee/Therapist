@@ -35,7 +35,6 @@ const useQuery = (endpoint) => {
       const { status } = error.response;
       if (status === 401) {
         alert('로그인 하세요');
-        console.log("zz")
         history.push('/');
       } else if  (status >= 400) {
         history.replace(history.location.pathname, { errorStatusCode: status,

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 
 const { Kakao } = window;
-
+const REACT_APP_KAKAO_LOGIN_APP_KEY = process.env.REACT_APP_KAKAO_LOGIN_APP_KEY;
 
 function useKakao() {
     const history = useHistory();
@@ -22,7 +22,7 @@ function useKakao() {
 
 
     const kakaoLoginClickHandler = () => {
-        
+        Kakao.init(REACT_APP_KAKAO_LOGIN_APP_KEY);
         Kakao.Auth.login({
             scope: 'profile_nickname, account_email',
             success: function (authObj) {

@@ -3,6 +3,7 @@ import useCheckBox from '../../hook/useCheckBox.js';
 import useCheckBoxModal from '../../hook/useCheckBoxModal.js';
 import ModalForm from '../Modal/ModalForm.js';
 import ModernButton from '../Atoms/ModernButton/ModernButton.js';
+import ToastViewer from '../ToastViewer/ToastViewer.js';
 import { Link } from 'react-router-dom';
 import { Checkbox } from 'antd';
 import './MyPageForm.css';
@@ -15,7 +16,6 @@ function MyPageForm({ postData, cateGory, postType, currentPage, CATEGORY_HANGUL
 
     const { showDeleteModal, handleOk, handleCancel, visible, confirmLoading } 
     = useCheckBoxModal({ CheckState, postData, postType:postType });
-    
     
 
     const postList = 
@@ -32,18 +32,20 @@ function MyPageForm({ postData, cateGory, postType, currentPage, CATEGORY_HANGUL
                                 {postType === 'myPosts' ?
                                     <>
                                         <div>{ data.title }</div>   
+                                        {/* <ToastViewer text={data.content}/> */}
                                         <div>
                                         { data.content.split('<br>').map((line, index) => {
                                                 return <span key={"content" + index}>{line}<br /></span>
                                             })}
-                                        </div> 
+                                        </div>
                                     </> : 
                                     <>
+                                    {/* <ToastViewer text={data.content}/> */}
                                     <div>
                                     { data.content.split('<br>').map((line, index) => {
                                             return <span key={"content" + index}>{line}<br /></span>
                                         })}
-                                    </div>
+                                        </div>
                                     <div>{ data.title }</div>    
                                     </>
                                 }

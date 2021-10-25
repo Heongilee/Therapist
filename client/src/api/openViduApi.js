@@ -2,7 +2,8 @@ import axios from 'axios';
 import { OPENVIDU_SERVER_URL } from '../config/config';
 
 
-const OPENVIDU_SERVER_SECRET = 'therapist';
+const REACT_APP_OPENVIDU_ID = process.env.REACT_APP_OPENVIDU_ID;
+const REACT_APP_OPENVIDU_PASSWORD = process.env.REACT_APP_OPENVIDU_PASSWORD;
 
 
 export const getToken = sessionId => {
@@ -20,7 +21,7 @@ const createSession = sessionId => {
      axios
          .post(OPENVIDU_SERVER_URL + '/openvidu/api/sessions', data, {
              headers: {
-                 Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
+                 Authorization: 'Basic ' + btoa(`${REACT_APP_OPENVIDU_ID}:` + REACT_APP_OPENVIDU_PASSWORD),
                  'Content-Type': 'application/json',
              },
          })
@@ -60,7 +61,7 @@ const createToken = sessionId => {
      axios
          .post(OPENVIDU_SERVER_URL + "/openvidu/api/sessions/" + sessionId + "/connection", data, {
              headers: {
-                 Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET),
+                 Authorization: 'Basic ' + btoa(`${REACT_APP_OPENVIDU_ID}:` + REACT_APP_OPENVIDU_PASSWORD),
                  'Content-Type': 'application/json',
              },
          })

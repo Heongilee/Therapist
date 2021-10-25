@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import api from '../api/api.js';
 
 
-function useNotice() {
+function useNotice({PopOverState}) {
     const history = useHistory();
     const currentPage = useRef(0);
     const [ NoticeState, setNoticeState ] = useState({ noticeData:[], loading:false,totalAmount:0 });
@@ -23,10 +23,14 @@ function useNotice() {
         }));
   
       };
-  
+
     useEffect(() => {
-        loadNoticeData();
-    }, []);
+        if (PopOverState){
+          loadNoticeData();
+        } else {
+          setNoticeState({noticeData:[],loading:false,totalAmount:0 });
+        }
+    }, [PopOverState]);
     
 
 
