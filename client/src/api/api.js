@@ -1,7 +1,8 @@
 import { URL } from '../config/config.js';
 import axios from 'axios';
 
-
+const REACT_APP_OPENVIDU_ID = process.env.REACT_APP_OPENVIDU_ID;
+const REACT_APP_OPENVIDU_PASSWORD = process.env.REACT_APP_OPENVIDU_PASSWORD;
 
 const api = {
 
@@ -11,11 +12,10 @@ const api = {
             const { data, status } 
                     = await axios.put(`${URL}${endPoint}`,userData,{
                         auth:{
-                            username : 'OPENVIDUAPP',
-                            password : 'therapist'
+                            username : REACT_APP_OPENVIDU_ID,
+                            password : REACT_APP_OPENVIDU_PASSWORD
                         }});
 
-            console.log("fetchChangeModerator",data)
             if (status === 200){
 
                 const { status } = data;
@@ -38,11 +38,10 @@ const api = {
             const { data, status } 
                     = await axios.delete(`${URL}${endPoint}`,{
                         auth:{
-                            username : 'OPENVIDUAPP',
-                            password : 'therapist'
+                            username : REACT_APP_OPENVIDU_ID,
+                            password : REACT_APP_OPENVIDU_PASSWORD
                         }});
             
-            console.log("fetchDeleteSession", data);
 
             if (status === 200) {
                 return true;
@@ -60,8 +59,8 @@ const api = {
             const { data, status } 
                     = await axios.get(`${URL}${endPoint}`,{
                         auth:{
-                            username : 'OPENVIDUAPP',
-                            password : 'therapist'
+                            username : REACT_APP_OPENVIDU_ID,
+                            password : REACT_APP_OPENVIDU_PASSWORD
                         }});
             
                         if (status === 200) {
@@ -82,11 +81,10 @@ const api = {
             const { data, status } 
                     = await axios.put(`${URL}${endPoint}`,{},{
                         auth:{
-                            username : 'OPENVIDUAPP',
-                            password : 'therapist'
+                            username : REACT_APP_OPENVIDU_ID,
+                            password : REACT_APP_OPENVIDU_PASSWORD
                         }});
 
-            console.log("데이터터",data)
             if (status === 200){
 
                 const { status } = data;
@@ -112,8 +110,8 @@ const api = {
                     = await axios.post(`${URL}${endPoint}`,roomInfo,{
 
                         auth:{
-                            username : 'OPENVIDUAPP',
-                            password : 'therapist'
+                            username : REACT_APP_OPENVIDU_ID,
+                            password : REACT_APP_OPENVIDU_PASSWORD
                         }});
 
             
@@ -147,8 +145,8 @@ const api = {
             const { data, status } 
                     = await axios.get(`${URL}${endPoint}`,{
                         auth:{
-                            username : 'OPENVIDUAPP',
-                            password : 'therapist'
+                            username : REACT_APP_OPENVIDU_ID,
+                            password : REACT_APP_OPENVIDU_PASSWORD
                         }});
 
             

@@ -56,7 +56,7 @@ function useComment({ COMMENT_ENDPOINT, id, userName }) {
             }
     
             dispatch(socket_actions.sendMessage(message));
-            window.location.reload();
+            // window.location.reload();
         };
     };
 

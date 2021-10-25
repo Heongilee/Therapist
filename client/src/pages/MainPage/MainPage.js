@@ -7,7 +7,6 @@ import useCreateRoom from '../../hook/useCreateRoom.js';
 import ModalPortal from '../../portal/ModalPortal.js';
 import useWriteModal from '../../hook/useWriteModal.js';
 import MainImg from '../../components/MainImg/MainImg.js';
-
 import { Button } from 'antd';
 
 import { AudioOutlined } from '@ant-design/icons';
@@ -15,12 +14,12 @@ import { AudioOutlined } from '@ant-design/icons';
 import './MainPage.css';
 
 function MainPage() {
- 
+
     const CardDataState  = useVoiceRoom();
     const PostState = useRecentBoard();
     const { renderRoomCreate, showCrearteRoomModal } = useCreateRoom();
     const { renderWriteModal, showWriteModal } = useWriteModal();
-    
+
     return (
         <section className="main_section">
             <MainImg/>

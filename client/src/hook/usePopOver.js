@@ -11,7 +11,7 @@ function usePopOver() {
 
 
     const onVisibleChange = visible => {
-
+        
         dispatch(socket_actions.setNoticeCount(0));
 
         if (visible) {
