@@ -162,7 +162,7 @@
 | 내용6 |
    
    
-| 무한 스크롤 |
+| 페이저블 스크롤 |
 |:----------------------------------------:|
 |![Infinity Scrolling](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4.gif?raw=true)|
 | 내용7 |
