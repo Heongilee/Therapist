@@ -120,8 +120,11 @@
 
 　   
 ## Development process :date:
-
-간트 차트
+   
+|**간트 차트**|
+|:----------------------------------------:|
+|<img src="https://user-images.githubusercontent.com/55871242/138643305-3d49cd7c-79e8-4dbf-b33a-444834954089.png" width="1284px" />|
+   
 　   
 　   
 ## Demo :computer:
