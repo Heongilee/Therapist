@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { Popover, Badge } from 'antd';
 import { BellOutlined } from '@ant-design/icons';
 import PopOverContent from '../../../PopOverContent/PopOverContent.js';
-import BellCount from '../../../BellCount/BellCount.js';
 
 import './RightMenu.css';
 
@@ -15,9 +14,9 @@ function RightMenu() {
     
     const { kakaoLoginClickHandler, kakaoLogoutClickHandler, LoginState } = useKakao();
 
-    const { count } = usePushMessage();
+    const { count, setCountState } = usePushMessage({ LoginState:LoginState });
 
-    const { PopOverState, setPopOverState, onVisibleChange } = usePopOver();
+    const { PopOverState, setPopOverState, onVisibleChange } = usePopOver({ setCountState });
 
     return (
         <>
@@ -30,10 +29,7 @@ function RightMenu() {
                     onVisibleChange={onVisibleChange}
                     visible={PopOverState}
                     trigger="click">
-                        {/* <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}>
-                            
-                        </BellOutlined>
-                        <BellCount/> */}
+                        
                         <Badge count={count}  style={{marginRight:'0.9rem'}}>
                             <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
                         </Badge>
