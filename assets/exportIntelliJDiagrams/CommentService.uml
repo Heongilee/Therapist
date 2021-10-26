@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.projectTeam.therapist.postService.CommentService</OriginalElement>
+  <nodes>
+    <node x="667.5431309904152" y="-127.02396166134186">com.projectTeam.therapist.repository.ReplyRepository</node>
+    <node x="502.0431309904152" y="612.9760383386581">com.projectTeam.therapist.repository.PostCommentRepository</node>
+    <node x="731.5111821086261" y="102.47603833865814">org.springframework.stereotype.Service</node>
+    <node x="1179.6166134185305" y="612.9760383386581">com.projectTeam.therapist.repository.NoticeRepository</node>
+    <node x="881.4664536741211" y="102.47603833865814">com.projectTeam.therapist.postService.CommentService</node>
+    <node x="86.88338658146904" y="252.97603833865816">com.projectTeam.therapist.repository.ReplyCommentRepository</node>
+    <node x="1292.0431309904152" y="-138.52396166134184">com.projectTeam.therapist.repository.UserRepository</node>
+    <node x="1403.2028753993613" y="206.97603833865816">com.projectTeam.therapist.repository.PostRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.projectTeam.therapist.postService.CommentService" target="com.projectTeam.therapist.repository.ReplyRepository" relationship="REALIZATION">
+      <point x="-236.5" y="-40.0" />
+      <point x="946.0431309904152" y="252.47603833865816" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.CommentService" target="com.projectTeam.therapist.repository.ReplyCommentRepository" relationship="REALIZATION">
+      <point x="-236.5" y="0.0" />
+      <point x="337.5" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.CommentService" target="com.projectTeam.therapist.repository.UserRepository" relationship="REALIZATION">
+      <point x="0.0" y="-190.0" />
+      <point x="1117.966453674121" y="160.5" />
+      <point x="1526.0431309904152" y="160.5" />
+      <point x="0.0" y="51.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.CommentService" target="org.springframework.stereotype.Service" relationship="ANNOTATION">
+      <point x="-236.5" y="-20.0" />
+      <point x="799.5111821086261" y="272.47603833865816" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.CommentService" target="com.projectTeam.therapist.repository.PostCommentRepository" relationship="REALIZATION">
+      <point x="-236.5" y="20.0" />
+      <point x="826.0431309904152" y="312.47603833865816" />
+      <point x="0.0" y="-39.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.CommentService" target="com.projectTeam.therapist.repository.PostRepository" relationship="REALIZATION">
+      <point x="236.5" y="0.0" />
+      <point x="1832.961661341853" y="292.47603833865816" />
+      <point x="1832.961661341853" y="292.47603833865816" />
+      <point x="-262.5" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.CommentService" target="com.projectTeam.therapist.repository.NoticeRepository" relationship="REALIZATION">
+      <point x="0.0" y="190.0" />
+      <point x="1117.966453674121" y="578.863019169329" />
+      <point x="1473.6166134185305" y="578.863019169329" />
+      <point x="0.0" y="-39.5" />
+    </edge>
+  </edges>
+  <settings layout="Orthogonal Groups" zoom="0.705749718151071" showDependencies="false" x="1302.5" y="404.5" />
+  <SelectedNodes>
+    <node>com.projectTeam.therapist.repository.NoticeRepository</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

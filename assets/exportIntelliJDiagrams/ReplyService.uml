@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.projectTeam.therapist.postService.ReplyService</OriginalElement>
+  <nodes>
+    <node x="-101.5" y="376.5">com.projectTeam.therapist.repository.ReplyRepository</node>
+    <node x="463.0" y="-83.5">com.projectTeam.therapist.repository.NoticeRepository</node>
+    <node x="109.0" y="208.0">org.springframework.stereotype.Service</node>
+    <node x="523.0" y="505.0">com.projectTeam.therapist.repository.UserRepository</node>
+    <node x="591.0" y="103.5">com.projectTeam.therapist.postService.ReplyService</node>
+    <node x="1054.5" y="150.5">com.projectTeam.therapist.repository.PostRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.projectTeam.therapist.postService.ReplyService" target="com.projectTeam.therapist.repository.PostRepository" relationship="REALIZATION">
+      <point x="166.0" y="0.0" />
+      <point x="-262.5" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.ReplyService" target="com.projectTeam.therapist.repository.NoticeRepository" relationship="REALIZATION">
+      <point x="0.0" y="-132.5" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.ReplyService" target="com.projectTeam.therapist.repository.ReplyRepository" relationship="REALIZATION">
+      <point x="-20.0" y="132.5" />
+      <point x="737.0" y="416.0" />
+      <point x="278.5" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.ReplyService" target="com.projectTeam.therapist.repository.UserRepository" relationship="REALIZATION">
+      <point x="0.0" y="132.5" />
+      <point x="0.0" y="-51.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.postService.ReplyService" target="org.springframework.stereotype.Service" relationship="ANNOTATION">
+      <point x="-166.0" y="0.0" />
+      <point x="68.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Orthogonal Groups" zoom="1.0" showDependencies="false" x="822.0" y="325.5" />
+  <SelectedNodes>
+    <node>com.projectTeam.therapist.repository.ReplyRepository</node>
+    <node>com.projectTeam.therapist.repository.NoticeRepository</node>
+    <node>org.springframework.stereotype.Service</node>
+    <node>com.projectTeam.therapist.repository.UserRepository</node>
+    <node>com.projectTeam.therapist.postService.ReplyService</node>
+    <node>com.projectTeam.therapist.repository.PostRepository</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.projectTeam.therapist.userService.UserService</OriginalElement>
+  <nodes>
+    <node x="1792.6948464077177" y="-153.37687230261497">com.projectTeam.therapist.userService.UserService</node>
+    <node x="1709.1948464077177" y="-265.37687230261497">com.projectTeam.therapist.repository.ReplyRepository</node>
+    <node x="1792.6948464077177" y="544.4637715888513">com.projectTeam.therapist.configuration.WebSecurityConfig</node>
+    <node x="119.00654853537742" y="420.7082340803637">com.projectTeam.therapist.jwt.JwtAccessDeniedHandler</node>
+    <node x="2235.4697182025902" y="521.4637715888513">com.projectTeam.therapist.configuration.WebSecurityConfig.BasicAuthWebSecurityConfigurationAdapter</node>
+    <node x="2202.677807004097" y="38.71844186138935">com.projectTeam.therapist.repository.UserRepository</node>
+    <node x="1171.7118858113386" y="423.62312769738503">com.projectTeam.therapist.jwt.JwtAuthenticationEntryPoint</node>
+    <node x="742.8519284098477" y="238.62312769738503">com.projectTeam.therapist.jwt.TokenProvider</node>
+    <node x="1124.7118858113386" y="228.73814367182592">com.projectTeam.therapist.repository.PostCommentRepository</node>
+    <node x="1599.0026206356197" y="65.50811172294414">org.springframework.stereotype.Service</node>
+    <node x="742.8519284098477" y="135.62312769738503">com.projectTeam.therapist.repository.ReplyCommentRepository</node>
+    <node x="947.7671868332498" y="554.623127697385">com.projectTeam.therapist.configuration.WebSecurityConfig.ApiWebSecurityConfigurationAdapter</node>
+    <node x="2202.677807004097" y="222.46125336298667">com.projectTeam.therapist.repository.PostRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig.ApiWebSecurityConfigurationAdapter" target="com.projectTeam.therapist.jwt.JwtAuthenticationEntryPoint" relationship="GENERALIZATION">
+      <point x="0.0" y="-98.0" />
+      <point x="1326.7671868332498" y="529.123127697385" />
+      <point x="1472.2118858113386" y="529.123127697385" />
+      <point x="0.0" y="40.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.userService.UserService" target="org.springframework.stereotype.Service" relationship="ANNOTATION">
+      <point x="-195.0" y="-20.0" />
+      <point x="1667.0026206356197" y="155.12312769738503" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.userService.UserService" target="com.projectTeam.therapist.repository.ReplyCommentRepository" relationship="REALIZATION">
+      <point x="-195.0" y="0.0" />
+      <point x="337.5" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.userService.UserService" target="com.projectTeam.therapist.repository.PostCommentRepository" relationship="REALIZATION">
+      <point x="-195.0" y="20.0" />
+      <point x="1448.7118858113386" y="195.12312769738503" />
+      <point x="0.0" y="-39.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig.ApiWebSecurityConfigurationAdapter" target="com.projectTeam.therapist.configuration.WebSecurityConfig" relationship="INNER_CLASS">
+      <point x="378.9999999999998" y="0.0" />
+      <point x="1651.2487471169375" y="652.623127697385" />
+      <point x="1651.2487471169375" y="584.4637715888513" />
+      <point x="-199.0" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig" target="com.projectTeam.therapist.userService.UserService" relationship="GENERALIZATION">
+      <point x="0.0" y="-40.0" />
+      <point x="1991.6948464077177" y="195.12312769738503" />
+      <point x="195.0" y="20.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.userService.UserService" target="com.projectTeam.therapist.repository.UserRepository" relationship="REALIZATION">
+      <point x="195.0" y="0.0" />
+      <point x="2378.1948464077177" y="175.12312769738503" />
+      <point x="2378.1948464077177" y="89.71844186138935" />
+      <point x="-234.0" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.userService.UserService" target="com.projectTeam.therapist.repository.PostRepository" relationship="REALIZATION">
+      <point x="0.0" y="328.5" />
+      <point x="1987.6948464077177" y="322.32600309674615" />
+      <point x="2210.323315228475" y="322.32600309674615" />
+      <point x="2210.323315228475" y="308.50172194658626" />
+      <point x="2465.177807004097" y="308.50172194658626" />
+      <point x="0.0" y="-85.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig.BasicAuthWebSecurityConfigurationAdapter" target="com.projectTeam.therapist.configuration.WebSecurityConfig" relationship="INNER_CLASS">
+      <point x="-204.5" y="0.0" />
+      <point x="2282.7089489718205" y="584.4637715888513" />
+      <point x="2282.7089489718205" y="584.4637715888513" />
+      <point x="199.0" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.userService.UserService" target="com.projectTeam.therapist.repository.ReplyRepository" relationship="REALIZATION">
+      <point x="0.0" y="-328.5" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig.ApiWebSecurityConfigurationAdapter" target="com.projectTeam.therapist.jwt.JwtAccessDeniedHandler" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="1326.7671868332498" y="529.123127697385" />
+      <point x="403.5065485353774" y="529.123127697385" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig.ApiWebSecurityConfigurationAdapter" target="com.projectTeam.therapist.jwt.TokenProvider" relationship="GENERALIZATION">
+      <point x="0.0" y="0.0" />
+      <point x="1326.7671868332498" y="529.123127697385" />
+      <point x="918.6421868332498" y="529.123127697385" />
+      <point x="918.6421868332498" y="486.81062769738503" />
+      <point x="898.3519284098477" y="486.81062769738503" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Orthogonal Groups" zoom="0.6798457087753134" showDependencies="false" x="1423.5000000000005" y="242.50000000000006" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
