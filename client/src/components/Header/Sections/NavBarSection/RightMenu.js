@@ -29,7 +29,6 @@ function RightMenu() {
                     onVisibleChange={onVisibleChange}
                     visible={PopOverState}
                     trigger="click">
-                        
                         <Badge count={count}  style={{marginRight:'0.9rem'}}>
                             <BellOutlined style={{fontSize:'1.8rem', marginRight:'0.9rem'}}/>
                         </Badge>
