@@ -62,43 +62,42 @@
 </table>
 <table>
   <tr>
-    <th align="center" width="642px">1</th>
-    <th align="center" width="642px">2</th>
+    <th align="center" width="642px">게시글 관련 기능</th>
+    <th align="center" width="642px">답글 관련 기능</th>
   </tr>
   <tr>
-    <td><img src="http://placehold.it/642x300"></td>
-    <td><img src="http://placehold.it/642x300"></td>
-  </tr>
-  <tr>
-    <td align="center" width="642px">내용_1</td>
-    <td align="center" width="642px">내용_2</td>
+    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/PostService.png?raw=true"></td>
+    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/ReplyService.png?raw=true"></td>
   </tr>
 </table>
 <table>
   <tr>
-    <th align="center" width="642px">3</th>
-    <th align="center" width="642px">4</th>
+    <th align="center" width="642px">댓글 관련 기능</th>
+    <th align="center" width="642px">알림 관련 기능</th>
   </tr>
   <tr>
-    <td><img src="http://placehold.it/642x300"></td>
-    <td><img src="http://placehold.it/642x300"></td>
-  </tr>
-  <tr>
-    <td align="center" width="642px">내용_3</td>
-    <td align="center" width="642px">내용_4</td>
+    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/CommentService.png?raw=true"></td>
+    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/ReplyEchoHandler.png?raw=true"></td>
   </tr>
 </table>
 <table>
   <tr>
-    <th align="center" width="642px">5</th>
-    <th align="center" width="642px">6</th>
+    <th align="center" width="642px">JWT토큰발급 관련 기능</th>
+    <th align="center" width="642px">회원 관련 기능</th>
   </tr>
   <tr>
-    <td><img src="http://placehold.it/642x300"></td>
-    <td><img src="http://placehold.it/642x300"></td>
+    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/Package%20jwt.png?raw=true"></td>
+    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/UserService.png?raw=true"></td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <th align="center" width="642px">화상 채팅방 관련 기능</th>
   </tr>
   <tr>
-    <td align="center" width="642px">내용_5</td>
+    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/SessionService.png?raw=true"></td>
+  </tr>
+  <tr>
     <td align="center" width="642px">내용_6</td>
   </tr>
 </table>
