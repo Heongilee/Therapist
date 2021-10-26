@@ -37,7 +37,7 @@ function useKakao() {
                         if (res.token) {
                             alert("welcome")
                             setLoginState(!LoginState);
-                            dispatch(socket_actions.setNoticeCount(res.totalNotices));
+                            // dispatch(socket_actions.setNoticeCount(res.totalNotices));
                             dispatch(socket_actions.connectChannel());
                         }
                     })

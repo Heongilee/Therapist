@@ -1,5 +1,6 @@
 const webpack = require('webpack');
-const dotenv = require('dotenv')
+
+require('dotenv').config();
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -54,13 +55,18 @@ module.exports = webpackEnv => {
         template: 'public/index.html', // public/index.html 를 템플릿으로 지정
         }),
       new CleanWebpackPlugin(), // 성공적으로 다시 빌드 한 후 webpack의 output.path에있는 모든 빌드 폴더를 제거 및 정리    
-      new webpack.ProvidePlugin({
-        process: 'process/browser',
+      
+    //   new webpack.DefinePlugin({
+    //     'process.env': JSON.stringify(dotenv.config().parsed) // it will automatically pick up key values from .env file
+    //  }),
+    
+    new webpack.DefinePlugin({
+        'process.env.REACT_APP_KAKAO_LOGIN_APP_KEY': JSON.stringify(process.env.REACT_APP_KAKAO_LOGIN_APP_KEY), // it will automatically pick up key values from .env file
+        'process.env.REACT_APP_OPENVIDU_ID': JSON.stringify(process.env.REACT_APP_OPENVIDU_ID),
+        'process.env.REACT_APP_OPENVIDU_PASSWORD': JSON.stringify(process.env.REACT_APP_OPENVIDU_PASSWORD),
       }),
-      new webpack.DefinePlugin({
-        'process.env': JSON.stringify(dotenv.config().parsed) // it will automatically pick up key values from .env file
-     }),
-      ],
+    new webpack.EnvironmentPlugin(['REACT_APP_KAKAO_LOGIN_APP_KEY', 'REACT_APP_OPENVIDU_ID','REACT_APP_OPENVIDU_PASSWORD'])
+    ],
 
     devServer: {  // 개발서버
         historyApiFallback: true,  // router 새로고침 404 해결

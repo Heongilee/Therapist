@@ -4,6 +4,10 @@ services:
         build:
             context: .
             dockerfile: "Dockerfile"
+            args:
+                - REACT_APP_KAKAO_LOGIN_APP_KEY=41468c1a547f1267d99c894e48496619
+                - REACT_APP_OPENVIDU_ID=OPENVIDUAPP
+                - REACT_APP_OPENVIDU_PASSWORD=therapist
         ports: 
             - "3000:80"
         volumes:

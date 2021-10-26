@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 
 
-function usePopOver() {
+function usePopOver({ setCountState }) {
 
     const [PopOverState, setPopOverState] = useState(false);
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function usePopOver() {
     const onVisibleChange = visible => {
         
         dispatch(socket_actions.setNoticeCount(0));
-
+        setCountState(0);
         if (visible) {
             document.body.style.cssText = `
             position: fixed; 
