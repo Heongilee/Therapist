@@ -92,24 +92,22 @@
 </table>
 <table>
   <tr>
-    <th align="center" width="642px">화상 채팅방 관련 기능</th>
+    <th align="center" width="1284px">화상 채팅방 관련 기능</th>
   </tr>
   <tr>
-    <td><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/SessionService.png?raw=true"></td>
-  </tr>
-  <tr>
-    <td align="center" width="642px">내용_6</td>
+    <td align="center" width="1284px"><img src="https://github.com/Heongilee/Therapist/blob/master/assets/exportIntelliJDiagrams/SessionService.png?raw=true" width="1284px"></td>
   </tr>
 </table>
-
-
-- UI 설계서 + 시멘틱 마크업
-    - empty
-
+　
+　
+   
+   
 |**ERD**|
 |:----------------------------------------:|
 |<img src="https://user-images.githubusercontent.com/55871242/138058773-735cb969-4e6c-4735-8549-d52ec2b030dc.png" width="1284px" height="503px"/>|
    
+　
+　
    
 |**시스템 아키텍처**|
 |:----------------------------------------:|
@@ -131,73 +129,73 @@
 | 메인페이지 |
 |:----------------------------------------:|
 |![Main Page](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%A9%94%EC%9D%B8%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)|
-| 내용1 |
+| 메인페이지에서 게시판 기능을 이용하려면 로그인을 합니다. 로그인을 안 했을 경우 예외처리를 통해 다시 메인페이지로 이동합니다. |
    
    
 | 게시판 카테고리 글 조회 |
 |:----------------------------------------:|
 |![Retrieving_Posts_Each_Category](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EA%B2%8C%EC%8B%9C%ED%8C%90_%EC%B9%B4%ED%85%8C%EA%B3%A0%EB%A6%AC%EC%A1%B0%ED%9A%8C.gif?raw=true)|
-| 내용2 |
+| 각 카테고리 별로 게시글 목록을 보여줍니다. |
    
    
 | 게시판 글 작성 |
 |:----------------------------------------:|
 |![Writing_Post](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EA%B2%8C%EC%8B%9C%ED%8C%90_%EA%B8%80%EC%9E%91%EC%84%B1.gif?raw=true)|
-| 내용3 |
+| 제목과 내용은 최소 3자 이상 입력해야 합니다. 카테고리를 선택하고 사용자의 고민을 적어 다른 사람과 공유할 수 있습니다. |
    
    
 | 댓글 알림 |
 |:----------------------------------------:|
 |![Notifying_by_comments](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%8C%93%EA%B8%80%EC%95%8C%EB%A6%BC.gif?raw=true)|
-| 내용4 |
+| 댓글을 남기면 원글 사용자에게 알림이 옵니다. |
    
    
 | 답글 알림 |
 |:----------------------------------------:|
 |![Notifying_by_Replies](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%8B%B5%EA%B8%80%EC%95%8C%EB%A6%BC.gif?raw=true)|
-| 내용5 |
+| 답글을 남기면 원글 사용자에게 알림이 옵니다. |
    
    
 | 마이페이지 |
 |:----------------------------------------:|
 |![MyPage](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%A7%88%EC%9D%B4%ED%8E%98%EC%9D%B4%EC%A7%80.gif?raw=true)|
-| 내용6 |
+| 마이페이지에서 내가 작성한 글 목록이 카테고리로 분류되며 나에 대한 정보가 종합적으로 노출됩니다. |
    
    
 | 페이저블 스크롤 |
 |:----------------------------------------:|
 |![Infinity Scrolling](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EB%AC%B4%ED%95%9C%EC%8A%A4%ED%81%AC%EB%A1%A4.gif?raw=true)|
-| 내용7 |
+| 게시글 페이지에서 답글 포함 6개가 처음 노출되고 이후 스크롤하면 추가 답글들을 보여줍니다. |
    
    
 | 세션 생성 |
 |:----------------------------------------:|
 |![Creating_Session](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EC%84%B8%EC%85%98%EC%83%9D%EC%84%B1.gif?raw=true)|
-| 내용8 |
+| 방제목과 내 이름을 입력하면 타인과 실시간으로 화상 및 음성채팅을 할 수 있는 세션이 생성됩니다. |
    
    
 | 다자간 통신 |
 |:----------------------------------------:|
 |![Connecting_Multiple_ConnectObjects](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EC%97%B0%EA%B2%B0%EA%B0%9D%EC%B2%B4%EB%8B%A4%EC%88%98%EC%B0%B8%EA%B0%80.gif?raw=true)|
-| 내용9 |
+| WebRTC 기반 미디어 서버 중개를 통해 세션의 모든 연결 객체들의 비디오·오디오 스트림을 공유합니다. |
    
    
 | 카메라 공유 |
 |:----------------------------------------:|
 |![Sharing_Media_Stream](https://github.com/Heongilee/projectTeam/blob/develop/assets/%EC%B9%B4%EB%A9%94%EB%9D%BC%EA%B3%B5%EC%9C%A0_%EC%88%98%EC%A0%95.gif?raw=true)|
-| 내용10 |
+| 모든 연결 객체의 비디오 스트림이 실시간으로 세션에 참가한 모든 유저들에게 보여줍니다. |
    
    
 | 레이아웃 전환 |
 |:----------------------------------------:|
 |![Layout_Transformation](https://github.com/Heongilee/projectTeam/blob/develop/assets/%ED%99%94%EC%83%81%EC%B1%84%ED%8C%85_%EB%A0%88%EC%9D%B4%EC%95%84%EC%9B%83%EC%A0%84%ED%99%98.gif?raw=true)|
-| 내용11 |
+| 그리드 레이아웃, 사이드바 레이아웃 중 원하는 레이아웃을 선택할 수 있습니다. |
    
    
 | 세션 종료 |
 |:----------------------------------------:|
 |![Disconnectiong_Sessions](https://github.com/Heongilee/projectTeam/blob/develop/assets/%ED%99%94%EC%83%81%EC%B1%84%ED%8C%85_%EC%84%B8%EC%85%98%EC%A2%85%EB%A3%8C.gif?raw=true)|
-| 내용12 |
+| 세션을 종료합니다. 방장이 세션을 종료할 경우 다른 연결 객체에게 방장을 위임합니다. |
    
    
 <br/>
