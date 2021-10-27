@@ -49,8 +49,8 @@
 - IDE or Editor : ![IntelliJ](https://img.shields.io/badge/IntelliJ-11.0.10%2B9--b1341.41%20amd64-%23000000?logo=intelliJ%20IDEA) ![vscode](https://img.shields.io/badge/vscode-1.58.1-%23007ACC?logo=Visual%20Studio%20Code)   
 - Communication Tools : ![Notion](https://img.shields.io/badge/Notion-2.11.23.9.0.14-%23000000?logo=Notion) ![Zoom](https://img.shields.io/badge/zoom-5.7.1-%232D8CFF?logo=Zoom) ![Jitsi](https://img.shields.io/badge/Jitsi-2.0.6173-%2397979A?logo=Jitsi) ![meetUs](https://img.shields.io/badge/meetUs-v1.3.2.5-%230082FC)   
 - VCS : ![Github](https://img.shields.io/badge/Github-%23181717?logo=GitHub)
-- Build and Test : ![Jenkins](https://img.shields.io/badge/Jenkins-2.303.1-%23D24939?logo=Jenkins)   
-- Deployment : ![Docker](https://img.shields.io/badge/Docker-20.10.8-%232496ED?logo=Docker) ![AWS_EC2](https://img.shields.io/badge/AWS%20EC2-t2.micro-%23232F3E?logo=Amazon%20AWS) ![AWS RDS](https://img.shields.io/badge/AWS%20RDS-10.4.13-%23232F3E?logo=Amazon%20AWS)
+- Build : ![Gradle](https://img.shields.io/badge/gradle-7.1.1-%2302303A?logo=Gradle)   
+- Deployment : ![Docker](https://img.shields.io/badge/Docker-20.10.8-%232496ED?logo=Docker) ![AWS_EC2](https://img.shields.io/badge/AWS%20EC2-t2.micro-%23232F3E?logo=Amazon%20AWS) ![AWS RDS](https://img.shields.io/badge/AWS%20RDS-10.4.13-%23232F3E?logo=Amazon%20AWS) ![Jenkins](https://img.shields.io/badge/Jenkins-2.303.1-%23D24939?logo=Jenkins)
 　   
 　   
 ## Paper work :page_with_curl:
