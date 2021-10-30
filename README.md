@@ -2,9 +2,14 @@
 
 ## Outline :pencil2:
   
-코로나 블루의 여파로 변화된 일상이나 감정 변화에 대해 토론할 수 있는 커뮤니티 기능과 더불어 실시간 음성 채팅 서비스
+> 코로나 블루의 여파로 변화된 일상이나 감정 변화에 대해 토론할 수 있는 커뮤니티 기능과 더불어 실시간 음성 채팅 서비스
+   
+![01](https://user-images.githubusercontent.com/55871242/139525136-c19cca72-970b-4cae-913b-36413a3c26d9.png)
+![02](https://user-images.githubusercontent.com/55871242/139525140-244f8919-8845-4ff9-80c5-1d7926fe33ed.png)
+![03](https://user-images.githubusercontent.com/55871242/139525141-9fbd25c4-ae10-4d8d-bba6-d7c5f6e42993.png)
+
 　   
-　   
+    
 # Team member :sparkles:
 
 <table>
