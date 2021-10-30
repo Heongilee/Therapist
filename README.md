@@ -1,4 +1,4 @@
-# projectTeam
+# Therapist(테라피스트)
 
 ## Outline :pencil2:
   
