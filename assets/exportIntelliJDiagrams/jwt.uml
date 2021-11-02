@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.projectTeam.therapist.jwt</OriginalElement>
+  <nodes>
+    <node x="-392.0" y="291.0">com.projectTeam.therapist.jwt.TokenProvider</node>
+    <node x="521.0" y="547.9812646370024">com.projectTeam.therapist.util.SecurityUtil</node>
+    <node x="-372.0" y="671.5">com.projectTeam.therapist.jwt.JwtSecurityConfig</node>
+    <node x="521.0" y="700.0">com.projectTeam.therapist.jwt.JwtAccessDeniedHandler</node>
+    <node x="21.0" y="240.0">com.projectTeam.therapist.configuration.WebSecurityConfig</node>
+    <node x="521.0" y="182.0">com.projectTeam.therapist.configuration.WebSecurityConfig.ApiWebSecurityConfigurationAdapter</node>
+    <node x="-14.0" y="689.0">com.projectTeam.therapist.repository.UserRepository</node>
+    <node x="15.5" y="-3.0">com.projectTeam.therapist.configuration.WebSecurityConfig.BasicAuthWebSecurityConfigurationAdapter</node>
+    <node x="-454.0" y="-3.0">com.projectTeam.therapist.jwt.JwtFilter</node>
+    <node x="521.0" y="422.9906323185012">com.projectTeam.therapist.jwt.JwtAuthenticationEntryPoint</node>
+    <node x="61.0" y="436.5">com.projectTeam.therapist.userService.CustomUserDetailsService</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig" target="com.projectTeam.therapist.userService.CustomUserDetailsService" relationship="GENERALIZATION">
+      <point x="0.0" y="40.0" />
+      <point x="0.0" y="-63.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig.ApiWebSecurityConfigurationAdapter" target="com.projectTeam.therapist.configuration.WebSecurityConfig" relationship="INNER_CLASS">
+      <point x="-379.0" y="0.0" />
+      <point x="199.0" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.jwt.JwtSecurityConfig" target="com.projectTeam.therapist.jwt.TokenProvider" relationship="GENERALIZATION">
+      <point x="0.0" y="-52.0" />
+      <point x="0.0" y="132.5" />
+    </edge>
+    <edge source="com.projectTeam.therapist.userService.CustomUserDetailsService" target="com.projectTeam.therapist.repository.UserRepository" relationship="REALIZATION">
+      <point x="0.0" y="63.5" />
+      <point x="0.0" y="-51.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.configuration.WebSecurityConfig.BasicAuthWebSecurityConfigurationAdapter" target="com.projectTeam.therapist.configuration.WebSecurityConfig" relationship="INNER_CLASS">
+      <point x="0.0" y="63.0" />
+      <point x="0.0" y="-40.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.jwt.JwtFilter" target="com.projectTeam.therapist.jwt.TokenProvider" relationship="GENERALIZATION">
+      <point x="0.0" y="86.5" />
+      <point x="0.0" y="-132.5" />
+    </edge>
+  </edges>
+  <settings layout="Orthogonal Groups" zoom="0.8773531089560753" showDependencies="false" x="606.2646293888166" y="393.99999999999994" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

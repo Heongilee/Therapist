@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.projectTeam.therapist.openviduService.SessionService</OriginalElement>
+  <nodes>
+    <node x="-274.5" y="220.0">com.projectTeam.therapist.openviduService.SessionService</node>
+    <node x="266.0" y="336.0">org.springframework.stereotype.Service</node>
+    <node x="-206.5" y="-39.0">com.projectTeam.therapist.model.MediaServerConnectionPool</node>
+    <node x="-166.0" y="629.0">com.projectTeam.therapist.repository.SessionRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.projectTeam.therapist.openviduService.SessionService" target="org.springframework.stereotype.Service" relationship="ANNOTATION">
+      <point x="208.5" y="0.0" />
+      <point x="-68.0" y="0.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.openviduService.SessionService" target="com.projectTeam.therapist.model.MediaServerConnectionPool" relationship="GENERALIZATION">
+      <point x="0.0" y="-144.0" />
+      <point x="0.0" y="63.0" />
+    </edge>
+    <edge source="com.projectTeam.therapist.openviduService.SessionService" target="com.projectTeam.therapist.repository.SessionRepository" relationship="REALIZATION">
+      <point x="0.0" y="144.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+  </edges>
+  <settings layout="Orthogonal Groups" zoom="1.0" showDependencies="false" x="329.5" y="346.0" />
+  <SelectedNodes>
+    <node>com.projectTeam.therapist.openviduService.SessionService</node>
+    <node>org.springframework.stereotype.Service</node>
+    <node>com.projectTeam.therapist.model.MediaServerConnectionPool</node>
+    <node>com.projectTeam.therapist.repository.SessionRepository</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
